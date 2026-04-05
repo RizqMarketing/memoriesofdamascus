@@ -317,7 +317,12 @@
   }
 
   /* ── RESPONSIVE ── */
+  .stats-grid-3 { grid-template-columns: repeat(3, 1fr); }
+
   @media (max-width: 900px) {
+    .stats-grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .stats-grid-3 .stat-card:last-child { grid-column: span 2; max-width: 50%; margin: 0 auto; width: 100%; }
+  }
     .sidebar {
       transform: translateX(-100%);
       transition: transform .35s cubic-bezier(.16,1,.3,1);
@@ -337,13 +342,17 @@
   }
   @media (max-width: 480px) {
     .stats-grid { grid-template-columns: 1fr 1fr; gap: .6rem; }
+    .stats-grid-3 .stat-card:last-child { grid-column: span 2; max-width: 50%; }
     .stat-card { padding: 1rem 1.1rem; }
     .stat-value { font-size: 1.6rem; }
     .content { padding: .9rem; }
-    /* hide less important table cols on small phones */
     .col-hide-sm { display: none; }
     .dash-card-header { flex-wrap: wrap; gap: .5rem; padding: .9rem 1rem; }
     .dash-card-header select { width: 100%; max-width: 100%; }
+    .btn-primary-sm { font-size: .58rem; padding: .3rem .5rem; letter-spacing: .05em; white-space: nowrap; }
+    .btn-sm { font-size: .58rem; padding: .28rem .5rem; }
+    .data-table td { padding: .65rem .5rem; font-size: .78rem; }
+    .data-table th { padding: .45rem .5rem; }
   }
 </style>
 </head>
@@ -637,7 +646,7 @@
         <h2>Baklava Bestellingen</h2>
         <p>Online bestellingen via post</p>
       </div>
-      <div class="stats-grid" style="grid-template-columns:repeat(3,1fr)">
+      <div class="stats-grid stats-grid-3">
         <div class="stat-card">
           <div class="stat-label">Te verzenden</div>
           <div class="stat-value">2</div>
@@ -680,7 +689,7 @@
               <td class="col-hide-sm">2 dozen</td>
               <td style="color:var(--gold-lt);font-family:var(--font-heading)">€52,50</td>
               <td><span class="badge badge-new">Nieuw</span></td>
-              <td><button class="btn-primary-sm" onclick="toast('Bestelling gemarkeerd als verzonden')">Markeer verzonden</button></td>
+              <td><button class="btn-primary-sm" onclick="toast('Bestelling gemarkeerd als verzonden')">Verzonden ✓</button></td>
             </tr>
             <tr>
               <td class="col-hide-sm" style="color:rgba(245,237,214,.3);font-size:.72rem">BK-010</td>
@@ -690,7 +699,7 @@
               <td class="col-hide-sm">3 dozen</td>
               <td style="color:var(--gold-lt);font-family:var(--font-heading)">€74,25</td>
               <td><span class="badge badge-pending">Te verzenden</span></td>
-              <td><button class="btn-primary-sm" onclick="toast('Bestelling gemarkeerd als verzonden')">Markeer verzonden</button></td>
+              <td><button class="btn-primary-sm" onclick="toast('Bestelling gemarkeerd als verzonden')">Verzonden ✓</button></td>
             </tr>
             <tr>
               <td class="col-hide-sm" style="color:rgba(245,237,214,.3);font-size:.72rem">BK-009</td>
