@@ -342,7 +342,8 @@
     .content { padding: .9rem; }
     /* hide less important table cols on small phones */
     .col-hide-sm { display: none; }
-    .dash-card-header { flex-wrap: wrap; gap: .5rem; }
+    .dash-card-header { flex-wrap: wrap; gap: .5rem; padding: .9rem 1rem; }
+    .dash-card-header select { width: 100%; max-width: 100%; }
   }
 </style>
 </head>
@@ -548,14 +549,12 @@
       <div class="dash-card">
         <div class="dash-card-header">
           <div class="dash-card-title">Alle aanvragen</div>
-          <div style="display:flex;gap:.6rem;align-items:center">
-            <select class="form-input" style="width:auto;padding:.3rem .7rem;font-size:.75rem">
-              <option>Alle statussen</option>
-              <option>Nieuw</option>
-              <option>In behandeling</option>
-              <option>Bevestigd</option>
-            </select>
-          </div>
+          <select class="form-input" style="width:auto;max-width:160px;padding:.3rem .7rem;font-size:.75rem">
+            <option>Alle statussen</option>
+            <option>Nieuw</option>
+            <option>In behandeling</option>
+            <option>Bevestigd</option>
+          </select>
         </div>
         <div class="table-wrap"><table class="data-table">
           <thead>
