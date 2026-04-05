@@ -126,6 +126,15 @@
       position: relative;
       overflow: hidden;
     }
+    #hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 140px;
+      background: linear-gradient(to bottom, transparent, var(--deep));
+      z-index: 3;
+      pointer-events: none;
+    }
     .hero-left {
       display: flex; flex-direction: column; justify-content: center;
       padding: 10rem 4rem 6rem 6rem;
@@ -202,7 +211,7 @@
     .btn-ghost:hover { opacity: 1; gap: .9rem; }
     .btn-ghost svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.5; }
 
-    .hero-right { position: relative; overflow: hidden; }
+    .hero-right { position: relative; overflow: hidden; z-index: 2; }
     .hero-right-inner {
       position: absolute; inset: 0;
       background: linear-gradient(135deg, rgba(30,13,13,.85) 0%, rgba(74,14,14,.4) 60%, transparent 100%), var(--deep);
@@ -293,6 +302,7 @@
       letter-spacing: .18em;
       text-transform: uppercase;
       color: rgba(245,237,214,.4);
+      z-index: 4;
     }
     .scroll-line { width: 50px; height: 1px; background: linear-gradient(to right, rgba(245,237,214,.4), transparent); }
 
@@ -332,7 +342,7 @@
 
     /* ─── DIENSTEN ─── */
     #diensten {
-      background: var(--deep);
+      background: linear-gradient(to bottom, var(--deep) 0%, var(--deep) 100%);
       position: relative; overflow: hidden;
     }
     #diensten::before {
@@ -785,12 +795,30 @@
 
     /* ─── USP STRIP ─── */
     #usp-strip {
-      background: var(--deep);
+      background: linear-gradient(to bottom,
+        var(--deep) 0%,
+        #251010 35%,
+        #251010 65%,
+        var(--deep) 100%
+      );
       padding: 3.5rem 6rem;
       display: grid; grid-template-columns: repeat(4, 1fr);
       gap: 2rem;
-      border-top: 1px solid rgba(201,148,42,.2);
-      border-bottom: 1px solid rgba(201,148,42,.2);
+      position: relative;
+    }
+    #usp-strip::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(201,148,42,.4), transparent);
+    }
+    #usp-strip::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(201,148,42,.25), transparent);
     }
     .usp-item { text-align: center; }
     .usp-icon { font-size: 1.6rem; margin-bottom: .6rem; display: block; }
