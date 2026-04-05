@@ -993,20 +993,122 @@
     .lang-sep { color: rgba(201,148,42,.25); font-size: .65rem; }
     .lang-opt.lang-active { color: var(--gold); }
     /* ─── MOBILE MENU ─── */
+    /* ─── MOBILE MENU OVERLAY (backdrop) ─── */
+    .mobile-menu-backdrop {
+      position: fixed; inset: 0; z-index: 199;
+      background: rgba(10,3,3,.6); backdrop-filter: blur(4px);
+      opacity: 0; pointer-events: none;
+      transition: opacity .45s cubic-bezier(.16,1,.3,1);
+    }
+    .mobile-menu-backdrop.open { opacity: 1; pointer-events: auto; }
+
+    /* ─── MOBILE MENU PANEL ─── */
     .mobile-menu {
-      position: fixed; inset: 0; z-index: 200;
-      background: rgba(14,5,5,.97); backdrop-filter: blur(12px);
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 2rem;
+      position: fixed; top: 0; right: 0; bottom: 0; z-index: 200;
+      width: min(360px, 100vw);
+      background: linear-gradient(160deg, #1a0707 0%, #140505 60%, #110404 100%);
+      border-left: 1px solid rgba(201,148,42,.18);
+      display: flex; flex-direction: column;
       transform: translateX(100%);
       visibility: hidden;
       transition: transform .45s cubic-bezier(.16,1,.3,1), visibility 0s .45s;
+      overflow: hidden;
     }
-    .mobile-menu.open { transform: none; visibility: visible; transition: transform .45s cubic-bezier(.16,1,.3,1), visibility 0s; }
-    .mobile-menu a { font-family: var(--font-display); font-size: 1.8rem; letter-spacing: .08em; color: var(--cream); transition: color .2s; }
-    .mobile-menu a:hover { color: var(--gold-lt); }
-    .mobile-menu-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; color: var(--parchment); font-size: 1.5rem; cursor: pointer; opacity: .6; }
-    .mobile-menu-close:hover { opacity: 1; }
+    .mobile-menu::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cdefs%3E%3Cpattern id='g' patternUnits='userSpaceOnUse' width='80' height='80'%3E%3Cg fill='none' stroke='%23c9942a' stroke-width='.5' opacity='.07'%3E%3Cpolygon points='40,4 52,16 64,16 72,28 64,40 52,40 40,52 28,40 16,40 8,28 16,16 28,16'/%3E%3Ccircle cx='40' cy='28' r='3'/%3E%3C/g%3E%3C/pattern%3E%3C/defs%3E%3Crect width='80' height='80' fill='url(%23g)'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .mobile-menu.open {
+      transform: none; visibility: visible;
+      transition: transform .45s cubic-bezier(.16,1,.3,1), visibility 0s;
+    }
+
+    /* stagger links on open */
+    .mobile-menu.open .mob-nav-item { animation: mobItemIn .5s cubic-bezier(.16,1,.3,1) both; }
+    .mobile-menu.open .mob-nav-item:nth-child(1) { animation-delay: .08s; }
+    .mobile-menu.open .mob-nav-item:nth-child(2) { animation-delay: .13s; }
+    .mobile-menu.open .mob-nav-item:nth-child(3) { animation-delay: .18s; }
+    .mobile-menu.open .mob-nav-item:nth-child(4) { animation-delay: .23s; }
+    .mobile-menu.open .mob-nav-item:nth-child(5) { animation-delay: .28s; }
+    .mobile-menu.open .mob-nav-item:nth-child(6) { animation-delay: .33s; }
+    .mobile-menu.open .mob-nav-item:nth-child(7) { animation-delay: .38s; }
+    @keyframes mobItemIn {
+      from { opacity: 0; transform: translateX(18px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    /* header inside menu */
+    .mob-menu-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.6rem 1.8rem 1.4rem;
+      border-bottom: 1px solid rgba(201,148,42,.12);
+      position: relative; z-index: 1;
+    }
+    .mob-menu-brand {
+      font-family: var(--font-display);
+      font-size: .72rem; letter-spacing: .22em;
+      color: var(--gold); text-transform: uppercase; line-height: 1.4;
+    }
+    .mob-menu-brand em { display: block; font-style: italic; font-family: var(--font-heading); font-size: 1rem; letter-spacing: .06em; color: var(--gold-lt); }
+    .mobile-menu-close {
+      width: 36px; height: 36px;
+      background: rgba(201,148,42,.08); border: 1px solid rgba(201,148,42,.2);
+      border-radius: 2px; color: var(--gold-lt);
+      font-size: 1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s, border-color .2s;
+      flex-shrink: 0;
+    }
+    .mobile-menu-close:hover { background: rgba(201,148,42,.18); border-color: rgba(201,148,42,.45); }
+
+    /* nav items */
+    .mob-nav-list { list-style: none; flex: 1; padding: 1.6rem 0; overflow-y: auto; position: relative; z-index: 1; }
+    .mob-nav-item { position: relative; }
+    .mob-nav-item a {
+      display: flex; align-items: center; gap: 1rem;
+      padding: .95rem 1.8rem;
+      font-family: var(--font-display);
+      font-size: 1.05rem; letter-spacing: .1em;
+      color: rgba(245,237,214,.75);
+      transition: color .2s, background .2s;
+      text-decoration: none;
+    }
+    .mob-nav-item a:hover { color: var(--gold-lt); background: rgba(201,148,42,.06); }
+    .mob-nav-num {
+      font-family: var(--font-body); font-size: .65rem; letter-spacing: .12em;
+      color: rgba(201,148,42,.35); min-width: 1.4rem;
+      transition: color .2s;
+    }
+    .mob-nav-item a:hover .mob-nav-num { color: rgba(201,148,42,.7); }
+    .mob-nav-divider { height: 1px; background: rgba(201,148,42,.08); margin: .3rem 1.8rem; }
+
+    /* CTA inside menu */
+    .mob-menu-footer { padding: 1.4rem 1.8rem 2rem; position: relative; z-index: 1; }
+    .mob-menu-cta {
+      display: block; width: 100%; padding: .9rem 1rem;
+      background: transparent;
+      border: 1px solid rgba(201,148,42,.45);
+      font-family: var(--font-display); font-size: .85rem; letter-spacing: .18em;
+      color: var(--gold-lt); text-align: center; cursor: pointer;
+      transition: background .25s, border-color .25s, color .25s;
+      text-transform: uppercase;
+    }
+    .mob-menu-cta:hover { background: rgba(201,148,42,.12); border-color: var(--gold); color: var(--cream); }
+    .mob-menu-lang {
+      display: flex; align-items: center; justify-content: center;
+      gap: .6rem; margin-top: 1rem;
+      font-family: var(--font-body); font-size: .8rem; letter-spacing: .12em;
+      color: rgba(245,237,214,.3);
+    }
+    .mob-menu-lang button {
+      background: none; border: none; cursor: pointer;
+      font-family: var(--font-body); font-size: .8rem; letter-spacing: .12em;
+      color: rgba(245,237,214,.35); transition: color .2s; padding: 0;
+    }
+    .mob-menu-lang button.active { color: var(--gold-lt); }
+    .mob-menu-lang button:hover { color: var(--parchment); }
 
     /* ─── RESPONSIVE ─── */
     @media (max-width: 1024px) {
@@ -1369,16 +1471,58 @@
 <body>
 
 <!-- ═══ MOBILE MENU ═══ -->
+<div class="mobile-menu-backdrop" id="menuBackdrop" onclick="closeMobile()"></div>
 <div class="mobile-menu" id="mobileMenu">
-  <button class="mobile-menu-close" id="menuClose">✕</button>
-  <a href="#diensten" onclick="closeMobile()">Catering</a>
-  <a href="#azc" onclick="closeMobile()">AZC & Overheid</a>
-  <a href="#over-ons" onclick="closeMobile()">Over Ons</a>
-  <a href="#menu" onclick="closeMobile()">Menu & Pakketten</a>
-  <a href="#configurator" onclick="closeMobile()">Stel Samen</a>
-  <a href="#locaties" onclick="closeMobile()">Locaties</a>
-  <a href="#baklava" onclick="closeMobile()">Baklava</a>
-  <a href="#" onclick="closeMobile();openOfferteModal('general')">Offerte Aanvragen</a>
+
+  <!-- Header -->
+  <div class="mob-menu-header">
+    <div class="mob-menu-brand">
+      Memories<br><em>of Damascus</em>
+    </div>
+    <button class="mobile-menu-close" id="menuClose" aria-label="Menu sluiten">✕</button>
+  </div>
+
+  <!-- Nav links -->
+  <ul class="mob-nav-list">
+    <li class="mob-nav-item">
+      <a href="#diensten" onclick="closeMobile()"><span class="mob-nav-num">01</span>Catering</a>
+    </li>
+    <div class="mob-nav-divider"></div>
+    <li class="mob-nav-item">
+      <a href="#azc" onclick="closeMobile()"><span class="mob-nav-num">02</span>AZC &amp; Overheid</a>
+    </li>
+    <div class="mob-nav-divider"></div>
+    <li class="mob-nav-item">
+      <a href="#over-ons" onclick="closeMobile()"><span class="mob-nav-num">03</span>Over Ons</a>
+    </li>
+    <div class="mob-nav-divider"></div>
+    <li class="mob-nav-item">
+      <a href="#menu" onclick="closeMobile()"><span class="mob-nav-num">04</span>Menu &amp; Pakketten</a>
+    </li>
+    <div class="mob-nav-divider"></div>
+    <li class="mob-nav-item">
+      <a href="#configurator" onclick="closeMobile()"><span class="mob-nav-num">05</span>Stel Samen</a>
+    </li>
+    <div class="mob-nav-divider"></div>
+    <li class="mob-nav-item">
+      <a href="#locaties" onclick="closeMobile()"><span class="mob-nav-num">06</span>Locaties</a>
+    </li>
+    <div class="mob-nav-divider"></div>
+    <li class="mob-nav-item">
+      <a href="#baklava" onclick="closeMobile()"><span class="mob-nav-num">07</span>Baklava</a>
+    </li>
+  </ul>
+
+  <!-- Footer CTA + lang -->
+  <div class="mob-menu-footer">
+    <button class="mob-menu-cta" onclick="closeMobile();openOfferteModal('general')">Offerte Aanvragen</button>
+    <div class="mob-menu-lang">
+      <button id="mobLangNL" class="active" onclick="if(currentLang!=='nl'){toggleLang();}">NL</button>
+      <span>·</span>
+      <button id="mobLangEN" onclick="if(currentLang!=='en'){toggleLang();}">EN</button>
+    </div>
+  </div>
+
 </div>
 
 <!-- ═══ NAV ═══ -->
@@ -2424,9 +2568,11 @@
   const hamburger = document.getElementById('hamburger');
   const mobileMenu = document.getElementById('mobileMenu');
   const menuClose = document.getElementById('menuClose');
-  hamburger.addEventListener('click', () => mobileMenu.classList.add('open'));
-  menuClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
-  function closeMobile() { mobileMenu.classList.remove('open'); }
+  const menuBackdrop = document.getElementById('menuBackdrop');
+  function openMobile() { mobileMenu.classList.add('open'); menuBackdrop.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeMobile() { mobileMenu.classList.remove('open'); menuBackdrop.classList.remove('open'); document.body.style.overflow = ''; }
+  hamburger.addEventListener('click', openMobile);
+  menuClose.addEventListener('click', closeMobile);
 
   // ── Form submit
   // BACKEND-READY: vervang onderstaande handler door een fetch() POST naar /api/offerte
@@ -2709,6 +2855,9 @@
     currentLang = currentLang === 'nl' ? 'en' : 'nl';
     document.getElementById('langNL').classList.toggle('lang-active', currentLang === 'nl');
     document.getElementById('langEN').classList.toggle('lang-active', currentLang === 'en');
+    var mln = document.getElementById('mobLangNL'), mle = document.getElementById('mobLangEN');
+    if (mln) mln.classList.toggle('active', currentLang === 'nl');
+    if (mle) mle.classList.toggle('active', currentLang === 'en');
     document.documentElement.lang = currentLang;
     document.querySelectorAll('[data-i18n]').forEach(function(el) {
       var key = el.getAttribute('data-i18n');
