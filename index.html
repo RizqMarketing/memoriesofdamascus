@@ -1448,9 +1448,12 @@
     .modal-success-close { margin-top: 2rem; }
 
     @media (max-width: 700px) {
-      .modal { grid-template-columns: 1fr; }
+      .modal-overlay { padding: 0; align-items: flex-end; }
+      .modal { grid-template-columns: 1fr; border-radius: 12px 12px 0 0; max-height: 92vh; }
       .modal-left { display: none; }
-      .modal-right { padding: 1.8rem 1.5rem; }
+      .modal-right { padding: 1.4rem 1.2rem 2rem; }
+      .modal-form .form-row { grid-template-columns: 1fr; gap: 0; }
+      .modal-title { font-size: 1.5rem; }
     }
 
     @media (max-width: 1024px) {
