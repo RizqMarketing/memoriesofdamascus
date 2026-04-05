@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — Memories of Damascus</title>
+<style>
+  :root {
+    --ink:       #160808;
+    --deep:      #1e0a0a;
+    --panel:     #1f0c0c;
+    --card:      #251010;
+    --wine:      #4a0e0e;
+    --gold:      #c9942a;
+    --gold-lt:   #e8c46a;
+    --cream:     #f5edd6;
+    --parchment: #f0e2c0;
+    --muted:     #c4b49a;
+    --terracotta:#b85c38;
+    --divider:   rgba(201,148,42,.18);
+    --success:   #27ae60;
+    --warning:   #e67e22;
+    --danger:    #c0392b;
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-heading: 'EB Garamond', Georgia, serif;
+    --font-body:    'Jost', system-ui, sans-serif;
+  }
+
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,300;1,400&family=EB+Garamond:ital,wght@0,400;1,300&family=Jost:wght@300;400;500;600&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--ink); color: var(--parchment); font-family: var(--font-body); font-weight: 300; min-height: 100vh; display: flex; }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    width: 240px; min-height: 100vh; background: var(--deep);
+    border-right: 1px solid var(--divider);
+    display: flex; flex-direction: column;
+    position: fixed; top: 0; left: 0; bottom: 0;
+    z-index: 10;
+  }
+  .sidebar-brand {
+    padding: 2rem 1.5rem 1.5rem;
+    border-bottom: 1px solid var(--divider);
+  }
+  .sidebar-brand-name {
+    font-family: var(--font-display);
+    font-size: 1rem; letter-spacing: .08em;
+    color: var(--gold-lt); line-height: 1.3;
+  }
+  .sidebar-brand-sub {
+    font-size: .65rem; letter-spacing: .18em; text-transform: uppercase;
+    color: rgba(201,148,42,.45); margin-top: .3rem;
+  }
+  .sidebar-nav { flex: 1; padding: 1.2rem 0; }
+  .nav-section-label {
+    font-size: .58rem; letter-spacing: .22em; text-transform: uppercase;
+    color: rgba(245,237,214,.2); padding: 1rem 1.5rem .4rem;
+  }
+  .nav-item {
+    display: flex; align-items: center; gap: .75rem;
+    padding: .65rem 1.5rem; cursor: pointer;
+    font-size: .82rem; letter-spacing: .04em;
+    color: rgba(245,237,214,.5);
+    transition: color .2s, background .2s;
+    border-left: 2px solid transparent;
+    user-select: none;
+  }
+  .nav-item:hover { color: var(--parchment); background: rgba(201,148,42,.05); }
+  .nav-item.active { color: var(--gold-lt); background: rgba(201,148,42,.08); border-left-color: var(--gold); }
+  .nav-item-icon { font-size: 1rem; width: 18px; text-align: center; flex-shrink: 0; }
+  .nav-badge {
+    margin-left: auto; background: var(--wine); color: var(--gold-lt);
+    font-size: .6rem; padding: .1rem .45rem; border-radius: 10px;
+    font-weight: 500;
+  }
+  .sidebar-footer {
+    padding: 1rem 1.5rem; border-top: 1px solid var(--divider);
+    font-size: .72rem; color: rgba(245,237,214,.25);
+  }
+  .sidebar-footer a { color: var(--gold); text-decoration: none; }
+
+  /* ── MAIN ── */
+  .main { margin-left: 240px; flex: 1; min-height: 100vh; }
+  .topbar {
+    background: var(--deep); border-bottom: 1px solid var(--divider);
+    padding: 1rem 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 5;
+  }
+  .topbar-title { font-family: var(--font-display); font-size: 1.4rem; color: var(--cream); letter-spacing: .04em; }
+  .topbar-right { display: flex; align-items: center; gap: 1rem; }
+  .topbar-site-btn {
+    font-size: .72rem; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--gold); border: 1px solid rgba(201,148,42,.3);
+    padding: .4rem .9rem; border-radius: 2px; cursor: pointer;
+    background: none; transition: all .2s; text-decoration: none;
+    display: inline-flex; align-items: center; gap: .4rem;
+  }
+  .topbar-site-btn:hover { background: rgba(201,148,42,.1); border-color: var(--gold); }
+  .topbar-avatar {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--wine); border: 1px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-size: .85rem; color: var(--gold-lt);
+  }
+
+  .content { padding: 2rem; }
+
+  /* ── PANELS ── */
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* ── STAT CARDS ── */
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem; }
+  .stat-card {
+    background: var(--card); border: 1px solid var(--divider);
+    border-radius: 2px; padding: 1.4rem 1.6rem;
+    position: relative; overflow: hidden;
+  }
+  .stat-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(to right, var(--gold), transparent);
+  }
+  .stat-label { font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; color: rgba(245,237,214,.35); margin-bottom: .6rem; }
+  .stat-value { font-family: var(--font-display); font-size: 2rem; color: var(--cream); line-height: 1; }
+  .stat-sub { font-size: .72rem; color: rgba(245,237,214,.35); margin-top: .4rem; }
+  .stat-sub.up { color: var(--success); }
+  .stat-sub.warn { color: var(--warning); }
+
+  /* ── GRID 2 COL ── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+  .grid-3-1 { display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+
+  /* ── CARD ── */
+  .dash-card {
+    background: var(--card); border: 1px solid var(--divider);
+    border-radius: 2px;
+  }
+  .dash-card-header {
+    padding: 1.1rem 1.5rem;
+    border-bottom: 1px solid var(--divider);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .dash-card-title { font-family: var(--font-display); font-size: 1rem; letter-spacing: .05em; color: var(--cream); }
+  .dash-card-body { padding: 1.5rem; }
+  .dash-card-action {
+    font-size: .65rem; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--gold); cursor: pointer; border: none; background: none;
+    transition: color .2s;
+  }
+  .dash-card-action:hover { color: var(--gold-lt); }
+
+  /* ── TABLE ── */
+  .data-table { width: 100%; border-collapse: collapse; }
+  .data-table th {
+    font-size: .62rem; letter-spacing: .18em; text-transform: uppercase;
+    color: rgba(245,237,214,.3); padding: .6rem 1rem; text-align: left;
+    border-bottom: 1px solid var(--divider);
+  }
+  .data-table td { padding: .85rem 1rem; font-size: .82rem; border-bottom: 1px solid rgba(201,148,42,.06); vertical-align: middle; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: rgba(201,148,42,.03); }
+
+  /* ── BADGES ── */
+  .badge {
+    display: inline-block; font-size: .6rem; letter-spacing: .1em; text-transform: uppercase;
+    padding: .18rem .6rem; border-radius: 2px; font-weight: 500;
+  }
+  .badge-new      { background: rgba(39,174,96,.15);  color: #6ee89c; border: 1px solid rgba(39,174,96,.3); }
+  .badge-pending  { background: rgba(230,126,34,.15); color: #f0a45a; border: 1px solid rgba(230,126,34,.3); }
+  .badge-done     { background: rgba(201,148,42,.12); color: var(--gold-lt); border: 1px solid rgba(201,148,42,.25); }
+  .badge-cancelled{ background: rgba(192,57,43,.15);  color: #f08080; border: 1px solid rgba(192,57,43,.3); }
+  .badge-shipped  { background: rgba(52,152,219,.15); color: #7ec8f0; border: 1px solid rgba(52,152,219,.3); }
+
+  /* ── ACTION BTNS ── */
+  .btn-sm {
+    font-size: .65rem; letter-spacing: .1em; text-transform: uppercase;
+    padding: .3rem .7rem; border-radius: 2px; cursor: pointer;
+    border: 1px solid var(--divider); background: none; color: var(--muted);
+    transition: all .2s;
+  }
+  .btn-sm:hover { border-color: var(--gold); color: var(--gold); }
+  .btn-sm.danger:hover { border-color: var(--danger); color: #f08080; }
+  .btn-primary-sm {
+    font-size: .65rem; letter-spacing: .1em; text-transform: uppercase;
+    padding: .35rem .9rem; border-radius: 2px; cursor: pointer;
+    border: none; background: var(--gold); color: var(--ink); font-weight: 600;
+    transition: all .2s;
+  }
+  .btn-primary-sm:hover { background: var(--gold-lt); }
+
+  /* ── CALENDAR ── */
+  .cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 4px; }
+  .cal-day-label { font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(245,237,214,.3); text-align: center; padding: .4rem 0; }
+  .cal-day {
+    aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+    font-size: .78rem; border-radius: 2px; cursor: pointer;
+    transition: all .2s; border: 1px solid transparent; position: relative;
+  }
+  .cal-day:hover:not(.cal-empty):not(.cal-past) { border-color: rgba(201,148,42,.4); background: rgba(201,148,42,.08); }
+  .cal-day.cal-today { border-color: rgba(201,148,42,.5); color: var(--gold); }
+  .cal-day.cal-blocked { background: rgba(192,57,43,.2); border-color: rgba(192,57,43,.4); color: #f08080; }
+  .cal-day.cal-event { background: rgba(201,148,42,.15); border-color: rgba(201,148,42,.35); color: var(--gold-lt); }
+  .cal-day.cal-past { opacity: .28; cursor: default; }
+  .cal-day.cal-empty { cursor: default; }
+  .cal-dot { position: absolute; bottom: 3px; left: 50%; transform: translateX(-50%); width: 4px; height: 4px; border-radius: 50%; background: var(--gold); }
+  .cal-legend { display: flex; gap: 1.2rem; margin-top: 1rem; flex-wrap: wrap; }
+  .cal-legend-item { display: flex; align-items: center; gap: .4rem; font-size: .7rem; color: rgba(245,237,214,.4); }
+  .cal-legend-dot { width: 8px; height: 8px; border-radius: 2px; }
+  .cal-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+  .cal-nav-month { font-family: var(--font-display); font-size: 1.1rem; color: var(--cream); }
+  .cal-nav-btn { background: none; border: 1px solid var(--divider); color: var(--muted); width: 28px; height: 28px; border-radius: 2px; cursor: pointer; font-size: .85rem; transition: all .2s; display: flex; align-items: center; justify-content: center; }
+  .cal-nav-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ── FORM ELEMENTS ── */
+  .form-group { margin-bottom: 1.2rem; }
+  .form-label { font-size: .68rem; letter-spacing: .15em; text-transform: uppercase; color: rgba(245,237,214,.4); display: block; margin-bottom: .5rem; }
+  .form-input {
+    width: 100%; background: rgba(255,255,255,.04); border: 1px solid var(--divider);
+    border-radius: 2px; padding: .65rem .9rem; color: var(--parchment);
+    font-family: var(--font-body); font-size: .88rem; outline: none;
+    transition: border-color .2s;
+  }
+  .form-input:focus { border-color: rgba(201,148,42,.5); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-hint { font-size: .7rem; color: rgba(245,237,214,.3); margin-top: .35rem; }
+
+  /* ── MENU ITEMS ── */
+  .menu-row {
+    display: flex; align-items: center; gap: 1rem;
+    padding: .9rem 0; border-bottom: 1px solid rgba(201,148,42,.07);
+  }
+  .menu-row:last-child { border-bottom: none; }
+  .menu-row-emoji { font-size: 1.6rem; flex-shrink: 0; }
+  .menu-row-info { flex: 1; }
+  .menu-row-name { font-family: var(--font-display); font-size: .95rem; color: var(--cream); }
+  .menu-row-meta { font-size: .72rem; color: rgba(245,237,214,.35); margin-top: .15rem; }
+  .menu-row-actions { display: flex; gap: .5rem; flex-shrink: 0; }
+
+  /* ── ACTIVITY FEED ── */
+  .activity-item { display: flex; gap: .9rem; padding: .8rem 0; border-bottom: 1px solid rgba(201,148,42,.06); }
+  .activity-item:last-child { border-bottom: none; }
+  .activity-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: .4rem; flex-shrink: 0; }
+  .activity-dot-gold { background: var(--gold); }
+  .activity-dot-green { background: var(--success); }
+  .activity-dot-red { background: var(--danger); }
+  .activity-text { font-size: .8rem; color: rgba(245,237,214,.65); line-height: 1.5; }
+  .activity-time { font-size: .68rem; color: rgba(245,237,214,.25); margin-top: .15rem; }
+
+  /* ── INSTELLINGEN ── */
+  .setting-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 0; border-bottom: 1px solid rgba(201,148,42,.07);
+  }
+  .setting-row:last-child { border-bottom: none; }
+  .setting-label { font-size: .85rem; color: var(--parchment); }
+  .setting-desc { font-size: .72rem; color: rgba(245,237,214,.3); margin-top: .2rem; }
+
+  /* ── TOGGLE ── */
+  .toggle { position: relative; width: 40px; height: 22px; flex-shrink: 0; }
+  .toggle input { opacity: 0; width: 0; height: 0; }
+  .toggle-slider {
+    position: absolute; cursor: pointer; inset: 0;
+    background: rgba(255,255,255,.1); border-radius: 22px;
+    transition: .3s; border: 1px solid var(--divider);
+  }
+  .toggle-slider::before {
+    content: ''; position: absolute; height: 14px; width: 14px;
+    left: 3px; top: 3px; background: var(--muted); border-radius: 50%; transition: .3s;
+  }
+  .toggle input:checked + .toggle-slider { background: rgba(201,148,42,.3); border-color: rgba(201,148,42,.5); }
+  .toggle input:checked + .toggle-slider::before { transform: translateX(18px); background: var(--gold); }
+
+  /* ── EMPTY STATE ── */
+  .empty-state { text-align: center; padding: 3rem 1rem; color: rgba(245,237,214,.2); }
+  .empty-state-icon { font-size: 2.5rem; margin-bottom: .8rem; }
+  .empty-state-text { font-size: .85rem; }
+
+  /* ── PAGE TITLE ── */
+  .page-header { margin-bottom: 1.8rem; }
+  .page-header h2 { font-family: var(--font-display); font-size: 1.8rem; color: var(--cream); font-weight: 400; }
+  .page-header p { font-size: .82rem; color: rgba(245,237,214,.35); margin-top: .3rem; }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed; bottom: 2rem; right: 2rem;
+    background: var(--card); border: 1px solid rgba(201,148,42,.35);
+    border-left: 3px solid var(--gold);
+    padding: .9rem 1.4rem; border-radius: 2px;
+    font-size: .82rem; color: var(--parchment);
+    opacity: 0; transform: translateY(10px);
+    transition: all .3s; z-index: 100; pointer-events: none;
+  }
+  .toast.show { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<!-- ══ SIDEBAR ══ -->
+<aside class="sidebar">
+  <div class="sidebar-brand">
+    <div class="sidebar-brand-name">Memories of Damascus</div>
+    <div class="sidebar-brand-sub">Beheer dashboard</div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Overzicht</div>
+    <div class="nav-item active" onclick="showPanel('overview', this)">
+      <span class="nav-item-icon">◈</span> Dashboard
+    </div>
+
+    <div class="nav-section-label">Bestellingen</div>
+    <div class="nav-item" onclick="showPanel('offertes', this)">
+      <span class="nav-item-icon">✦</span> Offertes & Aanvragen
+      <span class="nav-badge">3</span>
+    </div>
+    <div class="nav-item" onclick="showPanel('baklava', this)">
+      <span class="nav-item-icon">◇</span> Baklava Bestellingen
+      <span class="nav-badge">2</span>
+    </div>
+
+    <div class="nav-section-label">Beheer</div>
+    <div class="nav-item" onclick="showPanel('kalender', this)">
+      <span class="nav-item-icon">◻</span> Kalender
+    </div>
+    <div class="nav-item" onclick="showPanel('menu', this)">
+      <span class="nav-item-icon">◈</span> Menu & Gerechten
+    </div>
+
+    <div class="nav-section-label">Systeem</div>
+    <div class="nav-item" onclick="showPanel('instellingen', this)">
+      <span class="nav-item-icon">◦</span> Instellingen
+    </div>
+  </nav>
+  <div class="sidebar-footer">
+    <a href="index.html" target="_blank">↗ Bekijk website</a>
+  </div>
+</aside>
+
+<!-- ══ MAIN ══ -->
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-title" id="topbarTitle">Dashboard</div>
+    <div class="topbar-right">
+      <a href="index.html" target="_blank" class="topbar-site-btn">↗ Website</a>
+      <div class="topbar-avatar">ن</div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ══ OVERVIEW ══ -->
+    <div class="panel active" id="panel-overview">
+      <div class="page-header">
+        <h2>Goedemiddag ✦</h2>
+        <p>Hier is een overzicht van vandaag — maandag 7 april 2026</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Nieuwe aanvragen</div>
+          <div class="stat-value">3</div>
+          <div class="stat-sub warn">↑ 2 nog niet beantwoord</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Events deze maand</div>
+          <div class="stat-value">7</div>
+          <div class="stat-sub up">↑ 3 meer dan vorige maand</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Omzet april</div>
+          <div class="stat-value">€4.820</div>
+          <div class="stat-sub up">↑ Op schema</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Baklava bestellingen</div>
+          <div class="stat-value">5</div>
+          <div class="stat-sub warn">2 wachten op verzending</div>
+        </div>
+      </div>
+
+      <div class="grid-3-1">
+        <!-- Recente aanvragen -->
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <div class="dash-card-title">Recente Aanvragen</div>
+            <button class="dash-card-action" onclick="showPanel('offertes', document.querySelector('.nav-item:nth-child(4)'))">Alles bekijken →</button>
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Naam</th>
+                <th>Gelegenheid</th>
+                <th>Datum</th>
+                <th>Personen</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong style="color:var(--cream)">Familie Al-Rashidi</strong><br><span style="font-size:.72rem;color:rgba(245,237,214,.3)">06 apr 09:14</span></td>
+                <td>Bruiloft</td>
+                <td>14 jun 2026</td>
+                <td>120 pers.</td>
+                <td><span class="badge badge-new">Nieuw</span></td>
+                <td><button class="btn-sm">Open</button></td>
+              </tr>
+              <tr>
+                <td><strong style="color:var(--cream)">Sanaa Youssef</strong><br><span style="font-size:.72rem;color:rgba(245,237,214,.3)">05 apr 16:40</span></td>
+                <td>Verjaardag</td>
+                <td>2 mei 2026</td>
+                <td>45 pers.</td>
+                <td><span class="badge badge-new">Nieuw</span></td>
+                <td><button class="btn-sm">Open</button></td>
+              </tr>
+              <tr>
+                <td><strong style="color:var(--cream)">TechCorp B.V.</strong><br><span style="font-size:.72rem;color:rgba(245,237,214,.3)">04 apr 11:02</span></td>
+                <td>Bedrijfslunch</td>
+                <td>22 apr 2026</td>
+                <td>30 pers.</td>
+                <td><span class="badge badge-pending">In behandeling</span></td>
+                <td><button class="btn-sm">Open</button></td>
+              </tr>
+              <tr>
+                <td><strong style="color:var(--cream)">Gemeente Eindhoven</strong><br><span style="font-size:.72rem;color:rgba(245,237,214,.3)">01 apr 08:55</span></td>
+                <td>AZC catering</td>
+                <td>Doorlopend</td>
+                <td>80 pers./dag</td>
+                <td><span class="badge badge-done">Bevestigd</span></td>
+                <td><button class="btn-sm">Open</button></td>
+              </tr>
+              <tr>
+                <td><strong style="color:var(--cream)">Familie Bakker</strong><br><span style="font-size:.72rem;color:rgba(245,237,214,.3)">29 mrt 14:20</span></td>
+                <td>Jubileum</td>
+                <td>18 apr 2026</td>
+                <td>60 pers.</td>
+                <td><span class="badge badge-done">Bevestigd</span></td>
+                <td><button class="btn-sm">Open</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Activiteit -->
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <div class="dash-card-title">Activiteit</div>
+          </div>
+          <div class="dash-card-body">
+            <div class="activity-item">
+              <div class="activity-dot activity-dot-green"></div>
+              <div>
+                <div class="activity-text">Nieuwe offerte ontvangen van <strong style="color:var(--parchment)">Familie Al-Rashidi</strong> — bruiloft 120 pers.</div>
+                <div class="activity-time">Vandaag, 09:14</div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot activity-dot-gold"></div>
+              <div>
+                <div class="activity-text">Baklava bestelling <strong style="color:var(--parchment)">#BK-009</strong> verstuurd naar Mariam Yilmaz</div>
+                <div class="activity-time">Gisteren, 15:30</div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot activity-dot-green"></div>
+              <div>
+                <div class="activity-text">Datum <strong style="color:var(--parchment)">27 april</strong> geblokkeerd in kalender</div>
+                <div class="activity-time">Gisteren, 12:00</div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot activity-dot-gold"></div>
+              <div>
+                <div class="activity-text">Offerte verstuurd naar <strong style="color:var(--parchment)">TechCorp B.V.</strong> — €780</div>
+                <div class="activity-time">4 apr, 11:45</div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot activity-dot-red"></div>
+              <div>
+                <div class="activity-text">Aanvraag van <strong style="color:var(--parchment)">Onbekend</strong> geannuleerd — geen reactie</div>
+                <div class="activity-time">2 apr, 09:00</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ OFFERTES ══ -->
+    <div class="panel" id="panel-offertes">
+      <div class="page-header">
+        <h2>Offertes & Aanvragen</h2>
+        <p>Beheer alle binnenkomende catering aanvragen</p>
+      </div>
+      <div class="dash-card">
+        <div class="dash-card-header">
+          <div class="dash-card-title">Alle aanvragen</div>
+          <div style="display:flex;gap:.6rem;align-items:center">
+            <select class="form-input" style="width:auto;padding:.3rem .7rem;font-size:.75rem">
+              <option>Alle statussen</option>
+              <option>Nieuw</option>
+              <option>In behandeling</option>
+              <option>Bevestigd</option>
+            </select>
+          </div>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Naam</th>
+              <th>Gelegenheid</th>
+              <th>Datum event</th>
+              <th>Personen</th>
+              <th>Pakket</th>
+              <th>Bedrag</th>
+              <th>Status</th>
+              <th>Acties</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="color:rgba(245,237,214,.3);font-size:.72rem">CAT-041</td>
+              <td><strong style="color:var(--cream)">Familie Al-Rashidi</strong><br><span style="font-size:.7rem;color:rgba(245,237,214,.3)">+31 6 12345678</span></td>
+              <td>Bruiloft</td>
+              <td>14 jun 2026</td>
+              <td>120</td>
+              <td>Luxe (€30)</td>
+              <td style="color:var(--gold-lt);font-family:var(--font-heading)">€3.600</td>
+              <td><span class="badge badge-new">Nieuw</span></td>
+              <td><button class="btn-sm" onclick="toast('Offerte geopend')">Open</button></td>
+            </tr>
+            <tr>
+              <td style="color:rgba(245,237,214,.3);font-size:.72rem">CAT-040</td>
+              <td><strong style="color:var(--cream)">Sanaa Youssef</strong><br><span style="font-size:.7rem;color:rgba(245,237,214,.3)">sanaa@email.nl</span></td>
+              <td>Verjaardag</td>
+              <td>2 mei 2026</td>
+              <td>45</td>
+              <td>Klassiek (€25)</td>
+              <td style="color:var(--gold-lt);font-family:var(--font-heading)">€1.125</td>
+              <td><span class="badge badge-new">Nieuw</span></td>
+              <td><button class="btn-sm" onclick="toast('Offerte geopend')">Open</button></td>
+            </tr>
+            <tr>
+              <td style="color:rgba(245,237,214,.3);font-size:.72rem">CAT-039</td>
+              <td><strong style="color:var(--cream)">TechCorp B.V.</strong><br><span style="font-size:.7rem;color:rgba(245,237,214,.3)">events@techcorp.nl</span></td>
+              <td>Bedrijfslunch</td>
+              <td>22 apr 2026</td>
+              <td>30</td>
+              <td>Klassiek (€25)</td>
+              <td style="color:var(--gold-lt);font-family:var(--font-heading)">€780</td>
+              <td><span class="badge badge-pending">In behandeling</span></td>
+              <td><button class="btn-sm" onclick="toast('Offerte geopend')">Open</button></td>
+            </tr>
+            <tr>
+              <td style="color:rgba(245,237,214,.3);font-size:.72rem">CAT-038</td>
+              <td><strong style="color:var(--cream)">Gemeente Eindhoven</strong><br><span style="font-size:.7rem;color:rgba(245,237,214,.3)">inkoop@eindhoven.nl</span></td>
+              <td>AZC Catering</td>
+              <td>Doorlopend</td>
+              <td>80/dag</td>
+              <td>Maatwerk</td>
+              <td style="color:var(--gold-lt);font-family:var(--font-heading)">€8.400/mnd</td>
+              <td><span class="badge badge-done">Bevestigd</span></td>
+              <td><button class="btn-sm" onclick="toast('Contract bekeken')">Open</button></td>
+            </tr>
+            <tr>
+              <td style="color:rgba(245,237,214,.3);font-size:.72rem">CAT-037</td>
+              <td><strong style="color:var(--cream)">Familie Bakker</strong><br><span style="font-size:.7rem;color:rgba(245,237,214,.3)">+31 6 87654321</span></td>
+              <td>Jubileum</td>
+              <td>18 apr 2026</td>
+              <td>60</td>
+              <td>Luxe (€30)</td>
+              <td style="color:var(--gold-lt);font-family:var(--font-heading)">€1.920</td>
+              <td><span class="badge badge-done">Bevestigd</span></td>
+              <td><button class="btn-sm" onclick="toast('Offerte geopend')">Open</button></td>
+            </tr>
+            <tr>
+              <td style="color:rgba(245,237,214,.3);font-size:.72rem">CAT-036</td>
+              <td><strong style="color:var(--cream)">Hassan Al-Nouri</strong><br><span style="font-size:.7rem;color:rgba(245,237,214,.3)">hassan@email.nl</span></td>
+              <td>Ramadan iftar</td>
+              <td>28 mrt 2026</td>
+              <td>200</td>
+              <td>Luxe (€30)</td>
+              <td style="color:var(--gold-lt);font-family:var(--font-heading)">€6.000</td>
+              <td><span class="badge badge-done">Bevestigd</span></td>
+              <td><button class="btn-sm" onclick="toast('Offerte geopend')">Open</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ══ BAKLAVA ══ -->
+    <div class="panel" id="panel-baklava">
+      <div class="page-header">
+        <h2>Baklava Bestellingen</h2>
+        <p>Online bestellingen via post</p>
+      </div>
+      <div class="stats-grid" style="grid-template-columns:repeat(3,1fr)">
+        <div class="stat-card">
+          <div class="stat-label">Te verzenden</div>
+          <div class="stat-value">2</div>
+          <div class="stat-sub warn">Wachten op verzending</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Verzonden deze maand</div>
+          <div class="stat-value">8</div>
+          <div class="stat-sub up">↑ Goed bezig</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Omzet baklava</div>
+          <div class="stat-value">€420</div>
+          <div class="stat-sub">April 2026</div>
+        </div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-card-header">
+          <div class="dash-card-title">Alle bestellingen</div>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Naam</th>
+              <th>Adres</th>
+              <th>Besteld</th>
+              <th>Dozen</th>
+              <th>Bedrag incl. verzending</th>
+              <th>Status</th>
+              <th>Actie</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="color:rgba(245,237,214,.3);font-size:.72rem">BK-011</td>
+              <td><strong style="color:var(--cream)">Nadia El-Sayed</strong></td>
+              <td style="font-size:.75rem;color:rgba(245,237,214,.5)">Koninginneweg 12, Amsterdam</td>
+              <td style="font-size:.75rem">Vandaag, 10:22</td>
+              <td>2 dozen</td>
+              <td style="color:var(--gold-lt);font-family:var(--font-heading)">€52,50</td>
+              <td><span class="badge badge-new">Nieuw</span></td>
+              <td><button class="btn-primary-sm" onclick="toast('Bestelling gemarkeerd als verzonden')">Markeer verzonden</button></td>
+            </tr>
+            <tr>
+              <td style="color:rgba(245,237,214,.3);font-size:.72rem">BK-010</td>
+              <td><strong style="color:var(--cream)">Ibrahim Khalil</strong></td>
+              <td style="font-size:.75rem;color:rgba(245,237,214,.5)">Bergstraat 4, Utrecht</td>
+              <td style="font-size:.75rem">Gisteren, 18:05</td>
+              <td>3 dozen</td>
+              <td style="color:var(--gold-lt);font-family:var(--font-heading)">€74,25</td>
+              <td><span class="badge badge-pending">Te verzenden</span></td>
+              <td><button class="btn-primary-sm" onclick="toast('Bestelling gemarkeerd als verzonden')">Markeer verzonden</button></td>
+            </tr>
+            <tr>
+              <td style="color:rgba(245,237,214,.3);font-size:.72rem">BK-009</td>
+              <td><strong style="color:var(--cream)">Mariam Yilmaz</strong></td>
+              <td style="font-size:.75rem;color:rgba(245,237,214,.5)">Tulpstraat 88, Rotterdam</td>
+              <td style="font-size:.75rem">5 apr, 14:30</td>
+              <td>1 doos</td>
+              <td style="color:var(--gold-lt);font-family:var(--font-heading)">€30,75</td>
+              <td><span class="badge badge-shipped">Verzonden</span></td>
+              <td><button class="btn-sm" onclick="toast('Track & trace bekeken')">Track</button></td>
+            </tr>
+            <tr>
+              <td style="color:rgba(245,237,214,.3);font-size:.72rem">BK-008</td>
+              <td><strong style="color:var(--cream)">Yasmine De Vries</strong></td>
+              <td style="font-size:.75rem;color:rgba(245,237,214,.5)">Parkweg 33, Den Haag</td>
+              <td style="font-size:.75rem">3 apr, 09:15</td>
+              <td>4 dozen</td>
+              <td style="color:var(--gold-lt);font-family:var(--font-heading)">€97,00</td>
+              <td><span class="badge badge-shipped">Verzonden</span></td>
+              <td><button class="btn-sm" onclick="toast('Track & trace bekeken')">Track</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ══ KALENDER ══ -->
+    <div class="panel" id="panel-kalender">
+      <div class="page-header">
+        <h2>Kalender</h2>
+        <p>Klik op een datum om te blokkeren of vrij te geven</p>
+      </div>
+      <div class="grid-2">
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <div class="dash-card-title">April 2026</div>
+            <div style="display:flex;gap:.5rem">
+              <button class="cal-nav-btn">‹</button>
+              <button class="cal-nav-btn">›</button>
+            </div>
+          </div>
+          <div class="dash-card-body">
+            <div class="cal-grid">
+              <div class="cal-day-label">Ma</div>
+              <div class="cal-day-label">Di</div>
+              <div class="cal-day-label">Wo</div>
+              <div class="cal-day-label">Do</div>
+              <div class="cal-day-label">Vr</div>
+              <div class="cal-day-label">Za</div>
+              <div class="cal-day-label">Zo</div>
+
+              <!-- week 1: start Wednesday April 1 -->
+              <div class="cal-day cal-empty"></div>
+              <div class="cal-day cal-empty"></div>
+              <div class="cal-day cal-past">1</div>
+              <div class="cal-day cal-past">2</div>
+              <div class="cal-day cal-past">3</div>
+              <div class="cal-day cal-past">4</div>
+              <div class="cal-day cal-past">5</div>
+
+              <div class="cal-day cal-past">6</div>
+              <div class="cal-day cal-today">7</div>
+              <div class="cal-day" onclick="toggleBlock(this)">8</div>
+              <div class="cal-day" onclick="toggleBlock(this)">9</div>
+              <div class="cal-day" onclick="toggleBlock(this)">10</div>
+              <div class="cal-day" onclick="toggleBlock(this)">11</div>
+              <div class="cal-day" onclick="toggleBlock(this)">12</div>
+
+              <div class="cal-day" onclick="toggleBlock(this)">13</div>
+              <div class="cal-day" onclick="toggleBlock(this)">14</div>
+              <div class="cal-day" onclick="toggleBlock(this)">15</div>
+              <div class="cal-day" onclick="toggleBlock(this)">16</div>
+              <div class="cal-day" onclick="toggleBlock(this)">17</div>
+              <div class="cal-day cal-event" onclick="toggleBlock(this)">18<div class="cal-dot"></div></div>
+              <div class="cal-day" onclick="toggleBlock(this)">19</div>
+
+              <div class="cal-day cal-blocked" onclick="toggleBlock(this)">20</div>
+              <div class="cal-day" onclick="toggleBlock(this)">21</div>
+              <div class="cal-day cal-event" onclick="toggleBlock(this)">22<div class="cal-dot"></div></div>
+              <div class="cal-day" onclick="toggleBlock(this)">23</div>
+              <div class="cal-day" onclick="toggleBlock(this)">24</div>
+              <div class="cal-day" onclick="toggleBlock(this)">25</div>
+              <div class="cal-day" onclick="toggleBlock(this)">26</div>
+
+              <div class="cal-day cal-blocked" onclick="toggleBlock(this)">27</div>
+              <div class="cal-day" onclick="toggleBlock(this)">28</div>
+              <div class="cal-day" onclick="toggleBlock(this)">29</div>
+              <div class="cal-day" onclick="toggleBlock(this)">30</div>
+              <div class="cal-day cal-empty"></div>
+              <div class="cal-day cal-empty"></div>
+              <div class="cal-day cal-empty"></div>
+            </div>
+            <div class="cal-legend">
+              <div class="cal-legend-item"><div class="cal-legend-dot" style="background:rgba(192,57,43,.5)"></div> Geblokkeerd</div>
+              <div class="cal-legend-item"><div class="cal-legend-dot" style="background:rgba(201,148,42,.3)"></div> Event gepland</div>
+              <div class="cal-legend-item"><div class="cal-legend-dot" style="background:rgba(201,148,42,.5);border:1px solid var(--gold)"></div> Vandaag</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:1.5rem">
+          <div class="dash-card">
+            <div class="dash-card-header">
+              <div class="dash-card-title">Geblokkeerde data</div>
+            </div>
+            <div class="dash-card-body">
+              <div class="menu-row">
+                <div style="flex:1">
+                  <div style="font-size:.85rem;color:var(--cream)">Zondag 20 april 2026</div>
+                  <div style="font-size:.72rem;color:rgba(245,237,214,.3);margin-top:.15rem">Volzet — eigen evenement</div>
+                </div>
+                <button class="btn-sm danger" onclick="toast('Datum vrijgegeven')">Verwijder</button>
+              </div>
+              <div class="menu-row">
+                <div style="flex:1">
+                  <div style="font-size:.85rem;color:var(--cream)">Maandag 27 april 2026</div>
+                  <div style="font-size:.72rem;color:rgba(245,237,214,.3);margin-top:.15rem">Gesloten — familiedag</div>
+                </div>
+                <button class="btn-sm danger" onclick="toast('Datum vrijgegeven')">Verwijder</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="dash-card">
+            <div class="dash-card-header">
+              <div class="dash-card-title">Datum blokkeren</div>
+            </div>
+            <div class="dash-card-body">
+              <div class="form-group">
+                <label class="form-label">Datum</label>
+                <input type="date" class="form-input">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Reden (optioneel)</label>
+                <input type="text" class="form-input" placeholder="bv. Volzet, onderhoud...">
+              </div>
+              <div class="form-group" style="margin-bottom:0">
+                <button class="btn-primary-sm" style="width:100%" onclick="toast('Datum geblokkeerd')">Blokkeer datum</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ MENU ══ -->
+    <div class="panel" id="panel-menu">
+      <div class="page-header">
+        <h2>Menu & Gerechten</h2>
+        <p>Beheer de gerechten die klanten kunnen kiezen in de configurator</p>
+      </div>
+      <div class="grid-2">
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <div class="dash-card-title">Hoofdgerechten</div>
+            <button class="dash-card-action" onclick="toast('Gerecht toegevoegd')">+ Toevoegen</button>
+          </div>
+          <div class="dash-card-body">
+            <div class="menu-row">
+              <div class="menu-row-emoji">🥩</div>
+              <div class="menu-row-info">
+                <div class="menu-row-name">Shawarma</div>
+                <div class="menu-row-meta">Zichtbaar · Populair</div>
+              </div>
+              <div class="menu-row-actions">
+                <button class="btn-sm" onclick="toast('Gerecht bewerkt')">Bewerk</button>
+                <button class="btn-sm danger" onclick="toast('Gerecht verborgen')">Verberg</button>
+              </div>
+            </div>
+            <div class="menu-row">
+              <div class="menu-row-emoji">🍲</div>
+              <div class="menu-row-info">
+                <div class="menu-row-name">Kibbeh</div>
+                <div class="menu-row-meta">Zichtbaar</div>
+              </div>
+              <div class="menu-row-actions">
+                <button class="btn-sm" onclick="toast('Gerecht bewerkt')">Bewerk</button>
+                <button class="btn-sm danger" onclick="toast('Gerecht verborgen')">Verberg</button>
+              </div>
+            </div>
+            <div class="menu-row">
+              <div class="menu-row-emoji">🍗</div>
+              <div class="menu-row-info">
+                <div class="menu-row-name">Rijst met Kip</div>
+                <div class="menu-row-meta">Zichtbaar</div>
+              </div>
+              <div class="menu-row-actions">
+                <button class="btn-sm" onclick="toast('Gerecht bewerkt')">Bewerk</button>
+                <button class="btn-sm danger" onclick="toast('Gerecht verborgen')">Verberg</button>
+              </div>
+            </div>
+            <div class="menu-row">
+              <div class="menu-row-emoji">🫕</div>
+              <div class="menu-row-info">
+                <div class="menu-row-name">Kofta</div>
+                <div class="menu-row-meta">Zichtbaar</div>
+              </div>
+              <div class="menu-row-actions">
+                <button class="btn-sm" onclick="toast('Gerecht bewerkt')">Bewerk</button>
+                <button class="btn-sm danger" onclick="toast('Gerecht verborgen')">Verberg</button>
+              </div>
+            </div>
+            <div class="menu-row">
+              <div class="menu-row-emoji">🍖</div>
+              <div class="menu-row-info">
+                <div class="menu-row-name">Stoofvlees</div>
+                <div class="menu-row-meta">Zichtbaar</div>
+              </div>
+              <div class="menu-row-actions">
+                <button class="btn-sm" onclick="toast('Gerecht bewerkt')">Bewerk</button>
+                <button class="btn-sm danger" onclick="toast('Gerecht verborgen')">Verberg</button>
+              </div>
+            </div>
+            <div class="menu-row">
+              <div class="menu-row-emoji">🔥</div>
+              <div class="menu-row-info">
+                <div class="menu-row-name">Gegrilde Kip</div>
+                <div class="menu-row-meta">Zichtbaar</div>
+              </div>
+              <div class="menu-row-actions">
+                <button class="btn-sm" onclick="toast('Gerecht bewerkt')">Bewerk</button>
+                <button class="btn-sm danger" onclick="toast('Gerecht verborgen')">Verberg</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:1.5rem">
+          <div class="dash-card">
+            <div class="dash-card-header">
+              <div class="dash-card-title">Mezze's & Bijgerechten</div>
+              <button class="dash-card-action" onclick="toast('Gerecht toegevoegd')">+ Toevoegen</button>
+            </div>
+            <div class="dash-card-body">
+              <div class="menu-row">
+                <div class="menu-row-emoji">🫘</div>
+                <div class="menu-row-info"><div class="menu-row-name">Hummus</div><div class="menu-row-meta">Zichtbaar · Populair</div></div>
+                <div class="menu-row-actions"><button class="btn-sm" onclick="toast('Bewerkt')">Bewerk</button></div>
+              </div>
+              <div class="menu-row">
+                <div class="menu-row-emoji">🍆</div>
+                <div class="menu-row-info"><div class="menu-row-name">Mutabal</div><div class="menu-row-meta">Zichtbaar</div></div>
+                <div class="menu-row-actions"><button class="btn-sm" onclick="toast('Bewerkt')">Bewerk</button></div>
+              </div>
+              <div class="menu-row">
+                <div class="menu-row-emoji">🥛</div>
+                <div class="menu-row-info"><div class="menu-row-name">Labneh</div><div class="menu-row-meta">Zichtbaar</div></div>
+                <div class="menu-row-actions"><button class="btn-sm" onclick="toast('Bewerkt')">Bewerk</button></div>
+              </div>
+              <div class="menu-row">
+                <div class="menu-row-emoji">🌿</div>
+                <div class="menu-row-info"><div class="menu-row-name">Spinazierolletjes</div><div class="menu-row-meta">Zichtbaar</div></div>
+                <div class="menu-row-actions"><button class="btn-sm" onclick="toast('Bewerkt')">Bewerk</button></div>
+              </div>
+              <div class="menu-row">
+                <div class="menu-row-emoji">🥗</div>
+                <div class="menu-row-info"><div class="menu-row-name">Fattoush</div><div class="menu-row-meta">Zichtbaar</div></div>
+                <div class="menu-row-actions"><button class="btn-sm" onclick="toast('Bewerkt')">Bewerk</button></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="dash-card">
+            <div class="dash-card-header">
+              <div class="dash-card-title">Pakketten & Prijzen</div>
+            </div>
+            <div class="dash-card-body">
+              <div class="form-group">
+                <label class="form-label">Pakket Klassiek — prijs p.p.</label>
+                <input type="number" class="form-input" value="25">
+                <div class="form-hint">Inclusief 3 hoofdgerechten + 3 mezze's + salade</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Pakket Luxe — prijs p.p.</label>
+                <input type="number" class="form-input" value="30">
+                <div class="form-hint">Inclusief 4 hoofdgerechten + 4 mezze's + salade</div>
+              </div>
+              <button class="btn-primary-sm" onclick="toast('Prijzen opgeslagen')">Sla prijzen op</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ INSTELLINGEN ══ -->
+    <div class="panel" id="panel-instellingen">
+      <div class="page-header">
+        <h2>Instellingen</h2>
+        <p>Reiskosten, beschikbaarheid en meldingen</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <div class="dash-card-title">Reiskosten</div>
+          </div>
+          <div class="dash-card-body">
+            <div class="form-group">
+              <label class="form-label">Tarief per kilometer (retour)</label>
+              <input type="number" class="form-input" value="0.50" step="0.05">
+              <div class="form-hint">Huidig: €0,50/km retour vanaf dichtstbijzijnde locatie</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Vrijgestelde afstand (km)</label>
+              <input type="number" class="form-input" value="10">
+              <div class="form-hint">Reiskosten worden pas berekend boven dit aantal km</div>
+            </div>
+            <div class="form-group" style="margin-bottom:0">
+              <button class="btn-primary-sm" onclick="toast('Reiskosten opgeslagen')">Opslaan</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <div class="dash-card-title">Beschikbaarheid & Meldingen</div>
+          </div>
+          <div class="dash-card-body">
+            <div class="setting-row">
+              <div>
+                <div class="setting-label">Nieuwe aanvragen per e-mail</div>
+                <div class="setting-desc">Ontvang een melding bij elke nieuwe offerte</div>
+              </div>
+              <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+            </div>
+            <div class="setting-row">
+              <div>
+                <div class="setting-label">Minimum aanvraagtermijn</div>
+                <div class="setting-desc">Minimaal 48 uur van tevoren boeken</div>
+              </div>
+              <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+            </div>
+            <div class="setting-row">
+              <div>
+                <div class="setting-label">Online bestellen actief</div>
+                <div class="setting-desc">Configurator zichtbaar op website</div>
+              </div>
+              <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+            </div>
+            <div class="setting-row">
+              <div>
+                <div class="setting-label">Baklava bestellen actief</div>
+                <div class="setting-desc">Baklava sectie zichtbaar op website</div>
+              </div>
+              <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<div class="toast" id="toast"></div>
+
+<script>
+  function showPanel(name, el) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.getElementById('panel-' + name).classList.add('active');
+    if (el) el.classList.add('active');
+    const titles = {
+      overview: 'Dashboard',
+      offertes: 'Offertes & Aanvragen',
+      baklava: 'Baklava Bestellingen',
+      kalender: 'Kalender',
+      menu: 'Menu & Gerechten',
+      instellingen: 'Instellingen'
+    };
+    document.getElementById('topbarTitle').textContent = titles[name] || name;
+  }
+
+  function toggleBlock(el) {
+    if (el.classList.contains('cal-past') || el.classList.contains('cal-empty')) return;
+    if (el.classList.contains('cal-blocked')) {
+      el.classList.remove('cal-blocked');
+      toast('Datum vrijgegeven');
+    } else {
+      el.classList.add('cal-blocked');
+      el.querySelector('.cal-dot') && el.querySelector('.cal-dot').remove();
+      el.classList.remove('cal-event');
+      toast('Datum geblokkeerd');
+    }
+  }
+
+  let toastTimer;
+  function toast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = '✦ ' + msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+  }
+</script>
+</body>
+</html>
