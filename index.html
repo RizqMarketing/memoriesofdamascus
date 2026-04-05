@@ -1157,6 +1157,7 @@
     .cal-d.cal-sel { background: var(--gold); color: var(--ink); font-weight: 700; border-color: var(--gold); }
     .cal-d.cal-blocked { background: rgba(192,57,43,.1); color: rgba(245,237,214,.2); cursor: not-allowed; text-decoration: line-through; }
     .cal-d.cal-bijna { color: rgba(201,148,42,.8); }
+    .cal-d.cal-sel.cal-bijna { color: var(--ink); }
     .cal-d.cal-bijna::after { content: ''; position: absolute; bottom: 2px; left: 50%; transform: translateX(-50%); width: 3px; height: 3px; background: var(--gold); border-radius: 50%; }
     .cal-d.cal-past { opacity: .2; cursor: not-allowed; }
     .cal-d.cal-empty { cursor: default; }
@@ -1635,7 +1636,7 @@
         <div class="conf-step-num" data-i18n="conf-s1-num">Stap 1</div>
         <div class="conf-step-title" data-i18n="conf-s1-title">Kies uw pakket</div>
         <div class="pk-grid">
-          <button class="pk-btn sel" onclick="selectPakket('classic',25,3)" data-pakket="classic">
+          <button class="pk-btn" onclick="selectPakket('classic',25,3)" data-pakket="classic">
             <div class="pk-btn-top">
               <span class="pk-btn-name">Classic</span>
               <span class="pk-btn-price"><sup>€</sup>25</span>
@@ -2386,6 +2387,16 @@
   </div>
 </footer>
 
+<!-- ═══ MOBILE PRICE BAR ═══ -->
+<div class="mob-price-bar" id="mobPriceBar">
+  <div class="mob-price-bar-left">
+    <div class="mob-price-bar-label">Totaal (indicatief)</div>
+    <div class="mob-price-bar-amount">€<span id="mobPriceAmount">0</span>,-</div>
+    <div class="mob-price-bar-sub" id="mobPriceSub">Kies een pakket om te beginnen</div>
+  </div>
+  <button class="mob-price-bar-btn" onclick="openOfferteModal('configurator')">Offerte →</button>
+</div>
+
 <script>
   // ── Nav scroll effect
   const navbar = document.getElementById('navbar');
@@ -2712,7 +2723,7 @@
 
   // ══ CONFIGURATOR ══
   var confState = {
-    pakket: 'classic', pricePerPerson: 25, maxGerechten: 3,
+    pakket: null, pricePerPerson: 0, maxGerechten: 0,
     personen: 30, gekozenHoofd: new Set(), gekozenMezze: new Set(), addonState: {},
     reiskosten: 0, selectedDate: null, calYear: 2026, calMonth: 3
   };
@@ -2788,7 +2799,7 @@
       else if (d.type === 'vast') addonTotal += d.prijs;
     });
     var totaal = subtotaal + addonTotal + confState.reiskosten;
-    document.getElementById('ct-pakket').textContent = (confState.pakket === 'classic' ? 'Classic' : 'Luxe') + ' · €' + basePP + ' p.p.';
+    document.getElementById('ct-pakket').textContent = confState.pakket ? (confState.pakket === 'classic' ? 'Classic' : 'Luxe') + ' · €' + basePP + ' p.p.' : '—';
     document.getElementById('ct-personen').textContent = pers + ' ' + (currentLang === 'nl' ? 'personen' : 'persons');
     document.getElementById('ct-subtotaal').textContent = '€' + subtotaal.toLocaleString('nl') + ',-';
     var addonRow = document.getElementById('ct-addon-row');
@@ -3060,16 +3071,6 @@
     openOfferteModal('configurator');
   }
 </script>
-
-<!-- ═══ MOBILE PRICE BAR ═══ -->
-<div class="mob-price-bar" id="mobPriceBar">
-  <div class="mob-price-bar-left">
-    <div class="mob-price-bar-label">Totaal (indicatief)</div>
-    <div class="mob-price-bar-amount">€<span id="mobPriceAmount">0</span>,-</div>
-    <div class="mob-price-bar-sub" id="mobPriceSub">Kies een pakket om te beginnen</div>
-  </div>
-  <button class="mob-price-bar-btn" onclick="openOfferteModal('configurator')">Offerte →</button>
-</div>
 
 <!-- ═══ OFFERTE MODAL ═══ -->
 <div class="modal-overlay" id="offerteModal" role="dialog" aria-modal="true" aria-label="Offerte aanvragen">
