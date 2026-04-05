@@ -1160,6 +1160,34 @@
     .conf-offerte-btn:hover { background: var(--terracotta); color: var(--cream); }
     .conf-voorbehoud { font-size: .7rem; color: rgba(245,237,214,.28); text-align: center; margin-top: .8rem; line-height: 1.6; }
 
+    /* ── MOBILE PRICE BAR ── */
+    .mob-price-bar {
+      display: none;
+      position: fixed; bottom: 0; left: 0; right: 0;
+      z-index: 50;
+      background: linear-gradient(135deg, #1e0a0a 0%, #2a0e0e 100%);
+      border-top: 1px solid rgba(201,148,42,.3);
+      padding: .8rem 1.4rem;
+      align-items: center; justify-content: space-between;
+      gap: 1rem;
+      transform: translateY(100%);
+      transition: transform .4s cubic-bezier(.16,1,.3,1);
+      box-shadow: 0 -4px 24px rgba(0,0,0,.5);
+    }
+    .mob-price-bar.visible { transform: none; }
+    .mob-price-bar-left { display: flex; flex-direction: column; gap: .1rem; }
+    .mob-price-bar-label { font-size: .58rem; letter-spacing: .18em; text-transform: uppercase; color: rgba(201,148,42,.5); }
+    .mob-price-bar-amount { font-family: var(--font-display); font-size: 1.5rem; color: var(--gold-lt); line-height: 1; }
+    .mob-price-bar-sub { font-size: .65rem; color: rgba(245,237,214,.3); margin-top: .15rem; }
+    .mob-price-bar-btn {
+      background: var(--wine); border: 1px solid var(--terracotta);
+      color: var(--parchment); font-family: var(--font-display);
+      font-size: .72rem; letter-spacing: .14em; text-transform: uppercase;
+      padding: .65rem 1.2rem; border-radius: 2px; cursor: pointer;
+      white-space: nowrap; flex-shrink: 0; transition: background .2s;
+    }
+    .mob-price-bar-btn:hover { background: var(--terracotta); }
+
     /* ─── OFFERTE MODAL ─── */
     .modal-overlay {
       position: fixed; inset: 0; z-index: 500;
@@ -1297,6 +1325,7 @@
     }
 
     @media (max-width: 1024px) {
+      .mob-price-bar { display: flex; }
       .conf-body { grid-template-columns: 1fr; }
       .conf-sidebar { position: static; }
       .locaties-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
@@ -2742,6 +2771,14 @@
     if (confState.reiskosten > 0) { reisRow.style.display = ''; document.getElementById('ct-reisval').textContent = '+€' + confState.reiskosten.toLocaleString('nl') + ',-'; }
     else reisRow.style.display = 'none';
     document.getElementById('ct-totaal-val').textContent = totaal.toLocaleString('nl');
+    // update mobile price bar
+    var mobAmt = document.getElementById('mobPriceAmount');
+    var mobSub = document.getElementById('mobPriceSub');
+    if (mobAmt) mobAmt.textContent = totaal.toLocaleString('nl');
+    if (mobSub) {
+      var pkLabel = confState.pakket === 'classic' ? 'Classic €' + basePP + ' p.p.' : 'Luxe €' + basePP + ' p.p.';
+      mobSub.textContent = confState.pakket ? pkLabel + ' · ' + pers + ' pers.' : 'Kies een pakket om te beginnen';
+    }
   }
 
   // ── Reiskosten calculator — 4-cijfer range lookup
@@ -2881,6 +2918,20 @@
 
   renderCal(); updateTotaal();
 
+  // ── Mobile price bar: show when configurator is in view
+  (function() {
+    var bar = document.getElementById('mobPriceBar');
+    var conf = document.getElementById('configurator');
+    if (!bar || !conf) return;
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) bar.classList.add('visible');
+        else bar.classList.remove('visible');
+      });
+    }, { threshold: 0.05 });
+    io.observe(conf);
+  })();
+
   // ── Active nav highlight
   const sections = document.querySelectorAll('section[id], div[id]');
   const navLinks = document.querySelectorAll('.nav-links a');
@@ -2979,6 +3030,16 @@
     openOfferteModal('configurator');
   }
 </script>
+
+<!-- ═══ MOBILE PRICE BAR ═══ -->
+<div class="mob-price-bar" id="mobPriceBar">
+  <div class="mob-price-bar-left">
+    <div class="mob-price-bar-label">Totaal (indicatief)</div>
+    <div class="mob-price-bar-amount">€<span id="mobPriceAmount">0</span>,-</div>
+    <div class="mob-price-bar-sub" id="mobPriceSub">Kies een pakket om te beginnen</div>
+  </div>
+  <button class="mob-price-bar-btn" onclick="openOfferteModal('configurator')">Offerte →</button>
+</div>
 
 <!-- ═══ OFFERTE MODAL ═══ -->
 <div class="modal-overlay" id="offerteModal" role="dialog" aria-modal="true" aria-label="Offerte aanvragen">
