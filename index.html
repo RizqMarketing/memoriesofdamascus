@@ -1160,6 +1160,142 @@
     .conf-offerte-btn:hover { background: var(--terracotta); color: var(--cream); }
     .conf-voorbehoud { font-size: .7rem; color: rgba(245,237,214,.28); text-align: center; margin-top: .8rem; line-height: 1.6; }
 
+    /* ─── OFFERTE MODAL ─── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 500;
+      background: rgba(10,3,3,.85);
+      backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.5rem;
+      opacity: 0; visibility: hidden;
+      transition: opacity .35s, visibility 0s .35s;
+    }
+    .modal-overlay.open {
+      opacity: 1; visibility: visible;
+      transition: opacity .35s, visibility 0s;
+    }
+    .modal {
+      display: grid; grid-template-columns: 280px 1fr;
+      max-width: 820px; width: 100%;
+      background: var(--deep);
+      border: 1px solid var(--divider);
+      border-radius: 3px;
+      overflow: hidden;
+      transform: translateY(24px) scale(.98);
+      transition: transform .35s cubic-bezier(.16,1,.3,1);
+      max-height: 90vh;
+    }
+    .modal-overlay.open .modal { transform: none; }
+
+    /* left panel */
+    .modal-left {
+      background: var(--ink);
+      border-right: 1px solid var(--divider);
+      padding: 2.5rem 2rem;
+      display: flex; flex-direction: column;
+      overflow-y: auto;
+    }
+    .modal-left-eyebrow {
+      font-size: .62rem; letter-spacing: .22em; text-transform: uppercase;
+      color: rgba(201,148,42,.5); margin-bottom: 1.2rem;
+      display: flex; align-items: center; gap: .6rem;
+    }
+    .modal-left-eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--gold); opacity: .5; }
+    .modal-brand { font-family: var(--font-display); font-size: 1.35rem; color: var(--cream); line-height: 1.2; margin-bottom: .3rem; }
+    .modal-brand em { font-style: italic; color: var(--gold-lt); }
+    .modal-tagline { font-size: .75rem; color: rgba(245,237,214,.3); margin-bottom: 2rem; font-style: italic; }
+    .modal-divider { height: 1px; background: linear-gradient(to right, rgba(201,148,42,.3), transparent); margin-bottom: 1.5rem; }
+    .modal-summary-label {
+      font-size: .6rem; letter-spacing: .2em; text-transform: uppercase;
+      color: rgba(201,148,42,.4); margin-bottom: .8rem;
+    }
+    .modal-summary-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      font-size: .8rem; padding: .4rem 0;
+      border-bottom: 1px solid rgba(201,148,42,.07);
+      color: rgba(245,237,214,.55);
+    }
+    .modal-summary-row:last-of-type { border-bottom: none; }
+    .modal-summary-val { color: var(--parchment); font-family: var(--font-heading); }
+    .modal-total {
+      margin-top: 1.2rem; padding: 1rem;
+      background: rgba(201,148,42,.07);
+      border: 1px solid rgba(201,148,42,.2);
+      border-radius: 2px; text-align: center;
+    }
+    .modal-total-label { font-size: .62rem; letter-spacing: .16em; text-transform: uppercase; color: rgba(201,148,42,.5); margin-bottom: .3rem; }
+    .modal-total-amount { font-family: var(--font-display); font-size: 2rem; color: var(--gold-lt); }
+    .modal-total-note { font-size: .68rem; color: rgba(245,237,214,.25); margin-top: .3rem; }
+    .modal-promise {
+      margin-top: auto; padding-top: 2rem;
+      font-size: .72rem; color: rgba(245,237,214,.25); line-height: 1.7;
+    }
+    .modal-promise strong { color: rgba(245,237,214,.45); }
+
+    /* right panel */
+    .modal-right { padding: 2.5rem 2.2rem; overflow-y: auto; display: flex; flex-direction: column; }
+    .modal-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 2rem; }
+    .modal-title { font-family: var(--font-display); font-size: 1.6rem; color: var(--cream); font-weight: 400; line-height: 1.2; }
+    .modal-title em { font-style: italic; color: var(--gold-lt); }
+    .modal-close {
+      background: none; border: 1px solid var(--divider); color: rgba(245,237,214,.4);
+      width: 32px; height: 32px; border-radius: 2px; cursor: pointer;
+      font-size: 1rem; display: flex; align-items: center; justify-content: center;
+      transition: all .2s; flex-shrink: 0; margin-left: 1rem; margin-top: .2rem;
+    }
+    .modal-close:hover { border-color: rgba(201,148,42,.4); color: var(--parchment); }
+
+    .modal-form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; margin-bottom: .9rem; }
+    .modal-form .form-group { margin-bottom: .9rem; }
+    .modal-form label {
+      display: block; font-size: .65rem; letter-spacing: .16em; text-transform: uppercase;
+      color: rgba(245,237,214,.35); margin-bottom: .45rem;
+    }
+    .modal-form input,
+    .modal-form select,
+    .modal-form textarea {
+      width: 100%; background: rgba(255,255,255,.04);
+      border: 1px solid rgba(201,148,42,.18);
+      border-radius: 2px; padding: .7rem 1rem;
+      color: var(--parchment); font-family: var(--font-body); font-size: .88rem;
+      outline: none; transition: border-color .2s;
+    }
+    .modal-form input:focus,
+    .modal-form select:focus,
+    .modal-form textarea:focus { border-color: rgba(201,148,42,.5); background: rgba(255,255,255,.06); }
+    .modal-form select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9942a' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right .9rem center; padding-right: 2.2rem; }
+    .modal-form select option { background: var(--deep); }
+    .modal-form textarea { resize: vertical; min-height: 90px; }
+    .modal-submit {
+      width: 100%; margin-top: .5rem;
+      background: var(--gold); color: var(--ink);
+      font-family: var(--font-display); font-size: .82rem; letter-spacing: .16em;
+      text-transform: uppercase; padding: 1.05rem;
+      border: none; border-radius: 2px; cursor: pointer;
+      transition: background .25s, transform .2s;
+      font-weight: 600;
+    }
+    .modal-submit:hover { background: var(--gold-lt); transform: translateY(-1px); }
+    .modal-fine-print { font-size: .68rem; color: rgba(245,237,214,.2); text-align: center; margin-top: .7rem; line-height: 1.6; }
+
+    /* success state */
+    .modal-success {
+      display: none; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 3rem 2rem; flex: 1;
+    }
+    .modal-success.show { display: flex; }
+    .modal-success-icon { font-size: 3rem; margin-bottom: 1.2rem; }
+    .modal-success-title { font-family: var(--font-display); font-size: 1.8rem; color: var(--cream); margin-bottom: .6rem; }
+    .modal-success-title em { color: var(--gold-lt); font-style: italic; }
+    .modal-success-text { font-size: .85rem; color: rgba(245,237,214,.5); line-height: 1.8; max-width: 32ch; }
+    .modal-success-close { margin-top: 2rem; }
+
+    @media (max-width: 700px) {
+      .modal { grid-template-columns: 1fr; }
+      .modal-left { display: none; }
+      .modal-right { padding: 1.8rem 1.5rem; }
+    }
+
     @media (max-width: 1024px) {
       .conf-body { grid-template-columns: 1fr; }
       .conf-sidebar { position: static; }
@@ -1186,7 +1322,7 @@
   <a href="#configurator" onclick="closeMobile()">Stel Samen</a>
   <a href="#locaties" onclick="closeMobile()">Locaties</a>
   <a href="#baklava" onclick="closeMobile()">Baklava</a>
-  <a href="#contact" onclick="closeMobile()">Contact</a>
+  <a href="#" onclick="closeMobile();openOfferteModal('general')">Offerte Aanvragen</a>
 </div>
 
 <!-- ═══ NAV ═══ -->
@@ -1201,7 +1337,7 @@
     <li><a href="#locaties" data-i18n="nav-loc">Locaties</a></li>
     <li><a href="#baklava" data-i18n="nav-baklava">Baklava</a></li>
   </ul>
-  <a href="#contact" class="nav-cta" data-i18n="nav-cta">Offerte Aanvragen</a>
+  <a href="#" onclick="event.preventDefault();openOfferteModal('general')" class="nav-cta" data-i18n="nav-cta">Offerte Aanvragen</a>
   <button class="lang-toggle" onclick="toggleLang()" aria-label="Taal wisselen">
     <span class="lang-opt lang-active" id="langNL">NL</span>
     <span class="lang-sep">·</span>
@@ -1227,7 +1363,7 @@
       volledig halal, liefdevol bereid door een team van 20+ medewerkers.
     </p>
     <div class="hero-actions reveal reveal-delay-4">
-      <a href="#contact" class="btn-primary" data-i18n="hero-btn1">Gratis Offerte Aanvragen</a>
+      <a href="#" onclick="event.preventDefault();openOfferteModal('general')" class="btn-primary" data-i18n="hero-btn1">Gratis Offerte Aanvragen</a>
       <a href="#diensten" class="btn-ghost">
         <span data-i18n="hero-btn2">Bekijk Diensten</span>
         <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -2759,6 +2895,189 @@
       link.style.color = isActive ? 'var(--gold-lt)' : '';
     });
   });
+
+  // ── Offerte Modal
+  function openOfferteModal(source) {
+    var overlay = document.getElementById('offerteModal');
+    var form    = document.getElementById('offerteForm');
+    var success = document.getElementById('offerteSuccess');
+    form.style.display = '';
+    success.classList.remove('show');
+
+    // Pre-fill from configurator if available
+    var summaryBlock = document.getElementById('modalSummary');
+    var totalBlock   = document.getElementById('modalTotalBlock');
+    var selPakket    = document.getElementById('modalPakket');
+    var selPersonen  = document.getElementById('modalPersonen');
+    var selDatum     = document.getElementById('modalDatum');
+
+    if (source === 'configurator') {
+      var pkEl = document.querySelector('.pk-btn.sel');
+      var pkName = pkEl ? pkEl.querySelector('.pk-btn-name').textContent : null;
+      var persons = document.getElementById('personenCount') ? parseInt(document.getElementById('personenCount').textContent) : null;
+      var dateEl  = document.getElementById('selectedDateVal');
+      var date    = dateEl ? dateEl.textContent.trim() : '';
+      var totaalEl = document.getElementById('totaalBedrag');
+      var totaal  = totaalEl ? totaalEl.textContent.trim() : '';
+
+      // build summary rows
+      var rows = '';
+      if (pkName) rows += '<div class="modal-summary-row"><span>Pakket</span><span class="modal-summary-val">' + pkName + '</span></div>';
+      if (persons) rows += '<div class="modal-summary-row"><span>Personen</span><span class="modal-summary-val">' + persons + ' pers.</span></div>';
+      if (date) rows += '<div class="modal-summary-row"><span>Datum</span><span class="modal-summary-val">' + date + '</span></div>';
+
+      // gerechten
+      var gerechtEls = document.querySelectorAll('.gc.gc-sel');
+      if (gerechtEls.length) {
+        var namen = Array.from(gerechtEls).map(function(g){ return g.querySelector('.gc-naam').textContent; }).join(', ');
+        rows += '<div class="modal-summary-row" style="flex-direction:column;gap:.2rem"><span>Gerechten</span><span class="modal-summary-val" style="font-size:.75rem;line-height:1.5">' + namen + '</span></div>';
+      }
+
+      summaryBlock.innerHTML = rows || '<div style="font-size:.78rem;color:rgba(245,237,214,.3);font-style:italic">Geen selectie gemaakt</div>';
+      summaryBlock.previousElementSibling.style.display = rows ? '' : 'none';
+      totalBlock.style.display = totaal ? '' : 'none';
+      if (totaal) document.getElementById('modalTotalAmount').textContent = totaal;
+
+      // pre-fill hidden fields
+      if (selPakket && pkName) selPakket.value = pkName;
+      if (selPersonen && persons) selPersonen.value = persons;
+      if (selDatum && date) selDatum.value = date;
+    } else {
+      summaryBlock.innerHTML = '<div style="font-size:.78rem;color:rgba(245,237,214,.3);font-style:italic">Vul het formulier in en we sturen u binnen 24 uur een offerte op maat.</div>';
+      document.querySelector('.modal-summary-label') && (document.querySelector('.modal-summary-label').style.display = 'none');
+      totalBlock.style.display = 'none';
+      if (selPakket) selPakket.value = '';
+      if (selPersonen) selPersonen.value = '';
+      if (selDatum) selDatum.value = '';
+    }
+
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeOfferteModal() {
+    document.getElementById('offerteModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('offerteModal').addEventListener('click', function(e) {
+    if (e.target === this) closeOfferteModal();
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeOfferteModal();
+  });
+
+  function submitOfferteModal(e) {
+    e.preventDefault();
+    document.getElementById('offerteForm').style.display = 'none';
+    document.getElementById('offerteSuccess').classList.add('show');
+  }
+
+  // Replace demoOfferte
+  function demoOfferte() {
+    openOfferteModal('configurator');
+  }
 </script>
+
+<!-- ═══ OFFERTE MODAL ═══ -->
+<div class="modal-overlay" id="offerteModal" role="dialog" aria-modal="true" aria-label="Offerte aanvragen">
+  <div class="modal">
+
+    <!-- Left: summary -->
+    <div class="modal-left">
+      <div class="modal-left-eyebrow">Uw aanvraag</div>
+      <div class="modal-brand">Memories<br>of <em>Damascus</em></div>
+      <div class="modal-tagline">Authentieke Syrisch-Libanese catering</div>
+      <div class="modal-divider"></div>
+      <div class="modal-summary-label">Uw configuratie</div>
+      <div id="modalSummary"></div>
+      <div class="modal-total" id="modalTotalBlock" style="display:none">
+        <div class="modal-total-label">Geschatte totaalprijs</div>
+        <div class="modal-total-amount" id="modalTotalAmount"></div>
+        <div class="modal-total-note">Excl. eventuele reiskosten · vrijblijvend</div>
+      </div>
+      <div class="modal-promise">
+        <strong>Binnen 24 uur</strong> ontvangt u een persoonlijke offerte op maat.<br><br>
+        Wij spreken <strong>Nederlands, Arabisch en Engels</strong>.
+      </div>
+    </div>
+
+    <!-- Right: form -->
+    <div class="modal-right">
+      <div class="modal-header">
+        <div class="modal-title">Offerte <em>aanvragen</em></div>
+        <button class="modal-close" onclick="closeOfferteModal()" aria-label="Sluiten">✕</button>
+      </div>
+
+      <form class="modal-form" id="offerteForm" onsubmit="submitOfferteModal(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Naam *</label>
+            <input type="text" name="naam" placeholder="Uw volledige naam" required autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label>Telefoonnummer *</label>
+            <input type="tel" name="telefoon" placeholder="+31 6 00 00 00 00" required autocomplete="tel">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>E-mailadres *</label>
+          <input type="email" name="email" placeholder="uw@email.nl" required autocomplete="email">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Type evenement</label>
+            <select name="type_evenement">
+              <option value="">Selecteer type...</option>
+              <option>Bruiloft / Huwelijkscatering</option>
+              <option>Eid / Ramadan-iftar</option>
+              <option>Verjaardag / Jubileum</option>
+              <option>Bedrijfslunch / Diner</option>
+              <option>Borrel / Receptie</option>
+              <option>AZC / Noodopvang</option>
+              <option>Kookworkshop</option>
+              <option>Anders</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Datum evenement</label>
+            <input type="date" name="datum" id="modalDatum">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Aantal personen</label>
+            <input type="number" name="personen" id="modalPersonen" placeholder="bijv. 50" min="1">
+          </div>
+          <div class="form-group">
+            <label>Pakket</label>
+            <select name="pakket" id="modalPakket">
+              <option value="">Nog niet gekozen</option>
+              <option>Klassiek — €25 p.p.</option>
+              <option>Luxe — €30 p.p.</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Uw wensen / opmerkingen</label>
+          <textarea name="bericht" placeholder="Vertel ons over uw locatie, dieetvereisten of andere wensen..."></textarea>
+        </div>
+        <button type="submit" class="modal-submit">Verstuur Aanvraag — Gratis &amp; Vrijblijvend</button>
+        <div class="modal-fine-print">Wij nemen binnen 24 uur contact met u op · Geen verplichtingen</div>
+      </form>
+
+      <!-- Success state -->
+      <div class="modal-success" id="offerteSuccess">
+        <div class="modal-success-icon">✦</div>
+        <div class="modal-success-title">Aanvraag <em>ontvangen</em></div>
+        <div class="modal-success-text">Dank u wel. Wij nemen binnen 24 uur persoonlijk contact met u op met een offerte op maat.</div>
+        <button class="btn-primary modal-success-close" onclick="closeOfferteModal()">Sluiten</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 </body>
 </html>
