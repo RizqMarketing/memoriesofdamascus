@@ -396,8 +396,14 @@
 
     /* ─── PAKKETTEN (PRICING) ─── */
     #pakketten {
-      background: var(--ink);
+      background: linear-gradient(to bottom, var(--ink) 0%, #1c0909 60%, #1e0a0a 100%);
       text-align: center;
+      position: relative;
+    }
+    #pakketten::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(201,148,42,.2), transparent);
     }
     .pakketten-header { max-width: 580px; margin: 0 auto 4rem; }
     .pakketten-grid {
@@ -501,6 +507,13 @@
     #over-ons {
       display: grid; grid-template-columns: 5fr 4fr;
       gap: 6rem; align-items: center;
+      background: linear-gradient(160deg, #1e0a0a 0%, #200b0b 40%, #250e0e 100%);
+      position: relative;
+    }
+    #over-ons::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(201,148,42,.15), transparent);
     }
     .over-visual { position: relative; }
     .over-frame {
@@ -1062,7 +1075,20 @@
     .loc-tag { display: inline-block; background: rgba(201,148,42,.08); border: 1px solid rgba(201,148,42,.18); border-radius: 2px; font-size: .63rem; letter-spacing: .1em; color: rgba(201,148,42,.75); padding: .18rem .55rem; margin-right: .35rem; margin-bottom: .35rem; font-family: var(--font-display); text-transform: uppercase; }
 
     /* ─── CONFIGURATOR ─── */
-    #configurator { background: var(--ink); }
+    #configurator {
+      background: linear-gradient(to bottom, #1e0a0a 0%, #231010 30%, #231010 70%, #1e0a0a 100%);
+      position: relative;
+    }
+    #configurator::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(201,148,42,.18), transparent);
+    }
+    #configurator::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(201,148,42,.18), transparent);
+    }
     .conf-header { max-width: 680px; margin: 0 auto 4rem; text-align: center; }
     .conf-body { display: grid; grid-template-columns: 1fr 360px; gap: 3rem; align-items: start; max-width: 1100px; margin: 0 auto; }
     .conf-steps { display: flex; flex-direction: column; gap: 1.5rem; }
