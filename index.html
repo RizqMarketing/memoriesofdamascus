@@ -1511,6 +1511,8 @@
     .modal-success-title em { color: var(--gold-lt); font-style: italic; }
     .modal-success-text { font-size: .85rem; color: rgba(245,237,214,.5); line-height: 1.8; max-width: 32ch; }
     .modal-success-close { margin-top: 2rem; }
+    .modal-explore-btn { margin-top: .8rem; background: none; border: 1px solid rgba(201,148,42,.25); color: rgba(245,237,214,.5); font-family: var(--font-display); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; padding: .7rem 1.5rem; border-radius: 2px; cursor: pointer; transition: all .2s; }
+    .modal-explore-btn:hover { border-color: var(--gold); color: var(--gold); }
 
     .modal-mob-summary { display: none; }
     @media (max-width: 700px) {
@@ -3824,6 +3826,7 @@
         <div class="modal-success-title">Aanvraag <em>ontvangen</em></div>
         <div class="modal-success-text">Dank u wel. Wij nemen binnen 24 uur persoonlijk contact met u op met een offerte op maat.</div>
         <button class="btn-primary modal-success-close" onclick="closeOfferteModal()">Sluiten</button>
+        <button class="modal-explore-btn" onclick="closeOfferteModal();setTimeout(function(){document.getElementById('over-ons').scrollIntoView({behavior:'smooth',block:'start'})},300)" data-i18n="modal-explore-btn">Ontdek ons verhaal →</button>
       </div>
     </div>
 
