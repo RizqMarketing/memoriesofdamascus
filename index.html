@@ -2849,6 +2849,10 @@
     'form-datum':       { nl:'Datum evenement', en:'Event date' },
     'form-personen':    { nl:'Aantal personen', en:'Number of guests' },
     'form-bericht':     { nl:'Uw bericht *', en:'Your message *' },
+    'form-type-label':  { nl:'Type evenement', en:'Event type' },
+    'form-pakket-label':{ nl:'Pakket', en:'Package' },
+    'modal-type-select':{ nl:'<option value="">Selecteer type...</option><option>Bruiloft / Huwelijkscatering</option><option>Eid / Ramadan-iftar</option><option>Jubileum</option><option>Bedrijfslunch / Diner</option><option>Borrel / Receptie</option><option>AZC / Noodopvang</option><option>Kookworkshop</option><option>Anders</option>', en:'<option value="">Select type...</option><option>Wedding / Wedding catering</option><option>Eid / Ramadan iftar</option><option>Anniversary</option><option>Business lunch / Dinner</option><option>Reception / Drinks</option><option>Asylum centre / Emergency shelter</option><option>Cooking workshop</option><option>Other</option>' },
+    'modal-pakket-select':{ nl:'<option value="">Nog niet gekozen</option><option>Klassiek — €25 p.p.</option><option>Luxe — €30 p.p.</option>', en:'<option value="">Not yet chosen</option><option>Classic — €25 p.p.</option><option>Luxe — €30 p.p.</option>' },
 
     // Contact details
     'cd-tel-lbl':       { nl:'Telefoon & WhatsApp', en:'Phone & WhatsApp' },
@@ -3288,8 +3292,8 @@
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label>Type evenement</label>
-            <select name="type_evenement">
+            <label data-i18n="form-type-label">Type evenement</label>
+            <select name="type_evenement" data-i18n="modal-type-select">
               <option value="">Selecteer type...</option>
               <option>Bruiloft / Huwelijkscatering</option>
               <option>Eid / Ramadan-iftar</option>
@@ -3302,18 +3306,18 @@
             </select>
           </div>
           <div class="form-group">
-            <label>Datum evenement</label>
+            <label data-i18n="form-datum">Datum evenement</label>
             <input type="date" name="datum" id="modalDatum">
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label>Aantal personen</label>
+            <label data-i18n="form-personen">Aantal personen</label>
             <input type="number" name="personen" id="modalPersonen" placeholder="bijv. 50" min="1">
           </div>
           <div class="form-group">
-            <label>Pakket</label>
-            <select name="pakket" id="modalPakket">
+            <label data-i18n="form-pakket-label">Pakket</label>
+            <select name="pakket" id="modalPakket" data-i18n="modal-pakket-select">
               <option value="">Nog niet gekozen</option>
               <option>Klassiek — €25 p.p.</option>
               <option>Luxe — €30 p.p.</option>
