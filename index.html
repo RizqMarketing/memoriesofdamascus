@@ -426,8 +426,8 @@
     }
     .pakketten-header { max-width: 580px; margin: 0 auto 4rem; }
     .pakketten-grid {
-      display: grid; grid-template-columns: repeat(2, 1fr);
-      gap: 2rem; max-width: 860px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2rem; max-width: 1100px; margin: 0 auto;
     }
     .pakket-card {
       background: var(--deep);
@@ -1157,7 +1157,7 @@
       .baklava-inner { grid-template-columns: 1fr; gap: 3rem; }
       #restaurant { grid-template-columns: 1fr; gap: 2rem; padding: 3.5rem 3rem; }
       #sociaal { grid-template-columns: 1fr; gap: 1.5rem; padding: 3rem; }
-      .pakketten-grid { grid-template-columns: 1fr; }
+      .pakketten-grid { grid-template-columns: 1fr; max-width: 480px; }
       .pakketten-extras { grid-template-columns: 1fr 1fr; }
       nav { padding: 1.2rem 2rem; gap: .6rem; }
       nav.scrolled { padding: .9rem 2rem; }
@@ -1224,7 +1224,7 @@
     .conf-step { background: rgba(255,255,255,.023); border: 1px solid var(--divider); border-radius: 2px; padding: 1.8rem 2rem; transition: border-color .3s; }
     .conf-step-num { font-family: var(--font-display); font-size: .6rem; letter-spacing: .22em; text-transform: uppercase; color: rgba(201,148,42,.55); margin-bottom: .35rem; }
     .conf-step-title { font-family: var(--font-heading); font-size: 1.2rem; color: var(--cream); margin-bottom: 1.2rem; }
-    .pk-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .pk-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
     .pk-btn { background: rgba(255,255,255,.03); border: 1px solid rgba(201,148,42,.2); border-radius: 2px; padding: 1.4rem 1.2rem; cursor: pointer; text-align: left; transition: all .22s; color: var(--parchment); }
     .pk-btn:hover { border-color: rgba(201,148,42,.5); background: rgba(201,148,42,.06); }
     .pk-btn.sel { border-color: var(--gold); background: rgba(201,148,42,.1); }
@@ -1260,10 +1260,30 @@
     .addon-info { flex: 1; }
     .addon-naam { font-size: .8rem; color: var(--parchment); }
     .addon-prijs { font-size: .72rem; color: var(--gold); font-family: var(--font-heading); }
+    .addon-desc { font-size: .65rem; color: rgba(245,237,214,.35); margin-top: .15rem; font-style: italic; }
+    .addon-groep-lbl { font-family: var(--font-display); font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; color: rgba(201,148,42,.5); margin: 1.2rem 0 .5rem; grid-column: 1 / -1; }
+    .addon-groep-lbl:first-child { margin-top: 0; }
+    .afstand-panel { margin-top: 1.2rem; background: rgba(201,148,42,.06); border: 1px solid rgba(201,148,42,.2); border-radius: 2px; padding: 1.2rem; display: none; }
+    .afstand-panel.vis { display: block; }
+    .afstand-panel-title { font-family: var(--font-display); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin-bottom: .8rem; }
+    .afstand-panel-desc { font-size: .8rem; color: rgba(245,237,214,.55); margin-bottom: 1rem; line-height: 1.7; }
+    .afstand-opties { display: grid; gap: .5rem; }
+    .afstand-opt { display: flex; align-items: flex-start; gap: .7rem; background: rgba(255,255,255,.02); border: 1px solid rgba(201,148,42,.12); border-radius: 2px; padding: .7rem 1rem; cursor: pointer; transition: all .2s; user-select: none; }
+    .afstand-opt:hover { border-color: rgba(201,148,42,.35); }
+    .afstand-opt.afstand-sel { border-color: var(--gold); background: rgba(201,148,42,.08); }
+    .afstand-radio { width: 14px; height: 14px; border: 1px solid rgba(201,148,42,.4); border-radius: 50%; flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; transition: all .2s; }
+    .afstand-opt.afstand-sel .afstand-radio { border-color: var(--gold); }
+    .afstand-opt.afstand-sel .afstand-radio::after { content: ''; width: 7px; height: 7px; background: var(--gold); border-radius: 50%; }
+    .afstand-opt-info { flex: 1; }
+    .afstand-opt-naam { font-size: .8rem; color: var(--parchment); }
+    .afstand-opt-prijs { font-size: .72rem; color: var(--gold); font-family: var(--font-heading); }
+    .afstand-opt-desc { font-size: .68rem; color: rgba(245,237,214,.35); margin-top: .1rem; }
     .reis-row { display: flex; gap: .8rem; }
     .reis-inp { flex: 1; background: rgba(255,255,255,.04); border: 1px solid rgba(201,148,42,.2); border-radius: 2px; padding: .8rem 1rem; color: var(--parchment); font-family: var(--font-body); font-size: .95rem; outline: none; transition: border-color .2s; }
     .reis-inp:focus { border-color: var(--gold); }
     .reis-inp::placeholder { color: rgba(245,237,214,.28); }
+    select.reis-inp { appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9942a' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; }
+    select.reis-inp option { background: #1e0a0a; color: var(--parchment); padding: .5rem; }
     .reis-calc-btn { background: rgba(201,148,42,.12); border: 1px solid rgba(201,148,42,.35); color: var(--gold); border-radius: 2px; padding: .8rem 1.3rem; cursor: pointer; font-family: var(--font-display); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; transition: all .2s; white-space: nowrap; }
     .reis-calc-btn:hover { background: rgba(201,148,42,.22); }
     .reis-result { margin-top: 1rem; background: rgba(201,148,42,.05); border: 1px solid rgba(201,148,42,.18); border-radius: 2px; padding: 1rem 1.2rem; display: none; }
@@ -1298,7 +1318,7 @@
     .leg-bijna { background: var(--gold); }
     .sel-date-display { display: none; margin-top: .8rem; padding: .75rem 1rem; background: rgba(201,148,42,.07); border: 1px solid rgba(201,148,42,.22); border-radius: 2px; font-size: .82rem; color: var(--gold); }
     .sel-date-display.sdvis { display: block; }
-    .conf-sidebar { position: sticky; top: 5.5rem; max-height: calc(100vh - 6rem); overflow-y: auto; }
+    .conf-sidebar { position: sticky; top: 5.5rem; align-self: start; }
     .conf-totaal { background: rgba(255,255,255,.022); border: 1px solid rgba(201,148,42,.22); border-radius: 2px; padding: 2rem; }
     .ct-title { font-family: var(--font-display); font-size: .88rem; letter-spacing: .14em; color: var(--cream); margin-bottom: 1.4rem; padding-bottom: 1rem; border-bottom: 1px solid var(--divider); }
     .ct-regel { display: flex; justify-content: space-between; align-items: baseline; font-size: .82rem; padding: .45rem 0; border-bottom: 1px solid rgba(201,148,42,.07); }
@@ -1314,6 +1334,9 @@
     .ct-reisregel-val { color: rgba(201,148,42,.7); font-family: var(--font-heading); font-size: .9rem; }
     .conf-offerte-btn { width: 100%; margin-top: 1.5rem; background: var(--wine); border: 1px solid var(--terracotta); color: var(--parchment); font-family: var(--font-display); font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; padding: 1.1rem; cursor: pointer; transition: all .25s; border-radius: 2px; }
     .conf-offerte-btn:hover { background: var(--terracotta); color: var(--cream); }
+    .conf-betaal-btn { width: 100%; margin-top: .6rem; background: rgba(201,148,42,.08); border: 1px solid rgba(201,148,42,.15); color: rgba(245,237,214,.3); font-family: var(--font-display); font-size: .65rem; letter-spacing: .16em; text-transform: uppercase; padding: .9rem; border-radius: 2px; cursor: not-allowed; opacity: .5; }
+    .conf-betaal-btn:not(:disabled) { background: var(--gold); color: var(--ink); cursor: pointer; opacity: 1; border-color: var(--gold); }
+    .conf-betaal-btn:not(:disabled):hover { background: var(--gold-lt); }
     .conf-voorbehoud { font-size: .7rem; color: rgba(245,237,214,.28); text-align: center; margin-top: .8rem; line-height: 1.6; }
 
     /* ── MOBILE PRICE BAR ── */
@@ -1349,8 +1372,9 @@
       position: fixed; inset: 0; z-index: 500;
       background: rgba(10,3,3,.85);
       backdrop-filter: blur(6px);
-      display: flex; align-items: center; justify-content: center;
-      padding: 1.5rem;
+      display: flex; align-items: flex-start; justify-content: center;
+      padding: 2rem 1.5rem;
+      overflow-y: auto;
       opacity: 0; visibility: hidden;
       transition: opacity .35s, visibility 0s .35s;
     }
@@ -1359,15 +1383,14 @@
       transition: opacity .35s, visibility 0s;
     }
     .modal {
-      display: grid; grid-template-columns: 280px 1fr;
-      max-width: 820px; width: 100%;
+      display: grid; grid-template-columns: 360px 1fr;
+      max-width: 920px; width: 100%;
       background: var(--deep);
       border: 1px solid var(--divider);
       border-radius: 3px;
-      overflow: hidden;
+      overflow: visible;
       transform: translateY(24px) scale(.98);
       transition: transform .35s cubic-bezier(.16,1,.3,1);
-      max-height: 90vh;
     }
     .modal-overlay.open .modal { transform: none; }
 
@@ -1375,9 +1398,15 @@
     .modal-left {
       background: var(--ink);
       border-right: 1px solid var(--divider);
-      padding: 2.5rem 2rem;
       display: flex; flex-direction: column;
-      overflow-y: auto;
+    }
+    .modal-left-scroll {
+      padding: 2.5rem 2rem 1rem;
+    }
+    .modal-left-footer {
+      padding: .8rem 1.5rem 1.2rem;
+      border-top: 2px solid rgba(201,148,42,.25);
+      background: rgba(0,0,0,.2);
     }
     .modal-left-eyebrow {
       font-size: .62rem; letter-spacing: .22em; text-transform: uppercase;
@@ -1417,7 +1446,7 @@
     .modal-promise strong { color: rgba(245,237,214,.45); }
 
     /* right panel */
-    .modal-right { padding: 2.5rem 2.2rem; overflow-y: auto; display: flex; flex-direction: column; }
+    .modal-right { padding: 2.5rem 2.2rem; display: flex; flex-direction: column; }
     .modal-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 2rem; }
     .modal-title { font-family: var(--font-display); font-size: 1.6rem; color: var(--cream); font-weight: 400; line-height: 1.2; }
     .modal-title em { font-style: italic; color: var(--gold-lt); }
@@ -1474,6 +1503,7 @@
     .modal-success-text { font-size: .85rem; color: rgba(245,237,214,.5); line-height: 1.8; max-width: 32ch; }
     .modal-success-close { margin-top: 2rem; }
 
+    .modal-mob-summary { display: none; }
     @media (max-width: 700px) {
       .modal-overlay { padding: 0; align-items: flex-end; }
       .modal { grid-template-columns: 1fr; border-radius: 12px 12px 0 0; max-height: 92vh; height: 92vh; }
@@ -1481,6 +1511,7 @@
       .modal-right { padding: 1.4rem 1.2rem 2rem; overflow-y: auto; flex: 1; min-height: 0; }
       .modal-form .form-row { grid-template-columns: 1fr; gap: 0; }
       .modal-title { font-size: 1.5rem; }
+      .modal-mob-summary.vis { display: block; margin-bottom: 1rem; padding: 1rem; background: rgba(201,148,42,.04); border: 1px solid rgba(201,148,42,.15); border-radius: 2px; }
     }
 
     @media (max-width: 1024px) {
@@ -1758,7 +1789,7 @@
     <div class="pakket-card featured">
       <div class="pakket-name">Luxe</div>
       <div class="pakket-price"><sup>€</sup>30</div>
-      <div class="pakket-per" data-i18n="pak-luxe-per">per persoon · min. 20 personen</div>
+      <div class="pakket-per" data-i18n="pak-luxe-per">per persoon · min. 15 personen</div>
       <div class="pakket-divider"></div>
       <ul class="pakket-features" data-i18n="pak-luxe-list">
         <li><strong>4 hoofdgerechten</strong> naar keuze</li>
@@ -1771,6 +1802,25 @@
         <li>Gratis levering regio Eindhoven</li>
       </ul>
       <p class="pakket-note" data-i18n="pak-luxe-note">Borden & bestek: +€1,- p.p. optioneel. Bediend personeel op aanvraag.</p>
+    </div>
+
+    <!-- À la Table -->
+    <div class="pakket-card">
+      <div class="pakket-name">À la Table</div>
+      <div class="pakket-price"><sup>€</sup>32</div>
+      <div class="pakket-per" data-i18n="pak-table-per">per persoon · min. 20 personen</div>
+      <div class="pakket-divider"></div>
+      <ul class="pakket-features" data-i18n="pak-table-list">
+        <li><strong>2 hoofdgerechten</strong> naar keuze</li>
+        <li><strong>3 mezze's</strong> naar keuze</li>
+        <li><strong>1 salade</strong> naar keuze</li>
+        <li>Warm uitgeserveerd op schalen per tafel</li>
+        <li>Inclusief bediend personeel</li>
+        <li>Op- en afbouw inbegrepen</li>
+        <li>Afwas inbegrepen</li>
+        <li>Gratis levering regio Eindhoven</li>
+      </ul>
+      <p class="pakket-note" data-i18n="pak-table-note">Geen buffet — gerechten worden warm aan tafel geserveerd door ons personeel.</p>
     </div>
   </div>
 
@@ -1809,19 +1859,26 @@
         <div class="conf-step-num" data-i18n="conf-s1-num">Stap 1</div>
         <div class="conf-step-title" data-i18n="conf-s1-title">Kies uw pakket</div>
         <div class="pk-grid">
-          <button class="pk-btn" onclick="selectPakket('classic',25,3)" data-pakket="classic">
+          <button class="pk-btn" onclick="selectPakket('classic',25,3,3)" data-pakket="classic">
             <div class="pk-btn-top">
               <span class="pk-btn-name">Classic</span>
               <span class="pk-btn-price"><sup>€</sup>25</span>
             </div>
             <div class="pk-btn-desc" data-i18n="pk-classic-desc">3 hoofdgerechten + 3 mezze's + salade · min. 10 pers.</div>
           </button>
-          <button class="pk-btn" onclick="selectPakket('luxe',30,4)" data-pakket="luxe">
+          <button class="pk-btn" onclick="selectPakket('luxe',30,4,4)" data-pakket="luxe">
             <div class="pk-btn-top">
               <span class="pk-btn-name">Luxe</span>
               <span class="pk-btn-price"><sup>€</sup>30</span>
             </div>
-            <div class="pk-btn-desc" data-i18n="pk-luxe-desc">4 hoofdgerechten + 4 mezze's + salade · min. 20 pers.</div>
+            <div class="pk-btn-desc" data-i18n="pk-luxe-desc">4 hoofdgerechten + 4 mezze's + salade · min. 15 pers.</div>
+          </button>
+          <button class="pk-btn" onclick="selectPakket('table',32,2,3)" data-pakket="table">
+            <div class="pk-btn-top">
+              <span class="pk-btn-name">À la Table</span>
+              <span class="pk-btn-price"><sup>€</sup>32</span>
+            </div>
+            <div class="pk-btn-desc" data-i18n="pk-table-desc">2 hoofdgerechten + 3 mezze's + salade · min. 20 pers.</div>
           </button>
         </div>
       </div>
@@ -1843,7 +1900,7 @@
       <div class="conf-step">
         <div class="conf-step-num" data-i18n="conf-s3-num">Stap 3</div>
         <div class="conf-step-title" data-i18n="conf-s3-title">Kies uw gerechten</div>
-        <div class="gerecht-hint"><span data-i18n="conf-hint-pre">Kies per categorie maximaal</span> <span id="maxGerechtDisplay">3</span> <span data-i18n="conf-hint-mid">gerechten —</span> <span id="gekozenCount" style="color:var(--parchment)">0</span> <span data-i18n="conf-hint-post">gekozen</span></div>
+        <div class="gerecht-hint"><span id="gekozenCount" style="color:var(--parchment)">0</span> <span data-i18n="conf-hint-post">gekozen</span></div>
 
         <div class="gerecht-sec-lbl"><span data-i18n="conf-hoofd-lbl">Hoofdgerechten — kies</span> <span id="maxHoofdDisplay">3</span></div>
         <div class="gerecht-grid" id="hoofdGrid">
@@ -1873,29 +1930,65 @@
         <div class="conf-step-num" data-i18n="conf-s4-num">Stap 4</div>
         <div class="conf-step-title" data-i18n="conf-s4-title">Extra's toevoegen <span style="font-family:var(--font-heading);font-size:.85rem;color:rgba(245,237,214,.35);font-style:italic;" data-i18n="conf-s4-opt">(optioneel)</span></div>
         <div class="addon-grid">
-          <div class="addon" onclick="toggleAddon(this,'Bediend personeel',3.5,'pp')">
+          <!-- Machines & Apparatuur -->
+          <div class="addon-groep-lbl" data-i18n="addon-grp-machines">Machines &amp; Apparatuur</div>
+          <div class="addon" onclick="toggleAddon(this,'Popcornmachine huur',50,'vast')">
             <div class="addon-chk">✓</div>
-            <div class="addon-info"><div class="addon-naam" data-i18n="addon-personeel">Bediend personeel</div><div class="addon-prijs">+€3,50 p.p.</div></div>
+            <div class="addon-info"><div class="addon-naam" data-i18n="addon-popcorn-machine">Popcornmachine huur</div><div class="addon-prijs">+€50,-</div></div>
           </div>
-          <div class="addon" onclick="toggleAddon(this,'Drankenarrangement',2.5,'pp')">
+          <div class="addon" onclick="toggleAddon(this,'Popcornbenodigdheden',1.5,'pp',20)">
             <div class="addon-chk">✓</div>
-            <div class="addon-info"><div class="addon-naam" data-i18n="addon-dranken">Drankenarrangement</div><div class="addon-prijs">+€2,50 p.p.</div></div>
+            <div class="addon-info"><div class="addon-naam" data-i18n="addon-popcorn-beno">Popcornbenodigdheden</div><div class="addon-prijs">+€1,50 p.p.</div><div class="addon-desc" data-i18n="addon-popcorn-beno-desc">Zakjes &amp; ingrediënten · min. 20 pers.</div></div>
           </div>
-          <div class="addon" onclick="toggleAddon(this,'Toetjesbuffet',4,'pp')">
+          <div class="addon" onclick="toggleAddon(this,'Suikerspinmachine huur',50,'vast')">
             <div class="addon-chk">✓</div>
-            <div class="addon-info"><div class="addon-naam" data-i18n="addon-toetjes">Toetjesbuffet</div><div class="addon-prijs">+€4,- p.p.</div></div>
+            <div class="addon-info"><div class="addon-naam" data-i18n="addon-suikerspin-machine">Suikerspinmachine huur</div><div class="addon-prijs">+€50,-</div></div>
           </div>
-          <div class="addon" onclick="toggleAddon(this,'Borden en bestek',1,'pp')">
+          <div class="addon" onclick="toggleAddon(this,'Suikerspinbenodigdheden',1.5,'pp',20)">
             <div class="addon-chk">✓</div>
-            <div class="addon-info"><div class="addon-naam" data-i18n="addon-borden">Borden &amp; bestek</div><div class="addon-prijs">+€1,- p.p.</div></div>
+            <div class="addon-info"><div class="addon-naam" data-i18n="addon-suikerspin-beno">Suikerspinbenodigdheden</div><div class="addon-prijs">+€1,50 p.p.</div><div class="addon-desc" data-i18n="addon-suikerspin-beno-desc">Stokjes &amp; ingrediënten · min. 20 pers.</div></div>
           </div>
-          <div class="addon" onclick="toggleAddon(this,'Popcorn machine',75,'vast')">
+          <div class="addon" onclick="toggleAddon(this,'Warme chocolademelk machine huur',30,'vast')">
             <div class="addon-chk">✓</div>
-            <div class="addon-info"><div class="addon-naam" data-i18n="addon-popcorn">Popcorn machine</div><div class="addon-prijs">+€75,- (vast)</div></div>
+            <div class="addon-info"><div class="addon-naam" data-i18n="addon-choco-machine">Warme chocolademelk machine</div><div class="addon-prijs">+€30,-</div></div>
           </div>
-          <div class="addon" onclick="toggleAddon(this,'Serviesgoed verhuur',0,'aanvraag')">
+          <div class="addon" onclick="toggleAddon(this,'Warme chocolademelk per glas',2.5,'pp')">
             <div class="addon-chk">✓</div>
-            <div class="addon-info"><div class="addon-naam" data-i18n="addon-servies">Serviesgoed verhuur</div><div class="addon-prijs" data-i18n="addon-aanvraag">Op aanvraag</div></div>
+            <div class="addon-info"><div class="addon-naam" data-i18n="addon-choco-glas">Warme chocolademelk per glas</div><div class="addon-prijs">+€2,50 p.p.</div><div class="addon-desc" data-i18n="addon-choco-glas-desc">Inclusief slagroom</div></div>
+          </div>
+
+          <!-- Serviesgoed & Meubilair -->
+          <div class="addon-groep-lbl" data-i18n="addon-grp-servies">Serviesgoed &amp; Meubilair</div>
+          <div class="addon" onclick="toggleAddon(this,'Borden en bestek (zilver)',1.5,'pp')">
+            <div class="addon-chk">✓</div>
+            <div class="addon-info"><div class="addon-naam" data-i18n="addon-borden-zilver">Borden &amp; bestek</div><div class="addon-prijs">+€1,50 p.p.</div><div class="addon-desc" data-i18n="addon-borden-zilver-desc">Witte borden, zilverkleurig bestek</div></div>
+          </div>
+          <div class="addon" onclick="toggleAddon(this,'Borden en bestek luxe (goud)',3.5,'pp')">
+            <div class="addon-chk">✓</div>
+            <div class="addon-info"><div class="addon-naam" data-i18n="addon-borden-goud">Borden &amp; bestek luxe</div><div class="addon-prijs">+€3,50 p.p.</div><div class="addon-desc" data-i18n="addon-borden-goud-desc">Witte borden, goudkleurig onderbord, doorzichtig voorgerechtbordje, goudkleurig bestek</div></div>
+          </div>
+          <div class="addon" onclick="toggleAddon(this,'Statafel incl. zwarte tafelrok',15,'vast')">
+            <div class="addon-chk">✓</div>
+            <div class="addon-info"><div class="addon-naam" data-i18n="addon-statafel">Statafel incl. zwarte tafelrok</div><div class="addon-prijs">+€15,- <span data-i18n="addon-perstuk">per stuk</span></div></div>
+          </div>
+
+          <!-- Dranken -->
+          <div class="addon-groep-lbl" data-i18n="addon-grp-dranken">Dranken</div>
+          <div class="addon" onclick="toggleAddon(this,'Koffie en thee arrangement',8.2,'pp')">
+            <div class="addon-chk">✓</div>
+            <div class="addon-info"><div class="addon-naam" data-i18n="addon-koffie">Koffie &amp; thee arrangement</div><div class="addon-prijs">+€8,20 p.p.</div><div class="addon-desc" data-i18n="addon-koffie-desc">~2 kopjes p.p. incl. kopjes, schotels, suiker, melk &amp; lepeltjes</div></div>
+          </div>
+          <div class="addon" onclick="toggleAddon(this,'Fris arrangement 3 uur',9,'pp')">
+            <div class="addon-chk">✓</div>
+            <div class="addon-info"><div class="addon-naam" data-i18n="addon-fris3">Fris arrangement (3 uur)</div><div class="addon-prijs">+€9,- p.p.</div><div class="addon-desc" data-i18n="addon-fris3-desc">Onbeperkt fris, max. 3 uur · incl. 2 glazen p.p.</div></div>
+          </div>
+          <div class="addon" onclick="toggleAddon(this,'Fris arrangement 5 uur',15,'pp')">
+            <div class="addon-chk">✓</div>
+            <div class="addon-info"><div class="addon-naam" data-i18n="addon-fris5">Fris arrangement (5 uur)</div><div class="addon-prijs">+€15,- p.p.</div><div class="addon-desc" data-i18n="addon-fris5-desc">Onbeperkt fris, max. 5 uur · incl. 2 glazen p.p.</div></div>
+          </div>
+          <div class="addon" onclick="toggleAddon(this,'Mocktails',6,'pp')">
+            <div class="addon-chk">✓</div>
+            <div class="addon-info"><div class="addon-naam" data-i18n="addon-mocktails">Mocktails</div><div class="addon-prijs">+€6,- p.p.</div><div class="addon-desc" data-i18n="addon-mocktails-desc">Virgin Mojito, Virgin Piña Colada of Tropical Fizz</div></div>
           </div>
         </div>
       </div>
@@ -1918,6 +2011,57 @@
           <div class="reisregel"><span class="reisregel-lbl" data-i18n="reis-lbl-afstand">Afstand (retour)</span><span class="reisregel-val" id="reisAfstand">—</span></div>
           <div class="reisregel"><span class="reisregel-lbl" data-i18n="reis-lbl-kosten">Reiskosten</span><span class="reisregel-val" id="reisKosten">—</span></div>
         </div>
+
+        <!-- 50km+ serviesgoed panel -->
+        <div class="afstand-panel" id="afstandPanel">
+          <div class="afstand-panel-title" data-i18n="afstand-title">Serviesgoed &amp; opruiming</div>
+          <div class="afstand-panel-desc" data-i18n="afstand-desc">
+            Bij een afstand van 50 km of meer vragen wij u een keuze te maken voor het retourneren van serviesgoed:
+          </div>
+          <div class="afstand-opties">
+            <div class="afstand-opt" onclick="selectAfstandOptie(this,'personeel')">
+              <div class="afstand-radio"></div>
+              <div class="afstand-opt-info">
+                <div class="afstand-opt-naam" data-i18n="afstand-opt1-naam">Personeel blijft aanwezig</div>
+                <div class="afstand-opt-prijs">€25,- <span data-i18n="afstand-peruur">per uur</span></div>
+                <div class="afstand-opt-desc" data-i18n="afstand-opt1-desc">Ons personeel blijft ter plekke voor opruiming en afvoer</div>
+                <div class="afstand-uren" id="afstandUren" style="display:none;margin-top:.6rem;">
+                  <div class="pers-row" style="justify-content:flex-start;gap:.5rem;">
+                    <button class="pers-btn" onclick="event.stopPropagation();changeAfstandUren(-1)" style="width:28px;height:28px;font-size:.8rem;">−</button>
+                    <span style="font-family:var(--font-heading);font-size:1.2rem;color:var(--cream);min-width:2ch;text-align:center;" id="afstandUrenDisplay">2</span>
+                    <span style="font-size:.75rem;color:rgba(245,237,214,.4);" data-i18n="afstand-uren-lbl">uur</span>
+                    <button class="pers-btn" onclick="event.stopPropagation();changeAfstandUren(1)" style="width:28px;height:28px;font-size:.8rem;">+</button>
+                    <span style="font-size:.78rem;color:var(--gold);margin-left:.5rem;" id="afstandUrenTotaal">= €50,-</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="afstand-opt" onclick="selectAfstandOptie(this,'ophalen')">
+              <div class="afstand-radio"></div>
+              <div class="afstand-opt-info">
+                <div class="afstand-opt-naam" data-i18n="afstand-opt2-naam">Ophaalservice volgende dag</div>
+                <div class="afstand-opt-prijs"><span data-i18n="afstand-opt2-prijs-pre">+</span><span id="afstandOphaalPrijs">€105,-</span></div>
+                <div class="afstand-opt-desc" data-i18n="afstand-opt2-desc">Wij halen serviesgoed de volgende dag op</div>
+              </div>
+            </div>
+            <div class="afstand-opt" onclick="selectAfstandOptie(this,'zelf')">
+              <div class="afstand-radio"></div>
+              <div class="afstand-opt-info">
+                <div class="afstand-opt-naam" data-i18n="afstand-opt3-naam">Zelf terugbrengen</div>
+                <div class="afstand-opt-prijs" data-i18n="afstand-opt3-prijs">Gratis</div>
+                <div class="afstand-opt-desc" data-i18n="afstand-opt3-desc">U brengt het serviesgoed zelf retour naar onze dichtstbijzijnde locatie</div>
+              </div>
+            </div>
+            <div class="afstand-opt" onclick="selectAfstandOptie(this,'disposable')">
+              <div class="afstand-radio"></div>
+              <div class="afstand-opt-info">
+                <div class="afstand-opt-naam" data-i18n="afstand-opt4-naam">Disposable serviesgoed</div>
+                <div class="afstand-opt-prijs" data-i18n="afstand-opt4-prijs">Gratis</div>
+                <div class="afstand-opt-desc" data-i18n="afstand-opt4-desc">Wij serveren het eten in wegwerpverpakkingen — niets retourneren</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Stap 6 -->
@@ -1939,6 +2083,27 @@
           <div class="cal-leg-item"><div class="leg-dot leg-bijna"></div><span data-i18n="cal-bijna">Bijna vol</span></div>
         </div>
         <div class="sel-date-display" id="selDateDisplay"></div>
+
+        <div style="margin-top:1.5rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+          <div>
+            <div class="gerecht-sec-lbl" data-i18n="conf-tijdstip-lbl">Tijdstip</div>
+            <input type="time" id="confTijdstip" class="reis-inp" style="width:100%;" onchange="confState.tijdstip=this.value">
+          </div>
+          <div>
+            <div class="gerecht-sec-lbl" data-i18n="conf-type-lbl">Type evenement</div>
+            <select id="confTypeEvenement" class="reis-inp" style="width:100%;padding:.7rem .8rem;cursor:pointer;" onchange="confState.typeEvenement=this.value" data-i18n="conf-type-select">
+              <option value="">Selecteer...</option>
+              <option>Bruiloft / Huwelijkscatering</option>
+              <option>Eid / Ramadan-iftar</option>
+              <option>Jubileum</option>
+              <option>Bedrijfslunch / Diner</option>
+              <option>Borrel / Receptie</option>
+              <option>AZC / Noodopvang</option>
+              <option>Kookworkshop</option>
+              <option>Anders</option>
+            </select>
+          </div>
+        </div>
       </div>
 
     </div><!-- /conf-steps -->
@@ -1947,16 +2112,32 @@
     <div class="conf-sidebar">
       <div class="conf-totaal">
         <div class="ct-title" data-i18n="ct-title">Uw Offerte Overzicht</div>
-        <div class="ct-regel"><span class="ct-regel-lbl" data-i18n="ct-lbl-pakket">Pakket</span><span class="ct-regel-val" id="ct-pakket">Classic · €25 p.p.</span></div>
-        <div class="ct-regel"><span class="ct-regel-lbl" data-i18n="ct-lbl-personen">Personen</span><span class="ct-regel-val" id="ct-personen">30 personen</span></div>
-        <div class="ct-regel"><span class="ct-regel-lbl" data-i18n="ct-lbl-subtotaal">Subtotaal</span><span class="ct-regel-val" id="ct-subtotaal">€750,-</span></div>
-        <div class="ct-regel" id="ct-addon-row" style="display:none"><span class="ct-regel-lbl" data-i18n="ct-lbl-extras">Extra's</span><span class="ct-regel-val" id="ct-addons">€0,-</span></div>
-        <div class="ct-reisregel" id="ct-reisregel" style="display:none"><span class="ct-reisregel-lbl" data-i18n="ct-lbl-reiskosten">Reiskosten (schatting)</span><span class="ct-reisregel-val" id="ct-reisval">—</span></div>
-        <div class="ct-totaal">
-          <span class="ct-tot-lbl" data-i18n="ct-lbl-totaal">Totaal (indicatief)</span>
-          <span class="ct-tot-val"><sup>€</sup><span id="ct-totaal-val">750</span></span>
+
+        <!-- Catering -->
+        <div class="ct-regel"><span class="ct-regel-lbl" data-i18n="ct-lbl-pakket">Pakket</span><span class="ct-regel-val" id="ct-pakket">—</span></div>
+        <div class="ct-regel"><span class="ct-regel-lbl" data-i18n="ct-lbl-personen">Personen</span><span class="ct-regel-val" id="ct-personen">—</span></div>
+        <div class="ct-regel" style="border-top:1px solid rgba(201,148,42,.1);padding-top:.4rem;margin-top:.3rem;"><span class="ct-regel-lbl" style="color:rgba(245,237,214,.6);" data-i18n="ct-lbl-subtotaal">Subtotaal catering</span><span class="ct-regel-val" id="ct-subtotaal" style="font-size:.95rem;">€0,-</span></div>
+
+        <!-- Extra's -->
+        <div id="ct-addon-section" style="display:none;margin-top:.8rem;padding-top:.6rem;border-top:1px solid rgba(201,148,42,.12);">
+          <div style="font-family:var(--font-display);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(201,148,42,.5);margin-bottom:.4rem;">Extra's</div>
+          <div id="ct-addon-details"></div>
+          <div class="ct-regel" style="border-top:1px solid rgba(201,148,42,.1);padding-top:.3rem;margin-top:.3rem;"><span class="ct-regel-lbl" style="color:rgba(245,237,214,.6);">Subtotaal extra's</span><span class="ct-regel-val" id="ct-addons" style="font-size:.95rem;">€0,-</span></div>
         </div>
-        <div class="ct-note" data-i18n="ct-note">BTW inbegrepen · Op- &amp; afbouw inbegrepen · Vrijblijvende offerte</div>
+
+        <!-- Reiskosten & Serviesgoed -->
+        <div id="ct-reis-section" style="display:none;margin-top:.8rem;padding-top:.6rem;border-top:1px solid rgba(201,148,42,.12);">
+          <div style="font-family:var(--font-display);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(201,148,42,.5);margin-bottom:.4rem;">Reiskosten &amp; serviesgoed</div>
+          <div id="ct-reis-details"></div>
+          <div class="ct-regel" style="border-top:1px solid rgba(201,148,42,.1);padding-top:.3rem;margin-top:.3rem;"><span class="ct-regel-lbl" style="color:rgba(245,237,214,.6);">Subtotaal reiskosten</span><span class="ct-regel-val" id="ct-reisval" style="font-size:.95rem;">€0,-</span></div>
+        </div>
+
+        <!-- Totaal -->
+        <div class="ct-totaal">
+          <span class="ct-tot-lbl" data-i18n="ct-lbl-totaal">Totaal</span>
+          <span class="ct-tot-val"><sup>€</sup><span id="ct-totaal-val">0</span></span>
+        </div>
+        <div class="ct-note" data-i18n="ct-note">BTW inbegrepen · Op- &amp; afbouw inbegrepen</div>
         <div style="margin-top:1.2rem;padding:1rem 1.2rem;background:rgba(201,148,42,.05);border:1px solid rgba(201,148,42,.15);border-radius:2px;">
           <p style="font-family:var(--font-heading);font-style:italic;font-size:.95rem;color:rgba(245,237,214,.7);line-height:1.75;margin-bottom:.5rem;" data-i18n="ct-quote">
             "Wij helpen u graag verder — of u nu een klein feestje plant of een groot evenement. Stuur uw aanvraag in en wij nemen persoonlijk contact met u op."
@@ -1965,6 +2146,9 @@
         </div>
         <button class="conf-offerte-btn" id="confOfferteBtn" onclick="demoOfferte()" data-i18n="ct-btn">
           Offerte Aanvragen →
+        </button>
+        <button class="conf-betaal-btn" disabled data-i18n="ct-btn-betaal">
+          Direct Afrekenen — Binnenkort beschikbaar
         </button>
         <div class="conf-voorbehoud" data-i18n="ct-voorbehoud">Geheel vrijblijvend · Reactie binnen 24 uur · Wij spreken Nederlands, Arabisch &amp; Engels</div>
       </div>
@@ -2563,7 +2747,7 @@
 <!-- ═══ MOBILE PRICE BAR ═══ -->
 <div class="mob-price-bar" id="mobPriceBar">
   <div class="mob-price-bar-left">
-    <div class="mob-price-bar-label">Totaal (indicatief)</div>
+    <div class="mob-price-bar-label">Totaal</div>
     <div class="mob-price-bar-amount">€<span id="mobPriceAmount">0</span>,-</div>
     <div class="mob-price-bar-sub" id="mobPriceSub">Kies een pakket om te beginnen</div>
   </div>
@@ -2715,11 +2899,14 @@
     // Pakketten
     'pak-intro':        { nl:'BTW inbegrepen. Opbouw, afbouw en afwas inbegrepen. Gratis levering in de regio Eindhoven.', en:'VAT included. Setup, breakdown and washing up included. Free delivery in the Eindhoven region.' },
     'pak-classic-per':  { nl:'per persoon · min. 10 personen', en:'per person · min. 10 persons' },
-    'pak-luxe-per':     { nl:'per persoon · min. 20 personen', en:'per person · min. 20 persons' },
+    'pak-luxe-per':     { nl:'per persoon · min. 15 personen', en:'per person · min. 15 persons' },
+    'pak-table-per':    { nl:'per persoon · min. 20 personen', en:'per person · min. 20 persons' },
     'pak-classic-list': { nl:'<li><strong>3 hoofdgerechten</strong> naar keuze</li><li><strong>3 mezze\'s</strong> (smeersels & hapjes)</li><li><strong>1 salade</strong></li><li>Presentatie op mooie schalen + chafing dishes</li><li>Buffet of bediend opdienen (naar keuze)</li><li>Op- en afbouw inbegrepen</li><li>Afwas inbegrepen</li><li>Gratis levering regio Eindhoven</li>', en:'<li><strong>3 main courses</strong> of your choice</li><li><strong>3 mezze\'s</strong> (dips & starters)</li><li><strong>1 salad</strong></li><li>Presentation on beautiful platters + chafing dishes</li><li>Buffet or served dining (your choice)</li><li>Setup & breakdown included</li><li>Washing up included</li><li>Free delivery Eindhoven region</li>' },
     'pak-luxe-list':    { nl:'<li><strong>4 hoofdgerechten</strong> naar keuze</li><li><strong>4 mezze\'s</strong> (smeersels & hapjes)</li><li><strong>1 salade</strong></li><li>Presentatie op mooie schalen + chafing dishes</li><li>Buffet of bediend opdienen (naar keuze)</li><li>Op- en afbouw inbegrepen</li><li>Afwas inbegrepen</li><li>Gratis levering regio Eindhoven</li>', en:'<li><strong>4 main courses</strong> of your choice</li><li><strong>4 mezze\'s</strong> (dips & starters)</li><li><strong>1 salad</strong></li><li>Presentation on beautiful platters + chafing dishes</li><li>Buffet or served dining (your choice)</li><li>Setup & breakdown included</li><li>Washing up included</li><li>Free delivery Eindhoven region</li>' },
+    'pak-table-list':   { nl:'<li><strong>2 hoofdgerechten</strong> naar keuze</li><li><strong>3 mezze\'s</strong> naar keuze</li><li><strong>1 salade</strong> naar keuze</li><li>Warm uitgeserveerd op schalen per tafel</li><li>Inclusief bediend personeel</li><li>Op- en afbouw inbegrepen</li><li>Afwas inbegrepen</li><li>Gratis levering regio Eindhoven</li>', en:'<li><strong>2 main courses</strong> of your choice</li><li><strong>3 mezze\'s</strong> of your choice</li><li><strong>1 salad</strong> of your choice</li><li>Served warm on platters per table</li><li>Waiting staff included</li><li>Setup & breakdown included</li><li>Washing up included</li><li>Free delivery Eindhoven region</li>' },
     'pak-classic-note': { nl:'Borden & bestek: +€1,- p.p. optioneel', en:'Plates & cutlery: +€1,- p.p. optional' },
     'pak-luxe-note':    { nl:'Borden & bestek: +€1,- p.p. optioneel. Bediend personeel op aanvraag.', en:'Plates & cutlery: +€1,- p.p. optional. Waiting staff on request.' },
+    'pak-table-note':   { nl:'Geen buffet — gerechten worden warm aan tafel geserveerd door ons personeel.', en:'No buffet — dishes are served warm at your table by our staff.' },
     'pak-ex1-label':    { nl:'Bezorgkosten buiten regio', en:'Delivery outside region' },
     'pak-ex1-val':      { nl:'€0,50 per km (retour) vanaf Best', en:'€0.50 per km (return) from Best' },
     'pak-ex2-label':    { nl:'Servicebereik', en:'Service area' },
@@ -2744,18 +2931,61 @@
     'conf-s6-num':      { nl:'Stap 6', en:'Step 6' },
     'conf-s6-title':    { nl:'Kies een datum', en:'Choose a date' },
     'conf-s6-desc':     { nl:'Rood = bezet (geblokkeerd). Gouden stip = bijna volgeboekt. Groen = beschikbaar.', en:'Red = unavailable (blocked). Gold dot = almost full. Green = available.' },
+    'conf-tijdstip-lbl':{ nl:'Tijdstip', en:'Time' },
+    'conf-type-lbl':    { nl:'Type evenement', en:'Event type' },
+    'conf-type-select': { nl:'<option value="">Selecteer...</option><option>Bruiloft / Huwelijkscatering</option><option>Eid / Ramadan-iftar</option><option>Jubileum</option><option>Bedrijfslunch / Diner</option><option>Borrel / Receptie</option><option>AZC / Noodopvang</option><option>Kookworkshop</option><option>Anders</option>', en:'<option value="">Select...</option><option>Wedding catering</option><option>Eid / Ramadan iftar</option><option>Anniversary</option><option>Business lunch / Dinner</option><option>Reception / Drinks</option><option>Asylum centre / Shelter</option><option>Cooking workshop</option><option>Other</option>' },
     'conf-calc-btn':    { nl:'Bereken', en:'Calculate' },
     'conf-personen-lbl':{ nl:'personen', en:'persons' },
     'conf-personen-note':{ nl:'Minimum 10 personen voor het Classic pakket', en:'Minimum 10 persons for the Classic package' },
     'pk-classic-desc':  { nl:'3 hoofdgerechten + 3 mezze\'s + salade · min. 10 pers.', en:'3 main courses + 3 mezze\'s + salad · min. 10 persons' },
-    'pk-luxe-desc':     { nl:'4 hoofdgerechten + 4 mezze\'s + salade · min. 20 pers.', en:'4 main courses + 4 mezze\'s + salad · min. 20 persons' },
-    'addon-personeel':  { nl:'Bediend personeel', en:'Waiting staff' },
-    'addon-dranken':    { nl:'Drankenarrangement', en:'Drinks package' },
-    'addon-toetjes':    { nl:'Toetjesbuffet', en:'Dessert buffet' },
-    'addon-borden':     { nl:'Borden & bestek', en:'Plates & cutlery' },
-    'addon-popcorn':    { nl:'Popcorn machine', en:'Popcorn machine' },
-    'addon-servies':    { nl:'Serviesgoed verhuur', en:'Tableware rental' },
-    'addon-aanvraag':   { nl:'Op aanvraag', en:'On request' },
+    'pk-luxe-desc':     { nl:'4 hoofdgerechten + 4 mezze\'s + salade · min. 15 pers.', en:'4 main courses + 4 mezze\'s + salad · min. 15 persons' },
+    'pk-table-desc':    { nl:'2 hoofdgerechten + 3 mezze\'s + salade · min. 20 pers.', en:'2 main courses + 3 mezze\'s + salad · min. 20 persons' },
+    // Add-on groepen
+    'addon-grp-machines':{ nl:'Machines & Apparatuur', en:'Machines & Equipment' },
+    'addon-grp-servies': { nl:'Serviesgoed & Meubilair', en:'Tableware & Furniture' },
+    'addon-grp-dranken': { nl:'Dranken', en:'Drinks' },
+    'addon-perstuk':     { nl:'per stuk', en:'per piece' },
+    // Machines add-ons
+    'addon-popcorn-machine': { nl:'Popcornmachine huur', en:'Popcorn machine rental' },
+    'addon-popcorn-beno':    { nl:'Popcornbenodigdheden', en:'Popcorn supplies' },
+    'addon-popcorn-beno-desc':{ nl:'Zakjes & ingrediënten · min. 20 pers.', en:'Bags & ingredients · min. 20 persons' },
+    'addon-suikerspin-machine':{ nl:'Suikerspinmachine huur', en:'Cotton candy machine rental' },
+    'addon-suikerspin-beno': { nl:'Suikerspinbenodigdheden', en:'Cotton candy supplies' },
+    'addon-suikerspin-beno-desc':{ nl:'Stokjes & ingrediënten · min. 20 pers.', en:'Sticks & ingredients · min. 20 persons' },
+    'addon-choco-machine':   { nl:'Warme chocolademelk machine', en:'Hot chocolate machine' },
+    'addon-choco-glas':      { nl:'Warme chocolademelk per glas', en:'Hot chocolate per glass' },
+    'addon-choco-glas-desc': { nl:'Inclusief slagroom', en:'Including whipped cream' },
+    // Serviesgoed add-ons
+    'addon-borden-zilver':   { nl:'Borden & bestek', en:'Plates & cutlery' },
+    'addon-borden-zilver-desc':{ nl:'Witte borden, zilverkleurig bestek', en:'White plates, silver-coloured cutlery' },
+    'addon-borden-goud':     { nl:'Borden & bestek luxe', en:'Plates & cutlery deluxe' },
+    'addon-borden-goud-desc':{ nl:'Witte borden, goudkleurig onderbord, doorzichtig voorgerechtbordje, goudkleurig bestek', en:'White plates, gold charger plate, transparent starter plate, gold cutlery' },
+    'addon-statafel':        { nl:'Statafel incl. zwarte tafelrok', en:'Standing table incl. black table skirt' },
+    // Dranken add-ons
+    'addon-koffie':          { nl:'Koffie & thee arrangement', en:'Coffee & tea arrangement' },
+    'addon-koffie-desc':     { nl:'~2 kopjes p.p. incl. kopjes, schotels, suiker, melk & lepeltjes', en:'~2 cups p.p. incl. cups, saucers, sugar, milk & spoons' },
+    'addon-fris3':           { nl:'Fris arrangement (3 uur)', en:'Soft drinks (3 hours)' },
+    'addon-fris3-desc':      { nl:'Onbeperkt fris, max. 3 uur · incl. 2 glazen p.p.', en:'Unlimited soft drinks, max. 3 hours · incl. 2 glasses p.p.' },
+    'addon-fris5':           { nl:'Fris arrangement (5 uur)', en:'Soft drinks (5 hours)' },
+    'addon-fris5-desc':      { nl:'Onbeperkt fris, max. 5 uur · incl. 2 glazen p.p.', en:'Unlimited soft drinks, max. 5 hours · incl. 2 glasses p.p.' },
+    'addon-mocktails':       { nl:'Mocktails', en:'Mocktails' },
+    'addon-mocktails-desc':  { nl:'Virgin Mojito, Virgin Piña Colada of Tropical Fizz', en:'Virgin Mojito, Virgin Piña Colada or Tropical Fizz' },
+    // 50km+ panel
+    'afstand-title':         { nl:'Serviesgoed & opruiming', en:'Tableware & cleanup' },
+    'afstand-desc':          { nl:'Bij een afstand van 50 km of meer vragen wij u een keuze te maken voor het retourneren van serviesgoed:', en:'For distances of 50 km or more, we ask you to choose an option for returning tableware:' },
+    'afstand-peruur':        { nl:'per uur', en:'per hour' },
+    'afstand-uren-lbl':      { nl:'uur', en:'hours' },
+    'afstand-opt1-naam':     { nl:'Personeel blijft aanwezig', en:'Staff stays on-site' },
+    'afstand-opt1-desc':     { nl:'Ons personeel blijft ter plekke voor opruiming en afvoer', en:'Our staff stays on location for cleanup and collection' },
+    'afstand-opt2-naam':     { nl:'Ophaalservice volgende dag', en:'Next-day collection' },
+    'afstand-opt2-prijs-pre':{ nl:'+', en:'+' },
+    'afstand-opt2-desc':     { nl:'Wij halen serviesgoed de volgende dag op', en:'We collect tableware the next day' },
+    'afstand-opt3-naam':     { nl:'Zelf terugbrengen', en:'Self-return' },
+    'afstand-opt3-prijs':    { nl:'Gratis', en:'Free' },
+    'afstand-opt3-desc':     { nl:'U brengt het serviesgoed zelf retour naar onze dichtstbijzijnde locatie', en:'You return the tableware yourself to our nearest location' },
+    'afstand-opt4-naam':     { nl:'Disposable serviesgoed', en:'Disposable tableware' },
+    'afstand-opt4-prijs':    { nl:'Gratis', en:'Free' },
+    'afstand-opt4-desc':     { nl:'Wij serveren het eten in wegwerpverpakkingen — niets retourneren', en:'We serve the food in disposable packaging — nothing to return' },
     'reis-lbl-regio':   { nl:'Regio', en:'Region' },
     'reis-lbl-loc':     { nl:'Dichtstbijzijnde locatie', en:'Nearest location' },
     'reis-lbl-afstand': { nl:'Afstand (retour)', en:'Distance (return)' },
@@ -2769,8 +2999,8 @@
     'ct-lbl-subtotaal': { nl:'Subtotaal', en:'Subtotal' },
     'ct-lbl-extras':    { nl:"Extra's", en:'Extras' },
     'ct-lbl-reiskosten':{ nl:'Reiskosten (schatting)', en:'Travel costs (estimate)' },
-    'ct-lbl-totaal':    { nl:'Totaal (indicatief)', en:'Total (indicative)' },
-    'ct-note':          { nl:'BTW inbegrepen · Op- &amp; afbouw inbegrepen · Vrijblijvende offerte', en:'VAT included · Setup &amp; breakdown included · No-obligation quote' },
+    'ct-lbl-totaal':    { nl:'Totaal', en:'Total' },
+    'ct-note':          { nl:'BTW inbegrepen · Op- &amp; afbouw inbegrepen', en:'VAT included · Setup &amp; breakdown included' },
     'ct-quote':         { nl:'"Wij helpen u graag verder — of u nu een klein feestje plant of een groot evenement. Stuur uw aanvraag in en wij nemen persoonlijk contact met u op."', en:'"We are happy to help you further — whether you are planning a small party or a large event. Send your request and we will contact you personally."' },
     'ct-btn':           { nl:'Offerte Aanvragen →', en:'Request Quote →' },
     'ct-voorbehoud':    { nl:'Geheel vrijblijvend · Reactie binnen 24 uur · Wij spreken Nederlands, Arabisch &amp; Engels', en:'Completely free of obligation · Response within 24 hours · We speak Dutch, Arabic &amp; English' },
@@ -2839,8 +3069,6 @@
     'loc-intro':        { nl:'Wij werken vanuit drie locaties. Let op: niet elke locatie is een bezoekadres.', en:'We operate from three locations. Note: not every location is open to visitors.' },
 
     // Configurator gerecht labels
-    'conf-hint-pre':    { nl:'Kies per categorie maximaal', en:'Choose per category a maximum of' },
-    'conf-hint-mid':    { nl:'gerechten —', en:'dishes —' },
     'conf-hint-post':   { nl:'gekozen', en:'chosen' },
     'conf-hoofd-lbl':   { nl:'Hoofdgerechten — kies', en:'Main courses — choose' },
     'conf-mezze-lbl':   { nl:"Mezze's & Bijgerechten — kies", en:"Mezze's & Sides — choose" },
@@ -2896,14 +3124,18 @@
     'form-type-label':  { nl:'Type evenement', en:'Event type' },
     'form-pakket-label':{ nl:'Pakket', en:'Package' },
     'modal-type-select':{ nl:'<option value="">Selecteer type...</option><option>Bruiloft / Huwelijkscatering</option><option>Eid / Ramadan-iftar</option><option>Jubileum</option><option>Bedrijfslunch / Diner</option><option>Borrel / Receptie</option><option>AZC / Noodopvang</option><option>Kookworkshop</option><option>Anders</option>', en:'<option value="">Select type...</option><option>Wedding / Wedding catering</option><option>Eid / Ramadan iftar</option><option>Anniversary</option><option>Business lunch / Dinner</option><option>Reception / Drinks</option><option>Asylum centre / Emergency shelter</option><option>Cooking workshop</option><option>Other</option>' },
-    'modal-pakket-select':{ nl:'<option value="">Nog niet gekozen</option><option>Klassiek — €25 p.p.</option><option>Luxe — €30 p.p.</option>', en:'<option value="">Not yet chosen</option><option>Classic — €25 p.p.</option><option>Luxe — €30 p.p.</option>' },
+    'modal-pakket-select':{ nl:'<option value="">Nog niet gekozen</option><option value="Classic — €25 p.p.">Classic — €25 p.p.</option><option value="Luxe — €30 p.p.">Luxe — €30 p.p.</option><option value="À la Table — €32 p.p.">À la Table — €32 p.p.</option>', en:'<option value="">Not yet chosen</option><option value="Classic — €25 p.p.">Classic — €25 p.p.</option><option value="Luxe — €30 p.p.">Luxe — €30 p.p.</option><option value="À la Table — €32 p.p.">À la Table — €32 p.p.</option>' },
+    'form-adres-label': { nl:'Adres evenement', en:'Event address' },
+    'modal-adres-ph':   { nl:'Straat + huisnummer, stad', en:'Street + number, city' },
+    'form-tijdstip-label':{ nl:'Tijdstip', en:'Time' },
+    'ct-btn-betaal':    { nl:'Direct Afrekenen — Binnenkort beschikbaar', en:'Pay Now — Coming soon' },
     'modal-title':      { nl:'Offerte <em>aanvragen</em>', en:'Request a <em>quote</em>' },
     'modal-naam-lbl':   { nl:'Naam *', en:'Name *' },
     'modal-naam-ph':    { nl:'Uw volledige naam', en:'Your full name' },
     'modal-tel-lbl':    { nl:'Telefoonnummer *', en:'Phone number *' },
     'modal-email-lbl':  { nl:'E-mailadres *', en:'Email address *' },
     'modal-wensen-lbl': { nl:'Uw wensen / opmerkingen', en:'Your wishes / remarks' },
-    'modal-wensen-ph':  { nl:'Vertel ons over uw locatie, dieetvereisten of andere wensen...', en:'Tell us about your location, dietary requirements or other wishes...' },
+    'modal-wensen-ph':  { nl:'Dieetvereisten, allergieën, speciale wensen...', en:'Dietary requirements, allergies, special wishes...' },
     'modal-submit-btn': { nl:'Verstuur Aanvraag — Gratis &amp; Vrijblijvend', en:'Send Request — Free &amp; Non-binding' },
     'modal-fineprint':  { nl:'Wij nemen binnen 24 uur contact met u op · Geen verplichtingen', en:'We will contact you within 24 hours · No obligations' },
     'nav-menu-mob':     { nl:'Menu &amp; Pakketten', en:'Menu &amp; Packages' },
@@ -2956,35 +3188,39 @@
 
   // ══ CONFIGURATOR ══
   var confState = {
-    pakket: null, pricePerPerson: 0, maxGerechten: 0,
+    pakket: null, pricePerPerson: 0, maxHoofd: 0, maxMezze: 0,
     personen: 30, gekozenHoofd: new Set(), gekozenMezze: new Set(), addonState: {},
-    reiskosten: 0, selectedDate: null, calYear: 2026, calMonth: 3
+    reiskosten: 0, reisKm: 0, afstandOptie: null, afstandUren: 2, afstandKosten: 0,
+    selectedDate: null, tijdstip: '', typeEvenement: '', calYear: 2026, calMonth: 3
   };
 
-  function selectPakket(type, price, maxG) {
-    confState.pakket = type; confState.pricePerPerson = price; confState.maxGerechten = maxG;
+  var pakketMinPersonen = { classic: 10, luxe: 15, table: 20 };
+  var pakketNamen = { classic: 'Classic', luxe: 'Luxe', table: 'À la Table' };
+
+  function selectPakket(type, price, maxH, maxM) {
+    confState.pakket = type; confState.pricePerPerson = price; confState.maxHoofd = maxH; confState.maxMezze = maxM;
     document.querySelectorAll('.pk-btn').forEach(function(b){ b.classList.toggle('sel', b.dataset.pakket === type); });
-    document.getElementById('maxGerechtDisplay').textContent = maxG;
-    document.getElementById('maxHoofdDisplay').textContent = maxG;
-    document.getElementById('maxMezzeDisplay').textContent = maxG;
+    document.getElementById('maxHoofdDisplay').textContent = maxH;
+    document.getElementById('maxMezzeDisplay').textContent = maxM;
     // Deselect surplus hoofdgerechten
     var hoofdSel = document.querySelectorAll('#hoofdGrid .gc.gc-sel');
-    hoofdSel.forEach(function(el, i){ if (i >= maxG) { el.classList.remove('gc-sel'); confState.gekozenHoofd.delete(el.querySelector('.gc-naam').textContent); } });
+    hoofdSel.forEach(function(el, i){ if (i >= maxH) { el.classList.remove('gc-sel'); confState.gekozenHoofd.delete(el.querySelector('.gc-naam').textContent); } });
     // Deselect surplus mezze's
     var mezzeSel = document.querySelectorAll('#mezzeGrid .gc.gc-sel');
-    mezzeSel.forEach(function(el, i){ if (i >= maxG) { el.classList.remove('gc-sel'); confState.gekozenMezze.delete(el.querySelector('.gc-naam').textContent); } });
+    mezzeSel.forEach(function(el, i){ if (i >= maxM) { el.classList.remove('gc-sel'); confState.gekozenMezze.delete(el.querySelector('.gc-naam').textContent); } });
     updateGerechtDisabled();
-    var minP = type === 'classic' ? 10 : 20;
-    if (confState.personen < minP) { confState.personen = minP; document.getElementById('persDisplay').textContent = minP; }
+    var minP = pakketMinPersonen[type] || 10;
+    confState.personen = minP; document.getElementById('persDisplay').textContent = minP;
+    var naam = pakketNamen[type] || type;
     document.getElementById('persNote').textContent = currentLang === 'nl'
-      ? 'Minimum ' + minP + ' personen voor het ' + (type === 'classic' ? 'Classic' : 'Luxe') + ' pakket'
-      : 'Minimum ' + minP + ' persons for the ' + (type === 'classic' ? 'Classic' : 'Luxe') + ' package';
+      ? 'Minimum ' + minP + ' personen voor het ' + naam + ' pakket'
+      : 'Minimum ' + minP + ' persons for the ' + naam + ' package';
     updateTotaal();
     if (window.showMobPriceBar) showMobPriceBar();
   }
 
   function changePersonen(delta) {
-    var min = confState.pakket === 'luxe' ? 20 : 10;
+    var min = pakketMinPersonen[confState.pakket] || 10;
     confState.personen = Math.max(min, confState.personen + delta);
     document.getElementById('persDisplay').textContent = confState.personen;
     updateTotaal();
@@ -2993,10 +3229,11 @@
   function toggleGerecht(el, naam, groep) {
     if (el.classList.contains('gc-disabled')) return;
     var set = groep === 'hoofd' ? confState.gekozenHoofd : confState.gekozenMezze;
+    var max = groep === 'hoofd' ? confState.maxHoofd : confState.maxMezze;
     if (el.classList.contains('gc-sel')) {
       el.classList.remove('gc-sel'); set.delete(naam);
     } else {
-      if (set.size >= confState.maxGerechten) return;
+      if (set.size >= max) return;
       el.classList.add('gc-sel'); set.add(naam);
     }
     updateGerechtDisabled();
@@ -3004,8 +3241,8 @@
   }
 
   function updateGerechtDisabled() {
-    var hoofdMax = confState.gekozenHoofd.size >= confState.maxGerechten;
-    var mezzeMax = confState.gekozenMezze.size >= confState.maxGerechten;
+    var hoofdMax = confState.gekozenHoofd.size >= confState.maxHoofd;
+    var mezzeMax = confState.gekozenMezze.size >= confState.maxMezze;
     document.querySelectorAll('#hoofdGrid .gc').forEach(function(el){
       if (!el.classList.contains('gc-sel')) el.classList.toggle('gc-disabled', hoofdMax);
       else el.classList.remove('gc-disabled');
@@ -3016,9 +3253,9 @@
     });
   }
 
-  function toggleAddon(el, naam, prijs, type) {
+  function toggleAddon(el, naam, prijs, type, minPers) {
     el.classList.toggle('addon-sel');
-    if (el.classList.contains('addon-sel')) confState.addonState[naam] = { prijs: prijs, type: type };
+    if (el.classList.contains('addon-sel')) confState.addonState[naam] = { prijs: prijs, type: type, minPers: minPers || 0 };
     else delete confState.addonState[naam];
     updateTotaal();
   }
@@ -3028,26 +3265,61 @@
     var subtotaal = basePP * pers, addonTotal = 0;
     Object.entries(confState.addonState).forEach(function(e){
       var naam = e[0], d = e[1];
-      if (d.type === 'pp') addonTotal += d.prijs * pers;
+      if (d.type === 'pp') addonTotal += d.prijs * Math.max(pers, d.minPers || 0);
       else if (d.type === 'vast') addonTotal += d.prijs;
     });
-    var totaal = subtotaal + addonTotal + confState.reiskosten;
-    document.getElementById('ct-pakket').textContent = confState.pakket ? (confState.pakket === 'classic' ? 'Classic' : 'Luxe') + ' · €' + basePP + ' p.p.' : '—';
+    var afstandExtra = confState.afstandKosten || 0;
+    var totaal = subtotaal + addonTotal + confState.reiskosten + afstandExtra;
+    var naam = pakketNamen[confState.pakket] || '—';
+    document.getElementById('ct-pakket').textContent = confState.pakket ? naam + ' · €' + basePP + ' p.p.' : '—';
     document.getElementById('ct-personen').textContent = pers + ' ' + (currentLang === 'nl' ? 'personen' : 'persons');
     document.getElementById('ct-subtotaal').textContent = '€' + subtotaal.toLocaleString('nl') + ',-';
-    var addonRow = document.getElementById('ct-addon-row');
-    if (addonTotal > 0) { addonRow.style.display = ''; document.getElementById('ct-addons').textContent = '+€' + addonTotal.toLocaleString('nl') + ',-'; }
-    else addonRow.style.display = 'none';
-    var reisRow = document.getElementById('ct-reisregel');
-    if (confState.reiskosten > 0) { reisRow.style.display = ''; document.getElementById('ct-reisval').textContent = '+€' + confState.reiskosten.toLocaleString('nl') + ',-'; }
-    else reisRow.style.display = 'none';
+    // Extra's sectie
+    var addonSection = document.getElementById('ct-addon-section');
+    var addonDetails = document.getElementById('ct-addon-details');
+    if (addonTotal > 0) {
+      addonSection.style.display = '';
+      document.getElementById('ct-addons').textContent = '€' + addonTotal.toLocaleString('nl') + ',-';
+      var detailHtml = '';
+      Object.entries(confState.addonState).forEach(function(e){
+        var n = e[0], d = e[1];
+        var bedrag = d.type === 'pp' ? d.prijs * Math.max(pers, d.minPers || 0) : d.prijs;
+        detailHtml += '<div style="display:flex;justify-content:space-between;font-size:.72rem;padding:.12rem 0;color:rgba(245,237,214,.45);"><span>' + n + '</span><span style="color:rgba(201,148,42,.6);">€' + bedrag.toLocaleString('nl') + ',-</span></div>';
+      });
+      addonDetails.innerHTML = detailHtml;
+    } else {
+      addonSection.style.display = 'none';
+      addonDetails.innerHTML = '';
+    }
+
+    // Reiskosten & serviesgoed sectie
+    var reisSection = document.getElementById('ct-reis-section');
+    var reisDetails = document.getElementById('ct-reis-details');
+    var totalReis = confState.reiskosten + afstandExtra;
+    if (totalReis > 0) {
+      reisSection.style.display = '';
+      document.getElementById('ct-reisval').textContent = '€' + totalReis.toLocaleString('nl') + ',-';
+      var rdHtml = '';
+      if (confState.reiskosten > 0) {
+        rdHtml += '<div style="display:flex;justify-content:space-between;font-size:.72rem;padding:.12rem 0;color:rgba(245,237,214,.45);"><span>Bezorging</span><span style="color:rgba(201,148,42,.6);">€' + confState.reiskosten.toLocaleString('nl') + ',-</span></div>';
+      }
+      if (confState.afstandOptie === 'personeel' && afstandExtra > 0) {
+        rdHtml += '<div style="display:flex;justify-content:space-between;font-size:.72rem;padding:.12rem 0;color:rgba(245,237,214,.45);"><span>Personeel ter plekke (' + (confState.afstandUren || 2) + ' uur)</span><span style="color:rgba(201,148,42,.6);">€' + afstandExtra.toLocaleString('nl') + ',-</span></div>';
+      } else if (confState.afstandOptie === 'ophalen' && afstandExtra > 0) {
+        rdHtml += '<div style="display:flex;justify-content:space-between;font-size:.72rem;padding:.12rem 0;color:rgba(245,237,214,.45);"><span>Ophaalservice volgende dag</span><span style="color:rgba(201,148,42,.6);">€' + afstandExtra.toLocaleString('nl') + ',-</span></div>';
+      }
+      reisDetails.innerHTML = rdHtml;
+    } else {
+      reisSection.style.display = 'none';
+      reisDetails.innerHTML = '';
+    }
     document.getElementById('ct-totaal-val').textContent = totaal.toLocaleString('nl');
     // update mobile price bar
     var mobAmt = document.getElementById('mobPriceAmount');
     var mobSub = document.getElementById('mobPriceSub');
     if (mobAmt) mobAmt.textContent = totaal.toLocaleString('nl');
     if (mobSub) {
-      var pkLabel = confState.pakket === 'classic' ? 'Classic €' + basePP + ' p.p.' : 'Luxe €' + basePP + ' p.p.';
+      var pkLabel = naam + ' €' + basePP + ' p.p.';
       mobSub.textContent = confState.pakket ? pkLabel + ' · ' + pers + ' pers.' : 'Kies een pakket om te beginnen';
     }
   }
@@ -3117,6 +3389,48 @@
     document.getElementById('reisKosten').textContent = kosten === 0 ? (currentLang === 'nl' ? 'Gratis — regio Eindhoven' : 'Free — Eindhoven region') : '€' + kosten + ',-';
     document.getElementById('reisResult').classList.add('reisvis');
     confState.reiskosten = kosten;
+    confState.reisKm = km;
+    // Show/hide 50km+ serviesgoed panel
+    var panel = document.getElementById('afstandPanel');
+    if (km >= 50) {
+      panel.classList.add('vis');
+      document.getElementById('afstandOphaalPrijs').textContent = '€' + kosten + ',-';
+    } else {
+      panel.classList.remove('vis');
+      confState.afstandOptie = null;
+      confState.afstandKosten = 0;
+      document.getElementById('afstandUren').style.display = 'none';
+      document.querySelectorAll('.afstand-opt').forEach(function(o){ o.classList.remove('afstand-sel'); });
+    }
+    updateTotaal();
+  }
+
+  function selectAfstandOptie(el, optie) {
+    document.querySelectorAll('.afstand-opt').forEach(function(o){ o.classList.remove('afstand-sel'); });
+    el.classList.add('afstand-sel');
+    confState.afstandOptie = optie;
+    // Show/hide uren selector
+    var urenEl = document.getElementById('afstandUren');
+    if (optie === 'personeel') { urenEl.style.display = ''; } else { urenEl.style.display = 'none'; }
+    // Calculate afstand extra costs
+    updateAfstandKosten();
+  }
+
+  function changeAfstandUren(delta) {
+    confState.afstandUren = Math.max(1, (confState.afstandUren || 2) + delta);
+    document.getElementById('afstandUrenDisplay').textContent = confState.afstandUren;
+    document.getElementById('afstandUrenTotaal').textContent = '= €' + (confState.afstandUren * 25) + ',-';
+    updateAfstandKosten();
+  }
+
+  function updateAfstandKosten() {
+    var kosten = 0;
+    if (confState.afstandOptie === 'personeel') {
+      kosten = (confState.afstandUren || 2) * 25;
+    } else if (confState.afstandOptie === 'ophalen') {
+      kosten = confState.reiskosten;
+    }
+    confState.afstandKosten = kosten;
     updateTotaal();
   }
 
@@ -3189,21 +3503,13 @@
 
   renderCal(); updateTotaal();
 
-  // ── Mobile price bar: show when package selected, hide when far from configurator
+  // ── Mobile price bar: show when package selected, stays forever
   (function() {
     var bar = document.getElementById('mobPriceBar');
-    var conf = document.getElementById('configurator');
-    if (!bar || !conf) return;
+    if (!bar) return;
     window.showMobPriceBar = function() {
       bar.classList.add('visible');
     };
-    // Hide when configurator fully out of view (scrolled past or before)
-    var io = new IntersectionObserver(function(entries) {
-      entries.forEach(function(e) {
-        if (!e.isIntersecting) bar.classList.remove('visible');
-      });
-    }, { threshold: 0, rootMargin: '200px 0px 200px 0px' });
-    io.observe(conf);
   })();
 
   // ── Active nav highlight
@@ -3229,51 +3535,155 @@
     form.style.display = '';
     success.classList.remove('show');
 
-    // Pre-fill from configurator if available
     var summaryBlock = document.getElementById('modalSummary');
-    var totalBlock   = document.getElementById('modalTotalBlock');
-    var selPakket    = document.getElementById('modalPakket');
-    var selPersonen  = document.getElementById('modalPersonen');
-    var selDatum     = document.getElementById('modalDatum');
 
-    if (source === 'configurator') {
-      var pkEl = document.querySelector('.pk-btn.sel');
-      var pkName = pkEl ? pkEl.querySelector('.pk-btn-name').textContent : null;
-      var persons = document.getElementById('personenCount') ? parseInt(document.getElementById('personenCount').textContent) : null;
-      var dateEl  = document.getElementById('selectedDateVal');
-      var date    = dateEl ? dateEl.textContent.trim() : '';
-      var totaalEl = document.getElementById('totaalBedrag');
-      var totaal  = totaalEl ? totaalEl.textContent.trim() : '';
+    if (source === 'configurator' && confState.pakket) {
+      var pkName = pakketNamen[confState.pakket] || '';
+      var pers = confState.personen;
+      var price = confState.pricePerPerson;
+      var date = confState.selectedDate || '';
 
-      // build summary rows
-      var rows = '';
-      if (pkName) rows += '<div class="modal-summary-row"><span>Pakket</span><span class="modal-summary-val">' + pkName + '</span></div>';
-      if (persons) rows += '<div class="modal-summary-row"><span>Personen</span><span class="modal-summary-val">' + persons + ' pers.</span></div>';
-      if (date) rows += '<div class="modal-summary-row"><span>Datum</span><span class="modal-summary-val">' + date + '</span></div>';
+      // Gerechten names
+      var hoofdArr = Array.from(confState.gekozenHoofd);
+      var mezzeArr = Array.from(confState.gekozenMezze);
+      var alleGerechten = hoofdArr.concat(mezzeArr);
 
-      // gerechten
-      var gerechtEls = document.querySelectorAll('.gc.gc-sel');
-      if (gerechtEls.length) {
-        var namen = Array.from(gerechtEls).map(function(g){ return g.querySelector('.gc-naam').textContent; }).join(', ');
-        rows += '<div class="modal-summary-row" style="flex-direction:column;gap:.2rem"><span>Gerechten</span><span class="modal-summary-val" style="font-size:.75rem;line-height:1.5">' + namen + '</span></div>';
+      // Add-ons names
+      var addonNames = Object.keys(confState.addonState);
+
+      // Totaal from sidebar
+      var totaal = document.getElementById('ct-totaal-val').textContent;
+
+      // Reusable detail row builder
+      function dRow(label, val) {
+        return '<div style="display:flex;justify-content:space-between;font-size:.75rem;padding:.12rem 0;color:rgba(245,237,214,.45);"><span>' + label + '</span><span style="color:rgba(201,148,42,.6);">' + val + '</span></div>';
+      }
+      function subRow(label, val) {
+        return '<div style="display:flex;justify-content:space-between;padding-top:.3rem;margin-top:.3rem;border-top:1px solid rgba(201,148,42,.1);"><span style="color:rgba(245,237,214,.6);font-size:.75rem;">' + label + '</span><span style="font-size:.85rem;color:var(--parchment);">' + val + '</span></div>';
+      }
+      function secTitle(t) {
+        return '<div style="font-family:var(--font-display);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(201,148,42,.5);margin-bottom:.4rem;">' + t + '</div>';
       }
 
-      summaryBlock.innerHTML = rows || '<div style="font-size:.78rem;color:rgba(245,237,214,.3);font-style:italic">Geen selectie gemaakt</div>';
-      summaryBlock.previousElementSibling.style.display = rows ? '' : 'none';
-      totalBlock.style.display = totaal ? '' : 'none';
-      if (totaal) document.getElementById('modalTotalAmount').textContent = totaal;
+      var subtotaalCatering = price * pers;
+      var rows = '';
 
-      // pre-fill hidden fields
-      if (selPakket && pkName) selPakket.value = pkName;
-      if (selPersonen && persons) selPersonen.value = persons;
-      if (selDatum && date) selDatum.value = date;
+      // Catering
+      rows += '<div class="modal-summary-row"><span>Pakket</span><span class="modal-summary-val">' + pkName + ' · €' + price + ' p.p.</span></div>';
+      rows += '<div class="modal-summary-row"><span>Personen</span><span class="modal-summary-val">' + pers + '</span></div>';
+      if (alleGerechten.length) {
+        rows += '<div class="modal-summary-row" style="flex-direction:column;gap:.2rem"><span>Gerechten</span><span class="modal-summary-val" style="font-size:.75rem;line-height:1.5">' + alleGerechten.join(', ') + '</span></div>';
+      }
+      rows += subRow('Subtotaal catering', '€' + subtotaalCatering.toLocaleString('nl') + ',-');
+
+      // Extra's
+      var addonTotalCalc = 0;
+      if (addonNames.length) {
+        rows += '<div style="margin-top:.8rem;padding-top:.6rem;border-top:1px solid rgba(201,148,42,.12);">';
+        rows += secTitle('Extra\'s');
+        addonNames.forEach(function(n){
+          var d = confState.addonState[n];
+          var bedrag = d.type === 'pp' ? d.prijs * Math.max(pers, d.minPers || 0) : d.prijs;
+          addonTotalCalc += bedrag;
+          rows += dRow(n, '€' + bedrag.toLocaleString('nl') + ',-');
+        });
+        rows += subRow('Subtotaal extra\'s', '€' + addonTotalCalc.toLocaleString('nl') + ',-');
+        rows += '</div>';
+      }
+
+      // Reiskosten & serviesgoed
+      var afstandExtra = confState.afstandKosten || 0;
+      var totalReis = confState.reiskosten + afstandExtra;
+      if (totalReis > 0) {
+        rows += '<div style="margin-top:.8rem;padding-top:.6rem;border-top:1px solid rgba(201,148,42,.12);">';
+        rows += secTitle('Reiskosten & serviesgoed');
+        if (confState.reiskosten > 0) rows += dRow('Bezorging', '€' + confState.reiskosten.toLocaleString('nl') + ',-');
+        if (confState.afstandOptie === 'personeel' && afstandExtra > 0) {
+          rows += dRow('Personeel ter plekke (' + (confState.afstandUren || 2) + ' uur)', '€' + afstandExtra.toLocaleString('nl') + ',-');
+        } else if (confState.afstandOptie === 'ophalen' && afstandExtra > 0) {
+          rows += dRow('Ophaalservice volgende dag', '€' + afstandExtra.toLocaleString('nl') + ',-');
+        } else if (confState.afstandOptie === 'zelf') {
+          rows += dRow('Zelf terugbrengen', 'Gratis');
+        } else if (confState.afstandOptie === 'disposable') {
+          rows += dRow('Disposable serviesgoed', 'Gratis');
+        }
+        rows += subRow('Subtotaal reiskosten', '€' + totalReis.toLocaleString('nl') + ',-');
+        rows += '</div>';
+      }
+
+      // Datum & type
+      if (date || confState.typeEvenement) {
+        rows += '<div style="margin-top:.8rem;padding-top:.6rem;border-top:1px solid rgba(201,148,42,.12);">';
+        if (date) {
+          var dateLabel = date;
+          if (confState.tijdstip) dateLabel += ' · ' + confState.tijdstip;
+          rows += '<div class="modal-summary-row"><span>Datum</span><span class="modal-summary-val">' + dateLabel + '</span></div>';
+        }
+        if (confState.typeEvenement) {
+          rows += '<div class="modal-summary-row"><span>Type</span><span class="modal-summary-val">' + confState.typeEvenement + '</span></div>';
+        }
+        rows += '</div>';
+      }
+
+      summaryBlock.innerHTML = rows;
+      summaryBlock.previousElementSibling.style.display = '';
+
+      // Sticky totaal footer
+      var grandTotal = subtotaalCatering + addonTotalCalc + totalReis;
+      var footerEl = document.getElementById('modalLeftFooter');
+      var footerHtml = '';
+      footerHtml += '<div style="display:flex;justify-content:space-between;font-size:.72rem;padding:.1rem 0;color:rgba(245,237,214,.45);"><span>Catering</span><span>€' + subtotaalCatering.toLocaleString('nl') + ',-</span></div>';
+      if (addonTotalCalc > 0) footerHtml += '<div style="display:flex;justify-content:space-between;font-size:.72rem;padding:.1rem 0;color:rgba(245,237,214,.45);"><span>Extra\'s</span><span>€' + addonTotalCalc.toLocaleString('nl') + ',-</span></div>';
+      if (totalReis > 0) footerHtml += '<div style="display:flex;justify-content:space-between;font-size:.72rem;padding:.1rem 0;color:rgba(245,237,214,.45);"><span>Reiskosten &amp; serviesgoed</span><span>€' + totalReis.toLocaleString('nl') + ',-</span></div>';
+      footerHtml += '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:.4rem;padding-top:.4rem;border-top:1px solid rgba(201,148,42,.15);"><span style="font-family:var(--font-display);font-size:.75rem;letter-spacing:.08em;color:var(--cream);">TOTAAL</span><span style="font-family:var(--font-heading);font-size:1.4rem;color:var(--gold-lt);">€' + grandTotal.toLocaleString('nl') + ',-</span></div>';
+      footerHtml += '<div style="font-size:.6rem;color:rgba(245,237,214,.25);margin-top:.15rem;">BTW inbegrepen</div>';
+      document.getElementById('modalTotaalBlock').innerHTML = footerHtml;
+      footerEl.style.display = '';
+
+      // Pre-fill postcode in address field
+      var adresEl = document.getElementById('modalAdres');
+      var pc = document.getElementById('postcodeInp').value.trim();
+      if (adresEl && pc && !adresEl.value) adresEl.placeholder = pc + ' — vul straat + huisnummer aan';
+
+      // Pre-fill all hidden fields (for backend/dashboard)
+      document.getElementById('modalPakketHidden').value = pkName + ' — €' + price + ' p.p.';
+      document.getElementById('modalPersonenHidden').value = pers;
+      document.getElementById('modalDatumHidden').value = date;
+      document.getElementById('modalTijdstipHidden').value = confState.tijdstip || '';
+      document.getElementById('modalTypeHidden').value = confState.typeEvenement || '';
+      document.getElementById('modalGerechten').value = alleGerechten.join(', ');
+      document.getElementById('modalAddons').value = addonNames.map(function(n){
+        var d = confState.addonState[n];
+        var effectiefPers = d.type === 'pp' ? Math.max(pers, d.minPers || 0) : 0;
+        var bedrag = d.type === 'pp' ? (d.prijs * effectiefPers) : d.prijs;
+        return n + ': €' + bedrag + ',-';
+      }).join(' | ');
+      document.getElementById('modalReiskosten').value = confState.reiskosten;
+      document.getElementById('modalPostcode').value = pc;
+      var afstandVal = confState.afstandOptie || '';
+      if (confState.afstandOptie === 'personeel') afstandVal += ' · ' + (confState.afstandUren || 2) + ' uur (€' + ((confState.afstandUren || 2) * 25) + ')';
+      else if (confState.afstandOptie === 'ophalen') afstandVal += ' (+€' + confState.reiskosten + ')';
+      document.getElementById('modalAfstandOptie').value = afstandVal;
+      document.getElementById('modalTotaal').value = totaal;
+
+      // Mobile summary (compact overview for small screens)
+      var mobSum = document.getElementById('modalMobSummary');
+      var mh = '';
+      mh += '<div style="font-family:var(--font-display);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(201,148,42,.5);margin-bottom:.5rem;">Uw bestelling</div>';
+      mh += dRow(pkName + ' · ' + pers + ' pers.', '€' + subtotaalCatering.toLocaleString('nl') + ',-');
+      if (addonTotalCalc > 0) mh += dRow('Extra\'s', '€' + addonTotalCalc.toLocaleString('nl') + ',-');
+      if (totalReis > 0) mh += dRow('Reiskosten & serviesgoed', '€' + totalReis.toLocaleString('nl') + ',-');
+      mh += '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:.5rem;padding-top:.5rem;border-top:1px solid rgba(201,148,42,.2);"><span style="font-family:var(--font-display);font-size:.75rem;letter-spacing:.08em;color:var(--cream);">TOTAAL</span><span style="font-family:var(--font-heading);font-size:1.3rem;color:var(--gold-lt);">€' + grandTotal.toLocaleString('nl') + ',-</span></div>';
+      mh += '<div style="font-size:.6rem;color:rgba(245,237,214,.25);margin-top:.15rem;">BTW inbegrepen</div>';
+      mobSum.innerHTML = mh;
+      mobSum.classList.add('vis');
+
     } else {
       summaryBlock.innerHTML = '<div style="font-size:.78rem;color:rgba(245,237,214,.3);font-style:italic">Vul het formulier in en we sturen u binnen 24 uur een offerte op maat.</div>';
-      document.querySelector('.modal-summary-label') && (document.querySelector('.modal-summary-label').style.display = 'none');
-      totalBlock.style.display = 'none';
-      if (selPakket) selPakket.value = '';
-      if (selPersonen) selPersonen.value = '';
-      if (selDatum) selDatum.value = '';
+      var summaryLabel = document.querySelector('.modal-summary-label');
+      if (summaryLabel) summaryLabel.style.display = 'none';
+      document.getElementById('modalLeftFooter').style.display = 'none';
+      document.getElementById('modalMobSummary').classList.remove('vis');
     }
 
     overlay.classList.add('open');
@@ -3311,20 +3721,16 @@
 
     <!-- Left: summary -->
     <div class="modal-left">
-      <div class="modal-left-eyebrow">Uw aanvraag</div>
-      <div class="modal-brand">Memories<br>of <em>Damascus</em></div>
-      <div class="modal-tagline">Authentieke Syrisch-Libanese catering</div>
-      <div class="modal-divider"></div>
-      <div class="modal-summary-label">Uw configuratie</div>
-      <div id="modalSummary"></div>
-      <div class="modal-total" id="modalTotalBlock" style="display:none">
-        <div class="modal-total-label">Geschatte totaalprijs</div>
-        <div class="modal-total-amount" id="modalTotalAmount"></div>
-        <div class="modal-total-note">Excl. eventuele reiskosten · vrijblijvend</div>
+      <div class="modal-left-scroll">
+        <div class="modal-left-eyebrow">Uw aanvraag</div>
+        <div class="modal-brand">Memories<br>of <em>Damascus</em></div>
+        <div class="modal-tagline">Authentieke Syrisch-Libanese catering</div>
+        <div class="modal-divider"></div>
+        <div class="modal-summary-label">Uw configuratie</div>
+        <div id="modalSummary"></div>
       </div>
-      <div class="modal-promise">
-        <strong>Binnen 24 uur</strong> ontvangt u een persoonlijke offerte op maat.<br><br>
-        Wij spreken <strong>Nederlands, Arabisch en Engels</strong>.
+      <div class="modal-left-footer" id="modalLeftFooter" style="display:none;">
+        <div id="modalTotaalBlock"></div>
       </div>
     </div>
 
@@ -3335,7 +3741,23 @@
         <button class="modal-close" onclick="closeOfferteModal()" aria-label="Sluiten">✕</button>
       </div>
 
+      <!-- Mobile-only summary (hidden on desktop) -->
+      <div class="modal-mob-summary" id="modalMobSummary"></div>
+
       <form class="modal-form" id="offerteForm" onsubmit="submitOfferteModal(event)">
+        <!-- Hidden fields — pre-filled from configurator -->
+        <input type="hidden" name="conf_pakket" id="modalPakketHidden">
+        <input type="hidden" name="conf_personen" id="modalPersonenHidden">
+        <input type="hidden" name="conf_datum" id="modalDatumHidden">
+        <input type="hidden" name="conf_tijdstip" id="modalTijdstipHidden">
+        <input type="hidden" name="conf_type_evenement" id="modalTypeHidden">
+        <input type="hidden" name="conf_gerechten" id="modalGerechten">
+        <input type="hidden" name="conf_addons" id="modalAddons">
+        <input type="hidden" name="conf_reiskosten" id="modalReiskosten">
+        <input type="hidden" name="conf_postcode" id="modalPostcode">
+        <input type="hidden" name="conf_afstand_optie" id="modalAfstandOptie">
+        <input type="hidden" name="conf_totaal" id="modalTotaal">
+
         <div class="form-row">
           <div class="form-group">
             <label data-i18n="modal-naam-lbl">Naam *</label>
@@ -3350,43 +3772,13 @@
           <label data-i18n="modal-email-lbl">E-mailadres *</label>
           <input type="email" name="email" placeholder="uw@email.nl" required autocomplete="email">
         </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label data-i18n="form-type-label">Type evenement</label>
-            <select name="type_evenement" data-i18n="modal-type-select">
-              <option value="">Selecteer type...</option>
-              <option>Bruiloft / Huwelijkscatering</option>
-              <option>Eid / Ramadan-iftar</option>
-              <option>Jubileum</option>
-              <option>Bedrijfslunch / Diner</option>
-              <option>Borrel / Receptie</option>
-              <option>AZC / Noodopvang</option>
-              <option>Kookworkshop</option>
-              <option>Anders</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label data-i18n="form-datum">Datum evenement</label>
-            <input type="date" name="datum" id="modalDatum">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label data-i18n="form-personen">Aantal personen</label>
-            <input type="number" name="personen" id="modalPersonen" placeholder="bijv. 50" min="1">
-          </div>
-          <div class="form-group">
-            <label data-i18n="form-pakket-label">Pakket</label>
-            <select name="pakket" id="modalPakket" data-i18n="modal-pakket-select">
-              <option value="">Nog niet gekozen</option>
-              <option>Klassiek — €25 p.p.</option>
-              <option>Luxe — €30 p.p.</option>
-            </select>
-          </div>
+        <div class="form-group">
+          <label data-i18n="form-adres-label">Adres evenement</label>
+          <input type="text" name="adres" id="modalAdres" placeholder="Straat + huisnummer, stad" autocomplete="street-address" data-i18n-placeholder="modal-adres-ph">
         </div>
         <div class="form-group">
           <label data-i18n="modal-wensen-lbl">Uw wensen / opmerkingen</label>
-          <textarea name="bericht" placeholder="Vertel ons over uw locatie, dieetvereisten of andere wensen..." data-i18n-placeholder="modal-wensen-ph"></textarea>
+          <textarea name="bericht" placeholder="Dieetvereisten, allergieën, speciale wensen..." data-i18n-placeholder="modal-wensen-ph"></textarea>
         </div>
         <button type="submit" class="modal-submit" data-i18n="modal-submit-btn">Verstuur Aanvraag — Gratis &amp; Vrijblijvend</button>
         <div class="modal-fine-print" data-i18n="modal-fineprint">Wij nemen binnen 24 uur contact met u op · Geen verplichtingen</div>
