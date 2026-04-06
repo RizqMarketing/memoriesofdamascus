@@ -1282,8 +1282,10 @@
     .reis-inp { flex: 1; background: rgba(255,255,255,.04); border: 1px solid rgba(201,148,42,.2); border-radius: 2px; padding: .8rem 1rem; color: var(--parchment); font-family: var(--font-body); font-size: .95rem; outline: none; transition: border-color .2s; }
     .reis-inp:focus { border-color: var(--gold); }
     .reis-inp::placeholder { color: rgba(245,237,214,.28); }
-    select.reis-inp { appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9942a' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; }
+    select.reis-inp { appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9942a' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; text-overflow: ellipsis; }
     select.reis-inp option { background: #1e0a0a; color: var(--parchment); padding: .5rem; }
+    .conf-datum-extra { margin-top: 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 640px) { .conf-datum-extra { grid-template-columns: 1fr; } }
     .reis-calc-btn { background: rgba(201,148,42,.12); border: 1px solid rgba(201,148,42,.35); color: var(--gold); border-radius: 2px; padding: .8rem 1.3rem; cursor: pointer; font-family: var(--font-display); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; transition: all .2s; white-space: nowrap; }
     .reis-calc-btn:hover { background: rgba(201,148,42,.22); }
     .reis-result { margin-top: 1rem; background: rgba(201,148,42,.05); border: 1px solid rgba(201,148,42,.18); border-radius: 2px; padding: 1rem 1.2rem; display: none; }
@@ -1497,7 +1499,18 @@
       text-align: center; padding: 3rem 2rem; flex: 1;
     }
     .modal-success.show { display: flex; }
-    .modal-success-icon { font-size: 3rem; margin-bottom: 1.2rem; }
+    .modal-success-icon {
+      font-size: 3.5rem; margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, #c9942a 0%, #f5edd6 40%, #c9942a 60%, #8b6914 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 12px rgba(201,148,42,.4)) drop-shadow(0 0 30px rgba(201,148,42,.15));
+      animation: successGlow 2.5s ease-in-out infinite;
+    }
+    @keyframes successGlow {
+      0%, 100% { filter: drop-shadow(0 0 12px rgba(201,148,42,.4)) drop-shadow(0 0 30px rgba(201,148,42,.15)); transform: scale(1); }
+      50% { filter: drop-shadow(0 0 20px rgba(201,148,42,.6)) drop-shadow(0 0 45px rgba(201,148,42,.25)); transform: scale(1.08); }
+    }
     .modal-success-title { font-family: var(--font-display); font-size: 1.8rem; color: var(--cream); margin-bottom: .6rem; }
     .modal-success-title em { color: var(--gold-lt); font-style: italic; }
     .modal-success-text { font-size: .85rem; color: rgba(245,237,214,.5); line-height: 1.8; max-width: 32ch; }
@@ -2084,10 +2097,26 @@
         </div>
         <div class="sel-date-display" id="selDateDisplay"></div>
 
-        <div style="margin-top:1.5rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div class="conf-datum-extra">
           <div>
             <div class="gerecht-sec-lbl" data-i18n="conf-tijdstip-lbl">Tijdstip</div>
-            <input type="time" id="confTijdstip" class="reis-inp" style="width:100%;" onchange="confState.tijdstip=this.value">
+            <select id="confTijdstip" class="reis-inp" style="width:100%;padding:.7rem .8rem;cursor:pointer;" onchange="confState.tijdstip=this.value">
+              <option value="">Kies tijdstip...</option>
+              <option value="09:00">09:00</option><option value="09:30">09:30</option>
+              <option value="10:00">10:00</option><option value="10:30">10:30</option>
+              <option value="11:00">11:00</option><option value="11:30">11:30</option>
+              <option value="12:00">12:00</option><option value="12:30">12:30</option>
+              <option value="13:00">13:00</option><option value="13:30">13:30</option>
+              <option value="14:00">14:00</option><option value="14:30">14:30</option>
+              <option value="15:00">15:00</option><option value="15:30">15:30</option>
+              <option value="16:00">16:00</option><option value="16:30">16:30</option>
+              <option value="17:00">17:00</option><option value="17:30">17:30</option>
+              <option value="18:00">18:00</option><option value="18:30">18:30</option>
+              <option value="19:00">19:00</option><option value="19:30">19:30</option>
+              <option value="20:00">20:00</option><option value="20:30">20:30</option>
+              <option value="21:00">21:00</option><option value="21:30">21:30</option>
+              <option value="22:00">22:00</option>
+            </select>
           </div>
           <div>
             <div class="gerecht-sec-lbl" data-i18n="conf-type-lbl">Type evenement</div>
@@ -3417,7 +3446,7 @@
   }
 
   function changeAfstandUren(delta) {
-    confState.afstandUren = Math.max(1, (confState.afstandUren || 2) + delta);
+    confState.afstandUren = Math.max(2, (confState.afstandUren || 2) + delta);
     document.getElementById('afstandUrenDisplay').textContent = confState.afstandUren;
     document.getElementById('afstandUrenTotaal').textContent = '= €' + (confState.afstandUren * 25) + ',-';
     updateAfstandKosten();
@@ -3786,7 +3815,7 @@
 
       <!-- Success state -->
       <div class="modal-success" id="offerteSuccess">
-        <div class="modal-success-icon">✦</div>
+        <div class="modal-success-icon">✧ ✦ ✧</div>
         <div class="modal-success-title">Aanvraag <em>ontvangen</em></div>
         <div class="modal-success-text">Dank u wel. Wij nemen binnen 24 uur persoonlijk contact met u op met een offerte op maat.</div>
         <button class="btn-primary modal-success-close" onclick="closeOfferteModal()">Sluiten</button>
