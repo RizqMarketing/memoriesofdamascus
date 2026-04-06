@@ -1536,6 +1536,7 @@
       .gerecht-grid { grid-template-columns: repeat(3,1fr); }
       .addon-grid { grid-template-columns: 1fr; }
       .reis-row { flex-direction: column; }
+      .reis-adres { grid-template-columns: 1fr !important; }
       .conf-step { padding: 1.4rem 1rem; }
     }
   </style>
@@ -2013,8 +2014,12 @@
           Tarief: <strong style="color:var(--parchment)">€0,50 per km retour</strong>. Gratis in regio Eindhoven.
         </p>
         <div class="reis-row">
-          <input class="reis-inp" id="postcodeInp" type="text" maxlength="7" placeholder="Postcode evenement (bijv. 3011 AB)" />
+          <input class="reis-inp" id="postcodeInp" type="text" maxlength="7" placeholder="Postcode (bijv. 3011 AB)" style="max-width:180px;" />
           <button class="reis-calc-btn" onclick="berekenReiskosten()" data-i18n="conf-calc-btn">Bereken</button>
+        </div>
+        <div class="reis-adres" style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:.6rem;">
+          <input class="reis-inp" id="straatInp" type="text" placeholder="Straat + huisnummer" data-i18n-placeholder="conf-straat-ph">
+          <input class="reis-inp" id="plaatsInp" type="text" placeholder="Plaats" data-i18n-placeholder="conf-plaats-ph">
         </div>
         <div class="reis-result" id="reisResult">
           <div class="reisregel"><span class="reisregel-lbl" data-i18n="reis-lbl-regio">Regio</span><span class="reisregel-val" id="reisStad">—</span></div>
@@ -2958,6 +2963,8 @@
     'conf-s6-num':      { nl:'Stap 6', en:'Step 6' },
     'conf-s6-title':    { nl:'Kies een datum', en:'Choose a date' },
     'conf-s6-desc':     { nl:'Rood = bezet (geblokkeerd). Gouden stip = bijna volgeboekt. Groen = beschikbaar.', en:'Red = unavailable (blocked). Gold dot = almost full. Green = available.' },
+    'conf-straat-ph':   { nl:'Straat + huisnummer', en:'Street + house number' },
+    'conf-plaats-ph':   { nl:'Plaats', en:'City' },
     'conf-tijdstip-lbl':{ nl:'Tijdstip', en:'Time' },
     'conf-type-lbl':    { nl:'Type evenement', en:'Event type' },
     'conf-type-select': { nl:'<option value="">Selecteer...</option><option>Bruiloft / Huwelijkscatering</option><option>Eid / Ramadan-iftar</option><option>Jubileum</option><option>Bedrijfslunch / Diner</option><option>Borrel / Receptie</option><option>AZC / Noodopvang</option><option>Kookworkshop</option><option>Anders</option>', en:'<option value="">Select...</option><option>Wedding catering</option><option>Eid / Ramadan iftar</option><option>Anniversary</option><option>Business lunch / Dinner</option><option>Reception / Drinks</option><option>Asylum centre / Shelter</option><option>Cooking workshop</option><option>Other</option>' },
@@ -3639,12 +3646,15 @@
       }
 
       // Datum & type
-      if (date || confState.typeEvenement) {
+      if (date || confState.typeEvenement || volledigAdres) {
         rows += '<div style="margin-top:.8rem;padding-top:.6rem;border-top:1px solid rgba(201,148,42,.12);">';
         if (date) {
           var dateLabel = date;
           if (confState.tijdstip) dateLabel += ' · ' + confState.tijdstip;
           rows += '<div class="modal-summary-row"><span>Datum</span><span class="modal-summary-val">' + dateLabel + '</span></div>';
+        }
+        if (volledigAdres) {
+          rows += '<div class="modal-summary-row" style="flex-direction:column;gap:.15rem"><span>Locatie</span><span class="modal-summary-val" style="font-size:.75rem;line-height:1.4">' + volledigAdres + '</span></div>';
         }
         if (confState.typeEvenement) {
           rows += '<div class="modal-summary-row"><span>Type</span><span class="modal-summary-val">' + confState.typeEvenement + '</span></div>';
@@ -3667,10 +3677,12 @@
       document.getElementById('modalTotaalBlock').innerHTML = footerHtml;
       footerEl.style.display = '';
 
-      // Pre-fill postcode in address field
-      var adresEl = document.getElementById('modalAdres');
+      // Pre-fill address from configurator fields
       var pc = document.getElementById('postcodeInp').value.trim();
-      if (adresEl && pc && !adresEl.value) adresEl.placeholder = pc + ' — vul straat + huisnummer aan';
+      var straat = document.getElementById('straatInp').value.trim();
+      var plaats = document.getElementById('plaatsInp').value.trim();
+      var volledigAdres = [straat, pc, plaats].filter(Boolean).join(', ');
+      document.getElementById('modalAdres').value = volledigAdres;
 
       // Pre-fill all hidden fields (for backend/dashboard)
       document.getElementById('modalPakketHidden').value = pkName + ' — €' + price + ' p.p.';
@@ -3750,6 +3762,8 @@
     if (confState.gekozenHoofd.size < confState.maxHoofd) return currentLang === 'nl' ? 'Kies ' + confState.maxHoofd + ' hoofdgerechten (nu ' + confState.gekozenHoofd.size + ' gekozen).' : 'Choose ' + confState.maxHoofd + ' main courses (' + confState.gekozenHoofd.size + ' chosen).';
     if (confState.gekozenMezze.size < confState.maxMezze) return currentLang === 'nl' ? 'Kies ' + confState.maxMezze + ' mezze\'s (nu ' + confState.gekozenMezze.size + ' gekozen).' : 'Choose ' + confState.maxMezze + ' mezze\'s (' + confState.gekozenMezze.size + ' chosen).';
     if (!document.getElementById('reisResult').classList.contains('reisvis')) return currentLang === 'nl' ? 'Vul uw postcode in bij stap 5 om reiskosten te berekenen.' : 'Enter your postcode in step 5 to calculate travel costs.';
+    if (!document.getElementById('straatInp').value.trim()) return currentLang === 'nl' ? 'Vul straat + huisnummer in bij stap 5.' : 'Enter street + house number in step 5.';
+    if (!document.getElementById('plaatsInp').value.trim()) return currentLang === 'nl' ? 'Vul de plaats in bij stap 5.' : 'Enter the city in step 5.';
     if (confState.reisKm >= 50 && !confState.afstandOptie) return currentLang === 'nl' ? 'Kies een optie bij Serviesgoed & opruiming (stap 5).' : 'Choose an option for Tableware & cleanup (step 5).';
     if (!confState.selectedDate) return currentLang === 'nl' ? 'Kies een datum bij stap 6.' : 'Choose a date in step 6.';
     if (!confState.tijdstip) return currentLang === 'nl' ? 'Kies een tijdstip bij stap 6.' : 'Choose a time in step 6.';
@@ -3820,10 +3834,7 @@
           <label data-i18n="modal-email-lbl">E-mailadres *</label>
           <input type="email" name="email" placeholder="uw@email.nl" required autocomplete="email">
         </div>
-        <div class="form-group">
-          <label data-i18n="form-adres-label">Adres evenement</label>
-          <input type="text" name="adres" id="modalAdres" placeholder="Straat + huisnummer, stad" autocomplete="street-address" data-i18n-placeholder="modal-adres-ph">
-        </div>
+        <input type="hidden" name="conf_adres" id="modalAdres">
         <div class="form-group">
           <label data-i18n="modal-wensen-lbl">Uw wensen / opmerkingen</label>
           <textarea name="bericht" placeholder="Dieetvereisten, allergieën, speciale wensen..." data-i18n-placeholder="modal-wensen-ph"></textarea>
