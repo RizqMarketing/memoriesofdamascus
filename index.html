@@ -3738,6 +3738,10 @@
     e.preventDefault();
     document.getElementById('offerteForm').style.display = 'none';
     document.getElementById('offerteSuccess').classList.add('show');
+    // Hide mobile price bar — offerte is verzonden
+    var bar = document.getElementById('mobPriceBar');
+    if (bar) bar.classList.remove('visible');
+    window.showMobPriceBar = function(){};
   }
 
   // Replace demoOfferte
