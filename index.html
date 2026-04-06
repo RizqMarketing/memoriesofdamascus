@@ -3750,6 +3750,7 @@
     if (confState.gekozenHoofd.size < confState.maxHoofd) return currentLang === 'nl' ? 'Kies ' + confState.maxHoofd + ' hoofdgerechten (nu ' + confState.gekozenHoofd.size + ' gekozen).' : 'Choose ' + confState.maxHoofd + ' main courses (' + confState.gekozenHoofd.size + ' chosen).';
     if (confState.gekozenMezze.size < confState.maxMezze) return currentLang === 'nl' ? 'Kies ' + confState.maxMezze + ' mezze\'s (nu ' + confState.gekozenMezze.size + ' gekozen).' : 'Choose ' + confState.maxMezze + ' mezze\'s (' + confState.gekozenMezze.size + ' chosen).';
     if (!document.getElementById('reisResult').classList.contains('reisvis')) return currentLang === 'nl' ? 'Vul uw postcode in bij stap 5 om reiskosten te berekenen.' : 'Enter your postcode in step 5 to calculate travel costs.';
+    if (confState.reisKm >= 50 && !confState.afstandOptie) return currentLang === 'nl' ? 'Kies een optie bij Serviesgoed & opruiming (stap 5).' : 'Choose an option for Tableware & cleanup (step 5).';
     if (!confState.selectedDate) return currentLang === 'nl' ? 'Kies een datum bij stap 6.' : 'Choose a date in step 6.';
     if (!confState.tijdstip) return currentLang === 'nl' ? 'Kies een tijdstip bij stap 6.' : 'Choose a time in step 6.';
     return null;
