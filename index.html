@@ -1490,37 +1490,37 @@
   <!-- Nav links -->
   <ul class="mob-nav-list">
     <li class="mob-nav-item">
-      <a href="#diensten" onclick="closeMobile()"><span class="mob-nav-num">01</span>Catering</a>
+      <a href="#diensten" onclick="closeMobile()"><span class="mob-nav-num">01</span><span data-i18n="nav-catering">Catering</span></a>
     </li>
     <div class="mob-nav-divider"></div>
     <li class="mob-nav-item">
-      <a href="#azc" onclick="closeMobile()"><span class="mob-nav-num">02</span>AZC &amp; Overheid</a>
+      <a href="#azc" onclick="closeMobile()"><span class="mob-nav-num">02</span><span data-i18n="nav-azc">AZC &amp; Overheid</span></a>
     </li>
     <div class="mob-nav-divider"></div>
     <li class="mob-nav-item">
-      <a href="#over-ons" onclick="closeMobile()"><span class="mob-nav-num">03</span>Over Ons</a>
+      <a href="#over-ons" onclick="closeMobile()"><span class="mob-nav-num">03</span><span data-i18n="nav-over">Over Ons</span></a>
     </li>
     <div class="mob-nav-divider"></div>
     <li class="mob-nav-item">
-      <a href="#menu" onclick="closeMobile()"><span class="mob-nav-num">04</span>Menu &amp; Pakketten</a>
+      <a href="#menu" onclick="closeMobile()"><span class="mob-nav-num">04</span><span data-i18n="nav-menu-mob">Menu &amp; Pakketten</span></a>
     </li>
     <div class="mob-nav-divider"></div>
     <li class="mob-nav-item">
-      <a href="#configurator" onclick="closeMobile()"><span class="mob-nav-num">05</span>Stel Samen</a>
+      <a href="#configurator" onclick="closeMobile()"><span class="mob-nav-num">05</span><span data-i18n="nav-conf">Stel Samen</span></a>
     </li>
     <div class="mob-nav-divider"></div>
     <li class="mob-nav-item">
-      <a href="#locaties" onclick="closeMobile()"><span class="mob-nav-num">06</span>Locaties</a>
+      <a href="#locaties" onclick="closeMobile()"><span class="mob-nav-num">06</span><span data-i18n="nav-loc">Locaties</span></a>
     </li>
     <div class="mob-nav-divider"></div>
     <li class="mob-nav-item">
-      <a href="#baklava" onclick="closeMobile()"><span class="mob-nav-num">07</span>Baklava</a>
+      <a href="#baklava" onclick="closeMobile()"><span class="mob-nav-num">07</span><span data-i18n="nav-baklava">Baklava</span></a>
     </li>
   </ul>
 
   <!-- Footer CTA + lang -->
   <div class="mob-menu-footer">
-    <button class="mob-menu-cta" onclick="closeMobile();openOfferteModal('general')">Offerte Aanvragen</button>
+    <button class="mob-menu-cta" onclick="closeMobile();openOfferteModal('general')" data-i18n="nav-cta">Offerte Aanvragen</button>
     <div class="mob-menu-lang">
       <button id="mobLangNL" class="active" onclick="if(currentLang!=='nl'){toggleLang();}">NL</button>
       <span>·</span>
@@ -2853,6 +2853,16 @@
     'form-pakket-label':{ nl:'Pakket', en:'Package' },
     'modal-type-select':{ nl:'<option value="">Selecteer type...</option><option>Bruiloft / Huwelijkscatering</option><option>Eid / Ramadan-iftar</option><option>Jubileum</option><option>Bedrijfslunch / Diner</option><option>Borrel / Receptie</option><option>AZC / Noodopvang</option><option>Kookworkshop</option><option>Anders</option>', en:'<option value="">Select type...</option><option>Wedding / Wedding catering</option><option>Eid / Ramadan iftar</option><option>Anniversary</option><option>Business lunch / Dinner</option><option>Reception / Drinks</option><option>Asylum centre / Emergency shelter</option><option>Cooking workshop</option><option>Other</option>' },
     'modal-pakket-select':{ nl:'<option value="">Nog niet gekozen</option><option>Klassiek — €25 p.p.</option><option>Luxe — €30 p.p.</option>', en:'<option value="">Not yet chosen</option><option>Classic — €25 p.p.</option><option>Luxe — €30 p.p.</option>' },
+    'modal-title':      { nl:'Offerte <em>aanvragen</em>', en:'Request a <em>quote</em>' },
+    'modal-naam-lbl':   { nl:'Naam *', en:'Name *' },
+    'modal-naam-ph':    { nl:'Uw volledige naam', en:'Your full name' },
+    'modal-tel-lbl':    { nl:'Telefoonnummer *', en:'Phone number *' },
+    'modal-email-lbl':  { nl:'E-mailadres *', en:'Email address *' },
+    'modal-wensen-lbl': { nl:'Uw wensen / opmerkingen', en:'Your wishes / remarks' },
+    'modal-wensen-ph':  { nl:'Vertel ons over uw locatie, dieetvereisten of andere wensen...', en:'Tell us about your location, dietary requirements or other wishes...' },
+    'modal-submit-btn': { nl:'Verstuur Aanvraag — Gratis &amp; Vrijblijvend', en:'Send Request — Free &amp; Non-binding' },
+    'modal-fineprint':  { nl:'Wij nemen binnen 24 uur contact met u op · Geen verplichtingen', en:'We will contact you within 24 hours · No obligations' },
+    'nav-menu-mob':     { nl:'Menu &amp; Pakketten', en:'Menu &amp; Packages' },
 
     // Contact details
     'cd-tel-lbl':       { nl:'Telefoon & WhatsApp', en:'Phone & WhatsApp' },
@@ -2887,6 +2897,12 @@
       var key = el.getAttribute('data-i18n');
       if (i18n[key] && i18n[key][currentLang]) {
         el.innerHTML = i18n[key][currentLang];
+      }
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
+      var key = el.getAttribute('data-i18n-placeholder');
+      if (i18n[key] && i18n[key][currentLang]) {
+        el.placeholder = i18n[key][currentLang];
       }
     });
     // Re-render dynamic components
@@ -3271,23 +3287,23 @@
     <!-- Right: form -->
     <div class="modal-right">
       <div class="modal-header">
-        <div class="modal-title">Offerte <em>aanvragen</em></div>
+        <div class="modal-title" data-i18n="modal-title">Offerte <em>aanvragen</em></div>
         <button class="modal-close" onclick="closeOfferteModal()" aria-label="Sluiten">✕</button>
       </div>
 
       <form class="modal-form" id="offerteForm" onsubmit="submitOfferteModal(event)">
         <div class="form-row">
           <div class="form-group">
-            <label>Naam *</label>
-            <input type="text" name="naam" placeholder="Uw volledige naam" required autocomplete="name">
+            <label data-i18n="modal-naam-lbl">Naam *</label>
+            <input type="text" name="naam" placeholder="Uw volledige naam" required autocomplete="name" data-i18n-placeholder="modal-naam-ph">
           </div>
           <div class="form-group">
-            <label>Telefoonnummer *</label>
+            <label data-i18n="modal-tel-lbl">Telefoonnummer *</label>
             <input type="tel" name="telefoon" placeholder="+31 6 00 00 00 00" required autocomplete="tel">
           </div>
         </div>
         <div class="form-group">
-          <label>E-mailadres *</label>
+          <label data-i18n="modal-email-lbl">E-mailadres *</label>
           <input type="email" name="email" placeholder="uw@email.nl" required autocomplete="email">
         </div>
         <div class="form-row">
@@ -3325,11 +3341,11 @@
           </div>
         </div>
         <div class="form-group">
-          <label>Uw wensen / opmerkingen</label>
-          <textarea name="bericht" placeholder="Vertel ons over uw locatie, dieetvereisten of andere wensen..."></textarea>
+          <label data-i18n="modal-wensen-lbl">Uw wensen / opmerkingen</label>
+          <textarea name="bericht" placeholder="Vertel ons over uw locatie, dieetvereisten of andere wensen..." data-i18n-placeholder="modal-wensen-ph"></textarea>
         </div>
-        <button type="submit" class="modal-submit">Verstuur Aanvraag — Gratis &amp; Vrijblijvend</button>
-        <div class="modal-fine-print">Wij nemen binnen 24 uur contact met u op · Geen verplichtingen</div>
+        <button type="submit" class="modal-submit" data-i18n="modal-submit-btn">Verstuur Aanvraag — Gratis &amp; Vrijblijvend</button>
+        <div class="modal-fine-print" data-i18n="modal-fineprint">Wij nemen binnen 24 uur contact met u op · Geen verplichtingen</div>
       </form>
 
       <!-- Success state -->
