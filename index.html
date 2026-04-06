@@ -3718,8 +3718,12 @@
   }
 
   function closeOfferteModal() {
+    var wasSuccess = document.getElementById('offerteSuccess').classList.contains('show');
     document.getElementById('offerteModal').classList.remove('open');
     document.body.style.overflow = '';
+    if (wasSuccess) {
+      setTimeout(function(){ document.getElementById('over-ons').scrollIntoView({behavior:'smooth',block:'start'}); }, 300);
+    }
   }
 
   document.getElementById('offerteModal').addEventListener('click', function(e) {
