@@ -2780,7 +2780,7 @@
     <div class="mob-price-bar-amount">€<span id="mobPriceAmount">0</span>,-</div>
     <div class="mob-price-bar-sub" id="mobPriceSub">Kies een pakket om te beginnen</div>
   </div>
-  <button class="mob-price-bar-btn" onclick="openOfferteModal('configurator')">Offerte →</button>
+  <button class="mob-price-bar-btn" onclick="demoOfferte()">Offerte →</button>
 </div>
 
 <script>
@@ -3739,7 +3739,16 @@
   }
 
   // Replace demoOfferte
+  function validateConfigurator() {
+    if (!confState.pakket) return currentLang === 'nl' ? 'Kies eerst een pakket.' : 'Please choose a package first.';
+    if (confState.gekozenHoofd.size < confState.maxHoofd) return currentLang === 'nl' ? 'Kies ' + confState.maxHoofd + ' hoofdgerechten (nu ' + confState.gekozenHoofd.size + ' gekozen).' : 'Choose ' + confState.maxHoofd + ' main courses (' + confState.gekozenHoofd.size + ' chosen).';
+    if (confState.gekozenMezze.size < confState.maxMezze) return currentLang === 'nl' ? 'Kies ' + confState.maxMezze + ' mezze\'s (nu ' + confState.gekozenMezze.size + ' gekozen).' : 'Choose ' + confState.maxMezze + ' mezze\'s (' + confState.gekozenMezze.size + ' chosen).';
+    return null;
+  }
+
   function demoOfferte() {
+    var err = validateConfigurator();
+    if (err) { alert(err); return; }
     openOfferteModal('configurator');
   }
 </script>
