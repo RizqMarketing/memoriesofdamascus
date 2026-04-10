@@ -882,46 +882,87 @@
       font-size: 22rem; color: rgba(201,148,42,.04);
       line-height: 1; pointer-events: none;
     }
-    .testimonials-header { text-align: center; max-width: 560px; margin: 0 auto 4rem; }
-    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .testimonials-header { text-align: center; max-width: 560px; margin: 0 auto 3.5rem; }
+    .testimonials-slider-wrap {
+      position: relative; overflow: hidden;
+      max-width: 1200px; margin: 0 auto;
+    }
+    .testimonials-track {
+      display: flex; gap: 1.5rem;
+      transition: transform .5s cubic-bezier(.25,.8,.25,1);
+    }
     .testimonial-card {
       background: var(--deep); border: 1px solid var(--divider);
-      padding: 2.5rem; position: relative;
+      padding: 2rem 1.8rem; position: relative;
+      width: calc((100% - 3rem) / 3); flex-shrink: 0;
+      box-sizing: border-box;
+      transition: border-color .3s, box-shadow .3s;
     }
+    .testimonial-card:hover { border-color: rgba(201,148,42,.25); box-shadow: 0 4px 30px rgba(0,0,0,.3); }
     .testimonial-card::before {
       content: '"'; font-family: var(--font-heading);
-      font-size: 5rem; color: var(--gold); opacity: .3;
+      font-size: 4rem; color: var(--gold); opacity: .25;
       line-height: .8; display: block; margin-bottom: .5rem;
+      position: absolute; top: 1.5rem; right: 1.5rem;
     }
-    .testimonial-text { font-family: var(--font-heading); font-style: italic; font-size: 1.05rem; color: rgba(245,237,214,.8); line-height: 1.7; margin-bottom: 1.5rem; }
+    .testimonial-text { font-family: var(--font-heading); font-style: italic; font-size: .98rem; color: rgba(245,237,214,.8); line-height: 1.75; margin-bottom: 1.5rem; }
     .testimonial-author { display: flex; align-items: center; gap: .8rem; }
     .author-dot {
-      width: 32px; height: 32px; border-radius: 50%;
-      background: var(--wine);
+      width: 34px; height: 34px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--wine), rgba(201,148,42,.2));
+      border: 1px solid rgba(201,148,42,.25);
       display: flex; align-items: center; justify-content: center;
       font-family: var(--font-display); font-size: .8rem; color: var(--gold-lt); flex-shrink: 0;
     }
     .author-name { font-family: var(--font-body); font-weight: 600; font-size: .85rem; color: var(--parchment); }
-    .author-role { font-size: .78rem; color: rgba(245,237,214,.45); }
+    .author-role { font-size: .72rem; color: rgba(245,237,214,.4); }
     .testimonial-stars { color: var(--gold); font-size: .7rem; letter-spacing: .1em; margin-bottom: 1rem; }
+    .slider-nav {
+      display: flex; align-items: center; justify-content: center;
+      gap: 1.5rem; margin-top: 2.5rem;
+    }
+    .slider-btn {
+      width: 42px; height: 42px;
+      background: rgba(201,148,42,.08); border: 1px solid rgba(201,148,42,.25);
+      color: var(--gold); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .25s; border-radius: 50%;
+    }
+    .slider-btn:hover { background: rgba(201,148,42,.15); border-color: var(--gold); }
+    .slider-btn:disabled { opacity: .25; cursor: not-allowed; }
+    .slider-dots {
+      display: flex; gap: .5rem; align-items: center;
+    }
+    .slider-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(201,148,42,.2); border: none;
+      cursor: pointer; transition: all .3s; padding: 0;
+    }
+    .slider-dot.active { background: var(--gold); transform: scale(1.3); }
     .reviews-cta {
-      text-align: center; margin-top: 3rem;
+      text-align: center; margin-top: 2.5rem;
     }
     .reviews-score {
       display: inline-flex; align-items: center; gap: 1rem;
-      padding: 1rem 2rem;
-      border: 1px solid var(--divider);
-      background: var(--deep);
+      padding: 1rem 2.5rem;
+      border: 1px solid rgba(201,148,42,.15);
+      background: rgba(201,148,42,.04);
       font-size: .85rem;
       color: rgba(245,237,214,.6);
     }
     .reviews-score strong { color: var(--gold-lt); font-size: 1.3rem; }
+    @media (max-width: 900px) {
+      .testimonial-card { width: calc((100% - 1.5rem) / 2); }
+    }
+    @media (max-width: 640px) {
+      .testimonial-card { width: 100%; }
+    }
 
     /* ─── CONTACT ─── */
     #contact {
       background: var(--deep);
-      display: grid; grid-template-columns: 5fr 4fr;
-      gap: 6rem; align-items: start;
+      display: grid; grid-template-columns: 3fr 2fr;
+      gap: 4rem; align-items: stretch;
       position: relative; overflow: hidden;
     }
     #contact::before {
@@ -929,7 +970,12 @@
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cdefs%3E%3Cpattern id='g' patternUnits='userSpaceOnUse' width='80' height='80'%3E%3Cg fill='none' stroke='%23c9942a' stroke-width='.5' opacity='.07'%3E%3Cpolygon points='40,4 52,16 64,16 72,28 64,40 52,40 40,52 28,40 16,40 8,28 16,16 28,16'/%3E%3Ccircle cx='40' cy='28' r='3'/%3E%3C/g%3E%3C/pattern%3E%3C/defs%3E%3Crect width='80' height='80' fill='url(%23g)'/%3E%3C/svg%3E");
       pointer-events: none;
     }
-    .contact-form-section { position: relative; z-index: 1; }
+    .contact-form-section {
+      position: relative; z-index: 1;
+      background: rgba(0,0,0,.2);
+      border: 1px solid rgba(201,148,42,.1);
+      padding: 2.5rem;
+    }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
     .form-group { margin-bottom: 1.2rem; }
     .form-group label { display: block; font-size: .73rem; letter-spacing: .16em; text-transform: uppercase; color: rgba(245,237,214,.5); margin-bottom: .5rem; }
@@ -963,10 +1009,15 @@
     }
     .form-submit:hover { background: var(--gold-lt); transform: translateY(-2px); }
 
-    .contact-info { position: relative; z-index: 1; padding-top: 1rem; }
-    .contact-info-title { font-family: var(--font-display); font-size: 1.6rem; color: var(--cream); margin-bottom: 1rem; }
-    .contact-info-text { font-size: .92rem; color: rgba(245,237,214,.6); line-height: 1.8; margin-bottom: 2.5rem; }
-    .contact-detail { display: flex; align-items: flex-start; gap: .9rem; margin-bottom: 1.4rem; }
+    .contact-info {
+      position: relative; z-index: 1;
+      background: rgba(0,0,0,.2);
+      border: 1px solid rgba(201,148,42,.1);
+      padding: 2.5rem;
+    }
+    .contact-info-title { font-family: var(--font-display); font-size: 1.4rem; color: var(--cream); margin-bottom: .8rem; }
+    .contact-info-text { font-size: .88rem; color: rgba(245,237,214,.55); line-height: 1.8; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(201,148,42,.1); }
+    .contact-detail { display: flex; align-items: flex-start; gap: .9rem; margin-bottom: 1.3rem; }
     .contact-detail-icon {
       width: 36px; height: 36px; border: 1px solid var(--divider);
       background: rgba(201,148,42,.08);
@@ -977,20 +1028,16 @@
     .contact-detail-label { font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: rgba(245,237,214,.4); margin-bottom: .15rem; }
     .contact-detail-value { font-size: .9rem; color: var(--parchment); }
     .halal-badge {
-      display: inline-flex; align-items: center; gap: .8rem;
-      margin-top: 2rem;
-      padding: 1rem 1.4rem;
-      border: 1px solid var(--divider);
-      background: rgba(201,148,42,.06);
+      display: flex; align-items: center; gap: .8rem;
+      margin-top: 1.5rem; padding-top: 1.5rem;
+      border-top: 1px solid rgba(201,148,42,.1);
     }
-    .halal-badge-icon { font-size: 1.6rem; }
-    .halal-badge-text { font-size: .8rem; line-height: 1.4; color: rgba(245,237,214,.65); }
-    .halal-badge-text strong { display: block; color: var(--gold-lt); font-size: .85rem; letter-spacing: .05em; }
+    .halal-badge-icon { font-size: 1.4rem; flex-shrink: 0; }
+    .halal-badge-text { font-size: .78rem; line-height: 1.4; color: rgba(245,237,214,.55); }
+    .halal-badge-text strong { display: block; color: var(--gold); font-size: .8rem; letter-spacing: .05em; margin-bottom: .1rem; }
     .werkgebied-strip {
-      margin-top: 2rem;
-      padding: 1rem 1.4rem;
-      border: 1px solid var(--divider);
-      background: rgba(255,255,255,.03);
+      margin-top: 1.2rem; padding-top: 1.2rem;
+      border-top: 1px solid rgba(201,148,42,.1);
     }
     .werkgebied-label { font-size: .67rem; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); margin-bottom: .5rem; }
     .werkgebied-flags { display: flex; gap: 1rem; font-size: .85rem; color: rgba(245,237,214,.6); align-items: center; }
@@ -1033,26 +1080,86 @@
     }
 
     /* ─── FOOTER ─── */
-    footer { background: #0e0505; padding: 4rem 6rem 2.5rem; border-top: 1px solid var(--divider); }
+    footer {
+      background: #0e0505;
+      padding: 0;
+      border-top: none;
+      position: relative;
+      overflow: hidden;
+    }
+    footer::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cg fill='none' stroke='%23c9942a' stroke-width='.4' opacity='.06'%3E%3Cpath d='M30 5 L55 30 L30 55 L5 30Z'/%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .footer-ornament {
+      text-align: center; padding: 3rem 0 0;
+      position: relative; z-index: 1;
+    }
+    .footer-ornament-line {
+      display: flex; align-items: center; justify-content: center; gap: 1.2rem;
+      margin-bottom: .8rem;
+    }
+    .footer-ornament-line::before,
+    .footer-ornament-line::after {
+      content: ''; width: 80px; height: 1px;
+      background: linear-gradient(to right, transparent, rgba(201,148,42,.35), transparent);
+    }
+    .footer-ornament-diamond {
+      width: 8px; height: 8px; background: var(--gold);
+      transform: rotate(45deg); flex-shrink: 0; opacity: .6;
+    }
+    .footer-arabic {
+      font-size: 1.1rem; color: rgba(201,148,42,.2);
+      font-family: var(--font-heading); letter-spacing: .2em;
+    }
+    .footer-inner {
+      position: relative; z-index: 1;
+      padding: 2.5rem 6rem 2.5rem;
+    }
     .footer-top {
       display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
       gap: 4rem; margin-bottom: 3rem;
     }
     .footer-brand .nav-logo { font-size: 1.15rem; margin-bottom: 1rem; display: block; }
-    .footer-tagline { font-family: var(--font-heading); font-style: italic; font-size: .95rem; color: rgba(245,237,214,.4); line-height: 1.65; max-width: 30ch; }
-    .footer-kvk { font-size: .72rem; color: rgba(245,237,214,.25); margin-top: 1rem; line-height: 1.7; }
-    .footer-col h4 { font-family: var(--font-display); font-size: .8rem; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; }
+    .footer-tagline { font-family: var(--font-heading); font-style: italic; font-size: .95rem; color: rgba(245,237,214,.45); line-height: 1.65; max-width: 30ch; }
+    .footer-kvk { font-size: .72rem; color: rgba(245,237,214,.28); margin-top: 1.2rem; line-height: 1.7; }
+    .footer-col h4 {
+      font-family: var(--font-display); font-size: .72rem; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem;
+      padding-bottom: .6rem;
+      border-bottom: 1px solid rgba(201,148,42,.15);
+    }
     .footer-col ul { list-style: none; }
-    .footer-col li { margin-bottom: .6rem; }
-    .footer-col a { font-size: .85rem; color: rgba(245,237,214,.45); transition: color .2s; }
-    .footer-col a:hover { color: var(--parchment); }
+    .footer-col li { margin-bottom: .65rem; }
+    .footer-col a {
+      font-size: .85rem; color: rgba(245,237,214,.5);
+      transition: all .2s; position: relative;
+    }
+    .footer-col a:hover { color: var(--gold-lt); }
+    .footer-social {
+      display: flex; gap: .6rem; margin-top: 1rem;
+    }
+    .footer-social a {
+      width: 34px; height: 34px;
+      border: 1px solid rgba(201,148,42,.2);
+      display: flex; align-items: center; justify-content: center;
+      transition: all .25s; color: rgba(245,237,214,.4);
+    }
+    .footer-social a:hover {
+      border-color: var(--gold); background: rgba(201,148,42,.1);
+      color: var(--gold-lt);
+    }
+    .footer-social svg { width: 14px; height: 14px; fill: currentColor; }
     .footer-bottom {
-      border-top: 1px solid rgba(201,148,42,.1); padding-top: 2rem;
+      border-top: 1px solid rgba(201,148,42,.12); padding: 1.8rem 6rem;
       display: flex; align-items: center; justify-content: space-between;
       flex-wrap: wrap; gap: 1rem;
+      position: relative; z-index: 1;
+      background: rgba(0,0,0,.15);
     }
-    .footer-copy { font-size: .78rem; color: rgba(245,237,214,.28); letter-spacing: .06em; }
-    .footer-halal { font-family: var(--font-body); font-size: .78rem; color: rgba(201,148,42,.5); letter-spacing: .1em; }
+    .footer-copy { font-size: .75rem; color: rgba(245,237,214,.3); letter-spacing: .04em; }
+    .footer-halal { font-family: var(--font-body); font-size: .78rem; color: rgba(201,148,42,.5); letter-spacing: .08em; }
 
     /* ─── TAAL TOGGLE ─── */
     .lang-toggle { background: none; border: 1px solid rgba(201,148,42,.25); border-radius: 2px; padding: .28rem .65rem; cursor: pointer; display: inline-flex; align-items: center; gap: .35rem; transition: border-color .2s; margin-left: .5rem; }
@@ -1212,7 +1319,8 @@
       section { padding: 4rem 1.5rem; }
       .hero-left { padding: 8rem 1.5rem 4rem; }
       .form-row { grid-template-columns: 1fr; }
-      footer { padding: 3rem 1.5rem 2rem; }
+      .footer-inner { padding: 2rem 1.5rem 2rem; }
+      .footer-bottom { padding: 1.5rem 1.5rem; }
       .footer-top { grid-template-columns: 1fr; gap: 2rem; }
       #usp-strip { grid-template-columns: 1fr; padding: 2.5rem 1.5rem; }
       .menu-grid { grid-template-columns: 1fr; background: transparent; gap: 0; }
@@ -2742,53 +2850,245 @@
     <h2 class="section-title reveal reveal-delay-1" data-i18n="test-title"><em>Ervaringen</em> van onze klanten</h2>
   </div>
 
-  <div class="testimonials-grid">
-    <div class="testimonial-card reveal">
-      <div class="testimonial-stars">★★★★★</div>
-      <p class="testimonial-text">"Ik heb voor mijn bruiloft Memories of Damascus als catering bedrijf ingehuurd. Eten was super lekker en gevarieerd en de hoeveelheid was ruim voldoende. Iedereen heeft meerdere malen geschept en er was nog veel overgebleven. Vriendelijke personeel en top service. Het was PERFECT 🤌"</p>
-      <div style="font-size:.78rem;color:rgba(201,148,42,.6);margin-bottom:1.2rem;">Eten: 5/5 &nbsp;|&nbsp; Service: 5/5 &nbsp;|&nbsp; Sfeer: 5/5</div>
-      <div class="testimonial-author">
-        <div class="author-dot">R</div>
-        <div>
-          <div class="author-name">Rahma Azawy</div>
-          <div class="author-role">Google Review · een jaar geleden</div>
+  <div class="testimonials-slider-wrap reveal">
+    <div class="testimonials-track" id="reviewTrack">
+
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Onze ervaring met Memories of Damascus tijdens onze bruiloft was ronduit fantastisch. Vanaf het allereerste contact tot aan de laatste hap op onze speciale dag, werden we overladen met professionele service, hartelijke zorg en verbluffend eten."</p>
+        <div class="testimonial-author">
+          <div class="author-dot">B</div>
+          <div>
+            <div class="author-name">B.R Salem</div>
+            <div class="author-role">★ 5/5 · Bruiloft · Google Review</div>
+          </div>
         </div>
       </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Heb voor mijn huwelijk de catering via Memories of Damascus geregeld en Mohammed en Anouk hebben beide samen met hun personeel van begin tot eind ons huwelijk onvergetelijk gemaakt! Ze luisterden naar onze wensen en hebben verrukkelijke gerechten neergezet."</p>
+        <div class="testimonial-author">
+          <div class="author-dot">A</div>
+          <div>
+            <div class="author-name">Amir Orima</div>
+            <div class="author-role">★ 5/5 · Bruiloft · Local Guide</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Wauw wauw wauw! Vanaf het begin tot het eind oprecht een geweldige service. Met alles werd meegedacht!! Wat betreft het eten: Het was in 1 woord verrukkelijk! De gasten waren te spreken over elk gerecht dat er was."</p>
+        <div class="testimonial-author">
+          <div class="author-dot">I</div>
+          <div>
+            <div class="author-name">Ibtissame Azougagh</div>
+            <div class="author-role">★ 5/5 · Bruiloft · Google Review</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Memories of Damascus heeft de catering verzorgd voor onze bruiloft. Een heerlijk vegetarisch buffet voor 150 gasten. Het eten was vers, gevarieerd en erg lekker! We hebben gedurende de dag en daarna nog veel complimenten gekregen van onze gasten."</p>
+        <div class="testimonial-author">
+          <div class="author-dot">L</div>
+          <div>
+            <div class="author-name">Lotte Boonen</div>
+            <div class="author-role">★ 5/5 · Bruiloft · 150 gasten</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Het eten was subliem, en superfijn dat er ook een glutenvrije optie was! We hadden een flink feest. Netjes op tijd gebracht en alles duidelijk gecommuniceerd over WhatsApp. Ging allemaal soepel en voortvarend."</p>
+        <div class="testimonial-author">
+          <div class="author-dot">J</div>
+          <div>
+            <div class="author-name">Jochum G</div>
+            <div class="author-role">★ 5/5 · Feest · Local Guide</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Ik heb voor mijn bruiloft Memories of Damascus als catering bedrijf ingehuurd. Eten was super lekker en gevarieerd en de hoeveelheid was ruim voldoende. Iedereen heeft meerdere malen geschept en er was nog veel overgebleven. Het was PERFECT."</p>
+        <div class="testimonial-author">
+          <div class="author-dot">R</div>
+          <div>
+            <div class="author-name">Rahma Azawy</div>
+            <div class="author-role">★ 5/5 · Bruiloft · Google Review</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Heel erg bedankt voor het heerlijke eten! Iedereen vond het erg lekker en vroeg waar ik het vandaan had. Mijn complimenten voor hoe alles geserveerd was. De porties waren ruim voldoende voor het aantal personen waarvoor we hadden besteld."</p>
+        <div class="testimonial-author">
+          <div class="author-dot">R</div>
+          <div>
+            <div class="author-name">RM RM</div>
+            <div class="author-role">★ 5/5 · Catering · Google Review</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Voor ons vriendenweekend met 20 personen ontzettend genoten van de heerlijke catering! Het contact met Anouk was heel prettig, ze heeft ons geadviseerd over de keuze van gerechten en mee gedacht in de logistiek om de catering op locatie te krijgen."</p>
+        <div class="testimonial-author">
+          <div class="author-dot">H</div>
+          <div>
+            <div class="author-name">Hester Hopman</div>
+            <div class="author-role">★ 5/5 · Groepsevent · 20 personen</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Ongelofelijk lekker gegeten! Op de bruiloft van mijn broer hebben ze werkelijk een fantastisch buffet neergezet. Alles ruim voldoende aanwezig en zeer fijn in communicatie. Alle gasten waren zeer onder de indruk van deze heerlijke keuken!"</p>
+        <div class="testimonial-author">
+          <div class="author-dot">F</div>
+          <div>
+            <div class="author-name">Flore Wittenberg</div>
+            <div class="author-role">★ 5/5 · Bruiloft · Google Review</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Wij hebben met ruim 30 personen genoten van het heerlijke Syrische buffet! Heel lekker, gevarieerd en bijzonder mooi opgemaakt! Een aanrader en voor herhaling vatbaar!"</p>
+        <div class="testimonial-author">
+          <div class="author-dot">L</div>
+          <div>
+            <div class="author-name">Lisette van Eijndhoven</div>
+            <div class="author-role">★ 5/5 · Buffet · 30 personen</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Memories of Damascus heeft bij ons de catering verzorgd voor 30 mensen, voor een speciaal feest bij ons thuis. Anouk is heel goed bereikbaar, denkt prettig mee, en dacht mee over een goede oplossing. Een volledig veganistisch buffet — en het was heerlijk!"</p>
+        <div class="testimonial-author">
+          <div class="author-dot">E</div>
+          <div>
+            <div class="author-name">Ellen Rass</div>
+            <div class="author-role">★ 5/5 · Vegan catering · 30 personen</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Overheerlijk eten en megavriendelijk personeel! Alles werd vlot geregeld en de communicatie was erg prettig. Ook dieetwensen (glutenvrij, vegan) waren geen probleem. Wij komen zeker weer!"</p>
+        <div class="testimonial-author">
+          <div class="author-dot">A</div>
+          <div>
+            <div class="author-name">Faculteitsvereniging Awaz</div>
+            <div class="author-role">★ 5/5 · Bedrijfsevent · Radboud Universiteit</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Heerlijk eten dat goed werd voorbereid en op tijd was, met goede service en fijne en vriendelijke communicatie. Goede prijs-kwaliteit verhouding. Iedereen heeft ervan genoten en er was meer dan genoeg!"</p>
+        <div class="testimonial-author">
+          <div class="author-dot">N</div>
+          <div>
+            <div class="author-name">Naomi Smith</div>
+            <div class="author-role">★ 5/5 · Catering · Google Review</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Heerlijk gegeten. Eigenlijk verdient het 10 sterren! Op tijd bezorgd, lekker warm en mooi opgemaakt. Meer dan genoeg voor iedereen. Het is zeker een aanrader om hier te bestellen. Voor herhaling vatbaar!"</p>
+        <div class="testimonial-author">
+          <div class="author-dot">J</div>
+          <div>
+            <div class="author-name">Jo Buijtels</div>
+            <div class="author-role">★ 5/5 · Catering · Google Review</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Ze hebben heerlijk catering geleverd voor 150 personen! Goede communicatie en alles was strak geleverd! Aanrader!"</p>
+        <div class="testimonial-author">
+          <div class="author-dot">G</div>
+          <div>
+            <div class="author-name">Gijs van der Burgh</div>
+            <div class="author-role">★ 5/5 · Catering · 150 personen</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Je krijgt bij Memories of Damascus veel waar voor je geld. Ontzettend veel en lekker eten. De baklava maken ze zelf en je proeft de liefde die er in zit! Dikke aanrader!!"</p>
+        <div class="testimonial-author">
+          <div class="author-dot">C</div>
+          <div>
+            <div class="author-name">Chanthal Wouters</div>
+            <div class="author-role">★ 5/5 · Baklava · Google Review</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Je ziet de beoordeling van 5 sterren en denkt dat het onmogelijk zo goed kan zijn, waarschijnlijk overdreven, maar dan bestel je en vraag je je af waarom Memories of Damascus geen 6 sterren heeft!"</p>
+        <div class="testimonial-author">
+          <div class="author-dot">D</div>
+          <div>
+            <div class="author-name">Deniz Eroglu</div>
+            <div class="author-role">★ 5/5 · Local Guide · Google Review</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Ik had al eens eten besteld bij Memories Of Damascus voor een feestje. Toen ik hoorde dat ze open gingen bij STR'EAT was ik gelijk nieuwsgierig, het heeft mijn verwachtingen overtroffen! Het eten was erg lekker, en zoals altijd service met een glimlach."</p>
+        <div class="testimonial-author">
+          <div class="author-dot">W</div>
+          <div>
+            <div class="author-name">Williams JR.</div>
+            <div class="author-role">★ 5/5 · Restaurant · Local Guide</div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
-    <div class="testimonial-card reveal reveal-delay-1">
-      <div class="testimonial-stars">★★★★★</div>
-      <p class="testimonial-text">"Ik had al eens eten besteld bij Memories Of Damascus voor een feestje. Toen ik hoorde dat ze open gingen bij STR'EAT was ik gelijk nieuwsgierig, het heeft mijn verwachtingen overtroffen! Het eten was erg lekker, en zoals altijd service met een glimlach. Aanrader!"</p>
-      <div style="font-size:.78rem;color:rgba(201,148,42,.6);margin-bottom:1.2rem;">Eten: 5/5 &nbsp;|&nbsp; Service: 5/5 &nbsp;|&nbsp; Sfeer: 5/5</div>
-      <div class="testimonial-author">
-        <div class="author-dot">W</div>
-        <div>
-          <div class="author-name">Williams JR.</div>
-          <div class="author-role">Local Guide · Google Review · een jaar geleden</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="testimonial-card reveal reveal-delay-2">
-      <div class="testimonial-stars">★★★★★</div>
-      <p class="testimonial-text">"Memories of Damascus verzorgde de catering op mijn bruiloft, ze hebben het uitstekend gedaan. De gasten waren tevreden!"</p>
-      <div style="font-size:.78rem;color:rgba(201,148,42,.6);margin-bottom:1.2rem;">Eten: 5/5 &nbsp;|&nbsp; Service: 5/5</div>
-      <div class="testimonial-author">
-        <div class="author-dot">S</div>
-        <div>
-          <div class="author-name">Shiyar</div>
-          <div class="author-role">Google Review · 10 maanden geleden</div>
-        </div>
-      </div>
+    <div class="slider-nav">
+      <button class="slider-btn" id="sliderPrev" onclick="slideReviews(-1)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="slider-dots" id="sliderDots"></div>
+      <button class="slider-btn" id="sliderNext" onclick="slideReviews(1)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
     </div>
   </div>
 
   <div class="reviews-cta reveal">
-    <div class="reviews-score">
+    <a href="https://www.google.com/search?q=Memories+of+Damascus+Catering+Reviews&rflfq=1&tbm=lcl#lkt=LocalPoiReviews" target="_blank" rel="noopener" class="reviews-score" style="text-decoration:none;cursor:pointer;transition:border-color .2s;" onmouseover="this.style.borderColor='rgba(201,148,42,.4)'" onmouseout="this.style.borderColor=''">
       <span>★★★★★</span>
-      <strong>5/5</strong>
-      <span data-i18n="reviews-score">gemiddelde score · Google Reviews</span>
-    </div>
+      <strong>4.9/5</strong>
+      <span data-i18n="reviews-score">104 reviews · Google Reviews</span>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--gold);margin-left:.3rem;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    </a>
   </div>
 </section>
 
@@ -2968,49 +3268,68 @@
 
 <!-- ═══ FOOTER ═══ -->
 <footer>
-  <div class="footer-top">
-    <div class="footer-brand">
-      <span class="nav-logo">Memories of Damascus</span>
-      <p class="footer-tagline" data-i18n="footer-tagline">
-        "De ware smaken van Syrië en Libanon — authentieke Arabische catering
-        en zoetigheden, liefdevol bereid voor elke gelegenheid."
-      </p>
-      <p class="footer-kvk">
-        KVK: 81201974 · BTW: NL861985370B01<br>
-        De Run 21, 5684 PW Best<br>
-        © 2020 – 2026 Memories of Damascus
-      </p>
+  <div class="footer-ornament">
+    <div class="footer-ornament-line">
+      <div class="footer-ornament-diamond"></div>
     </div>
-    <div class="footer-col">
-      <h4 data-i18n="footer-col1-h">Catering</h4>
-      <ul data-i18n="footer-col1-list">
-        <li><a href="#diensten">Feesten & Bruiloften</a></li>
-        <li><a href="#diensten">Bedrijfscatering</a></li>
-        <li><a href="#azc">AZC & Noodopvang</a></li>
-        <li><a href="#pakketten">Pakketten & Prijzen</a></li>
-        <li><a href="#menu">Onze Gerechten</a></li>
-        <li><a href="#baklava">Baklava per Post</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4 data-i18n="footer-col2-h">Bedrijf</h4>
-      <ul data-i18n="footer-col2-list">
-        <li><a href="#over-ons">Over Ons</a></li>
-        <li><a href="#sociaal">Sociaal Ondernemen</a></li>
-        <li><a href="#restaurant">Restaurant Eindhoven</a></li>
-        <li><a href="#testimonials">Reviews</a></li>
-        <li><a href="mailto:bestellen@memoriesofdamascus.nl">Samenwerken?</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Contact</h4>
-      <ul>
-        <li><a href="tel:0620777624">06 20 77 76 24</a></li>
-        <li><a href="mailto:bestellen@memoriesofdamascus.nl">bestellen@<br>memoriesofdamascus.nl</a></li>
-        <li><a href="https://www.facebook.com/memoriesofdamascussyrischeten" target="_blank" rel="noopener">Facebook</a></li>
-        <li><a href="https://www.instagram.com/memoriesofdamascus" target="_blank" rel="noopener">Instagram</a></li>
-        <li><a href="https://wa.me/31624470098" target="_blank" rel="noopener">WhatsApp</a></li>
-      </ul>
+    <div class="footer-arabic">ذكريات دمشق</div>
+  </div>
+
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="nav-logo">Memories of Damascus</span>
+        <p class="footer-tagline" data-i18n="footer-tagline">
+          "De ware smaken van Syrië en Libanon — authentieke Arabische catering
+          en zoetigheden, liefdevol bereid voor elke gelegenheid."
+        </p>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/memoriesofdamascussyrischeten" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/memoriesofdamascus" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1.2"/></svg>
+          </a>
+          <a href="https://wa.me/31620777624" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.118.549 4.112 1.513 5.845L.057 23.537l5.83-1.527A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.82a9.78 9.78 0 01-5.39-1.58l-.386-.23-3.464.908.924-3.373-.252-.4A9.78 9.78 0 012.18 12c0-5.422 4.398-9.82 9.82-9.82 5.422 0 9.82 4.398 9.82 9.82 0 5.422-4.398 9.82-9.82 9.82z"/></svg>
+          </a>
+        </div>
+        <p class="footer-kvk">
+          KVK: 81201974 · BTW: NL861985370B01<br>
+          De Run 21, 5684 PW Best<br>
+          © 2020 – 2026 Memories of Damascus
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer-col1-h">Catering</h4>
+        <ul data-i18n="footer-col1-list">
+          <li><a href="#diensten">Feesten & Bruiloften</a></li>
+          <li><a href="#diensten">Bedrijfscatering</a></li>
+          <li><a href="#azc">AZC & Noodopvang</a></li>
+          <li><a href="#pakketten">Pakketten & Prijzen</a></li>
+          <li><a href="#menu">Onze Gerechten</a></li>
+          <li><a href="#baklava">Baklava per Post</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer-col2-h">Bedrijf</h4>
+        <ul data-i18n="footer-col2-list">
+          <li><a href="#over-ons">Over Ons</a></li>
+          <li><a href="#sociaal">Sociaal Ondernemen</a></li>
+          <li><a href="#restaurant">Restaurant Eindhoven</a></li>
+          <li><a href="#testimonials">Reviews</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="mailto:bestellen@memoriesofdamascus.nl">Samenwerken?</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:0620777624">06 20 77 76 24</a></li>
+          <li><a href="tel:0624470098">06 24 47 00 98</a></li>
+          <li><a href="mailto:bestellen@memoriesofdamascus.nl">bestellen@memoriesofdamascus.nl</a></li>
+        </ul>
+      </div>
     </div>
   </div>
   <div class="footer-bottom">
@@ -3405,7 +3724,7 @@
     'loc-rotterdam-cta':    { nl:'Bezoek Morgenland <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>', en:'Visit Morgenland <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' },
 
     // Reviews
-    'reviews-score':    { nl:'gemiddelde score · Google Reviews', en:'average score · Google Reviews' },
+    'reviews-score':    { nl:'104 reviews · Google Reviews', en:'104 reviews · Google Reviews' },
 
     // Contact form
     'form-naam':        { nl:'Naam *', en:'Name *' },
@@ -3874,6 +4193,69 @@
   }
 
   renderCal(); updateTotaal();
+
+  // ── Review Slider
+  (function() {
+    var track = document.getElementById('reviewTrack');
+    var cards = track.querySelectorAll('.testimonial-card');
+    var dotsWrap = document.getElementById('sliderDots');
+    var slideIdx = 0;
+    var perView = 3;
+
+    function getPerView() {
+      if (window.innerWidth <= 640) return 1;
+      if (window.innerWidth <= 900) return 2;
+      return 3;
+    }
+
+    function getTotalPages() {
+      return Math.max(1, cards.length - perView + 1);
+    }
+
+    function buildDots() {
+      dotsWrap.innerHTML = '';
+      var pages = Math.ceil(cards.length / perView);
+      for (var i = 0; i < pages; i++) {
+        var dot = document.createElement('button');
+        dot.className = 'slider-dot' + (i === Math.floor(slideIdx / perView) ? ' active' : '');
+        dot.setAttribute('aria-label', 'Pagina ' + (i + 1));
+        (function(idx) { dot.onclick = function() { slideIdx = idx * perView; updateSlider(); }; })(i);
+        dotsWrap.appendChild(dot);
+      }
+    }
+
+    function updateSlider() {
+      perView = getPerView();
+      var maxIdx = Math.max(0, cards.length - perView);
+      slideIdx = Math.min(slideIdx, maxIdx);
+      slideIdx = Math.max(0, slideIdx);
+      var gap = 24; // 1.5rem
+      var wrapW = track.parentElement.offsetWidth;
+      var cardW = (wrapW - gap * (perView - 1)) / perView;
+      track.style.transform = 'translateX(-' + (slideIdx * (cardW + gap)) + 'px)';
+      document.getElementById('sliderPrev').disabled = slideIdx <= 0;
+      document.getElementById('sliderNext').disabled = slideIdx >= maxIdx;
+      buildDots();
+    }
+
+    window.slideReviews = function(dir) {
+      slideIdx += dir;
+      updateSlider();
+    };
+
+    updateSlider();
+    window.addEventListener('resize', function() { updateSlider(); });
+
+    // Touch/swipe support
+    var startX = 0, startY = 0, isDragging = false;
+    track.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; startY = e.touches[0].clientY; isDragging = true; }, { passive: true });
+    track.addEventListener('touchend', function(e) {
+      if (!isDragging) return; isDragging = false;
+      var dx = e.changedTouches[0].clientX - startX;
+      var dy = e.changedTouches[0].clientY - startY;
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) slideReviews(dx < 0 ? 1 : -1);
+    }, { passive: true });
+  })();
 
   // Prevent info buttons from toggling dish selection
   document.querySelectorAll('.gc-info-btn').forEach(function(btn) {
