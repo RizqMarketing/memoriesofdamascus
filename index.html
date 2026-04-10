@@ -423,14 +423,15 @@
       background: linear-gradient(to bottom, var(--ink) 0%, #1c0909 60%, #1e0a0a 100%);
       text-align: center;
       position: relative;
-      padding-top: 3rem;
+      padding-top: 2rem;
+      padding-bottom: 4rem;
     }
     #pakketten::after {
       content: ''; position: absolute; bottom: 0; left: 0; right: 0;
       height: 1px;
       background: linear-gradient(to right, transparent, rgba(201,148,42,.2), transparent);
     }
-    .pakketten-header { max-width: 580px; margin: 0 auto 2.5rem; }
+    .pakketten-header { max-width: 580px; margin: 0 auto 1.5rem; }
     .pakketten-grid {
       display: grid; grid-template-columns: repeat(3, 1fr);
       gap: 2rem; max-width: 1200px; margin: 0 auto;
@@ -1334,6 +1335,8 @@
       .footer-bottom { flex-direction: column; text-align: center; }
       .baklava-specs { grid-template-columns: 1fr; }
       .pakketten-extras { grid-template-columns: 1fr; }
+      #pakketten { padding-top: 1.5rem; }
+      .pakketten-header { margin-bottom: 1rem; }
       #restaurant { padding: 3rem 1.5rem; }
       #sociaal { padding: 3rem 1.5rem; }
       .azc-stat-row { grid-template-columns: 1fr 1fr; }
