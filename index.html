@@ -3641,14 +3641,17 @@
     navbar.classList.toggle('scrolled', window.scrollY > 60);
   });
 
-  // ── Scroll reveal
+  // ── Scroll reveal (skip hero — handled by preloader entrance)
+  const heroSection = document.getElementById('hero');
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) entry.target.classList.add('visible');
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
-  reveals.forEach(el => observer.observe(el));
+  reveals.forEach(el => {
+    if (!heroSection.contains(el)) observer.observe(el);
+  });
 
   // ── Dienst cards: premium staggered group reveal
   var dienstCards = document.querySelectorAll('.diensten-grid .dienst-card');
