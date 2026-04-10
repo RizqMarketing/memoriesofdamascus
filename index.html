@@ -3,8 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Memories of Damascus — Arabische Halal Catering | Best &amp; Eindhoven</title>
-  <meta name="description" content="Authentieke Syrisch-Libanese halal catering voor particulieren, bedrijven en overheidsinstanties (AZC's). Opgericht in Best, actief door heel Nederland, België en Duitsland." />
+  <title>Memories of Damascus — Arabische Halal Catering Eindhoven & Rotterdam | Syrische Libanese Catering</title>
+  <meta name="description" content="Halal catering Eindhoven & Rotterdam. Arabische, Syrische en Libanese catering voor bruiloften, feesten en bedrijven. Vegetarische catering, halal buffet, huwelijkscatering. Actief door heel Nederland, België en Duitsland." />
+  <meta name="keywords" content="halal catering, halal catering eindhoven, halal catering rotterdam, arabische catering, syrische catering, libanese catering, irakese catering, koerdische catering, halal huwelijk catering, arabische huwelijk catering, halal buffet, arabisch restaurant, halal restaurant, vegetarische catering, halal trouwcatering, mezze catering" />
+  <meta property="og:title" content="Memories of Damascus — Arabische Halal Catering" />
+  <meta property="og:description" content="Authentieke Syrisch-Libanese halal catering voor bruiloften, feesten, bedrijven en overheidsinstanties. Vegetarisch en vegan mogelijk. Eindhoven, Rotterdam en heel Nederland." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="nl_NL" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Cormorant+SC:wght@300;400;500;600&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet" />
@@ -427,7 +432,7 @@
     .pakketten-header { max-width: 580px; margin: 0 auto 4rem; }
     .pakketten-grid {
       display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 2rem; max-width: 1100px; margin: 0 auto;
+      gap: 2rem; max-width: 1200px; margin: 0 auto;
     }
     .pakket-card {
       background: var(--deep);
@@ -991,6 +996,42 @@
     .werkgebied-flags { display: flex; gap: 1rem; font-size: .85rem; color: rgba(245,237,214,.6); align-items: center; }
     .werkgebied-flags span { display: flex; align-items: center; gap: .4rem; }
 
+    /* ─── FAQ ─── */
+    #faq { padding: 5rem 2rem; }
+    .faq-item {
+      border-bottom: 1px solid var(--divider);
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .faq-item:first-child { border-top: 1px solid var(--divider); }
+    .faq-q {
+      padding: 1.3rem 2.5rem 1.3rem 0;
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      color: var(--parchment);
+      position: relative;
+    }
+    .faq-q::after {
+      content: '+';
+      position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+      font-size: 1.3rem; color: var(--gold);
+      transition: transform .3s;
+    }
+    .faq-item.faq-open .faq-q::after { content: '−'; }
+    .faq-a {
+      max-height: 0; overflow: hidden;
+      font-size: .9rem; color: rgba(245,237,214,.6); line-height: 1.8;
+      transition: max-height .35s ease, padding .35s ease;
+      padding: 0 0 0 0;
+    }
+    .faq-item.faq-open .faq-a {
+      max-height: 300px;
+      padding: 0 0 1.3rem 0;
+    }
+    @media (hover: hover) {
+      .faq-item:hover { background: rgba(201,148,42,.04); }
+    }
+
     /* ─── FOOTER ─── */
     footer { background: #0e0505; padding: 4rem 6rem 2.5rem; border-top: 1px solid var(--divider); }
     .footer-top {
@@ -1224,7 +1265,8 @@
     .conf-step { background: rgba(255,255,255,.023); border: 1px solid var(--divider); border-radius: 2px; padding: 1.8rem 2rem; transition: border-color .3s; }
     .conf-step-num { font-family: var(--font-display); font-size: .6rem; letter-spacing: .22em; text-transform: uppercase; color: rgba(201,148,42,.55); margin-bottom: .35rem; }
     .conf-step-title { font-family: var(--font-heading); font-size: 1.2rem; color: var(--cream); margin-bottom: 1.2rem; }
-    .pk-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+    .pk-grid { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+    .pk-btn { flex: 0 1 calc(33.333% - .67rem); min-width: 180px; }
     .pk-btn { background: rgba(255,255,255,.03); border: 1px solid rgba(201,148,42,.2); border-radius: 2px; padding: 1.4rem 1.2rem; cursor: pointer; text-align: left; transition: all .22s; color: var(--parchment); }
     .pk-btn:hover { border-color: rgba(201,148,42,.5); background: rgba(201,148,42,.06); }
     .pk-btn.sel { border-color: var(--gold); background: rgba(201,148,42,.1); }
@@ -1251,10 +1293,36 @@
     .gc.gc-sel::after { content: '✓'; position: absolute; top: .25rem; right: .35rem; font-size: .65rem; color: var(--gold); }
     .gc-emoji { font-size: 1.6rem; margin-bottom: .4rem; display: block; }
     .gc-naam { font-family: var(--font-display); font-size: .65rem; letter-spacing: .04em; color: var(--cream); line-height: 1.3; }
+    .gc-info-btn {
+      position: absolute; top: .3rem; left: .35rem;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: rgba(201,148,42,.15); border: 1px solid rgba(201,148,42,.3);
+      color: var(--gold); font-size: .55rem; font-family: var(--font-heading);
+      display: flex; align-items: center; justify-content: center;
+      cursor: help; z-index: 2; line-height: 1;
+    }
+    .gc-tooltip {
+      display: none; position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
+      background: #1a0a0a; border: 1px solid rgba(201,148,42,.3);
+      padding: .7rem .9rem; min-width: 200px; max-width: 260px;
+      z-index: 10; text-align: left; pointer-events: none;
+      box-shadow: 0 4px 20px rgba(0,0,0,.5);
+    }
+    .gc-tooltip::after {
+      content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+      border: 5px solid transparent; border-top-color: rgba(201,148,42,.3);
+    }
+    .gc-info-btn:hover + .gc-tooltip,
+    .gc-info-btn:focus + .gc-tooltip { display: block; pointer-events: auto; }
+    .gc-tt-desc { font-size: .72rem; color: rgba(245,237,214,.65); line-height: 1.5; margin-bottom: .4rem; font-family: var(--font-body); font-style: italic; }
+    .gc-tt-row { font-size: .62rem; color: rgba(245,237,214,.4); line-height: 1.4; }
+    .gc-tt-row strong { color: rgba(201,148,42,.7); font-weight: 500; }
+    .gc-tag { display: inline-block; font-size: .55rem; padding: .1rem .35rem; margin-top: .3rem; margin-right: .2rem; border: 1px solid rgba(201,148,42,.2); color: rgba(245,237,214,.5); border-radius: 1px; }
     .addon-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
     .addon { display: flex; align-items: center; gap: .8rem; background: rgba(255,255,255,.02); border: 1px solid rgba(201,148,42,.12); border-radius: 2px; padding: .75rem 1rem; cursor: pointer; transition: all .2s; user-select: none; }
     .addon:hover { border-color: rgba(201,148,42,.35); background: rgba(201,148,42,.04); }
     .addon.addon-sel { border-color: var(--gold); background: rgba(201,148,42,.08); }
+    .addon.addon-disabled { opacity: .35; pointer-events: none; cursor: not-allowed; }
     .addon-chk { width: 15px; height: 15px; border: 1px solid rgba(201,148,42,.4); border-radius: 2px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: .6rem; color: var(--ink); transition: all .2s; }
     .addon.addon-sel .addon-chk { background: var(--gold); border-color: var(--gold); }
     .addon-info { flex: 1; }
@@ -1532,8 +1600,10 @@
       .locaties-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
     }
     @media (max-width: 640px) {
-      .pk-grid { grid-template-columns: 1fr; }
+      .pk-grid { flex-direction: column; }
+      .pk-btn { flex: 1 1 100%; }
       .gerecht-grid { grid-template-columns: repeat(3,1fr); }
+      .gc-tooltip { min-width: 160px; max-width: 200px; font-size: .9em; }
       .addon-grid { grid-template-columns: 1fr; }
       .reis-row { flex-direction: column; }
       .reis-adres { grid-template-columns: 1fr !important; }
@@ -1713,13 +1783,15 @@
         <path d="M40 28c3.3 0 6 2.7 6 8M8 14c0-2.2-1.8-4-4-4S0 11.8 0 14s1.8 4 4 4"/>
         <path d="M8 28C4.7 28 2 30.7 2 36"/>
       </svg>
-      <h3 class="dienst-name" data-i18n="d1-name">Particulieren & Bruiloften</h3>
-      <p class="dienst-desc" data-i18n="d1-desc">Maak uw feest onvergetelijk met authentieke Syrisch-Libanese gerechten. Bij huwelijkscatering bieden wij een gratis proeverij zonder verplichtingen.</p>
+      <h3 class="dienst-name" data-i18n="d1-name">Feesten & Bruiloften</h3>
+      <p class="dienst-desc" data-i18n="d1-desc">Maak uw feest onvergetelijk met authentieke Syrisch-Libanese gerechten. Gratis proeverij bij huwelijkscatering en andere grote feesten — geheel vrijblijvend.</p>
       <ul class="dienst-list" data-i18n="d1-list">
-        <li>Halal huwelijkscatering — gratis proeverij</li>
-        <li>Eid-feesten & ramadan-iftar</li>
+        <li>Voor particulieren en bedrijven</li>
+        <li>Huwelijkscatering — gratis proeverij</li>
         <li>Hapjescatering (mezze/tapas)</li>
         <li>Uitgebreide buffetcatering met bediening</li>
+        <li>Volledig vegetarisch of vegan mogelijk</li>
+        <li>Dieetwensen: lactosevrij, glutenvrij, notenvrij e.a.</li>
         <li>Toetjesbuffetten & losse maaltijden</li>
       </ul>
     </div>
@@ -1741,6 +1813,7 @@
         <li>Personeelsevents & teambuilding</li>
         <li>Vaste dagelijkse cateringcontracten</li>
         <li>Inclusieve menuopties (halal, vegan, vegetarisch)</li>
+        <li>Dieetwensen: lactosevrij, glutenvrij, notenvrij e.a.</li>
       </ul>
     </div>
 
@@ -1773,14 +1846,14 @@
     <p class="section-label reveal" style="justify-content:center;" data-i18n="pak-label">Transparante Prijzen</p>
     <h2 class="section-title reveal reveal-delay-1" data-i18n="pak-title">Onze catering<em>pakketten</em></h2>
     <p class="reveal reveal-delay-2" style="font-size:.92rem;color:rgba(245,237,214,.55);line-height:1.75;" data-i18n="pak-intro">
-      BTW inbegrepen. Opbouw, afbouw en afwas inbegrepen. Gratis levering in de regio Eindhoven.
+      BTW inbegrepen. Opbouw, afbouw en afwas inbegrepen. Gratis levering in Eindhoven en Rotterdam.
     </p>
   </div>
 
   <div class="pakketten-grid reveal reveal-delay-1">
     <!-- Classic -->
     <div class="pakket-card">
-      <div class="pakket-name">Classic</div>
+      <div class="pakket-name">Classic Buffet</div>
       <div class="pakket-price"><sup>€</sup>25</div>
       <div class="pakket-per" data-i18n="pak-classic-per">per persoon · min. 10 personen</div>
       <div class="pakket-divider"></div>
@@ -1789,17 +1862,17 @@
         <li><strong>3 mezze's</strong> (smeersels & hapjes)</li>
         <li><strong>1 salade</strong></li>
         <li>Presentatie op mooie schalen + chafing dishes</li>
-        <li>Buffet of bediend opdienen (naar keuze)</li>
+        <li>In buffetvorm opgesteld</li>
         <li>Op- en afbouw inbegrepen</li>
         <li>Afwas inbegrepen</li>
-        <li>Gratis levering regio Eindhoven</li>
+        <li>Gratis levering Eindhoven en Rotterdam</li>
       </ul>
       <p class="pakket-note" data-i18n="pak-classic-note">Borden & bestek: +€1,- p.p. optioneel</p>
     </div>
 
     <!-- Luxe -->
     <div class="pakket-card featured">
-      <div class="pakket-name">Luxe</div>
+      <div class="pakket-name">Luxe Buffet</div>
       <div class="pakket-price"><sup>€</sup>30</div>
       <div class="pakket-per" data-i18n="pak-luxe-per">per persoon · min. 15 personen</div>
       <div class="pakket-divider"></div>
@@ -1808,12 +1881,12 @@
         <li><strong>4 mezze's</strong> (smeersels & hapjes)</li>
         <li><strong>1 salade</strong></li>
         <li>Presentatie op mooie schalen + chafing dishes</li>
-        <li>Buffet of bediend opdienen (naar keuze)</li>
+        <li>In buffetvorm opgesteld</li>
         <li>Op- en afbouw inbegrepen</li>
         <li>Afwas inbegrepen</li>
-        <li>Gratis levering regio Eindhoven</li>
+        <li>Gratis levering Eindhoven en Rotterdam</li>
       </ul>
-      <p class="pakket-note" data-i18n="pak-luxe-note">Borden & bestek: +€1,- p.p. optioneel. Bediend personeel op aanvraag.</p>
+      <p class="pakket-note" data-i18n="pak-luxe-note">Borden & bestek: +€1,- p.p. optioneel. Bedienend personeel op aanvraag.</p>
     </div>
 
     <!-- À la Table -->
@@ -1827,12 +1900,69 @@
         <li><strong>3 mezze's</strong> naar keuze</li>
         <li><strong>1 salade</strong> naar keuze</li>
         <li>Warm uitgeserveerd op schalen per tafel</li>
-        <li>Inclusief bediend personeel</li>
+        <li>Inclusief bedienend personeel</li>
         <li>Op- en afbouw inbegrepen</li>
         <li>Afwas inbegrepen</li>
-        <li>Gratis levering regio Eindhoven</li>
+        <li>Gratis levering Eindhoven en Rotterdam</li>
       </ul>
       <p class="pakket-note" data-i18n="pak-table-note">Geen buffet — gerechten worden warm aan tafel geserveerd door ons personeel.</p>
+    </div>
+
+    <!-- Houtskool BBQ -->
+    <div class="pakket-card">
+      <div class="pakket-name">Ateş BBQ</div>
+      <div class="pakket-price"><sup>€</sup>33</div>
+      <div class="pakket-per" data-i18n="pak-bbq-per">per persoon · min. 20 personen</div>
+      <div class="pakket-divider"></div>
+      <ul class="pakket-features" data-i18n="pak-bbq-list">
+        <li><strong>1 grote shish kebab</strong> (lams-rundergehakt spies) p.p.</li>
+        <li><strong>1 grote shish tavuk</strong> (kipspies) p.p.</li>
+        <li>Kippenvleugeltjes</li>
+        <li>Diverse gegrilde groenten van de BBQ</li>
+        <li>Hummus dip & muhammara (paprika-walnoten) dip</li>
+        <li>Salade & diverse sauzen</li>
+        <li>Inclusief BBQ & alle benodigdheden</li>
+        <li>Inclusief personeel dat de BBQ bedient</li>
+        <li>Op- en afbouw inbegrepen</li>
+        <li>Afwas inbegrepen</li>
+        <li>Gratis levering Eindhoven en Rotterdam</li>
+      </ul>
+      <p class="pakket-note" data-i18n="pak-bbq-note">Extra soorten vlees of vega opties op aanvraag</p>
+    </div>
+
+    <!-- Hapjes -->
+    <div class="pakket-card">
+      <div class="pakket-name" data-i18n="pak-hapjes-name">Mezze Selectie</div>
+      <div class="pakket-price"><sup>€</sup>15</div>
+      <div class="pakket-per" data-i18n="pak-hapjes-per">per persoon · min. 15 personen<br><span style="font-size:.75rem;color:rgba(245,237,214,.4);">Mix van 5 hapjes per persoon</span></div>
+      <div class="pakket-divider"></div>
+      <ul class="pakket-features" data-i18n="pak-hapjes-list">
+        <li><strong>3 soorten börek</strong> (spinazie, kaas, gehakt)</li>
+        <li><strong>3 soorten luxe toastjes</strong> (hummus, muhammara, labneh)</li>
+        <li>Gevulde gehaktballen (kibbeh)</li>
+        <li>Gevulde druivenbladeren (yalanci)</li>
+        <li>Andere hapjes of volledig vegetarisch op aanvraag</li>
+        <li>Zonder personeel (bedienend personeel op aanvraag)</li>
+        <li>Koud geleverd in disposable schalen</li>
+      </ul>
+      <p class="pakket-note" data-i18n="pak-hapjes-note">Extra hapjes op aanvraag · Alternatieve presentatie in overleg</p>
+    </div>
+
+    <!-- Catering op Maat -->
+    <div class="pakket-card">
+      <div class="pakket-name" data-i18n="pak-maat-name">Catering op Maat</div>
+      <div class="pakket-price" style="font-size:1.6rem;">✦</div>
+      <div class="pakket-per" data-i18n="pak-maat-per">Prijs op maat · geheel vrijblijvend</div>
+      <div class="pakket-divider"></div>
+      <ul class="pakket-features" data-i18n="pak-maat-list">
+        <li>Niet zeker welk pakket past?</li>
+        <li>Wij maken een <strong>menu op maat</strong></li>
+        <li>Persoonlijk adviesgesprek</li>
+        <li>Afgestemd op uw wensen en budget</li>
+        <li>Pakketten combineren mogelijk</li>
+        <li>Vegetarisch, vegan of dieetwensen</li>
+      </ul>
+      <a href="#contact" class="pakket-maat-btn" data-i18n="pak-maat-btn" style="display:inline-block;margin-top:1rem;padding:.7rem 1.8rem;background:var(--gold);color:var(--ink);font-family:var(--font-display);font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:background .2s;">Neem Contact Op</a>
     </div>
   </div>
 
@@ -1847,7 +1977,7 @@
     </div>
     <div class="extra-item">
       <div class="extra-label" data-i18n="pak-ex3-label">Vrijblijvende proeverij</div>
-      <div class="extra-value" data-i18n="pak-ex3-val">Beschikbaar voor huwelijkscatering</div>
+      <div class="extra-value" data-i18n="pak-ex3-val">Gratis bij huwelijkscatering en andere grote feesten</div>
     </div>
   </div>
 </section>
@@ -1873,14 +2003,14 @@
         <div class="pk-grid">
           <button class="pk-btn" onclick="selectPakket('classic',25,3,3)" data-pakket="classic">
             <div class="pk-btn-top">
-              <span class="pk-btn-name">Classic</span>
+              <span class="pk-btn-name">Classic Buffet</span>
               <span class="pk-btn-price"><sup>€</sup>25</span>
             </div>
             <div class="pk-btn-desc" data-i18n="pk-classic-desc">3 hoofdgerechten + 3 mezze's + salade · min. 10 pers.</div>
           </button>
           <button class="pk-btn" onclick="selectPakket('luxe',30,4,4)" data-pakket="luxe">
             <div class="pk-btn-top">
-              <span class="pk-btn-name">Luxe</span>
+              <span class="pk-btn-name">Luxe Buffet</span>
               <span class="pk-btn-price"><sup>€</sup>30</span>
             </div>
             <div class="pk-btn-desc" data-i18n="pk-luxe-desc">4 hoofdgerechten + 4 mezze's + salade · min. 15 pers.</div>
@@ -1891,6 +2021,20 @@
               <span class="pk-btn-price"><sup>€</sup>32</span>
             </div>
             <div class="pk-btn-desc" data-i18n="pk-table-desc">2 hoofdgerechten + 3 mezze's + salade · min. 20 pers.</div>
+          </button>
+          <button class="pk-btn" onclick="selectPakket('bbq',33,0,0)" data-pakket="bbq">
+            <div class="pk-btn-top">
+              <span class="pk-btn-name">Ateş BBQ</span>
+              <span class="pk-btn-price"><sup>€</sup>33</span>
+            </div>
+            <div class="pk-btn-desc" data-i18n="pk-bbq-desc">Vast BBQ menu · min. 20 pers.</div>
+          </button>
+          <button class="pk-btn" onclick="selectPakket('hapjes',15,0,0)" data-pakket="hapjes">
+            <div class="pk-btn-top">
+              <span class="pk-btn-name" data-i18n="pk-hapjes-name">Mezze Selectie</span>
+              <span class="pk-btn-price"><sup>€</sup>15</span>
+            </div>
+            <div class="pk-btn-desc" data-i18n="pk-hapjes-desc">Mix van 5 hapjes p.p. · min. 15 pers.</div>
           </button>
         </div>
       </div>
@@ -1909,31 +2053,60 @@
       </div>
 
       <!-- Stap 3 -->
-      <div class="conf-step">
+      <div class="conf-step" id="confStep3">
         <div class="conf-step-num" data-i18n="conf-s3-num">Stap 3</div>
         <div class="conf-step-title" data-i18n="conf-s3-title">Kies uw gerechten</div>
         <div class="gerecht-hint"><span id="gekozenCount" style="color:var(--parchment)">0</span> <span data-i18n="conf-hint-post">gekozen</span></div>
 
         <div class="gerecht-sec-lbl"><span data-i18n="conf-hoofd-lbl">Hoofdgerechten — kies</span> <span id="maxHoofdDisplay">3</span></div>
         <div class="gerecht-grid" id="hoofdGrid">
-          <div class="gc" data-groep="hoofd" onclick="toggleGerecht(this,'Shawarma','hoofd')"><span class="gc-emoji">🥩</span><span class="gc-naam">Shawarma</span></div>
-          <div class="gc" data-groep="hoofd" onclick="toggleGerecht(this,'Kibbeh','hoofd')"><span class="gc-emoji">🍲</span><span class="gc-naam">Kibbeh</span></div>
-          <div class="gc" data-groep="hoofd" onclick="toggleGerecht(this,'Rijst met Kip','hoofd')"><span class="gc-emoji">🍗</span><span class="gc-naam" data-i18n="dish-rijstkip">Rijst met Kip</span></div>
-          <div class="gc" data-groep="hoofd" onclick="toggleGerecht(this,'Kofta','hoofd')"><span class="gc-emoji">🫕</span><span class="gc-naam">Kofta</span></div>
-          <div class="gc" data-groep="hoofd" onclick="toggleGerecht(this,'Stoofvlees','hoofd')"><span class="gc-emoji">🍖</span><span class="gc-naam" data-i18n="dish-stoofvlees">Stoofvlees</span></div>
-          <div class="gc" data-groep="hoofd" onclick="toggleGerecht(this,'Gegrilde Kip','hoofd')"><span class="gc-emoji">🔥</span><span class="gc-naam" data-i18n="dish-gegrildekip">Gegrilde Kip</span></div>
-          <div class="gc" data-groep="hoofd" onclick="toggleGerecht(this,'Lamsragout','hoofd')"><span class="gc-emoji">🥘</span><span class="gc-naam" data-i18n="dish-lamsragout">Lamsragout</span></div>
-          <div class="gc" data-groep="hoofd" onclick="toggleGerecht(this,'Gevuld Brood','hoofd')"><span class="gc-emoji">🫓</span><span class="gc-naam" data-i18n="dish-gevuldbr">Gevuld Brood</span></div>
+          <div class="gc" data-groep="hoofd" onclick="toggleGerecht(this,'Bamya met lamsgehakt','hoofd')"><span class="gc-emoji">🍲</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Syrisch stoofgerecht van okra en gekruid lamsgehakt in een rijke tomatensaus</div><div class="gc-tt-row"><strong>Allergenen:</strong> —</div><div><span class="gc-tag">Halal</span></div></div><span class="gc-naam">Bamya met lamsgehakt</span></div>
+          <div class="gc" data-groep="hoofd" onclick="toggleGerecht(this,'Bamya vegetarisch','hoofd')"><span class="gc-emoji">🍲</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Syrisch stoofgerecht van okra in een rijke tomatensaus</div><div class="gc-tt-row"><strong>Allergenen:</strong> —</div><div><span class="gc-tag">Halal</span><span class="gc-tag">Vegan</span></div></div><span class="gc-naam">Bamya vegetarisch</span></div>
+          <div class="gc" data-groep="hoofd" onclick="toggleGerecht(this,'Batata harra','hoofd')"><span class="gc-emoji">🥔</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Pittig Libanees aardappelgerecht met knoflook, chili en koriander</div><div class="gc-tt-row"><strong>Allergenen:</strong> —</div><div><span class="gc-tag">Halal</span><span class="gc-tag">Vegan</span></div></div><span class="gc-naam">Batata harra</span></div>
+          <div class="gc" data-groep="hoofd" onclick="toggleGerecht(this,'Boulgour pandora','hoofd')"><span class="gc-emoji">🌾</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Fijngemalen tarwe met verse groenten, kruiden en specerijen</div><div class="gc-tt-row"><strong>Allergenen:</strong> Gluten</div><div><span class="gc-tag">Halal</span><span class="gc-tag">Vegan</span></div></div><span class="gc-naam">Boulgour pandora</span></div>
+          <div class="gc" data-groep="hoofd" onclick="toggleGerecht(this,'Falafelwraps','hoofd')"><span class="gc-emoji">🧆</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Knapperige falafel in zachte wrap met sla, tomaat en tahinisaus</div><div class="gc-tt-row"><strong>Allergenen:</strong> Gluten, sesam</div><div><span class="gc-tag">Halal</span><span class="gc-tag">Vegetarisch</span></div></div><span class="gc-naam">Falafelwraps</span></div>
+          <div class="gc" data-groep="hoofd" onclick="toggleGerecht(this,'Fasouliya met lam','hoofd')"><span class="gc-emoji">🥘</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Stoofgerecht van sperziebonen met lamsvlees in tomatensaus</div><div class="gc-tt-row"><strong>Allergenen:</strong> —</div><div><span class="gc-tag">Halal</span></div></div><span class="gc-naam">Fasouliya met lam</span></div>
+          <div class="gc" data-groep="hoofd" onclick="toggleGerecht(this,'Fasouliya vegetarisch','hoofd')"><span class="gc-emoji">🥘</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Stoofgerecht van witte bonen in tomatensaus met kruiden</div><div class="gc-tt-row"><strong>Allergenen:</strong> —</div><div><span class="gc-tag">Halal</span><span class="gc-tag">Vegetarisch</span></div></div><span class="gc-naam">Fasouliya vegetarisch</span></div>
+          <div class="gc" data-groep="hoofd" onclick="toggleGerecht(this,'Fetteh makdous met lam','hoofd')"><span class="gc-emoji">🍆</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Gegrilde aubergine met lamsvlees, Libanees brood en yoghurt-tahini</div><div class="gc-tt-row"><strong>Allergenen:</strong> Gluten, zuivel</div><div><span class="gc-tag">Halal</span></div></div><span class="gc-naam">Fetteh makdous lam</span></div>
+          <div class="gc" data-groep="hoofd" onclick="toggleGerecht(this,'Fetteh makdous vegetarisch','hoofd')"><span class="gc-emoji">🍆</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Gegrilde aubergine met Libanees brood en yoghurt-tahini saus</div><div class="gc-tt-row"><strong>Allergenen:</strong> Gluten, zuivel</div><div><span class="gc-tag">Halal</span><span class="gc-tag">Vegetarisch</span></div></div><span class="gc-naam">Fetteh makdous vega</span></div>
+          <div class="gc" data-groep="hoofd" onclick="toggleGerecht(this,'Freekeh met kip','hoofd')"><span class="gc-emoji">🌾</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Syrisch gerecht van groene tarwe met gegrilde kip</div><div class="gc-tt-row"><strong>Allergenen:</strong> Gluten</div><div><span class="gc-tag">Halal</span></div></div><span class="gc-naam">Freekeh met kip</span></div>
+          <div class="gc" data-groep="hoofd" onclick="toggleGerecht(this,'Freekeh met lam','hoofd')"><span class="gc-emoji">🌾</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Syrisch gerecht van groene tarwe met gegrild lamsvlees</div><div class="gc-tt-row"><strong>Allergenen:</strong> Gluten</div><div><span class="gc-tag">Halal</span></div></div><span class="gc-naam">Freekeh met lam</span></div>
+          <div class="gc" data-groep="hoofd" onclick="toggleGerecht(this,'Kebab Hindi','hoofd')"><span class="gc-emoji">🫕</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Syrisch stoofpotje met lamsgehaktballetjes in tomatensaus</div><div class="gc-tt-row"><strong>Allergenen:</strong> —</div><div><span class="gc-tag">Halal</span></div></div><span class="gc-naam">Kebab Hindi</span></div>
+          <div class="gc" data-groep="hoofd" onclick="toggleGerecht(this,'Kebse rijst met kip','hoofd')"><span class="gc-emoji">🍗</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Kruidige gele rijst met kip</div><div class="gc-tt-row"><strong>Allergenen:</strong> —</div><div><span class="gc-tag">Halal</span></div></div><span class="gc-naam">Kebse rijst met kip</span></div>
+          <div class="gc" data-groep="hoofd" onclick="toggleGerecht(this,'Kebse rijst met lam','hoofd')"><span class="gc-emoji">🍖</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Kruidige gele rijst met mals lamsvlees</div><div class="gc-tt-row"><strong>Allergenen:</strong> —</div><div><span class="gc-tag">Halal</span></div></div><span class="gc-naam">Kebse rijst met lam</span></div>
+          <div class="gc" data-groep="hoofd" onclick="toggleGerecht(this,'Kebse rijst vegan','hoofd')"><span class="gc-emoji">🍚</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Kruidige gele rijst</div><div class="gc-tt-row"><strong>Allergenen:</strong> —</div><div><span class="gc-tag">Halal</span><span class="gc-tag">Vegan</span></div></div><span class="gc-naam">Kebse rijst vegan</span></div>
+          <div class="gc" data-groep="hoofd" onclick="toggleGerecht(this,'Maklouba met lamsgehakt','hoofd')"><span class="gc-emoji">🍛</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Libanees gerecht met rijst, aubergine en lamsgehakt</div><div class="gc-tt-row"><strong>Allergenen:</strong> —</div><div><span class="gc-tag">Halal</span></div></div><span class="gc-naam">Maklouba lamsgehakt</span></div>
+          <div class="gc" data-groep="hoofd" onclick="toggleGerecht(this,'Maklouba vegan','hoofd')"><span class="gc-emoji">🍛</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Libanees gerecht met rijst en gefrituurde aubergine</div><div class="gc-tt-row"><strong>Allergenen:</strong> —</div><div><span class="gc-tag">Halal</span><span class="gc-tag">Vegan</span></div></div><span class="gc-naam">Maklouba vegan</span></div>
+          <div class="gc" data-groep="hoofd" onclick="toggleGerecht(this,'Mujaddara','hoofd')"><span class="gc-emoji">🫘</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Syrisch gerecht van groene linzen met boulgour</div><div class="gc-tt-row"><strong>Allergenen:</strong> Gluten</div><div><span class="gc-tag">Halal</span><span class="gc-tag">Vegetarisch</span></div></div><span class="gc-naam">Mujaddara</span></div>
+          <div class="gc" data-groep="hoofd" onclick="toggleGerecht(this,'Musakka vegan','hoofd')"><span class="gc-emoji">🍆</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Stoofpotje van aubergine en groenten in kruidige tomatensaus</div><div class="gc-tt-row"><strong>Allergenen:</strong> —</div><div><span class="gc-tag">Halal</span><span class="gc-tag">Vegan</span></div></div><span class="gc-naam">Musakka vegan</span></div>
+          <div class="gc" data-groep="hoofd" onclick="toggleGerecht(this,'Shakriya met kip','hoofd')"><span class="gc-emoji">🍗</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Syrisch gerecht met romige yoghurt en malse kipfilet</div><div class="gc-tt-row"><strong>Allergenen:</strong> Zuivel</div><div><span class="gc-tag">Halal</span></div></div><span class="gc-naam">Shakriya met kip</span></div>
+          <div class="gc" data-groep="hoofd" onclick="toggleGerecht(this,'Shish tavuk','hoofd')"><span class="gc-emoji">🔥</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Gemarineerde kipspiesjes van de grill</div><div class="gc-tt-row"><strong>Allergenen:</strong> Zuivel</div><div><span class="gc-tag">Halal</span></div></div><span class="gc-naam">Shish tavuk</span></div>
+          <div class="gc" data-groep="hoofd" onclick="toggleGerecht(this,'Shish kebab','hoofd')"><span class="gc-emoji">🔥</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Gemarineerde lamsvleesgehakt spiesjes van de grill</div><div class="gc-tt-row"><strong>Allergenen:</strong> —</div><div><span class="gc-tag">Halal</span></div></div><span class="gc-naam">Shish kebab</span></div>
+          <div class="gc" data-groep="hoofd" onclick="toggleGerecht(this,'Shoarma Arabi','hoofd')"><span class="gc-emoji">🥩</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Huisgemaakte Syrische shoarma met knoflookmayonaise op wrap</div><div class="gc-tt-row"><strong>Allergenen:</strong> Gluten, ei</div><div><span class="gc-tag">Halal</span></div></div><span class="gc-naam">Shoarma Arabi</span></div>
+          <div class="gc" data-groep="hoofd" onclick="toggleGerecht(this,'Syrische witte rijst','hoofd')"><span class="gc-emoji">🍚</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Syrische witte rijst met vermicelli</div><div class="gc-tt-row"><strong>Allergenen:</strong> Gluten</div><div><span class="gc-tag">Halal</span><span class="gc-tag">Vegan</span></div></div><span class="gc-naam">Syrische witte rijst</span></div>
+          <div class="gc" data-groep="hoofd" onclick="toggleGerecht(this,'Foul met yoghurt','hoofd')"><span class="gc-emoji">🫘</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Klassiek Midden-Oosters gerecht van kidneybonen met yoghurt</div><div class="gc-tt-row"><strong>Allergenen:</strong> Zuivel</div><div><span class="gc-tag">Halal</span><span class="gc-tag">Vegetarisch</span></div></div><span class="gc-naam">Foul met yoghurt</span></div>
+          <div class="gc" data-groep="hoofd" onclick="toggleGerecht(this,'Ouzi','hoofd')"><span class="gc-emoji">🫓</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Krokant deeglaagje gevuld met rijst, doperwten en gehakt</div><div class="gc-tt-row"><strong>Allergenen:</strong> Gluten</div><div><span class="gc-tag">Halal</span></div></div><span class="gc-naam">Ouzi</span></div>
+        </div>
+
+        <div class="gerecht-sec-lbl" style="margin-top:1.2rem;"><span data-i18n="conf-salade-lbl">Salade — kies</span> <span>1</span></div>
+        <div class="gerecht-grid" id="saladeGrid">
+          <div class="gc" data-groep="salade" onclick="toggleGerecht(this,'Fattoush salade','salade')"><span class="gc-emoji">🥗</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Libanese salade met knapperige groenten, gefrituurd brood en granaatappeldressing</div><div class="gc-tt-row"><strong>Allergenen:</strong> Gluten</div><div><span class="gc-tag">Halal</span><span class="gc-tag">Vegetarisch</span></div></div><span class="gc-naam">Fattoush salade</span></div>
+          <div class="gc" data-groep="salade" onclick="toggleGerecht(this,'Tabbouleh salade','salade')"><span class="gc-emoji">🥬</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Libanese salade van peterselie, tomaat en bulgur met citroendressing</div><div class="gc-tt-row"><strong>Allergenen:</strong> Gluten</div><div><span class="gc-tag">Halal</span><span class="gc-tag">Vegan</span></div></div><span class="gc-naam">Tabbouleh salade</span></div>
         </div>
 
         <div class="gerecht-sec-lbl" style="margin-top:1.2rem;"><span data-i18n="conf-mezze-lbl">Mezze's &amp; Bijgerechten — kies</span> <span id="maxMezzeDisplay">3</span></div>
         <div class="gerecht-grid" id="mezzeGrid">
-          <div class="gc" data-groep="mezze" onclick="toggleGerecht(this,'Hummus','mezze')"><span class="gc-emoji">🫘</span><span class="gc-naam">Hummus</span></div>
-          <div class="gc" data-groep="mezze" onclick="toggleGerecht(this,'Mutabal','mezze')"><span class="gc-emoji">🍆</span><span class="gc-naam">Mutabal</span></div>
-          <div class="gc" data-groep="mezze" onclick="toggleGerecht(this,'Labneh','mezze')"><span class="gc-emoji">🥛</span><span class="gc-naam">Labneh</span></div>
-          <div class="gc" data-groep="mezze" onclick="toggleGerecht(this,'Spinazierolletjes','mezze')"><span class="gc-emoji">🌿</span><span class="gc-naam" data-i18n="dish-spinazie">Spinazierolletjes</span></div>
-          <div class="gc" data-groep="mezze" onclick="toggleGerecht(this,'Fattoush','mezze')"><span class="gc-emoji">🥗</span><span class="gc-naam">Fattoush</span></div>
-          <div class="gc" data-groep="mezze" onclick="toggleGerecht(this,'Tabouleh','mezze')"><span class="gc-emoji">🥬</span><span class="gc-naam">Tabouleh</span></div>
+          <div class="gc" data-groep="mezze" onclick="toggleGerecht(this,'Baba ghanoush','mezze')"><span class="gc-emoji">🍆</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Romige spread van geroosterde aubergine</div><div class="gc-tt-row"><strong>Allergenen:</strong> —</div><div><span class="gc-tag">Halal</span><span class="gc-tag">Vegan</span></div></div><span class="gc-naam">Baba ghanoush</span></div>
+          <div class="gc" data-groep="mezze" onclick="toggleGerecht(this,'Hummus','mezze')"><span class="gc-emoji">🫘</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Zijdezachte puree van kikkererwten en tahini met citroen en knoflook</div><div class="gc-tt-row"><strong>Allergenen:</strong> Sesam</div><div><span class="gc-tag">Halal</span><span class="gc-tag">Vegan</span></div></div><span class="gc-naam">Hummus</span></div>
+          <div class="gc" data-groep="mezze" onclick="toggleGerecht(this,'Labneh balletjes','mezze')"><span class="gc-emoji">🥛</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Romige yoghurtballetjes gerold in kruiden, ingelegd in olijfolie</div><div class="gc-tt-row"><strong>Allergenen:</strong> Zuivel</div><div><span class="gc-tag">Halal</span><span class="gc-tag">Vegetarisch</span></div></div><span class="gc-naam">Labneh balletjes</span></div>
+          <div class="gc" data-groep="mezze" onclick="toggleGerecht(this,'Labneh dip','mezze')"><span class="gc-emoji">🥛</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Frisse romige yoghurtspread met olijfolie en kruiden</div><div class="gc-tt-row"><strong>Allergenen:</strong> Zuivel</div><div><span class="gc-tag">Halal</span><span class="gc-tag">Vegetarisch</span></div></div><span class="gc-naam">Labneh dip</span></div>
+          <div class="gc" data-groep="mezze" onclick="toggleGerecht(this,'Muhammara','mezze')"><span class="gc-emoji">🌶️</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Zoet-pittige spread van geroosterde paprika, walnoten en granaatappelmelasse</div><div class="gc-tt-row"><strong>Allergenen:</strong> Noten, gluten</div><div><span class="gc-tag">Halal</span><span class="gc-tag">Vegetarisch</span></div></div><span class="gc-naam">Muhammara</span></div>
+          <div class="gc" data-groep="mezze" onclick="toggleGerecht(this,'Mutabbal','mezze')"><span class="gc-emoji">🍆</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Auberginespread met tahini en granaatappelmelasse</div><div class="gc-tt-row"><strong>Allergenen:</strong> Sesam</div><div><span class="gc-tag">Halal</span><span class="gc-tag">Vegan</span></div></div><span class="gc-naam">Mutabbal</span></div>
+          <div class="gc" data-groep="mezze" onclick="toggleGerecht(this,'Börek kaas (1 st. p.p.)','mezze')"><span class="gc-emoji">🧀</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Knapperige deeghapjes gevuld met witte kaas en kruiden</div><div class="gc-tt-row"><strong>Allergenen:</strong> Gluten, zuivel</div><div class="gc-tt-row"><strong>Hoeveelheid:</strong> 1 stuk per persoon</div><div><span class="gc-tag">Halal</span><span class="gc-tag">Vegetarisch</span></div></div><span class="gc-naam">Börek kaas</span></div>
+          <div class="gc" data-groep="mezze" onclick="toggleGerecht(this,'Börek gehakt (1 st. p.p.)','mezze')"><span class="gc-emoji">🥟</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Knapperige deeghapjes gevuld met kruidig lamsgehakt</div><div class="gc-tt-row"><strong>Allergenen:</strong> Gluten</div><div class="gc-tt-row"><strong>Hoeveelheid:</strong> 1 stuk per persoon</div><div><span class="gc-tag">Halal</span></div></div><span class="gc-naam">Börek gehakt</span></div>
+          <div class="gc" data-groep="mezze" onclick="toggleGerecht(this,'Börek spinazie (1 st. p.p.)','mezze')"><span class="gc-emoji">🌿</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Knapperige deeghapjes gevuld met spinazie</div><div class="gc-tt-row"><strong>Allergenen:</strong> Gluten</div><div class="gc-tt-row"><strong>Hoeveelheid:</strong> 1 stuk per persoon</div><div><span class="gc-tag">Halal</span><span class="gc-tag">Vegan</span></div></div><span class="gc-naam">Börek spinazie</span></div>
+          <div class="gc" data-groep="mezze" onclick="toggleGerecht(this,'Kibbeh (1 st. p.p.)','mezze')"><span class="gc-emoji">🍲</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Gefrituurde balletjes van gekruid lamsgehakt en boulgour</div><div class="gc-tt-row"><strong>Allergenen:</strong> Gluten, noten</div><div class="gc-tt-row"><strong>Hoeveelheid:</strong> 1 stuk per persoon</div><div><span class="gc-tag">Halal</span></div></div><span class="gc-naam">Kibbeh</span></div>
+          <div class="gc" data-groep="mezze" onclick="toggleGerecht(this,'Gevulde druivenbladeren (1 st. p.p.)','mezze')"><span class="gc-emoji">🍃</span><button class="gc-info-btn" type="button">?</button><div class="gc-tooltip"><div class="gc-tt-desc">Handgemaakte druivenbladeren gevuld met gekruide rijst en kruiden</div><div class="gc-tt-row"><strong>Allergenen:</strong> —</div><div class="gc-tt-row"><strong>Hoeveelheid:</strong> 1 stuk per persoon</div><div><span class="gc-tag">Halal</span><span class="gc-tag">Vegan</span></div></div><span class="gc-naam">Druivenbladeren</span></div>
         </div>
       </div>
 
@@ -2100,6 +2273,11 @@
         </div>
         <div class="sel-date-display" id="selDateDisplay"></div>
 
+        <label class="datum-onbekend" style="display:flex;align-items:center;gap:.6rem;margin-top:1rem;cursor:pointer;font-size:.82rem;color:rgba(245,237,214,.6);">
+          <input type="checkbox" id="datumOnbekend" onchange="toggleDatumOnbekend(this.checked)" style="accent-color:var(--gold);width:16px;height:16px;cursor:pointer;">
+          <span data-i18n="conf-datum-onbekend">Ik weet de datum nog niet</span>
+        </label>
+
         <div class="conf-datum-extra">
           <div>
             <div class="gerecht-sec-lbl" data-i18n="conf-tijdstip-lbl">Tijdstip</div>
@@ -2213,10 +2391,10 @@
       Memories of Damascus is opgericht door <strong style="color:var(--parchment)">Mohamad Habanakeh</strong>, die opgroeide in Al Midan — een Damasceense wijk die wereldberoemd is om zijn restaurants, de Midan Souq, baklava en de beste Syrische shawarma. In 2015 vluchtte Mohamad vanwege de burgeroorlog uit Syrië.
     </p>
     <p class="over-body reveal reveal-delay-3" data-i18n="over-body2">
-      In een tijdelijk vluchtelingencentrum in Nijmegen ontmoette hij <strong style="color:var(--parchment)">Anouk Willemsen</strong>, die Arabische taal & cultuur studeerde aan de Radboud Universiteit. Samen verhuisden ze naar Eindhoven. Eind 2020 startten ze vanuit de thuiskeuken met de verkoop van mezze — en groeiden uit tot een professionele productiekeuken van meer dan 200 m² in Best.
+      In Nijmegen ontmoette hij <strong style="color:var(--parchment)">Anouk Willemsen</strong>, die Arabische taal &amp; cultuur studeerde aan de Radboud Universiteit. Mohamad woonde daar toen tijdelijk in een asielzoekerscentrum. Samen verhuisden ze naar Eindhoven. Eind 2020 startten ze vanuit de thuiskeuken met de verkoop van mezze. Vanwege de snelle groei verhuisde het bedrijf naar een professionele productiekeuken van meer dan 200 m² in Best.
     </p>
     <p class="over-body reveal reveal-delay-3" data-i18n="over-body3">
-      Vandaag werkt een team van <strong style="color:var(--parchment)">20+ gemotiveerde medewerkers</strong> van diverse achtergronden en nationaliteiten. Wij bieden bewust werkplekken aan statushouders, mensen in afwachting van een verblijfsvergunning, en medewerkers met een afstand tot de arbeidsmarkt — in samenwerking met onder meer <strong style="color:var(--parchment)">Kentalis</strong>.
+      Tegenwoordig geven Anouk en Mohamad leiding aan een team van <strong style="color:var(--parchment)">20+ gemotiveerde medewerkers</strong> van diverse achtergronden en nationaliteiten. Memories of Damascus biedt bewust werkplekken aan statushouders, mensen in afwachting van een verblijfsvergunning, en medewerkers met een afstand tot de arbeidsmarkt — in samenwerking met verschillende gemeenten en organisaties.
     </p>
 
     <div class="over-values reveal reveal-delay-3">
@@ -2248,6 +2426,13 @@
           Van thuiskeuken naar professioneel cateringbedrijf
         </div>
       </div>
+      <div class="value-item">
+        <div class="value-gem"></div>
+        <div class="value-text" data-i18n="val-haccp">
+          <strong>Checkpunt Voedselveiligheid</strong>
+          Door de NVWA geaccepteerd certificaat — voldoet aan de hoogste HACCP-normen
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -2256,7 +2441,7 @@
 <div id="sociaal">
   <div class="sociaal-label reveal" data-i18n="sociaal-label">Sociaal<br>Ondernemen</div>
   <div class="sociaal-text reveal reveal-delay-1" data-i18n="sociaal-text">
-    Bij Memories of Damascus geloven we dat werk meer is dan productie. Bewoners van AZC's en crisisnoodopvanglocaties worden actief betrokken bij onze productiekeuken als vrijwilliger of werknemer — dit bevordert de <strong>mentale gezondheid</strong> en stimuleert <strong>vroegtijdige arbeidsparticipatie</strong>. Wij geven bewust de voorkeur aan de aanstelling van statushouders en werken samen met organisaties als Kentalis voor leer-werkplekken voor mensen met een afstand tot de arbeidsmarkt.
+    Bij Memories of Damascus geloven we dat werk meer is dan productie. Bewoners van AZC's en crisisnoodopvanglocaties worden actief betrokken bij onze productiekeuken als vrijwilliger of werknemer — dit bevordert de <strong>mentale gezondheid</strong> en stimuleert <strong>vroegtijdige arbeidsparticipatie</strong>.
   </div>
 </div>
 
@@ -2324,7 +2509,7 @@
   <div style="text-align:center;margin-top:2.5rem;" class="reveal">
     <a href="#contact" class="menu-download" data-i18n="menu-dl-btn">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Vraag een volledig keuzemenu aan
+      Download onze catalogus
     </a>
   </div>
 </section>
@@ -2345,20 +2530,29 @@
         </p>
       </div>
       <div class="reveal reveal-delay-2">
-        <div class="azc-inclusief" style="margin-bottom:1.5rem;" data-i18n="azc-quote">
+        <div class="azc-inclusief" data-i18n="azc-quote">
           "Bewoners worden actief betrokken bij de productiekeuken als vrijwilliger of werknemer. Dit bevordert hun mentale gezondheid en stimuleert vroegtijdige arbeidsparticipatie."
         </div>
-        <div class="azc-gemeenten">
-          <div class="azc-gemeenten-label" data-i18n="azc-partners-lbl">Opdrachtgevers & Partners</div>
-          <div class="azc-tags">
-            <span class="azc-tag">Gemeente Eindhoven</span>
-            <span class="azc-tag">Gemeente Hilvarenbeek</span>
-            <span class="azc-tag">Gemeente Geertruidenberg</span>
-            <span class="azc-tag">Gemeente Boxtel</span>
-            <span class="azc-tag">Refugee Team</span>
-            <span class="azc-tag">COA</span>
-          </div>
-        </div>
+      </div>
+    </div>
+
+    <div class="azc-gemeenten reveal reveal-delay-2" style="margin-top:2.5rem;text-align:center;">
+      <div class="azc-gemeenten-label" data-i18n="azc-partners-lbl">Opdrachtgevers & Partners</div>
+      <div class="azc-tags" style="justify-content:center;">
+        <span class="azc-tag">COA</span>
+        <span class="azc-tag">NIDOS</span>
+        <span class="azc-tag">Gemeente Best</span>
+        <span class="azc-tag">Gemeente Eindhoven</span>
+        <span class="azc-tag">Gemeente Hilvarenbeek</span>
+        <span class="azc-tag">Gemeente Boxtel</span>
+        <span class="azc-tag">Gemeente Geertruidenberg</span>
+        <span class="azc-tag">Gemeente Rotterdam</span>
+        <span class="azc-tag">Bibliotheek Eindhoven</span>
+        <span class="azc-tag">Bibliotheek Rotterdam</span>
+        <span class="azc-tag">Sport City</span>
+        <span class="azc-tag">Rotterdam Arab Film Festival</span>
+        <span class="azc-tag">Muziekgebouw Eindhoven</span>
+        <span class="azc-tag">Refugee Team</span>
       </div>
     </div>
   </div>
@@ -2371,20 +2565,16 @@
       <p class="section-label" data-i18n="bak-label">Webshop</p>
       <h2 class="section-title" data-i18n="bak-title">Baklava <em>per post</em></h2>
       <p class="baklava-body" data-i18n="bak-body1">
-        Onze handgemaakte baklava is een ware delicatesse — bereid met hoogwaardige pistache en ghee in onze productiekeuken in Best. Bestel eenvoudig via onze webshop en ontvang uw baklava thuis, of haal gratis af in Best.
+        Onze handgemaakte baklava is een ware delicatesse — bereid met hoogwaardige pistache en ghee. Bestel eenvoudig via onze webshop en ontvang uw baklava binnen één week thuis.
       </p>
       <p class="baklava-body" data-i18n="bak-body2">
-        Elk stuk is met de hand gemaakt, zonder compromissen op kwaliteit. De perfecte cadeau of traktatie — voor uzelf of voor anderen.
+        Elk stuk is met de hand gemaakt, zonder compromissen op kwaliteit. Het perfecte cadeau of traktatie — voor uzelf of voor anderen.
       </p>
 
       <div class="baklava-specs">
         <div class="bspec">
           <div class="bspec-label" data-i18n="bak-spec1-lbl">Levering</div>
-          <div class="bspec-value" data-i18n="bak-spec1-val">Binnen 3 werkdagen via pakketpost</div>
-        </div>
-        <div class="bspec">
-          <div class="bspec-label" data-i18n="bak-spec2-lbl">Afhalen</div>
-          <div class="bspec-value" data-i18n="bak-spec2-val">Gratis afhalen in Best</div>
+          <div class="bspec-value" data-i18n="bak-spec1-val">Binnen één week via pakketpost</div>
         </div>
         <div class="bspec">
           <div class="bspec-label" data-i18n="bak-spec3-lbl">Houdbaarheid</div>
@@ -2392,7 +2582,7 @@
         </div>
         <div class="bspec">
           <div class="bspec-label" data-i18n="bak-spec4-lbl">Ingrediënten</div>
-          <div class="bspec-value" data-i18n="bak-spec4-val">Pistache · Ghee · Handgemaakt</div>
+          <div class="bspec-value" data-i18n="bak-spec4-val">Pistache · Ghee · Dunne laagjes knapperig deeg</div>
         </div>
       </div>
 
@@ -2416,8 +2606,11 @@
     <div class="rest-title">Restaurant</div>
     <div class="rest-sub">STR'EAT Foodmarket · Torenallee 86-02</div>
     <p class="rest-body" data-i18n="rest-body">
-      Bezoek ons restaurant op Strijp S in Eindhoven — onderdeel van de sfeervolle STR'EAT Foodmarket, met 9 keukens, bars, een groot buitenterras en uitgebreide binnenruimte. Geen reservering nodig. Loop gewoon binnen en geniet van authentieke Syrisch-Libanese gerechten, direct bereid voor u.
+      Bezoek ons restaurant op Strijp S in Eindhoven — onderdeel van de sfeervolle STR'EAT Foodmarket, met 9 keukens, bars, een groot buitenterras en uitgebreide binnenruimte. Geen reservering nodig — loop gewoon binnen en geniet van authentieke Syrisch-Libanese gerechten, direct bereid voor u.
     </p>
+    <div style="margin-top:1.5rem;">
+      <a href="https://thuis.orderli.com/streat_food_court?card=7923" target="_blank" rel="noopener" class="btn-primary" style="font-size:.8rem;padding:.8rem 2rem;" data-i18n="rest-order-btn">Bestel Online via STR'EAT</a>
+    </div>
   </div>
   <div class="rest-info reveal reveal-delay-1">
     <div class="rest-detail">
@@ -2431,16 +2624,22 @@
     </div>
     <div class="rest-hours">
       <div class="rest-hours-row">
-        <span data-i18n="rest-mon-fri">Maandag – Vrijdag</span>
+        <span data-i18n="rest-sun-thu">Zondag – Donderdag</span>
         <span>12:00 – 21:00</span>
       </div>
       <div class="rest-hours-row">
-        <span data-i18n="rest-sat-sun">Zaterdag & Zondag</span>
+        <span data-i18n="rest-fri-sat">Vrijdag & Zaterdag</span>
         <span>12:00 – 22:00</span>
       </div>
       <div class="rest-hours-row">
         <span data-i18n="rest-reserv">Reservering</span>
-        <span style="color:rgba(201,148,42,.7);" data-i18n="rest-no-reserv">Niet nodig</span>
+        <span style="color:rgba(245,237,214,.55);font-size:.82rem;" data-i18n="rest-no-reserv">Alleen nodig vanaf 9 personen</span>
+      </div>
+      <div style="margin-top:.8rem;padding-top:.8rem;border-top:1px solid rgba(201,148,42,.1);">
+        <a href="https://wa.me/31620777624" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:.5rem;font-size:.82rem;color:var(--gold);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--gold-lt)'" onmouseout="this.style.color='var(--gold)'">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.118.549 4.112 1.513 5.845L.057 23.537l5.83-1.527A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.82c-1.98 0-3.83-.58-5.39-1.58l-.386-.23-3.464.908.924-3.373-.252-.4A9.78 9.78 0 012.18 12c0-5.422 4.398-9.82 9.82-9.82 5.422 0 9.82 4.398 9.82 9.82 0 5.422-4.398 9.82-9.82 9.82z"/></svg>
+          <span data-i18n="rest-whatsapp">Reserveren via WhatsApp — 06 20 77 76 24</span>
+        </a>
       </div>
     </div>
   </div>
@@ -2472,11 +2671,11 @@
       </div>
       <div class="loc-warning">
         <span style="font-size:1rem;flex-shrink:0;">⚠</span>
-        <div data-i18n="loc-best-warning"><strong>Let op:</strong> Dit is uitsluitend onze productiekeuken. Wij ontvangen hier geen bezoekers en er is geen winkel of balie. Baklava afhalen kan op afspraak.</div>
+        <div data-i18n="loc-best-warning"><strong>Let op:</strong> Dit is uitsluitend onze productiekeuken. Wij ontvangen hier geen bezoekers en er is geen winkel of balie.</div>
       </div>
       <div>
         <span class="loc-tag">Catering</span>
-        <span class="loc-tag" data-i18n="loc-tag-bak-afhalen">Baklava afhalen</span>
+        <span class="loc-tag" data-i18n="loc-tag-kookw">Kookworkshops</span>
         <span class="loc-tag" data-i18n="loc-tag-afspraak">Op afspraak</span>
       </div>
     </div>
@@ -2495,14 +2694,14 @@
       </div>
       <div style="margin-bottom:1.2rem;">
         <div style="font-size:.76rem;color:rgba(245,237,214,.38);margin-bottom:.4rem;font-family:var(--font-display);letter-spacing:.1em;text-transform:uppercase;" data-i18n="loc-openingstijden">Openingstijden</div>
-        <div style="font-size:.83rem;color:rgba(245,237,214,.65);line-height:1.9;" data-i18n="loc-eindhoven-hours">Ma – Vr: 12:00 – 21:00<br>Za &amp; Zo: 12:00 – 22:00</div>
+        <div style="font-size:.83rem;color:rgba(245,237,214,.65);line-height:1.9;" data-i18n="loc-eindhoven-hours">Zo – Do: 12:00 – 21:00<br>Vr &amp; Za: 12:00 – 22:00</div>
       </div>
       <div style="margin-bottom:1.4rem;">
         <span class="loc-tag">Restaurant</span>
         <span class="loc-tag">Take-Away</span>
         <span class="loc-tag" data-i18n="loc-tag-no-reserv">Geen reservering</span>
       </div>
-      <a href="https://www.str-eat.nu" target="_blank" rel="noopener" class="loc-cta" data-i18n="loc-eindhoven-cta">
+      <a href="https://thuis.orderli.com/streat_food_court?card=7923" target="_blank" rel="noopener" class="loc-cta" data-i18n="loc-eindhoven-cta">
         Bestel Take-Away Online
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
@@ -2669,7 +2868,9 @@
         <div class="contact-detail-label" data-i18n="cd-tel-lbl">Telefoon & WhatsApp</div>
         <div class="contact-detail-value">
           <a href="tel:0620777624" style="transition:color .2s;" onmouseover="this.style.color='var(--gold-lt)'" onmouseout="this.style.color=''">06 20 77 76 24</a><br>
-          <span style="font-size:.8rem;color:rgba(245,237,214,.4);" data-i18n="cd-tel-alt">Afhalen / alternatief: <a href="tel:0624470098">06 24 47 00 98</a></span>
+          <span style="font-size:.8rem;color:rgba(245,237,214,.5);" data-i18n="cd-tel-nl">(Nederlands en Engels)</span><br>
+          <a href="tel:0624470098" style="transition:color .2s;" onmouseover="this.style.color='var(--gold-lt)'" onmouseout="this.style.color=''">06 24 47 00 98</a><br>
+          <span style="font-size:.8rem;color:rgba(245,237,214,.5);" data-i18n="cd-tel-ar">(Arabisch)</span>
         </div>
       </div>
     </div>
@@ -2700,7 +2901,7 @@
       </div>
       <div>
         <div class="contact-detail-label" data-i18n="cd-hours-lbl">Bereikbaarheid</div>
-        <div class="contact-detail-value" data-i18n="cd-hours-val">Ma–Za: 09:00 – 20:00<br>Zondag: Op afspraak</div>
+        <div class="contact-detail-value" data-i18n="cd-hours-val">24/7 bereikbaar via WhatsApp en e-mail<br>Dagelijks 09:00 – 20:00 per telefoon</div>
       </div>
     </div>
 
@@ -2723,6 +2924,48 @@
   </div>
 </section>
 
+<!-- ═══ FAQ ═══ -->
+<section id="faq" style="background:var(--deep);">
+  <div style="max-width:800px;margin:0 auto;">
+    <p class="section-label reveal" style="justify-content:center;" data-i18n="faq-label">Veelgestelde Vragen</p>
+    <h2 class="section-title reveal reveal-delay-1" style="text-align:center;" data-i18n="faq-title">Heeft u een <em>vraag</em>?</h2>
+
+    <div class="faq-list reveal reveal-delay-2" style="margin-top:3rem;">
+
+      <div class="faq-item" onclick="this.classList.toggle('faq-open')">
+        <div class="faq-q" data-i18n="faq-q1">Is jullie catering volledig halal?</div>
+        <div class="faq-a" data-i18n="faq-a1">Ja, al onze catering, gerechten en bereidingen zijn 100% halal gecertificeerd. Wij werken uitsluitend met halal-gecertificeerde leveranciers.</div>
+      </div>
+
+      <div class="faq-item" onclick="this.classList.toggle('faq-open')">
+        <div class="faq-q" data-i18n="faq-q2">Bieden jullie vegetarische of vegan opties aan?</div>
+        <div class="faq-a" data-i18n="faq-a2">Absoluut! De Arabische keuken leent zich uitstekend voor vegetarische en vegan catering. Wij bieden volledig vegetarische en vegan menu's aan, en houden rekening met specifieke dieetwensen zoals lactosevrij, glutenvrij en notenvrij.</div>
+      </div>
+
+      <div class="faq-item" onclick="this.classList.toggle('faq-open')">
+        <div class="faq-q" data-i18n="faq-q3">Hoe werkt de gratis proeverij?</div>
+        <div class="faq-a" data-i18n="faq-a3">Bij huwelijkscatering en andere grote feesten bieden wij een gratis proeverij aan, geheel vrijblijvend. Neem contact met ons op om een afspraak te maken.</div>
+      </div>
+
+      <div class="faq-item" onclick="this.classList.toggle('faq-open')">
+        <div class="faq-q" data-i18n="faq-q4">In welke regio's zijn jullie actief?</div>
+        <div class="faq-a" data-i18n="faq-a4">Wij verzorgen catering door heel Nederland, België en Duitsland. Levering in Eindhoven en Rotterdam is gratis. Voor andere regio's berekenen wij €0,50 per km retour vanaf onze dichtstbijzijnde locatie.</div>
+      </div>
+
+      <div class="faq-item" onclick="this.classList.toggle('faq-open')">
+        <div class="faq-q" data-i18n="faq-q5">Wat is het minimum aantal personen?</div>
+        <div class="faq-a" data-i18n="faq-a5">Dit verschilt per pakket: Classic Buffet vanaf 10 personen, Luxe Buffet vanaf 15 personen, Mezze Selectie vanaf 15 personen, en À la Table en Ateş BBQ vanaf 20 personen. Voor maatwerk is alles bespreekbaar.</div>
+      </div>
+
+      <div class="faq-item" onclick="this.classList.toggle('faq-open')">
+        <div class="faq-q" data-i18n="faq-q6">Hoe snel kan ik een offerte verwachten?</div>
+        <div class="faq-a" data-i18n="faq-a6">Wij reageren binnen 24 uur op uw aanvraag. U kunt ons ook direct bereiken via WhatsApp op 06 20 77 76 24.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- ═══ FOOTER ═══ -->
 <footer>
   <div class="footer-top">
@@ -2741,7 +2984,7 @@
     <div class="footer-col">
       <h4 data-i18n="footer-col1-h">Catering</h4>
       <ul data-i18n="footer-col1-list">
-        <li><a href="#diensten">Particulieren & Bruiloften</a></li>
+        <li><a href="#diensten">Feesten & Bruiloften</a></li>
         <li><a href="#diensten">Bedrijfscatering</a></li>
         <li><a href="#azc">AZC & Noodopvang</a></li>
         <li><a href="#pakketten">Pakketten & Prijzen</a></li>
@@ -2893,8 +3136,8 @@
     'usp-gov-desc':     { nl:"Gecertificeerd voor AZC's, gemeenten en overheidsinstanties", en:'Certified for asylum centres, municipalities and government institutions' },
     'diensten-label':   { nl:'Wat Wij Bieden', en:'What We Offer' },
     'diensten-title':   { nl:'Catering voor <em>elke gelegenheid</em>', en:'Catering for <em>every occasion</em>' },
-    'd1-name':          { nl:'Particulieren & Bruiloften', en:'Private & Weddings' },
-    'd1-desc':          { nl:'Maak uw feest onvergetelijk met authentieke Syrisch-Libanese gerechten. Bij huwelijkscatering bieden wij een gratis proeverij zonder verplichtingen.', en:'Make your celebration unforgettable with authentic Syrian-Lebanese dishes. For wedding catering we offer a free tasting with no obligations.' },
+    'd1-name':          { nl:'Feesten & Bruiloften', en:'Celebrations & Weddings' },
+    'd1-desc':          { nl:'Maak uw feest onvergetelijk met authentieke Syrisch-Libanese gerechten. Gratis proeverij bij huwelijkscatering en andere grote feesten — geheel vrijblijvend.', en:'Make your celebration unforgettable with authentic Syrian-Lebanese dishes. Free tasting for wedding catering and other large celebrations — no obligations.' },
     'd2-name':          { nl:'Bedrijven', en:'Corporate' },
     'd2-desc':          { nl:'Professionele bedrijfscatering in Eindhoven en omgeving. Wij verzorgen alles inclusief op- en afbouw, zodat u zich volledig op uw gasten kunt richten.', en:'Professional corporate catering in Eindhoven and surroundings. We handle everything including setup and breakdown, so you can focus entirely on your guests.' },
     'd3-name':          { nl:'AZC & Overheidsinstanties', en:'Asylum Centres & Government' },
@@ -2923,28 +3166,39 @@
     'cont-info-text':   { nl:'Liever direct bellen of appen? Wij zijn bereikbaar op onderstaande gegevens. We staan u graag te woord in het Nederlands, Arabisch of Engels.', en:'Prefer to call or message directly? You can reach us at the details below. We are happy to assist you in Dutch, Arabic or English.' },
 
     // Diensten lists
-    'd1-list': { nl:'<li>Halal huwelijkscatering — gratis proeverij</li><li>Eid-feesten & ramadan-iftar</li><li>Hapjescatering (mezze/tapas)</li><li>Uitgebreide buffetcatering met bediening</li><li>Toetjesbuffetten & losse maaltijden</li>', en:'<li>Halal wedding catering — free tasting</li><li>Eid celebrations & Ramadan iftar</li><li>Starter catering (mezze/tapas)</li><li>Extensive buffet catering with service</li><li>Dessert buffets & individual meals</li>' },
-    'd2-list': { nl:'<li>Bedrijfslunches & -diners</li><li>Vergaderingen & productlanceringen</li><li>Personeelsevents & teambuilding</li><li>Vaste dagelijkse cateringcontracten</li><li>Inclusieve menuopties (halal, vegan, vegetarisch)</li>', en:'<li>Business lunches & dinners</li><li>Meetings & product launches</li><li>Staff events & team building</li><li>Fixed daily catering contracts</li><li>Inclusive menu options (halal, vegan, vegetarian)</li>' },
+    'd1-list': { nl:'<li>Voor particulieren en bedrijven</li><li>Huwelijkscatering — gratis proeverij</li><li>Hapjescatering (mezze/tapas)</li><li>Uitgebreide buffetcatering met bediening</li><li>Volledig vegetarisch of vegan mogelijk</li><li>Dieetwensen: lactosevrij, glutenvrij, notenvrij e.a.</li><li>Toetjesbuffetten & losse maaltijden</li>', en:'<li>For private clients and businesses</li><li>Wedding catering — free tasting</li><li>Starter catering (mezze/tapas)</li><li>Extensive buffet catering with service</li><li>Fully vegetarian or vegan options available</li><li>Dietary needs: lactose-free, gluten-free, nut-free etc.</li><li>Dessert buffets & individual meals</li>' },
+    'd2-list': { nl:'<li>Bedrijfslunches & -diners</li><li>Vergaderingen & productlanceringen</li><li>Personeelsevents & teambuilding</li><li>Vaste dagelijkse cateringcontracten</li><li>Inclusieve menuopties (halal, vegan, vegetarisch)</li><li>Dieetwensen: lactosevrij, glutenvrij, notenvrij e.a.</li>', en:'<li>Business lunches & dinners</li><li>Meetings & product launches</li><li>Staff events & team building</li><li>Fixed daily catering contracts</li><li>Inclusive menu options (halal, vegan, vegetarian)</li><li>Dietary needs: lactose-free, gluten-free, nut-free etc.</li>' },
     'd3-list': { nl:'<li>Asielzoekerscentra (AZC) — dagelijkse maaltijden</li><li>Crisisnoodopvanglocaties</li><li>Gemeenten & zorginstellingen</li><li>Volledige uitrusting geleverd</li><li>Schaalbaar voor honderden personen</li><li>Voorkeur voor aanstelling statushouders</li>', en:'<li>Asylum seeker centres (AZC) — daily meals</li><li>Crisis emergency shelter locations</li><li>Municipalities & care institutions</li><li>Full equipment supplied on site</li><li>Scalable for hundreds of people</li><li>Priority hiring of permit holders</li>' },
     'diensten-intro':   { nl:'Van een intiem familiefeest tot dagelijkse maaltijden voor honderden bewoners — wij verzorgen catering van A tot Z, altijd met dezelfde passie en halal-kwaliteit.', en:'From an intimate family celebration to daily meals for hundreds of residents — we handle catering from A to Z, always with the same passion and halal quality.' },
 
     // Pakketten
-    'pak-intro':        { nl:'BTW inbegrepen. Opbouw, afbouw en afwas inbegrepen. Gratis levering in de regio Eindhoven.', en:'VAT included. Setup, breakdown and washing up included. Free delivery in the Eindhoven region.' },
+    'pak-intro':        { nl:'BTW inbegrepen. Opbouw, afbouw en afwas inbegrepen. Gratis levering in Eindhoven en Rotterdam.', en:'VAT included. Setup, breakdown and washing up included. Free delivery in Eindhoven and Rotterdam.' },
     'pak-classic-per':  { nl:'per persoon · min. 10 personen', en:'per person · min. 10 persons' },
     'pak-luxe-per':     { nl:'per persoon · min. 15 personen', en:'per person · min. 15 persons' },
     'pak-table-per':    { nl:'per persoon · min. 20 personen', en:'per person · min. 20 persons' },
-    'pak-classic-list': { nl:'<li><strong>3 hoofdgerechten</strong> naar keuze</li><li><strong>3 mezze\'s</strong> (smeersels & hapjes)</li><li><strong>1 salade</strong></li><li>Presentatie op mooie schalen + chafing dishes</li><li>Buffet of bediend opdienen (naar keuze)</li><li>Op- en afbouw inbegrepen</li><li>Afwas inbegrepen</li><li>Gratis levering regio Eindhoven</li>', en:'<li><strong>3 main courses</strong> of your choice</li><li><strong>3 mezze\'s</strong> (dips & starters)</li><li><strong>1 salad</strong></li><li>Presentation on beautiful platters + chafing dishes</li><li>Buffet or served dining (your choice)</li><li>Setup & breakdown included</li><li>Washing up included</li><li>Free delivery Eindhoven region</li>' },
-    'pak-luxe-list':    { nl:'<li><strong>4 hoofdgerechten</strong> naar keuze</li><li><strong>4 mezze\'s</strong> (smeersels & hapjes)</li><li><strong>1 salade</strong></li><li>Presentatie op mooie schalen + chafing dishes</li><li>Buffet of bediend opdienen (naar keuze)</li><li>Op- en afbouw inbegrepen</li><li>Afwas inbegrepen</li><li>Gratis levering regio Eindhoven</li>', en:'<li><strong>4 main courses</strong> of your choice</li><li><strong>4 mezze\'s</strong> (dips & starters)</li><li><strong>1 salad</strong></li><li>Presentation on beautiful platters + chafing dishes</li><li>Buffet or served dining (your choice)</li><li>Setup & breakdown included</li><li>Washing up included</li><li>Free delivery Eindhoven region</li>' },
-    'pak-table-list':   { nl:'<li><strong>2 hoofdgerechten</strong> naar keuze</li><li><strong>3 mezze\'s</strong> naar keuze</li><li><strong>1 salade</strong> naar keuze</li><li>Warm uitgeserveerd op schalen per tafel</li><li>Inclusief bediend personeel</li><li>Op- en afbouw inbegrepen</li><li>Afwas inbegrepen</li><li>Gratis levering regio Eindhoven</li>', en:'<li><strong>2 main courses</strong> of your choice</li><li><strong>3 mezze\'s</strong> of your choice</li><li><strong>1 salad</strong> of your choice</li><li>Served warm on platters per table</li><li>Waiting staff included</li><li>Setup & breakdown included</li><li>Washing up included</li><li>Free delivery Eindhoven region</li>' },
+    'pak-classic-list': { nl:'<li><strong>3 hoofdgerechten</strong> naar keuze</li><li><strong>3 mezze\'s</strong> (smeersels & hapjes)</li><li><strong>1 salade</strong></li><li>Presentatie op mooie schalen + chafing dishes</li><li>In buffetvorm opgesteld</li><li>Op- en afbouw inbegrepen</li><li>Afwas inbegrepen</li><li>Gratis levering Eindhoven en Rotterdam</li>', en:'<li><strong>3 main courses</strong> of your choice</li><li><strong>3 mezze\'s</strong> (dips & starters)</li><li><strong>1 salad</strong></li><li>Presentation on beautiful platters + chafing dishes</li><li>Presented in buffet style</li><li>Setup & breakdown included</li><li>Washing up included</li><li>Free delivery Eindhoven and Rotterdam</li>' },
+    'pak-luxe-list':    { nl:'<li><strong>4 hoofdgerechten</strong> naar keuze</li><li><strong>4 mezze\'s</strong> (smeersels & hapjes)</li><li><strong>1 salade</strong></li><li>Presentatie op mooie schalen + chafing dishes</li><li>In buffetvorm opgesteld</li><li>Op- en afbouw inbegrepen</li><li>Afwas inbegrepen</li><li>Gratis levering Eindhoven en Rotterdam</li>', en:'<li><strong>4 main courses</strong> of your choice</li><li><strong>4 mezze\'s</strong> (dips & starters)</li><li><strong>1 salad</strong></li><li>Presentation on beautiful platters + chafing dishes</li><li>Presented in buffet style</li><li>Setup & breakdown included</li><li>Washing up included</li><li>Free delivery Eindhoven and Rotterdam</li>' },
+    'pak-table-list':   { nl:'<li><strong>2 hoofdgerechten</strong> naar keuze</li><li><strong>3 mezze\'s</strong> naar keuze</li><li><strong>1 salade</strong> naar keuze</li><li>Warm uitgeserveerd op schalen per tafel</li><li>Inclusief bedienend personeel</li><li>Op- en afbouw inbegrepen</li><li>Afwas inbegrepen</li><li>Gratis levering Eindhoven en Rotterdam</li>', en:'<li><strong>2 main courses</strong> of your choice</li><li><strong>3 mezze\'s</strong> of your choice</li><li><strong>1 salad</strong> of your choice</li><li>Served warm on platters per table</li><li>Service staff included</li><li>Setup & breakdown included</li><li>Washing up included</li><li>Free delivery Eindhoven and Rotterdam</li>' },
     'pak-classic-note': { nl:'Borden & bestek: +€1,- p.p. optioneel', en:'Plates & cutlery: +€1,- p.p. optional' },
-    'pak-luxe-note':    { nl:'Borden & bestek: +€1,- p.p. optioneel. Bediend personeel op aanvraag.', en:'Plates & cutlery: +€1,- p.p. optional. Waiting staff on request.' },
+    'pak-luxe-note':    { nl:'Borden & bestek: +€1,- p.p. optioneel. Bedienend personeel op aanvraag.', en:'Plates & cutlery: +€1,- p.p. optional. Service staff on request.' },
     'pak-table-note':   { nl:'Geen buffet — gerechten worden warm aan tafel geserveerd door ons personeel.', en:'No buffet — dishes are served warm at your table by our staff.' },
+    'pak-bbq-per':      { nl:'per persoon · min. 20 personen', en:'per person · min. 20 persons' },
+    'pak-bbq-list':     { nl:'<li><strong>1 grote shish kebab</strong> (lams-rundergehakt spies) p.p.</li><li><strong>1 grote shish tavuk</strong> (kipspies) p.p.</li><li>Kippenvleugeltjes</li><li>Diverse gegrilde groenten van de BBQ</li><li>Hummus dip & muhammara (paprika-walnoten) dip</li><li>Salade & diverse sauzen</li><li>Inclusief BBQ & alle benodigdheden</li><li>Inclusief personeel dat de BBQ bedient</li><li>Op- en afbouw inbegrepen</li><li>Afwas inbegrepen</li><li>Gratis levering Eindhoven en Rotterdam</li>', en:'<li><strong>1 large shish kebab</strong> (lamb-beef mince skewer) p.p.</li><li><strong>1 large shish tavuk</strong> (chicken skewer) p.p.</li><li>Chicken wings</li><li>Assorted grilled vegetables from the BBQ</li><li>Hummus dip & muhammara (pepper-walnut) dip</li><li>Salad & assorted sauces</li><li>Including BBQ & all supplies</li><li>Including staff to operate the BBQ</li><li>Setup & breakdown included</li><li>Washing up included</li><li>Free delivery Eindhoven and Rotterdam</li>' },
+    'pak-bbq-note':     { nl:'Extra soorten vlees of vega opties op aanvraag', en:'Additional meat varieties or vegan options on request' },
+    'pak-hapjes-name':  { nl:'Mezze Selectie', en:'Mezze Selection' },
+    'pak-hapjes-per':   { nl:'per persoon · min. 15 personen<br><span style="font-size:.75rem;color:rgba(245,237,214,.4);">Mix van 5 hapjes per persoon</span>', en:'per person · min. 15 persons<br><span style="font-size:.75rem;color:rgba(245,237,214,.4);">Mix of 5 bites per person</span>' },
+    'pak-hapjes-list':  { nl:'<li><strong>3 soorten börek</strong> (spinazie, kaas, gehakt)</li><li><strong>3 soorten luxe toastjes</strong> (hummus, muhammara, labneh)</li><li>Gevulde gehaktballen (kibbeh)</li><li>Gevulde druivenbladeren (yalanci)</li><li>Andere hapjes of volledig vegetarisch op aanvraag</li><li>Zonder personeel (bedienend personeel op aanvraag)</li><li>Koud geleverd in disposable schalen</li>', en:'<li><strong>3 types of börek</strong> (spinach, cheese, mince)</li><li><strong>3 types of luxury toasts</strong> (hummus, muhammara, labneh)</li><li>Stuffed meatballs (kibbeh)</li><li>Stuffed grape leaves (yalanci)</li><li>Other bites or fully vegetarian on request</li><li>Without service staff (available on request)</li><li>Delivered cold in disposable trays</li>' },
+    'pak-hapjes-note':  { nl:'Extra hapjes op aanvraag · Alternatieve presentatie in overleg', en:'Additional bites on request · Alternative presentation by arrangement' },
+    'pak-maat-name':    { nl:'Catering op Maat', en:'Custom Catering' },
+    'pak-maat-per':     { nl:'Prijs op maat · geheel vrijblijvend', en:'Custom pricing · no obligations' },
+    'pak-maat-list':    { nl:'<li>Niet zeker welk pakket past?</li><li>Wij maken een <strong>menu op maat</strong></li><li>Persoonlijk adviesgesprek</li><li>Afgestemd op uw wensen en budget</li><li>Pakketten combineren mogelijk</li><li>Vegetarisch, vegan of dieetwensen</li>', en:'<li>Not sure which package suits you?</li><li>We create a <strong>custom menu</strong> for you</li><li>Personal consultation</li><li>Tailored to your wishes and budget</li><li>Package combinations possible</li><li>Vegetarian, vegan or dietary needs</li>' },
+    'pak-maat-btn':     { nl:'Neem Contact Op', en:'Get in Touch' },
     'pak-ex1-label':    { nl:'Bezorgkosten buiten regio', en:'Delivery outside region' },
     'pak-ex1-val':      { nl:'€0,50 per km (retour) vanaf Best', en:'€0.50 per km (return) from Best' },
     'pak-ex2-label':    { nl:'Servicebereik', en:'Service area' },
     'pak-ex2-val':      { nl:'Nederland · België · Duitsland', en:'Netherlands · Belgium · Germany' },
     'pak-ex3-label':    { nl:'Vrijblijvende proeverij', en:'Free tasting session' },
-    'pak-ex3-val':      { nl:'Beschikbaar voor huwelijkscatering', en:'Available for wedding catering' },
+    'pak-ex3-val':      { nl:'Gratis bij huwelijkscatering en andere grote feesten', en:'Free for wedding catering and other large celebrations' },
 
     // Configurator
     'conf-intro':       { nl:'Kies uw pakket, stel uw menusamenstelling samen, bereken de reiskosten en prik een datum. U ontvangt direct een vrijblijvende offerte op maat.', en:'Choose your package, compose your menu, calculate travel costs and pick a date. You will receive a free custom quote right away.' },
@@ -2963,6 +3217,7 @@
     'conf-s6-num':      { nl:'Stap 6', en:'Step 6' },
     'conf-s6-title':    { nl:'Kies een datum', en:'Choose a date' },
     'conf-s6-desc':     { nl:'Rood = bezet (geblokkeerd). Gouden stip = bijna volgeboekt. Groen = beschikbaar.', en:'Red = unavailable (blocked). Gold dot = almost full. Green = available.' },
+    'conf-datum-onbekend': { nl:'Ik weet de datum nog niet', en:'I don\'t know the date yet' },
     'conf-straat-ph':   { nl:'Straat + huisnummer', en:'Street + house number' },
     'conf-plaats-ph':   { nl:'Plaats', en:'City' },
     'conf-tijdstip-lbl':{ nl:'Tijdstip', en:'Time' },
@@ -2974,6 +3229,9 @@
     'pk-classic-desc':  { nl:'3 hoofdgerechten + 3 mezze\'s + salade · min. 10 pers.', en:'3 main courses + 3 mezze\'s + salad · min. 10 persons' },
     'pk-luxe-desc':     { nl:'4 hoofdgerechten + 4 mezze\'s + salade · min. 15 pers.', en:'4 main courses + 4 mezze\'s + salad · min. 15 persons' },
     'pk-table-desc':    { nl:'2 hoofdgerechten + 3 mezze\'s + salade · min. 20 pers.', en:'2 main courses + 3 mezze\'s + salad · min. 20 persons' },
+    'pk-bbq-desc':      { nl:'Vast BBQ menu · min. 20 pers.', en:'Fixed BBQ menu · min. 20 persons' },
+    'pk-hapjes-name':   { nl:'Mezze Selectie', en:'Mezze Selection' },
+    'pk-hapjes-desc':   { nl:'Mix van 5 hapjes p.p. · min. 15 pers.', en:'Mix of 5 bites p.p. · min. 15 persons' },
     // Add-on groepen
     'addon-grp-machines':{ nl:'Machines & Apparatuur', en:'Machines & Equipment' },
     'addon-grp-servies': { nl:'Serviesgoed & Meubilair', en:'Tableware & Furniture' },
@@ -3041,16 +3299,17 @@
 
     // Over Ons
     'over-body1':       { nl:'Memories of Damascus is opgericht door <strong style="color:var(--parchment)">Mohamad Habanakeh</strong>, die opgroeide in Al Midan — een Damasceense wijk die wereldberoemd is om zijn restaurants, de Midan Souq, baklava en de beste Syrische shawarma. In 2015 vluchtte Mohamad vanwege de burgeroorlog uit Syrië.', en:'Memories of Damascus was founded by <strong style="color:var(--parchment)">Mohamad Habanakeh</strong>, who grew up in Al Midan — a Damascus neighbourhood world-famous for its restaurants, the Midan Souq, baklava and the finest Syrian shawarma. In 2015, Mohamad fled Syria due to the civil war.' },
-    'over-body2':       { nl:'In een tijdelijk vluchtelingencentrum in Nijmegen ontmoette hij <strong style="color:var(--parchment)">Anouk Willemsen</strong>, die Arabische taal & cultuur studeerde aan de Radboud Universiteit. Samen verhuisden ze naar Eindhoven. Eind 2020 startten ze vanuit de thuiskeuken met de verkoop van mezze — en groeiden uit tot een professionele productiekeuken van meer dan 200 m² in Best.', en:'At a temporary refugee centre in Nijmegen he met <strong style="color:var(--parchment)">Anouk Willemsen</strong>, who studied Arabic language & culture at Radboud University. Together they moved to Eindhoven. In late 2020, they started selling mezze from their home kitchen — and grew into a professional production kitchen of over 200 m² in Best.' },
-    'over-body3':       { nl:'Vandaag werkt een team van <strong style="color:var(--parchment)">20+ gemotiveerde medewerkers</strong> van diverse achtergronden en nationaliteiten. Wij bieden bewust werkplekken aan statushouders, mensen in afwachting van een verblijfsvergunning, en medewerkers met een afstand tot de arbeidsmarkt — in samenwerking met onder meer <strong style="color:var(--parchment)">Kentalis</strong>.', en:'Today a team of <strong style="color:var(--parchment)">20+ motivated staff</strong> from diverse backgrounds and nationalities work with us. We deliberately offer positions to permit holders, people awaiting a residence permit, and employees with distance to the labour market — in partnership with organisations including <strong style="color:var(--parchment)">Kentalis</strong>.' },
+    'over-body2':       { nl:'In Nijmegen ontmoette hij <strong style="color:var(--parchment)">Anouk Willemsen</strong>, die Arabische taal &amp; cultuur studeerde aan de Radboud Universiteit. Mohamad woonde daar toen tijdelijk in een asielzoekerscentrum. Samen verhuisden ze naar Eindhoven. Eind 2020 startten ze vanuit de thuiskeuken met de verkoop van mezze. Vanwege de snelle groei verhuisde het bedrijf naar een professionele productiekeuken van meer dan 200 m² in Best.', en:'In Nijmegen he met <strong style="color:var(--parchment)">Anouk Willemsen</strong>, who studied Arabic language &amp; culture at Radboud University. Mohamad was temporarily living in an asylum seekers\' centre there. Together they moved to Eindhoven. In late 2020, they started selling mezze from their home kitchen. Due to rapid growth, the company moved to a professional production kitchen of over 200 m² in Best.' },
+    'over-body3':       { nl:'Tegenwoordig geven Anouk en Mohamad leiding aan een team van <strong style="color:var(--parchment)">20+ gemotiveerde medewerkers</strong> van diverse achtergronden en nationaliteiten. Memories of Damascus biedt bewust werkplekken aan statushouders, mensen in afwachting van een verblijfsvergunning, en medewerkers met een afstand tot de arbeidsmarkt — in samenwerking met verschillende gemeenten en organisaties.', en:'Today, Anouk and Mohamad lead a team of <strong style="color:var(--parchment)">20+ motivated staff</strong> from diverse backgrounds and nationalities. Memories of Damascus deliberately offers positions to permit holders, people awaiting a residence permit, and employees with distance to the labour market — in partnership with various municipalities and organisations.' },
     'val-halal':        { nl:'<strong>100% Halal</strong> Alle catering en gerechten voldoen aan de strengste halal-normen', en:'<strong>100% Halal</strong> All catering and dishes meet the strictest halal standards' },
     'val-vers':         { nl:'<strong>Vers Bereid</strong> Dagelijks vers in onze 200+ m² productiekeuken in Best', en:'<strong>Freshly Prepared</strong> Made fresh daily in our 200+ m² production kitchen in Best' },
     'val-sociaal':      { nl:'<strong>Sociaal Ondernemen</strong> Werkplekken voor statushouders en kwetsbare groepen', en:'<strong>Social Enterprise</strong> Jobs for permit holders and vulnerable groups' },
     'val-opgericht':    { nl:'<strong>Oprichting 2020</strong> Van thuiskeuken naar professioneel cateringbedrijf', en:'<strong>Founded 2020</strong> From home kitchen to professional catering company' },
+    'val-haccp':        { nl:'<strong>Checkpunt Voedselveiligheid</strong> Door de NVWA geaccepteerd certificaat — voldoet aan de hoogste HACCP-normen', en:'<strong>Food Safety Checkpoint</strong> NVWA-accepted certificate — meets the highest HACCP standards' },
 
     // Sociaal
     'sociaal-label':    { nl:'Sociaal<br>Ondernemen', en:'Social<br>Enterprise' },
-    'sociaal-text':     { nl:'Bij Memories of Damascus geloven we dat werk meer is dan productie. Bewoners van AZC\'s en crisisnoodopvanglocaties worden actief betrokken bij onze productiekeuken als vrijwilliger of werknemer — dit bevordert de <strong>mentale gezondheid</strong> en stimuleert <strong>vroegtijdige arbeidsparticipatie</strong>. Wij geven bewust de voorkeur aan de aanstelling van statushouders en werken samen met organisaties als Kentalis voor leer-werkplekken voor mensen met een afstand tot de arbeidsmarkt.', en:'At Memories of Damascus we believe work is more than production. Residents of asylum centres and crisis shelters are actively involved in our production kitchen as volunteers or employees — this promotes <strong>mental health</strong> and stimulates <strong>early labour participation</strong>. We deliberately give preference to hiring permit holders and work with organisations like Kentalis to provide learning workplaces for people with distance to the labour market.' },
+    'sociaal-text':     { nl:'Bij Memories of Damascus geloven we dat werk meer is dan productie. Bewoners van AZC\'s en crisisnoodopvanglocaties worden actief betrokken bij onze productiekeuken als vrijwilliger of werknemer — dit bevordert de <strong>mentale gezondheid</strong> en stimuleert <strong>vroegtijdige arbeidsparticipatie</strong>.', en:'At Memories of Damascus we believe work is more than production. Residents of asylum centres and crisis shelters are actively involved in our production kitchen as volunteers or employees — this promotes <strong>mental health</strong> and stimulates <strong>early labour participation</strong>.' },
 
     // Menu
     'menu-intro':       { nl:'Traditionele recepten, vers bereid met halal-ingrediënten van de hoogste kwaliteit', en:'Traditional recipes, freshly prepared with the highest quality halal ingredients' },
@@ -3075,7 +3334,7 @@
     'mi-maat-name':     { nl:'Menu op Maat', en:'Custom Menu' },
     'mi-maat-origin':   { nl:'Uw Wensen', en:'Your Wishes' },
     'mi-maat-desc':     { nl:'Volledig gepersonaliseerd menu afgestemd op uw evenement, wensen en dieetvereisten', en:'Fully personalised menu tailored to your event, wishes and dietary requirements' },
-    'menu-dl-btn':      { nl:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Vraag een volledig keuzemenu aan', en:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Request a full menu selection' },
+    'menu-dl-btn':      { nl:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download onze catalogus', en:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download our catalogue' },
 
     // AZC
     'azc-body1':        { nl:'Memories of Damascus is een ervaren cateringpartner voor asielzoekerscentra en crisisnoodopvanglocaties door heel Nederland. Wij leveren dagelijks warme en koude maaltijden — van ontbijt tot avondeten — inclusief alle benodigde uitrusting op locatie.', en:'Memories of Damascus is an experienced catering partner for asylum seeker centres and crisis shelter locations throughout the Netherlands. We deliver daily hot and cold meals — from breakfast to dinner — including all required equipment on site.' },
@@ -3084,16 +3343,14 @@
     'azc-partners-lbl': { nl:'Opdrachtgevers & Partners', en:'Clients & Partners' },
 
     // Baklava
-    'bak-body1':        { nl:'Onze handgemaakte baklava is een ware delicatesse — bereid met hoogwaardige pistache en ghee in onze productiekeuken in Best. Bestel eenvoudig via onze webshop en ontvang uw baklava thuis, of haal gratis af in Best.', en:'Our handmade baklava is a true delicacy — prepared with premium pistachios and ghee in our production kitchen in Best. Order easily via our webshop and receive your baklava at home, or collect for free in Best.' },
-    'bak-body2':        { nl:'Elk stuk is met de hand gemaakt, zonder compromissen op kwaliteit. De perfecte cadeau of traktatie — voor uzelf of voor anderen.', en:'Every piece is handmade, without compromise on quality. The perfect gift or treat — for yourself or for others.' },
+    'bak-body1':        { nl:'Onze handgemaakte baklava is een ware delicatesse — bereid met hoogwaardige pistache en ghee. Bestel eenvoudig via onze webshop en ontvang uw baklava binnen één week thuis.', en:'Our handmade baklava is a true delicacy — prepared with premium pistachios and ghee. Order easily via our webshop and receive your baklava within one week at home.' },
+    'bak-body2':        { nl:'Elk stuk is met de hand gemaakt, zonder compromissen op kwaliteit. Het perfecte cadeau of traktatie — voor uzelf of voor anderen.', en:'Every piece is handmade, without compromise on quality. The perfect gift or treat — for yourself or for others.' },
     'bak-spec1-lbl':    { nl:'Levering', en:'Delivery' },
-    'bak-spec1-val':    { nl:'Binnen 3 werkdagen via pakketpost', en:'Within 3 working days by parcel post' },
-    'bak-spec2-lbl':    { nl:'Afhalen', en:'Collection' },
-    'bak-spec2-val':    { nl:'Gratis afhalen in Best', en:'Free collection in Best' },
+    'bak-spec1-val':    { nl:'Binnen één week via pakketpost', en:'Within one week by parcel post' },
     'bak-spec3-lbl':    { nl:'Houdbaarheid', en:'Shelf life' },
     'bak-spec3-val':    { nl:'Minimaal 1 maand', en:'At least 1 month' },
     'bak-spec4-lbl':    { nl:'Ingrediënten', en:'Ingredients' },
-    'bak-spec4-val':    { nl:'Pistache · Ghee · Handgemaakt', en:'Pistachio · Ghee · Handmade' },
+    'bak-spec4-val':    { nl:'Pistache · Ghee · Dunne laagjes knapperig deeg', en:'Pistachio · Ghee · Thin layers of crispy pastry' },
     'bak-btn':          { nl:'Baklava Bestellen', en:'Order Baklava' },
 
     // Restaurant
@@ -3105,6 +3362,7 @@
     // Configurator gerecht labels
     'conf-hint-post':   { nl:'gekozen', en:'chosen' },
     'conf-hoofd-lbl':   { nl:'Hoofdgerechten — kies', en:'Main courses — choose' },
+    'conf-salade-lbl':  { nl:'Salade — kies', en:'Salad — choose' },
     'conf-mezze-lbl':   { nl:"Mezze's & Bijgerechten — kies", en:"Mezze's & Sides — choose" },
 
     // Dish names
@@ -3120,21 +3378,24 @@
     'over-founder-role':{ nl:'Oprichters · Best, Noord-Brabant', en:'Founders · Best, Noord-Brabant' },
 
     // Restaurant hours
-    'rest-mon-fri':     { nl:'Maandag – Vrijdag', en:'Monday – Friday' },
-    'rest-sat-sun':     { nl:'Zaterdag & Zondag', en:'Saturday & Sunday' },
+    'rest-sun-thu':     { nl:'Zondag – Donderdag', en:'Sunday – Thursday' },
+    'rest-fri-sat':     { nl:'Vrijdag & Zaterdag', en:'Friday & Saturday' },
     'rest-reserv':      { nl:'Reservering', en:'Reservation' },
-    'rest-no-reserv':   { nl:'Niet nodig', en:'Not required' },
+    'rest-no-reserv':   { nl:'Alleen nodig vanaf 9 personen', en:'Only required for 9+ persons' },
+    'rest-whatsapp':    { nl:'Reserveren via WhatsApp — 06 20 77 76 24', en:'Reserve via WhatsApp — 06 20 77 76 24' },
+    'rest-order-btn':   { nl:'Bestel Online via STR\'EAT', en:'Order Online via STR\'EAT' },
+    'rest-body':        { nl:"Bezoek ons restaurant op Strijp S in Eindhoven — onderdeel van de sfeervolle STR'EAT Foodmarket, met 9 keukens, bars, een groot buitenterras en uitgebreide binnenruimte. Geen reservering nodig — loop gewoon binnen en geniet van authentieke Syrisch-Libanese gerechten, direct bereid voor u.", en:"Visit our restaurant at Strijp S in Eindhoven — part of the vibrant STR'EAT Foodmarket, with 9 kitchens, bars, a large outdoor terrace and spacious indoor area. No reservation needed — just walk in and enjoy authentic Syrian-Lebanese dishes, freshly prepared for you." },
 
     // Locaties cards
     'loc-best-status':      { nl:'Productiekeuken — Geen bezoekadres', en:'Production kitchen — Not open to visitors' },
     'loc-best-desc':        { nl:'Vanuit onze 200+ m² productiekeuken in Best bereiden wij dagelijks alle catering en zoetigheden. Dit is ons hoofdkantoor — strategisch nabij de <strong style="color:var(--parchment)">A2 en A50</strong> voor snelle levering door heel Nederland.', en:'From our 200+ m² production kitchen in Best we prepare all catering and sweets daily. This is our headquarters — strategically located near the <strong style="color:var(--parchment)">A2 and A50</strong> motorways for fast delivery throughout the Netherlands.' },
-    'loc-best-warning':     { nl:'<strong>Let op:</strong> Dit is uitsluitend onze productiekeuken. Wij ontvangen hier geen bezoekers en er is geen winkel of balie. Baklava afhalen kan op afspraak.', en:'<strong>Please note:</strong> This is exclusively our production kitchen. We do not receive visitors here and there is no shop or reception. Baklava collection by appointment only.' },
+    'loc-best-warning':     { nl:'<strong>Let op:</strong> Dit is uitsluitend onze productiekeuken. Wij ontvangen hier geen bezoekers en er is geen winkel of balie.', en:'<strong>Please note:</strong> This is exclusively our production kitchen. We do not receive visitors here and there is no shop or reception.' },
     'loc-tag-bak-afhalen':  { nl:'Baklava afhalen', en:'Collect Baklava' },
     'loc-tag-afspraak':     { nl:'Op afspraak', en:'By appointment' },
     'loc-eindhoven-status': { nl:'Restaurant & Take-Away — Welkom zonder reservering', en:'Restaurant & Take-Away — Welcome without reservation' },
     'loc-eindhoven-desc':   { nl:"Onze unit op de sfeervolle STR'EAT Foodmarket op Strijp S. Kom gezellig eten, haal take-away op of bestel online via Orderly. Geen reservering nodig — loop gewoon binnen.", en:"Our unit at the vibrant STR'EAT Foodmarket on Strijp S. Come and eat, pick up take-away or order online via Orderly. No reservation needed — just walk in." },
     'loc-openingstijden':   { nl:'Openingstijden', en:'Opening hours' },
-    'loc-eindhoven-hours':  { nl:'Ma – Vr: 12:00 – 21:00<br>Za &amp; Zo: 12:00 – 22:00', en:'Mon – Fri: 12:00 – 21:00<br>Sat &amp; Sun: 12:00 – 22:00' },
+    'loc-eindhoven-hours':  { nl:'Zo – Do: 12:00 – 21:00<br>Vr &amp; Za: 12:00 – 22:00', en:'Sun – Thu: 12:00 – 21:00<br>Fri &amp; Sat: 12:00 – 22:00' },
     'loc-tag-no-reserv':    { nl:'Geen reservering', en:'No reservation' },
     'loc-eindhoven-cta':    { nl:'Bestel Take-Away Online <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>', en:'Order Take-Away Online <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' },
     'loc-rotterdam-status': { nl:'Koffiezaak & Catering — Rotterdam', en:'Coffee bar & Catering — Rotterdam' },
@@ -3176,17 +3437,34 @@
 
     // Contact details
     'cd-tel-lbl':       { nl:'Telefoon & WhatsApp', en:'Phone & WhatsApp' },
-    'cd-tel-alt':       { nl:'Afhalen / alternatief: <a href="tel:0624470098">06 24 47 00 98</a>', en:'Collection / alternative: <a href="tel:0624470098">06 24 47 00 98</a>' },
+    'cd-tel-nl':        { nl:'(Nederlands en Engels)', en:'(Dutch and English)' },
+    'cd-tel-ar':        { nl:'(Arabisch)', en:'(Arabic)' },
     'cd-email-lbl':     { nl:'E-mail', en:'E-mail' },
     'cd-kitchen-lbl':   { nl:'Productiekeuken', en:'Production kitchen' },
     'cd-kitchen-note':  { nl:'Nabij A2/A50 · ER IS GEEN BEL — bel bij aankomst', en:'Near A2/A50 · NO DOORBELL — call on arrival' },
     'cd-hours-lbl':     { nl:'Bereikbaarheid', en:'Availability' },
-    'cd-hours-val':     { nl:'Ma–Za: 09:00 – 20:00<br>Zondag: Op afspraak', en:'Mon–Sat: 09:00 – 20:00<br>Sunday: By appointment' },
+    'cd-hours-val':     { nl:'24/7 bereikbaar via WhatsApp en e-mail<br>Dagelijks 09:00 – 20:00 per telefoon', en:'24/7 available via WhatsApp and email<br>Daily 09:00 – 20:00 by phone' },
     'halal-badge-txt':  { nl:'<strong>100% Halal Gecertificeerd</strong> Alle catering, gerechten en bereidingen zijn volledig halal', en:'<strong>100% Halal Certified</strong> All catering, dishes and preparations are fully halal' },
     'werkgebied-lbl':   { nl:'Werkgebied', en:'Service area' },
 
     // Footer
     'footer-tagline':   { nl:'"De ware smaken van Syrië en Libanon — authentieke Arabische catering en zoetigheden, liefdevol bereid voor elke gelegenheid."', en:'"The true flavours of Syria and Lebanon — authentic Arabic catering and sweets, lovingly prepared for every occasion."' },
+
+    // FAQ
+    'faq-label':        { nl:'Veelgestelde Vragen', en:'Frequently Asked Questions' },
+    'faq-title':        { nl:'Heeft u een <em>vraag</em>?', en:'Have a <em>question</em>?' },
+    'faq-q1':           { nl:'Is jullie catering volledig halal?', en:'Is your catering fully halal?' },
+    'faq-a1':           { nl:'Ja, al onze catering, gerechten en bereidingen zijn 100% halal gecertificeerd. Wij werken uitsluitend met halal-gecertificeerde leveranciers.', en:'Yes, all our catering, dishes and preparations are 100% halal certified. We work exclusively with halal-certified suppliers.' },
+    'faq-q2':           { nl:'Bieden jullie vegetarische of vegan opties aan?', en:'Do you offer vegetarian or vegan options?' },
+    'faq-a2':           { nl:'Absoluut! De Arabische keuken leent zich uitstekend voor vegetarische en vegan catering. Wij bieden volledig vegetarische en vegan menu\'s aan, en houden rekening met specifieke dieetwensen zoals lactosevrij, glutenvrij en notenvrij.', en:'Absolutely! Arabic cuisine lends itself perfectly to vegetarian and vegan catering. We offer fully vegetarian and vegan menus, and accommodate specific dietary needs such as lactose-free, gluten-free and nut-free.' },
+    'faq-q3':           { nl:'Hoe werkt de gratis proeverij?', en:'How does the free tasting work?' },
+    'faq-a3':           { nl:'Bij huwelijkscatering en andere grote feesten bieden wij een gratis proeverij aan, geheel vrijblijvend. Neem contact met ons op om een afspraak te maken.', en:'For wedding catering and other large celebrations we offer a free tasting, with no obligations. Contact us to make an appointment.' },
+    'faq-q4':           { nl:'In welke regio\'s zijn jullie actief?', en:'In which regions are you active?' },
+    'faq-a4':           { nl:'Wij verzorgen catering door heel Nederland, België en Duitsland. Levering in Eindhoven en Rotterdam is gratis. Voor andere regio\'s berekenen wij €0,50 per km retour vanaf onze dichtstbijzijnde locatie.', en:'We provide catering throughout the Netherlands, Belgium and Germany. Delivery in Eindhoven and Rotterdam is free. For other regions we charge €0.50 per km return from our nearest location.' },
+    'faq-q5':           { nl:'Wat is het minimum aantal personen?', en:'What is the minimum number of persons?' },
+    'faq-a5':           { nl:'Dit verschilt per pakket: Classic Buffet vanaf 10 personen, Luxe Buffet vanaf 15 personen, Mezze Selectie vanaf 15 personen, en À la Table en Ateş BBQ vanaf 20 personen. Voor maatwerk is alles bespreekbaar.', en:'This varies per package: Classic Buffet from 10 persons, Luxe Buffet from 15 persons, Mezze Selection from 15 persons, and À la Table and Ateş BBQ from 20 persons. For custom catering everything is negotiable.' },
+    'faq-q6':           { nl:'Hoe snel kan ik een offerte verwachten?', en:'How quickly can I expect a quote?' },
+    'faq-a6':           { nl:'Wij reageren binnen 24 uur op uw aanvraag. U kunt ons ook direct bereiken via WhatsApp op 06 20 77 76 24.', en:'We respond to your request within 24 hours. You can also reach us directly via WhatsApp on 06 20 77 76 24.' },
     'footer-col1-h':    { nl:'Catering', en:'Catering' },
     'footer-col1-list': { nl:'<li><a href="#diensten">Particulieren & Bruiloften</a></li><li><a href="#diensten">Bedrijfscatering</a></li><li><a href="#azc">AZC & Noodopvang</a></li><li><a href="#pakketten">Pakketten & Prijzen</a></li><li><a href="#menu">Onze Gerechten</a></li><li><a href="#baklava">Baklava per Post</a></li>', en:'<li><a href="#diensten">Private & Weddings</a></li><li><a href="#diensten">Corporate catering</a></li><li><a href="#azc">Asylum & Emergency shelter</a></li><li><a href="#pakketten">Packages & Pricing</a></li><li><a href="#menu">Our Dishes</a></li><li><a href="#baklava">Baklava by Post</a></li>' },
     'footer-col2-h':    { nl:'Bedrijf', en:'Company' },
@@ -3223,25 +3501,38 @@
   // ══ CONFIGURATOR ══
   var confState = {
     pakket: null, pricePerPerson: 0, maxHoofd: 0, maxMezze: 0,
-    personen: 30, gekozenHoofd: new Set(), gekozenMezze: new Set(), addonState: {},
+    personen: 30, gekozenHoofd: new Set(), gekozenSalade: new Set(), gekozenMezze: new Set(), addonState: {},
     reiskosten: 0, reisKm: 0, afstandOptie: null, afstandUren: 2, afstandKosten: 0,
     selectedDate: null, tijdstip: '', typeEvenement: '', calYear: 2026, calMonth: 3
   };
 
-  var pakketMinPersonen = { classic: 10, luxe: 15, table: 20 };
-  var pakketNamen = { classic: 'Classic', luxe: 'Luxe', table: 'À la Table' };
+  var pakketMinPersonen = { classic: 10, luxe: 15, table: 20, bbq: 20, hapjes: 15 };
+  var pakketNamen = { classic: 'Classic Buffet', luxe: 'Luxe Buffet', table: 'À la Table', bbq: 'Ateş BBQ', hapjes: 'Mezze Selectie' };
+  var pakketVastMenu = { bbq: true, hapjes: true };
 
   function selectPakket(type, price, maxH, maxM) {
     confState.pakket = type; confState.pricePerPerson = price; confState.maxHoofd = maxH; confState.maxMezze = maxM;
     document.querySelectorAll('.pk-btn').forEach(function(b){ b.classList.toggle('sel', b.dataset.pakket === type); });
     document.getElementById('maxHoofdDisplay').textContent = maxH;
     document.getElementById('maxMezzeDisplay').textContent = maxM;
-    // Deselect surplus hoofdgerechten
-    var hoofdSel = document.querySelectorAll('#hoofdGrid .gc.gc-sel');
-    hoofdSel.forEach(function(el, i){ if (i >= maxH) { el.classList.remove('gc-sel'); confState.gekozenHoofd.delete(el.querySelector('.gc-naam').textContent); } });
-    // Deselect surplus mezze's
-    var mezzeSel = document.querySelectorAll('#mezzeGrid .gc.gc-sel');
-    mezzeSel.forEach(function(el, i){ if (i >= maxM) { el.classList.remove('gc-sel'); confState.gekozenMezze.delete(el.querySelector('.gc-naam').textContent); } });
+    // Verberg stap 3 bij vaste menu pakketten
+    var step3 = document.getElementById('confStep3');
+    if (pakketVastMenu[type]) {
+      step3.style.display = 'none';
+      // Deselecteer alle gerechten
+      document.querySelectorAll('#hoofdGrid .gc.gc-sel, #saladeGrid .gc.gc-sel, #mezzeGrid .gc.gc-sel').forEach(function(el) {
+        el.classList.remove('gc-sel');
+      });
+      confState.gekozenHoofd.clear(); confState.gekozenSalade.clear(); confState.gekozenMezze.clear();
+    } else {
+      step3.style.display = '';
+      // Deselect surplus hoofdgerechten
+      var hoofdSel = document.querySelectorAll('#hoofdGrid .gc.gc-sel');
+      hoofdSel.forEach(function(el, i){ if (i >= maxH) { el.classList.remove('gc-sel'); confState.gekozenHoofd.delete(el.querySelector('.gc-naam').textContent); } });
+      // Deselect surplus mezze's
+      var mezzeSel = document.querySelectorAll('#mezzeGrid .gc.gc-sel');
+      mezzeSel.forEach(function(el, i){ if (i >= maxM) { el.classList.remove('gc-sel'); confState.gekozenMezze.delete(el.querySelector('.gc-naam').textContent); } });
+    }
     updateGerechtDisabled();
     var minP = pakketMinPersonen[type] || 10;
     confState.personen = minP; document.getElementById('persDisplay').textContent = minP;
@@ -3249,6 +3540,7 @@
     document.getElementById('persNote').textContent = currentLang === 'nl'
       ? 'Minimum ' + minP + ' personen voor het ' + naam + ' pakket'
       : 'Minimum ' + minP + ' persons for the ' + naam + ' package';
+    updateAddonDisabled();
     updateTotaal();
     if (window.showMobPriceBar) showMobPriceBar();
   }
@@ -3257,13 +3549,14 @@
     var min = pakketMinPersonen[confState.pakket] || 10;
     confState.personen = Math.max(min, confState.personen + delta);
     document.getElementById('persDisplay').textContent = confState.personen;
+    updateAddonDisabled();
     updateTotaal();
   }
 
   function toggleGerecht(el, naam, groep) {
     if (el.classList.contains('gc-disabled')) return;
-    var set = groep === 'hoofd' ? confState.gekozenHoofd : confState.gekozenMezze;
-    var max = groep === 'hoofd' ? confState.maxHoofd : confState.maxMezze;
+    var set = groep === 'hoofd' ? confState.gekozenHoofd : groep === 'salade' ? confState.gekozenSalade : confState.gekozenMezze;
+    var max = groep === 'hoofd' ? confState.maxHoofd : groep === 'salade' ? 1 : confState.maxMezze;
     if (el.classList.contains('gc-sel')) {
       el.classList.remove('gc-sel'); set.delete(naam);
     } else {
@@ -3271,14 +3564,19 @@
       el.classList.add('gc-sel'); set.add(naam);
     }
     updateGerechtDisabled();
-    document.getElementById('gekozenCount').textContent = confState.gekozenHoofd.size + confState.gekozenMezze.size;
+    document.getElementById('gekozenCount').textContent = confState.gekozenHoofd.size + confState.gekozenSalade.size + confState.gekozenMezze.size;
   }
 
   function updateGerechtDisabled() {
     var hoofdMax = confState.gekozenHoofd.size >= confState.maxHoofd;
+    var saladeMax = confState.gekozenSalade.size >= 1;
     var mezzeMax = confState.gekozenMezze.size >= confState.maxMezze;
     document.querySelectorAll('#hoofdGrid .gc').forEach(function(el){
       if (!el.classList.contains('gc-sel')) el.classList.toggle('gc-disabled', hoofdMax);
+      else el.classList.remove('gc-disabled');
+    });
+    document.querySelectorAll('#saladeGrid .gc').forEach(function(el){
+      if (!el.classList.contains('gc-sel')) el.classList.toggle('gc-disabled', saladeMax);
       else el.classList.remove('gc-disabled');
     });
     document.querySelectorAll('#mezzeGrid .gc').forEach(function(el){
@@ -3288,10 +3586,26 @@
   }
 
   function toggleAddon(el, naam, prijs, type, minPers) {
+    if (minPers && confState.personen < minPers) return;
     el.classList.toggle('addon-sel');
     if (el.classList.contains('addon-sel')) confState.addonState[naam] = { prijs: prijs, type: type, minPers: minPers || 0 };
     else delete confState.addonState[naam];
     updateTotaal();
+  }
+  function updateAddonDisabled() {
+    document.querySelectorAll('.addon[onclick*="minPers"],.addon').forEach(function(el) {
+      var m = el.getAttribute('onclick');
+      if (!m) return;
+      var parts = m.match(/toggleAddon\(this,'[^']*',[\d.]+,'[a-z]+',(\d+)\)/);
+      if (parts && parseInt(parts[1]) > confState.personen) {
+        el.classList.add('addon-disabled');
+        el.classList.remove('addon-sel');
+        var naam = m.match(/toggleAddon\(this,'([^']*)'/);
+        if (naam && confState.addonState[naam[1]]) delete confState.addonState[naam[1]];
+      } else if (parts) {
+        el.classList.remove('addon-disabled');
+      }
+    });
   }
 
   function updateTotaal() {
@@ -3527,6 +3841,30 @@
     renderCal();
   }
 
+  function toggleDatumOnbekend(checked) {
+    var calEl = document.getElementById('calGrid');
+    var calNav = calEl.previousElementSibling;
+    var legend = calEl.nextElementSibling;
+    var datumExtra = document.querySelector('.conf-datum-extra');
+    if (checked) {
+      calEl.style.opacity = '.25'; calEl.style.pointerEvents = 'none';
+      calNav.style.opacity = '.25'; calNav.style.pointerEvents = 'none';
+      legend.style.opacity = '.25';
+      if (datumExtra) { datumExtra.style.opacity = '.25'; datumExtra.style.pointerEvents = 'none'; }
+      confState.selectedDate = null; confState.datumOnbekend = true;
+      confState.tijdstip = '';
+      document.getElementById('confTijdstip').value = '';
+      document.getElementById('selDateDisplay').textContent = currentLang === 'nl' ? 'Datum nog niet bekend' : 'Date not yet known';
+    } else {
+      calEl.style.opacity = ''; calEl.style.pointerEvents = '';
+      calNav.style.opacity = ''; calNav.style.pointerEvents = '';
+      legend.style.opacity = '';
+      if (datumExtra) { datumExtra.style.opacity = ''; datumExtra.style.pointerEvents = ''; }
+      confState.datumOnbekend = false;
+      document.getElementById('selDateDisplay').textContent = '';
+    }
+  }
+
   function demoOfferte() {
     var btn = document.getElementById('confOfferteBtn');
     btn.textContent = '✓ Aanvraag ontvangen — u hoort binnen 24 uur van ons!';
@@ -3536,6 +3874,11 @@
   }
 
   renderCal(); updateTotaal();
+
+  // Prevent info buttons from toggling dish selection
+  document.querySelectorAll('.gc-info-btn').forEach(function(btn) {
+    btn.addEventListener('click', function(e) { e.stopPropagation(); });
+  });
 
   // ── Mobile price bar: show when package selected, stays forever
   (function() {
@@ -3575,12 +3918,18 @@
       var pkName = pakketNamen[confState.pakket] || '';
       var pers = confState.personen;
       var price = confState.pricePerPerson;
-      var date = confState.selectedDate || '';
+      var date = confState.datumOnbekend ? (currentLang === 'nl' ? 'Datum nog niet bekend' : 'Date not yet known') : (confState.selectedDate || '');
 
       // Gerechten names
       var hoofdArr = Array.from(confState.gekozenHoofd);
+      var saladeArr = Array.from(confState.gekozenSalade);
       var mezzeArr = Array.from(confState.gekozenMezze);
-      var alleGerechten = hoofdArr.concat(mezzeArr);
+      var alleGerechten = hoofdArr.concat(saladeArr, mezzeArr);
+      var vastMenuDesc = {
+        bbq: 'Shish kebab, shish tavuk, kippenvleugeltjes, gegrilde groenten, hummus, muhammara, salade, sauzen',
+        hapjes: 'Börek (spinazie, kaas, gehakt), luxe toastjes (hummus, muhammara, labneh), kibbeh, gevulde druivenbladeren'
+      };
+      if (pakketVastMenu[confState.pakket]) alleGerechten = [vastMenuDesc[confState.pakket]];
 
       // Add-ons names
       var addonNames = Object.keys(confState.addonState);
@@ -3760,13 +4109,14 @@
   function validateConfigurator() {
     if (!confState.pakket) return currentLang === 'nl' ? 'Kies eerst een pakket.' : 'Please choose a package first.';
     if (confState.gekozenHoofd.size < confState.maxHoofd) return currentLang === 'nl' ? 'Kies ' + confState.maxHoofd + ' hoofdgerechten (nu ' + confState.gekozenHoofd.size + ' gekozen).' : 'Choose ' + confState.maxHoofd + ' main courses (' + confState.gekozenHoofd.size + ' chosen).';
+    if (!pakketVastMenu[confState.pakket] && confState.gekozenSalade.size < 1) return currentLang === 'nl' ? 'Kies een salade.' : 'Choose a salad.';
     if (confState.gekozenMezze.size < confState.maxMezze) return currentLang === 'nl' ? 'Kies ' + confState.maxMezze + ' mezze\'s (nu ' + confState.gekozenMezze.size + ' gekozen).' : 'Choose ' + confState.maxMezze + ' mezze\'s (' + confState.gekozenMezze.size + ' chosen).';
     if (!document.getElementById('reisResult').classList.contains('reisvis')) return currentLang === 'nl' ? 'Vul uw postcode in bij stap 5 om reiskosten te berekenen.' : 'Enter your postcode in step 5 to calculate travel costs.';
     if (!document.getElementById('straatInp').value.trim()) return currentLang === 'nl' ? 'Vul straat + huisnummer in bij stap 5.' : 'Enter street + house number in step 5.';
     if (!document.getElementById('plaatsInp').value.trim()) return currentLang === 'nl' ? 'Vul de plaats in bij stap 5.' : 'Enter the city in step 5.';
     if (confState.reisKm >= 50 && !confState.afstandOptie) return currentLang === 'nl' ? 'Kies een optie bij Serviesgoed & opruiming (stap 5).' : 'Choose an option for Tableware & cleanup (step 5).';
-    if (!confState.selectedDate) return currentLang === 'nl' ? 'Kies een datum bij stap 6.' : 'Choose a date in step 6.';
-    if (!confState.tijdstip) return currentLang === 'nl' ? 'Kies een tijdstip bij stap 6.' : 'Choose a time in step 6.';
+    if (!confState.selectedDate && !confState.datumOnbekend) return currentLang === 'nl' ? 'Kies een datum bij stap 6, of vink aan dat de datum nog niet bekend is.' : 'Choose a date in step 6, or indicate the date is not yet known.';
+    if (!confState.datumOnbekend && !confState.tijdstip) return currentLang === 'nl' ? 'Kies een tijdstip bij stap 6.' : 'Choose a time in step 6.';
     return null;
   }
 
