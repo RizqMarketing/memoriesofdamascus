@@ -147,7 +147,10 @@
 
     /* ─── RESET ─── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; font-size: 18px; overflow-x: clip; max-width: 100%; }
+    html { scroll-behavior: smooth; font-size: 18px; overflow-x: clip; max-width: 100%; -webkit-overflow-scrolling: touch; }
+    @supports (overscroll-behavior: contain) {
+      html { overscroll-behavior-y: contain; }
+    }
     body {
       background: var(--ink);
       color: var(--parchment);
@@ -2106,7 +2109,7 @@
 
   <div class="pakketten-grid">
     <!-- Classic -->
-    <div class="pakket-card">
+    <div class="pakket-card reveal">
       <div class="pakket-name">Classic Buffet</div>
       <div class="pakket-price"><sup>€</sup>25</div>
       <div class="pakket-per" data-i18n="pak-classic-per">per persoon · min. 10 personen</div>
@@ -2125,7 +2128,7 @@
     </div>
 
     <!-- Luxe -->
-    <div class="pakket-card featured">
+    <div class="pakket-card featured reveal reveal-delay-1">
       <div class="pakket-name">Luxe Buffet</div>
       <div class="pakket-price"><sup>€</sup>30</div>
       <div class="pakket-per" data-i18n="pak-luxe-per">per persoon · min. 15 personen</div>
@@ -2144,7 +2147,7 @@
     </div>
 
     <!-- À la Table -->
-    <div class="pakket-card">
+    <div class="pakket-card reveal reveal-delay-2">
       <div class="pakket-name">À la Table</div>
       <div class="pakket-price"><sup>€</sup>32</div>
       <div class="pakket-per" data-i18n="pak-table-per">per persoon · min. 20 personen</div>
@@ -2163,7 +2166,7 @@
     </div>
 
     <!-- Houtskool BBQ -->
-    <div class="pakket-card">
+    <div class="pakket-card reveal reveal-delay-3">
       <div class="pakket-name">Ateş BBQ</div>
       <div class="pakket-price"><sup>€</sup>33</div>
       <div class="pakket-per" data-i18n="pak-bbq-per">per persoon · min. 20 personen</div>
@@ -2185,7 +2188,7 @@
     </div>
 
     <!-- Hapjes -->
-    <div class="pakket-card">
+    <div class="pakket-card reveal reveal-delay-4">
       <div class="pakket-name" data-i18n="pak-hapjes-name">Mezze Selectie</div>
       <div class="pakket-price"><sup>€</sup>15</div>
       <div class="pakket-per" data-i18n="pak-hapjes-per">per persoon · min. 15 personen<br><span style="font-size:.75rem;color:rgba(245,237,214,.4);">Mix van 5 hapjes per persoon</span></div>
@@ -2203,7 +2206,7 @@
     </div>
 
     <!-- Catering op Maat -->
-    <div class="pakket-card">
+    <div class="pakket-card reveal reveal-delay-4">
       <div class="pakket-name" data-i18n="pak-maat-name">Catering op Maat</div>
       <div class="pakket-price" style="font-size:1.6rem;">✦</div>
       <div class="pakket-per" data-i18n="pak-maat-per">Prijs op maat · geheel vrijblijvend</div>
@@ -3557,6 +3560,39 @@
     document.addEventListener('mouseenter', function() {
       dot.style.opacity = '1'; ring.style.opacity = '1';
     });
+  })();
+
+  // ── Premium smooth scroll (mobile)
+  (function() {
+    if (!('ontouchstart' in window)) return;
+    var velocity = 0, lastY = 0, lastT = 0, raf = null, dampening = 0.92;
+
+    document.addEventListener('touchstart', function(e) {
+      if (raf) { cancelAnimationFrame(raf); raf = null; }
+      lastY = e.touches[0].clientY;
+      lastT = Date.now();
+      velocity = 0;
+    }, { passive: true });
+
+    document.addEventListener('touchmove', function(e) {
+      var now = Date.now();
+      var dt = now - lastT;
+      if (dt > 0) {
+        velocity = (lastY - e.touches[0].clientY) / dt;
+      }
+      lastY = e.touches[0].clientY;
+      lastT = now;
+    }, { passive: true });
+
+    document.addEventListener('touchend', function() {
+      function decelerate() {
+        velocity *= dampening;
+        if (Math.abs(velocity) < 0.05) return;
+        window.scrollBy(0, velocity * 8);
+        raf = requestAnimationFrame(decelerate);
+      }
+      raf = requestAnimationFrame(decelerate);
+    }, { passive: true });
   })();
 
   // ── Nav scroll effect
