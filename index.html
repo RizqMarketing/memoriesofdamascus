@@ -190,13 +190,31 @@
     .reveal-delay-3 { transition-delay: .54s; }
     .reveal-delay-4 { transition-delay: .72s; }
 
+    /* ─── HERO ENTRANCE ─── */
+    nav.entering {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    nav.entered {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .hero-right.entering {
+      opacity: 0;
+      transform: scale(1.05);
+    }
+    .hero-right.entered {
+      opacity: 1;
+      transform: scale(1);
+    }
+
     /* ─── NAV ─── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       padding: 1.2rem 3rem;
       display: flex; align-items: center; justify-content: space-between;
       background: linear-gradient(to bottom, rgba(22,8,8,.9) 0%, rgba(22,8,8,0) 100%);
-      transition: background .4s, backdrop-filter .4s, padding .4s;
+      transition: opacity .8s ease, transform .8s ease, background .4s, backdrop-filter .4s, padding .4s;
     }
     nav.scrolled {
       background: rgba(22,8,8,.94);
@@ -338,7 +356,7 @@
     .btn-ghost:hover { opacity: 1; gap: .9rem; }
     .btn-ghost svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.5; }
 
-    .hero-right { position: relative; overflow: hidden; z-index: 2; }
+    .hero-right { position: relative; overflow: hidden; z-index: 2; transition: opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1), transform 1.4s cubic-bezier(0.22, 1, 0.36, 1); }
     .hero-right-inner {
       position: absolute; inset: 0;
       background: linear-gradient(135deg, rgba(30,13,13,.85) 0%, rgba(74,14,14,.4) 60%, transparent 100%), var(--deep);
@@ -3502,14 +3520,36 @@
   history.scrollRestoration = 'manual';
   window.scrollTo(0, 0);
 
-  // ── Preloader
-  window.addEventListener('load', function() {
-    var pre = document.getElementById('preloader');
-    setTimeout(function() {
-      pre.classList.add('hide');
-      setTimeout(function() { pre.remove(); }, 600);
-    }, 2100);
-  });
+  // ── Preloader + hero entrance
+  (function() {
+    var nav = document.getElementById('navbar');
+    var heroRight = document.querySelector('.hero-right');
+    // Start hidden
+    nav.classList.add('entering');
+    if (heroRight) heroRight.classList.add('entering');
+
+    window.addEventListener('load', function() {
+      var pre = document.getElementById('preloader');
+      setTimeout(function() {
+        pre.classList.add('hide');
+
+        // Nav slides down
+        setTimeout(function() { nav.classList.remove('entering'); nav.classList.add('entered'); }, 100);
+
+        // Hero right panel zooms in
+        if (heroRight) setTimeout(function() { heroRight.classList.remove('entering'); heroRight.classList.add('entered'); }, 200);
+
+        // Hero text elements fade up with stagger
+        var heroReveals = document.querySelectorAll('#hero .hero-left .reveal');
+        heroReveals.forEach(function(el, i) {
+          setTimeout(function() { el.classList.add('visible'); }, 300 + i * 200);
+        });
+
+        // Clean up preloader
+        setTimeout(function() { pre.remove(); }, 600);
+      }, 2100);
+    });
+  })();
 
   // ── Custom cursor (desktop only)
   (function() {
@@ -3645,12 +3685,7 @@
   }, { threshold: 0.05, rootMargin: '0px 0px -50px 0px' });
   if (menuItems.length) menuGridObserver.observe(document.getElementById('menuGrid'));
 
-  // Trigger hero on load
-  window.addEventListener('load', () => {
-    document.querySelectorAll('#hero .reveal').forEach((el, i) => {
-      setTimeout(() => el.classList.add('visible'), 180 + i * 140);
-    });
-  });
+  // Hero reveal is now handled by the preloader entrance sequence above
 
   // ── Mobile menu
   const hamburger = document.getElementById('hamburger');
