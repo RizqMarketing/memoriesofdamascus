@@ -33,6 +33,82 @@
       --font-body:    'Crimson Pro', serif;
     }
 
+    /* ─── PRELOADER ─── */
+    #preloader {
+      position: fixed; inset: 0; z-index: 99999;
+      background: var(--ink);
+      display: flex; align-items: center; justify-content: center;
+      transition: opacity .6s ease, visibility .6s ease;
+    }
+    #preloader.hide {
+      opacity: 0; visibility: hidden; pointer-events: none;
+    }
+    .preloader-inner { text-align: center; }
+    .preloader-brand {
+      display: flex; flex-direction: column; align-items: center; gap: 0;
+      margin-bottom: 2.5rem;
+    }
+    .preloader-memories {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 400;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--parchment);
+      opacity: 0;
+      transform: translateY(12px);
+      animation: preloaderFadeUp .7s ease forwards;
+      animation-delay: .1s;
+    }
+    .preloader-of {
+      font-family: var(--font-heading);
+      font-size: clamp(.9rem, 2vw, 1.1rem);
+      font-style: italic;
+      font-weight: 300;
+      color: rgba(245,237,214,.45);
+      letter-spacing: .15em;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: preloaderFadeUp .6s ease forwards;
+      animation-delay: .35s;
+    }
+    .preloader-damascus {
+      font-family: var(--font-heading);
+      font-size: clamp(1.6rem, 4vw, 2.6rem);
+      font-style: italic;
+      font-weight: 300;
+      color: var(--gold);
+      letter-spacing: .08em;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: preloaderFadeUp .7s ease forwards;
+      animation-delay: .55s;
+    }
+    .preloader-line {
+      width: clamp(120px, 30vw, 200px);
+      height: 1px;
+      background: rgba(201,148,42,.15);
+      margin: 0 auto;
+      overflow: hidden;
+      border-radius: 1px;
+    }
+    .preloader-line-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold), var(--gold-lt));
+      animation: preloaderProgress 1.8s ease-in-out forwards;
+      animation-delay: .3s;
+      border-radius: 1px;
+    }
+    @keyframes preloaderFadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes preloaderProgress {
+      0%   { width: 0%; }
+      60%  { width: 70%; }
+      100% { width: 100%; }
+    }
+
     /* ─── RESET ─── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; font-size: 18px; overflow-x: clip; max-width: 100%; }
@@ -1731,6 +1807,20 @@
 </head>
 <body>
 
+<!-- ═══ PRELOADER ═══ -->
+<div id="preloader">
+  <div class="preloader-inner">
+    <div class="preloader-brand">
+      <span class="preloader-memories">Memories</span>
+      <span class="preloader-of">of</span>
+      <span class="preloader-damascus">Damascus</span>
+    </div>
+    <div class="preloader-line">
+      <div class="preloader-line-fill"></div>
+    </div>
+  </div>
+</div>
+
 <!-- ═══ MOBILE MENU ═══ -->
 <div class="mobile-menu-backdrop" id="menuBackdrop" onclick="closeMobile()"></div>
 <div class="mobile-menu" id="mobileMenu">
@@ -3367,6 +3457,19 @@
 </div>
 
 <script>
+  // ── Always start at top on page load
+  history.scrollRestoration = 'manual';
+  window.scrollTo(0, 0);
+
+  // ── Preloader
+  window.addEventListener('load', function() {
+    var pre = document.getElementById('preloader');
+    setTimeout(function() {
+      pre.classList.add('hide');
+      setTimeout(function() { pre.remove(); }, 600);
+    }, 2100);
+  });
+
   // ── Nav scroll effect
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
