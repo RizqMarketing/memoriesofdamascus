@@ -869,10 +869,16 @@
       height: 1px;
       background: linear-gradient(to right, transparent, rgba(201,148,42,.25), transparent);
     }
-    .usp-item { text-align: center; }
-    .usp-icon { font-size: 1.6rem; margin-bottom: .6rem; display: block; }
-    .usp-title { font-family: var(--font-display); font-size: 1rem; letter-spacing: .06em; color: var(--gold-lt); margin-bottom: .3rem; }
-    .usp-desc { font-size: .8rem; color: rgba(245,237,214,.6); }
+    .usp-item { text-align: center; padding: 0 1rem; }
+    .usp-icon {
+      width: 44px; height: 44px; margin: 0 auto .8rem;
+      border: 1px solid rgba(201,148,42,.25); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold); background: rgba(201,148,42,.06);
+    }
+    .usp-icon svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+    .usp-title { font-family: var(--font-display); font-size: .95rem; letter-spacing: .08em; color: var(--gold-lt); margin-bottom: .35rem; }
+    .usp-desc { font-size: .78rem; color: rgba(245,237,214,.5); line-height: 1.5; }
 
     /* ─── TESTIMONIALS ─── */
     #testimonials { position: relative; overflow: hidden; }
@@ -1848,22 +1854,30 @@
 <!-- ═══ USP STRIP ═══ -->
 <div id="usp-strip">
   <div class="usp-item reveal">
-    <span class="usp-icon">☪</span>
+    <div class="usp-icon">
+      <svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 3.87-3.13 7-7 7s-7-3.13-7-7a7 7 0 0 1 7-7z"/><path d="M12 16v6M8 22h8"/><circle cx="12" cy="9" r="2"/></svg>
+    </div>
     <div class="usp-title">100% Halal</div>
     <div class="usp-desc" data-i18n="usp-halal-desc">Alle catering en gerechten zijn volledig halal gecertificeerd</div>
   </div>
   <div class="usp-item reveal reveal-delay-1">
-    <span class="usp-icon">⭐</span>
-    <div class="usp-title" data-i18n="usp-stars-title">5/5 Sterren</div>
-    <div class="usp-desc" data-i18n="usp-stars-desc">Gemiddeld een perfecte score van onze klanten op Google</div>
+    <div class="usp-icon">
+      <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+    </div>
+    <div class="usp-title" data-i18n="usp-stars-title">4.9/5 Sterren</div>
+    <div class="usp-desc" data-i18n="usp-stars-desc">104 reviews op Google — bijna perfecte score</div>
   </div>
   <div class="usp-item reveal reveal-delay-2">
-    <span class="usp-icon">🌍</span>
+    <div class="usp-icon">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/></svg>
+    </div>
     <div class="usp-title">NL · BE · DE</div>
     <div class="usp-desc" data-i18n="usp-countries-desc">Actief in Nederland, België én Duitsland</div>
   </div>
   <div class="usp-item reveal reveal-delay-3">
-    <span class="usp-icon">🏛</span>
+    <div class="usp-icon">
+      <svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14"/><path d="M9 21v-4h6v4M9 10h.01M15 10h.01M9 14h.01M15 14h.01"/></svg>
+    </div>
     <div class="usp-title" data-i18n="usp-gov-title">Overheidspartner</div>
     <div class="usp-desc" data-i18n="usp-gov-desc">Gecertificeerd voor AZC's, gemeenten en overheidsinstanties</div>
   </div>
@@ -3448,8 +3462,8 @@
     'hero-btn2':        { nl:'Bekijk Diensten', en:'View Services' },
     'hero-calligraphy': { nl:'De ware smaken van<br>Syrië en Libanon', en:'The true flavours of<br>Syria and Lebanon' },
     'usp-halal-desc':   { nl:'Alle catering en gerechten zijn volledig halal gecertificeerd', en:'All catering and dishes are fully halal certified' },
-    'usp-stars-title':  { nl:'5/5 Sterren', en:'5/5 Stars' },
-    'usp-stars-desc':   { nl:'Gemiddeld een perfecte score van onze klanten op Google', en:'A perfect average score from our customers on Google' },
+    'usp-stars-title':  { nl:'4.9/5 Sterren', en:'4.9/5 Stars' },
+    'usp-stars-desc':   { nl:'104 reviews op Google — bijna perfecte score', en:'104 reviews on Google — near perfect score' },
     'usp-countries-desc':{ nl:'Actief in Nederland, België én Duitsland', en:'Active in the Netherlands, Belgium and Germany' },
     'usp-gov-title':    { nl:'Overheidspartner', en:'Government Partner' },
     'usp-gov-desc':     { nl:"Gecertificeerd voor AZC's, gemeenten en overheidsinstanties", en:'Certified for asylum centres, municipalities and government institutions' },
