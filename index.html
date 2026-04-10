@@ -3602,39 +3602,6 @@
     });
   })();
 
-  // ── Premium smooth scroll (mobile)
-  (function() {
-    if (!('ontouchstart' in window)) return;
-    var velocity = 0, lastY = 0, lastT = 0, raf = null, dampening = 0.92;
-
-    document.addEventListener('touchstart', function(e) {
-      if (raf) { cancelAnimationFrame(raf); raf = null; }
-      lastY = e.touches[0].clientY;
-      lastT = Date.now();
-      velocity = 0;
-    }, { passive: true });
-
-    document.addEventListener('touchmove', function(e) {
-      var now = Date.now();
-      var dt = now - lastT;
-      if (dt > 0) {
-        velocity = (lastY - e.touches[0].clientY) / dt;
-      }
-      lastY = e.touches[0].clientY;
-      lastT = now;
-    }, { passive: true });
-
-    document.addEventListener('touchend', function() {
-      function decelerate() {
-        velocity *= dampening;
-        if (Math.abs(velocity) < 0.05) return;
-        window.scrollBy(0, velocity * 8);
-        raf = requestAnimationFrame(decelerate);
-      }
-      raf = requestAnimationFrame(decelerate);
-    }, { passive: true });
-  })();
-
   // ── Nav scroll effect
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
