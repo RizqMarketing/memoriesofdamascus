@@ -39,11 +39,26 @@
       background: var(--ink);
       display: flex; align-items: center; justify-content: center;
       transition: opacity .6s ease, visibility .6s ease;
+      overflow: hidden;
+    }
+    #preloader::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url('sfeerimpressie.jpg') center center / cover no-repeat;
+      opacity: 0;
+      filter: brightness(.4);
+      animation: preloaderBgIn 1.8s ease forwards;
+      animation-delay: .6s;
+      z-index: 0;
+    }
+    @keyframes preloaderBgIn {
+      0%   { opacity: 0; transform: scale(1.08); }
+      100% { opacity: 1; transform: scale(1); }
     }
     #preloader.hide {
       opacity: 0; visibility: hidden; pointer-events: none;
     }
-    .preloader-inner { text-align: center; }
+    .preloader-inner { text-align: center; position: relative; z-index: 1; }
     .preloader-brand {
       display: flex; flex-direction: column; align-items: center; gap: 0;
       margin-bottom: 2.5rem;
@@ -450,6 +465,35 @@
       z-index: 4;
     }
     .scroll-line { width: 50px; height: 1px; background: linear-gradient(to right, rgba(245,237,214,.4), transparent); }
+
+    /* ─── HERO MOBILE FOOD IMAGE ─── */
+    .hero-mob-photo {
+      display: none;
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      margin-top: -1px;
+    }
+    .hero-mob-photo img {
+      width: 100%; height: 260px;
+      object-fit: cover;
+      display: block;
+    }
+    .hero-mob-photo::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 60px;
+      background: linear-gradient(to bottom, var(--ink), transparent);
+      z-index: 1; pointer-events: none;
+    }
+    .hero-mob-photo::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 60px;
+      background: linear-gradient(to top, var(--deep), transparent);
+      z-index: 1; pointer-events: none;
+    }
+    @media (max-width: 1024px) {
+      .hero-mob-photo { display: block; }
+    }
 
     /* ─── SECTION COMMONS ─── */
     section { padding: 7rem 6rem; }
@@ -1431,7 +1475,8 @@
       section { padding: 5rem 3rem; }
       #hero { grid-template-columns: 1fr; }
       .hero-right { display: none; }
-      .hero-left { padding: 9rem 3rem 5rem; }
+      .hero-scroll { display: none; }
+      .hero-left { padding: 9rem 3rem 3rem; }
       #over-ons { grid-template-columns: 1fr; gap: 3rem; }
       .over-accent { right: 0; bottom: -1rem; }
       .diensten-grid { grid-template-columns: 1fr; background: transparent; gap: 0; }
@@ -1458,7 +1503,7 @@
       .over-visual { display: none; }
       .azc-grid { grid-template-columns: 1fr; gap: 2rem; }
       section { padding: 4rem 1.5rem; }
-      .hero-left { padding: 8rem 1.5rem 4rem; }
+      .hero-left { padding: 8rem 1.5rem 2.5rem; }
       .form-row { grid-template-columns: 1fr; }
       .footer-inner { padding: 2rem 1.5rem 2rem; }
       .footer-bottom { padding: 1.5rem 1.5rem; }
@@ -2003,6 +2048,11 @@
     <span data-i18n="hero-scroll">Ontdek meer</span>
   </div>
 </section>
+
+<!-- ═══ HERO MOBILE FOOD IMAGE ═══ -->
+<div class="hero-mob-photo">
+  <img src="hero-buffet.jpg" alt="Syrisch-Libanese catering buffet — Memories of Damascus" />
+</div>
 
 <!-- ═══ USP STRIP ═══ -->
 <div id="usp-strip">
