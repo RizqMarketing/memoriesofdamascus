@@ -488,7 +488,7 @@
     .hero-mob-photo::after {
       content: '';
       position: absolute; bottom: 0; left: 0; right: 0; height: 60px;
-      background: linear-gradient(to top, var(--deep), transparent);
+      background: linear-gradient(to top, var(--ink), transparent);
       z-index: 1; pointer-events: none;
     }
     @media (max-width: 1024px) {
@@ -1476,7 +1476,7 @@
       #hero { grid-template-columns: 1fr; }
       .hero-right { display: none; }
       .hero-scroll { display: none; }
-      .hero-left { padding: 9rem 3rem 3rem; }
+      .hero-left { padding: 9rem 3rem 0; }
       #over-ons { grid-template-columns: 1fr; gap: 3rem; }
       .over-accent { right: 0; bottom: -1rem; }
       .diensten-grid { grid-template-columns: 1fr; background: transparent; gap: 0; }
@@ -1484,6 +1484,7 @@
       .menu-grid { grid-template-columns: repeat(2, 1fr); background: transparent; gap: 0; }
       .menu-item { border-bottom: 1px solid var(--divider); }
       #usp-strip { grid-template-columns: repeat(2, 1fr); padding: 3rem; }
+      #usp-strip::before { display: none; }
       .testimonials-grid { grid-template-columns: 1fr; }
       #contact { grid-template-columns: 1fr; gap: 3rem; }
       .footer-top { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
@@ -1503,7 +1504,7 @@
       .over-visual { display: none; }
       .azc-grid { grid-template-columns: 1fr; gap: 2rem; }
       section { padding: 4rem 1.5rem; }
-      .hero-left { padding: 8rem 1.5rem 2.5rem; }
+      .hero-left { padding: 8rem 1.5rem 0; }
       .form-row { grid-template-columns: 1fr; }
       .footer-inner { padding: 2rem 1.5rem 2rem; }
       .footer-bottom { padding: 1.5rem 1.5rem; }
