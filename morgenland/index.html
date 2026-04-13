@@ -1294,7 +1294,7 @@
           Wij rijden vanuit Rotterdam naar u toe. Tarief: <strong style="color:var(--parchment)">&euro;0,50 per km retour</strong>. Gratis binnen 15 km van Rotterdam.
         </p>
         <div class="reis-row">
-          <input class="reis-inp" id="postcodeInp" type="text" maxlength="7" placeholder="Postcode (bijv. 3011 AB)" style="max-width:180px;" />
+          <input class="reis-inp" id="postcodeInp" type="text" maxlength="7" placeholder="Postcode (bijv. 3011 AB)" data-i18n-placeholder="conf-postcode-ph" style="max-width:180px;" />
           <button class="reis-calc-btn" onclick="berekenReiskosten()" data-i18n="conf-calc-btn">Bereken</button>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:1rem;">
@@ -1524,13 +1524,7 @@
         <div class="form-group"><label data-i18n="form-tel">Telefoonnummer *</label><input type="tel" name="telefoon" required autocomplete="tel" /></div>
         <div class="form-group">
           <label data-i18n="form-type">Type</label>
-          <select name="type">
-            <option value="">Selecteer...</option>
-            <option>Catering</option>
-            <option>Kookworkshop</option>
-            <option>Ruimte Huren</option>
-            <option>Overig</option>
-          </select>
+          <select name="type" data-i18n="form-type-select"><option value="">Selecteer...</option><option>Catering</option><option>Kookworkshop</option><option>Ruimte Huren</option><option>Overig</option></select>
         </div>
       </div>
       <div class="form-group"><label data-i18n="form-bericht">Bericht *</label><textarea name="bericht" required></textarea></div>
@@ -1550,7 +1544,7 @@
     </div>
     <div class="contact-detail">
       <div class="contact-detail-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-      <div><div class="contact-detail-label">Adres</div><div class="contact-detail-value">Librijesteeg 4, 3011 EB Rotterdam<br><span style="font-size:.82rem;color:rgba(245,237,214,.4);">2e verdieping Centrale Bibliotheek</span></div></div>
+      <div><div class="contact-detail-label" data-i18n="cd-adres-lbl">Adres</div><div class="contact-detail-value" data-i18n="cd-adres-val">Librijesteeg 4, 3011 EB Rotterdam<br><span style="font-size:.82rem;color:rgba(245,237,214,.4);">2e verdieping Centrale Bibliotheek</span></div></div>
     </div>
     <div class="contact-detail">
       <div class="contact-detail-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
@@ -1596,7 +1590,7 @@
   <div class="footer-inner">
     <div class="footer-top">
       <div class="footer-brand">
-        <span class="nav-logo" style="display:inline-block;"><img src="logo.png" alt="Morgenland — by Memories of Damascus" style="height:72px;width:auto;display:block;filter:drop-shadow(0 2px 8px rgba(0,0,0,.4));"></span>
+        <span class="footer-logo" style="display:block;margin-bottom:1.2rem;"><img src="logo-horizontal.png" alt="Morgenland — by Memories of Damascus" style="width:100%;max-width:260px;height:auto;display:block;filter:drop-shadow(0 3px 14px rgba(0,0,0,.55));"></span>
         <div class="footer-tagline" data-i18n="footer-tagline">"Wereldse smaken, Rotterdams karakter &mdash; internationale keuken en Syrisch-Libanese catering in de Centrale Bibliotheek Rotterdam."</div>
         <div class="footer-social">
           <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg></a>
@@ -1608,19 +1602,19 @@
       <div class="footer-col">
         <h4 data-i18n="footer-col1-h">Restaurant</h4>
         <ul>
-          <li><a href="#over-ons">Over Ons</a></li>
-          <li><a href="#menu">Menu</a></li>
-          <li><a href="#bestellen">Bestellen</a></li>
-          <li><a href="#faq">Openingstijden</a></li>
+          <li><a href="#over-ons" data-i18n="nav-over">Over Ons</a></li>
+          <li><a href="#menu" data-i18n="nav-menu">Menu</a></li>
+          <li><a href="#bestellen" data-i18n="nav-bestellen">Bestellen</a></li>
+          <li><a href="#faq" data-i18n="footer-hours">Openingstijden</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4 data-i18n="footer-col2-h">Catering</h4>
         <ul>
-          <li><a href="#pakketten">Pakketten</a></li>
-          <li><a href="#configurator">Configurator</a></li>
-          <li><a href="#kookworkshops">Kookworkshops</a></li>
-          <li><a href="#ruimte-huren">Ruimte Huren</a></li>
+          <li><a href="#pakketten" data-i18n="footer-pakketten">Pakketten</a></li>
+          <li><a href="#configurator" data-i18n="footer-configurator">Configurator</a></li>
+          <li><a href="#kookworkshops" data-i18n="nav-workshops">Kookworkshops</a></li>
+          <li><a href="#ruimte-huren" data-i18n="nav-ruimte">Ruimte Huren</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1628,7 +1622,7 @@
         <ul>
           <li><a href="tel:+31620777624">06 20 77 76 24</a></li>
           <li><a href="mailto:info@morgenland.nu">info@morgenland.nu</a></li>
-          <li><a href="#contact">Librijesteeg 4, Rotterdam</a></li>
+          <li><a href="#contact" data-i18n="footer-address">Librijesteeg 4, Rotterdam</a></li>
         </ul>
       </div>
     </div>
@@ -1642,11 +1636,11 @@
 <!-- ═══ MOBILE PRICE BAR ═══ -->
 <div class="mob-price-bar" id="mobPriceBar">
   <div class="mob-price-bar-left">
-    <div class="mob-price-bar-label">Totaal</div>
+    <div class="mob-price-bar-label" data-i18n="mob-price-lbl">Totaal</div>
     <div class="mob-price-bar-amount">&euro;<span id="mobPriceAmount">0</span>,-</div>
-    <div class="mob-price-bar-sub" id="mobPriceSub">Kies een pakket om te beginnen</div>
+    <div class="mob-price-bar-sub" id="mobPriceSub" data-i18n="mob-price-sub-empty">Kies een pakket om te beginnen</div>
   </div>
-  <button class="mob-price-bar-btn" onclick="demoOfferte()">Offerte &rarr;</button>
+  <button class="mob-price-bar-btn" onclick="demoOfferte()" data-i18n="mob-price-btn">Offerte &rarr;</button>
 </div>
 
 <!-- ═══ OFFERTE MODAL ═══ -->
@@ -1654,11 +1648,11 @@
   <div class="modal">
     <div class="modal-left">
       <div class="modal-left-scroll">
-        <div class="modal-left-eyebrow">Uw aanvraag</div>
+        <div class="modal-left-eyebrow" data-i18n="modal-eyebrow">Uw aanvraag</div>
         <div class="modal-brand">Morgenland<br><em>by Memories of Damascus</em></div>
-        <div class="modal-tagline">Internationale keuken &amp; catering Rotterdam</div>
+        <div class="modal-tagline" data-i18n="modal-tagline">Internationale keuken &amp; catering Rotterdam</div>
         <div class="modal-divider"></div>
-        <div class="modal-summary-label">Uw configuratie</div>
+        <div class="modal-summary-label" data-i18n="modal-summary-lbl">Uw configuratie</div>
         <div id="modalSummary"></div>
       </div>
       <div class="modal-left-footer" id="modalLeftFooter" style="display:none;">
@@ -1685,19 +1679,19 @@
         <input type="hidden" name="conf_totaal" id="modalTotaal">
         <input type="hidden" name="conf_adres" id="modalAdres">
         <div class="form-row">
-          <div class="form-group"><label data-i18n="modal-naam-lbl">Naam *</label><input type="text" name="naam" placeholder="Uw volledige naam" required autocomplete="name"></div>
+          <div class="form-group"><label data-i18n="modal-naam-lbl">Naam *</label><input type="text" name="naam" placeholder="Uw volledige naam" data-i18n-placeholder="modal-naam-ph" required autocomplete="name"></div>
           <div class="form-group"><label data-i18n="modal-tel-lbl">Telefoonnummer *</label><input type="tel" name="telefoon" placeholder="+31 6 00 00 00 00" required autocomplete="tel"></div>
         </div>
         <div class="form-group"><label data-i18n="modal-email-lbl">E-mailadres *</label><input type="email" name="email" placeholder="uw@email.nl" required autocomplete="email"></div>
-        <div class="form-group"><label data-i18n="modal-wensen-lbl">Uw wensen / opmerkingen</label><textarea name="bericht" placeholder="Dieetvereisten, allergie&euml;n, speciale wensen..."></textarea></div>
+        <div class="form-group"><label data-i18n="modal-wensen-lbl">Uw wensen / opmerkingen</label><textarea name="bericht" placeholder="Dieetvereisten, allergie&euml;n, speciale wensen..." data-i18n-placeholder="modal-wensen-ph"></textarea></div>
         <button type="submit" class="modal-submit" data-i18n="modal-submit-btn">Verstuur Aanvraag &mdash; Gratis &amp; Vrijblijvend</button>
         <div class="modal-fine-print" data-i18n="modal-fineprint">Wij nemen binnen 24 uur contact met u op &middot; Geen verplichtingen</div>
       </form>
       <div class="modal-success" id="offerteSuccess">
         <div class="modal-success-icon">&#10023; &#10022; &#10023;</div>
-        <div class="modal-success-title">Aanvraag <em>ontvangen</em></div>
-        <div class="modal-success-text">Dank u wel. Wij nemen binnen 24 uur persoonlijk contact met u op met een offerte op maat.</div>
-        <button class="btn-primary modal-success-close" onclick="closeOfferteModal()">Sluiten</button>
+        <div class="modal-success-title" data-i18n="modal-success-title">Aanvraag <em>ontvangen</em></div>
+        <div class="modal-success-text" data-i18n="modal-success-text">Dank u wel. Wij nemen binnen 24 uur persoonlijk contact met u op met een offerte op maat.</div>
+        <button class="btn-primary modal-success-close" onclick="closeOfferteModal()" data-i18n="modal-close-btn">Sluiten</button>
       </div>
     </div>
   </div>
@@ -1813,6 +1807,7 @@ function handleSubmit(e) {
 // ══ TAAL TOGGLE ══
 var currentLang = 'nl';
 var i18n = {
+  // Nav
   'nav-over':         { nl:'Over Ons', en:'About Us' },
   'nav-menu':         { nl:'Menu', en:'Menu' },
   'nav-bestellen':    { nl:'Bestellen', en:'Order' },
@@ -1821,52 +1816,335 @@ var i18n = {
   'nav-ruimte':       { nl:'Ruimte Huren', en:'Venue Hire' },
   'nav-contact':      { nl:'Contact', en:'Contact' },
   'nav-cta':          { nl:'Offerte Aanvragen', en:'Request Quote' },
+
+  // Hero
   'hero-eyebrow':     { nl:'Internationale Keuken \u00b7 100% Halal \u00b7 Rotterdam', en:'International Cuisine \u00b7 100% Halal \u00b7 Rotterdam' },
   'hero-subtitle':    { nl:'Wereldse smaken, Rotterdams karakter', en:'Global flavours, Rotterdam character' },
   'hero-scroll':      { nl:'Ontdek meer', en:'Discover more' },
   'hero-btn1':        { nl:'Bestel Online', en:'Order Online' },
   'hero-btn2':        { nl:'Bekijk Menu', en:'View Menu' },
   'hero-calligraphy': { nl:'Wereldse smaken,<br>Rotterdams karakter', en:'Global flavours,<br>Rotterdam character' },
+  'hero-desc':        { nl:'Morgenland is een koffiezaak en restaurant op de 2e verdieping van de Centrale Bibliotheek Rotterdam. Internationale gerechten, Nederlandse broodjes en barista-espresso &mdash; alles <strong style="color:var(--parchment)">100% halal</strong>, met liefde bereid door het team van Memories of Damascus.', en:'Morgenland is a coffee bar and restaurant on the 2nd floor of Rotterdam Central Library. International dishes, Dutch sandwiches and barista espresso &mdash; all <strong style="color:var(--parchment)">100% halal</strong>, lovingly prepared by the team of Memories of Damascus.' },
+
+  // USPs
+  'usp1-title':       { nl:'100% Halal', en:'100% Halal' },
+  'usp1-desc':        { nl:'Alle gerechten zijn volledig halal', en:'All dishes are fully halal' },
+  'usp2-title':       { nl:'Centrale Bibliotheek', en:'Central Library' },
+  'usp2-desc':        { nl:'2e verdieping, Librijesteeg 4 Rotterdam', en:'2nd floor, Librijesteeg 4 Rotterdam' },
+  'usp3-title':       { nl:'Sinds 2020', en:'Since 2020' },
+  'usp3-desc':        { nl:'Opgericht door Mohamad &amp; Anouk', en:'Founded by Mohamad &amp; Anouk' },
+  'usp4-title':       { nl:'Barista Espresso', en:'Barista Espresso' },
+  'usp4-desc':        { nl:'Echte espressokwaliteit koffie', en:'True espresso-quality coffee' },
+
+  // Over Ons
   'over-label':       { nl:'Ons Verhaal', en:'Our Story' },
   'over-title':       { nl:'Een ontmoetingsplek<br>in het hart van <em>Rotterdam</em>', en:'A meeting place<br>in the heart of <em>Rotterdam</em>' },
+  'over-body1':       { nl:'Morgenland is een koffiezaak op de 2e verdieping van de Centrale Bibliotheek Rotterdam, geopend in 2020 door <strong style="color:var(--parchment)">Mohamad Habanakeh</strong> en <strong style="color:var(--parchment)">Anouk Willemsen</strong>. Wij serveren internationale gerechten, Nederlandse broodjes en barista-espresso &mdash; alles 100% halal.', en:'Morgenland is a coffee bar on the 2nd floor of Rotterdam Central Library, opened in 2020 by <strong style="color:var(--parchment)">Mohamad Habanakeh</strong> and <strong style="color:var(--parchment)">Anouk Willemsen</strong>. We serve international dishes, Dutch sandwiches and barista espresso &mdash; all 100% halal.' },
+  'over-body2':       { nl:'Morgenland is onderdeel van de Memories of Damascus familie &mdash; dezelfde zorg, dezelfde kwaliteit, dezelfde halal-standaard, maar dan op een plek waar lezers, studenten en bezoekers van de bibliotheek even tot rust komen. Of u nu langskomt voor een cappuccino, een warme maaltijd of een vers broodje: bij Morgenland bent u thuis.', en:'Morgenland is part of the Memories of Damascus family &mdash; the same care, the same quality, the same halal standard, but in a place where readers, students and library visitors come to unwind. Whether you drop by for a cappuccino, a warm meal or a fresh sandwich: at Morgenland you are home.' },
+  'over-founder-role':{ nl:'Oprichters &middot; Rotterdam', en:'Founders &middot; Rotterdam' },
+  'val-halal':        { nl:'<strong>100% Halal</strong>Alle gerechten zijn volledig halal', en:'<strong>100% Halal</strong>All dishes are fully halal' },
+  'val-vers':         { nl:'<strong>Vers Bereid</strong>Dagelijks vers bereid in onze keuken', en:'<strong>Freshly Prepared</strong>Made fresh daily in our kitchen' },
+  'val-locatie':      { nl:'<strong>Centrale Ligging</strong>Centrale Bibliotheek Rotterdam, 2e verdieping', en:'<strong>Central Location</strong>Rotterdam Central Library, 2nd floor' },
+  'val-internationaal':{ nl:'<strong>Internationale Keuken</strong>Van Syrisch-Libanees tot Nederlandse broodjes', en:'<strong>International Cuisine</strong>From Syrian-Lebanese to Dutch sandwiches' },
+
+  // Menu
   'menu-label':       { nl:'Ons Aanbod', en:'Our Menu' },
   'menu-title':       { nl:'Van ontbijt tot <em>avondeten</em>', en:'From breakfast to <em>dinner</em>' },
+  'menu-intro':       { nl:'Van verse broodjes en wraps tot warme internationale maaltijden, barista-espresso en huisgemaakte baklava.', en:'From fresh sandwiches and wraps to warm international meals, barista espresso and homemade baklava.' },
+  'menu-cat-ontbijt': { nl:'Ontbijt &amp; Broodjes', en:'Breakfast &amp; Sandwiches' },
+  'menu-cat-lunch':   { nl:'Lunch &amp; Warme Maaltijden', en:'Lunch &amp; Warm Meals' },
+  'menu-cat-koffie':  { nl:'Koffie &amp; Dranken', en:'Coffee &amp; Drinks' },
+  'menu-cat-zoet':    { nl:'Zoet', en:'Sweet' },
+  'menu-dl-btn':      { nl:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download onze catalogus', en:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download our catalogue' },
+  'mi-broodjes-name': { nl:'Verse Broodjes', en:'Fresh Sandwiches' },
+  'mi-broodjes-origin':{ nl:'Dagelijks Vers', en:'Daily Fresh' },
+  'mi-broodjes-desc': { nl:'Diverse belegde broodjes, vegetarisch of met kip/falafel', en:'Various filled sandwiches, vegetarian or with chicken/falafel' },
+  'mi-wraps-name':    { nl:'Wraps', en:'Wraps' },
+  'mi-wraps-origin':  { nl:'Internationaal', en:'International' },
+  'mi-wraps-desc':    { nl:'Gevulde wraps met hummus, gegrilde groenten of kip', en:'Filled wraps with hummus, grilled vegetables or chicken' },
+  'mi-warme-name':    { nl:'Warme Maaltijd', en:'Warm Meal' },
+  'mi-warme-origin':  { nl:'Dagelijks Wisselend', en:'Daily Changing' },
+  'mi-warme-desc':    { nl:'Dagelijks wisselend internationaal gerecht', en:'Daily changing international dish' },
+  'mi-falafel-name':  { nl:'Falafel Bowl', en:'Falafel Bowl' },
+  'mi-falafel-origin':{ nl:'Levantijns', en:'Levantine' },
+  'mi-falafel-desc':  { nl:'Knapperige falafel met hummus, salade en tahini', en:'Crispy falafel with hummus, salad and tahini' },
+  'mi-espresso-name': { nl:'Barista Espresso', en:'Barista Espresso' },
+  'mi-espresso-origin':{ nl:'Specialty Coffee', en:'Specialty Coffee' },
+  'mi-espresso-desc': { nl:'Verse espresso, cappuccino, latte en meer', en:'Fresh espresso, cappuccino, latte and more' },
+  'mi-thee-name':     { nl:'Verse Thee &amp; Sappen', en:'Fresh Tea &amp; Juices' },
+  'mi-thee-origin':   { nl:'Huisgemaakt', en:'Homemade' },
+  'mi-thee-desc':     { nl:"Muntthee, verse jus d'orange, smoothies", en:'Mint tea, fresh orange juice, smoothies' },
+  'mi-baklava-name':  { nl:'Huisgemaakte Baklava', en:'Homemade Baklava' },
+  'mi-baklava-origin':{ nl:'Syrische Traditie', en:'Syrian Tradition' },
+  'mi-baklava-desc':  { nl:'Handgemaakte baklava met pistache en ghee', en:'Handmade baklava with pistachio and ghee' },
+  'mi-gebak-name':    { nl:'Gebak &amp; Brownies', en:'Cakes &amp; Brownies' },
+  'mi-gebak-origin':  { nl:'Dagelijks Vers', en:'Daily Fresh' },
+  'mi-gebak-desc':    { nl:'Dagelijks vers gebak en huisgemaakte brownies', en:'Daily fresh cakes and homemade brownies' },
+
+  // Bestellen
   'bestellen-label':  { nl:'Bestel<br>Online', en:'Order<br>Online' },
+  'bestellen-text':   { nl:'Bestel eenvoudig via <strong>Lightspeed Order Anywhere</strong> en haal uw bestelling op bij Morgenland in de Centrale Bibliotheek Rotterdam. Ideaal voor take-away tijdens uw lunchpauze of een snelle maaltijd.', en:'Order easily via <strong>Lightspeed Order Anywhere</strong> and pick up your order at Morgenland in Rotterdam Central Library. Ideal for take-away during your lunch break or a quick meal.' },
+  'bestellen-btn':    { nl:'Bestel Nu &mdash; Take-Away', en:'Order Now &mdash; Take-Away' },
+  'bestellen-address':{ nl:'Librijesteeg 4, 2e verdieping &middot; 3011 EB Rotterdam', en:'Librijesteeg 4, 2nd floor &middot; 3011 EB Rotterdam' },
+  'hours-sun-thu':    { nl:'Zondag &ndash; Donderdag', en:'Sunday &ndash; Thursday' },
+  'hours-fri-sat':    { nl:'Vrijdag &amp; Zaterdag', en:'Friday &amp; Saturday' },
+
+  // Catering
   'cat-label':        { nl:'Catering', en:'Catering' },
   'cat-title':        { nl:'Catering voor <em>elke gelegenheid</em>', en:'Catering for <em>every occasion</em>' },
+  'cat-intro':        { nl:'Dezelfde authentieke Syrisch-Libanese catering als Memories of Damascus &mdash; nu ook vanuit Rotterdam.', en:'The same authentic Syrian-Lebanese catering as Memories of Damascus &mdash; now also from Rotterdam.' },
+  'd1-name':          { nl:'Feesten &amp; Bruiloften', en:'Celebrations &amp; Weddings' },
+  'd1-desc':          { nl:'Maak uw feest onvergetelijk met authentieke Syrisch-Libanese gerechten. Gratis proeverij bij huwelijkscatering en andere grote feesten &mdash; geheel vrijblijvend.', en:'Make your celebration unforgettable with authentic Syrian-Lebanese dishes. Free tasting for wedding catering and other large celebrations &mdash; no obligations.' },
+  'd1-list':          { nl:'<li>Voor particulieren en bedrijven</li><li>Huwelijkscatering &mdash; gratis proeverij</li><li>Hapjescatering (mezze/tapas)</li><li>Uitgebreide buffetcatering met bediening</li><li>Volledig vegetarisch of vegan mogelijk</li><li>Dieetwensen: lactosevrij, glutenvrij, notenvrij e.a.</li><li>Toetjesbuffetten &amp; losse maaltijden</li>', en:'<li>For private clients and businesses</li><li>Wedding catering &mdash; free tasting</li><li>Starter catering (mezze/tapas)</li><li>Extensive buffet catering with service</li><li>Fully vegetarian or vegan options available</li><li>Dietary needs: lactose-free, gluten-free, nut-free etc.</li><li>Dessert buffets &amp; individual meals</li>' },
+  'd2-name':          { nl:'Bedrijfscatering', en:'Corporate Catering' },
+  'd2-desc':          { nl:'Professionele bedrijfscatering vanuit Rotterdam. Wij verzorgen alles inclusief op- en afbouw, zodat u zich volledig op uw gasten kunt richten.', en:'Professional corporate catering from Rotterdam. We handle everything including setup and breakdown, so you can focus entirely on your guests.' },
+  'd2-list':          { nl:'<li>Bedrijfslunches &amp; -diners</li><li>Vergaderingen &amp; productlanceringen</li><li>Personeelsevents &amp; teambuilding</li><li>Vaste dagelijkse cateringcontracten</li><li>Inclusieve menuopties (halal, vegan, vegetarisch)</li><li>Dieetwensen: lactosevrij, glutenvrij, notenvrij e.a.</li>', en:'<li>Business lunches &amp; dinners</li><li>Meetings &amp; product launches</li><li>Staff events &amp; team building</li><li>Fixed daily catering contracts</li><li>Inclusive menu options (halal, vegan, vegetarian)</li><li>Dietary needs: lactose-free, gluten-free, nut-free etc.</li>' },
+  'd3-name':          { nl:'AZC &amp; Overheidsinstanties', en:'Asylum Centres &amp; Government' },
+  'd3-desc':          { nl:"Betrouwbare, complete catering voor AZC's en crisisnoodopvang. Van ontbijt tot avondeten, inclusief koelingen, buffetten en koffie-/theevoorzieningen.", en:'Reliable, complete catering for asylum centres and crisis shelters. From breakfast to dinner, including cooling units, buffets and coffee/tea provisions.' },
+  'd3-list':          { nl:'<li>Asielzoekerscentra (AZC) &mdash; dagelijkse maaltijden</li><li>Crisisnoodopvanglocaties</li><li>Gemeenten &amp; zorginstellingen</li><li>Volledige uitrusting geleverd</li><li>Schaalbaar voor honderden personen</li><li>Voorkeur voor aanstelling statushouders</li>', en:'<li>Asylum seeker centres (AZC) &mdash; daily meals</li><li>Crisis emergency shelter locations</li><li>Municipalities &amp; care institutions</li><li>Full equipment supplied on site</li><li>Scalable for hundreds of people</li><li>Priority hiring of permit holders</li>' },
+
+  // Pakketten
   'pak-label':        { nl:'Transparante Prijzen', en:'Transparent Pricing' },
   'pak-title':        { nl:'Onze catering <em>pakketten</em>', en:'Our catering <em>packages</em>' },
+  'pak-intro':        { nl:'BTW inbegrepen. Opbouw, afbouw en afwas inbegrepen. Gratis levering in Rotterdam.', en:'VAT included. Setup, breakdown and washing up included. Free delivery in Rotterdam.' },
+  'pak-classic-per':  { nl:'per persoon &middot; min. 10 personen', en:'per person &middot; min. 10 persons' },
+  'pak-luxe-per':     { nl:'per persoon &middot; min. 15 personen', en:'per person &middot; min. 15 persons' },
+  'pak-table-per':    { nl:'per persoon &middot; min. 20 personen', en:'per person &middot; min. 20 persons' },
+  'pak-bbq-per':      { nl:'per persoon &middot; min. 20 personen', en:'per person &middot; min. 20 persons' },
+  'pak-classic-list': { nl:'<li><strong>3 hoofdgerechten</strong> naar keuze</li><li><strong>3 mezze\'s</strong> (smeersels &amp; hapjes)</li><li><strong>1 salade</strong></li><li>Presentatie op mooie schalen + chafing dishes</li><li>In buffetvorm opgesteld</li><li>Op- en afbouw inbegrepen</li><li>Afwas inbegrepen</li><li>Gratis levering in Rotterdam</li>', en:'<li><strong>3 main courses</strong> of your choice</li><li><strong>3 mezze\'s</strong> (dips &amp; starters)</li><li><strong>1 salad</strong></li><li>Presentation on beautiful platters + chafing dishes</li><li>Presented in buffet style</li><li>Setup &amp; breakdown included</li><li>Washing up included</li><li>Free delivery in Rotterdam</li>' },
+  'pak-luxe-list':    { nl:'<li><strong>4 hoofdgerechten</strong> naar keuze</li><li><strong>4 mezze\'s</strong> (smeersels &amp; hapjes)</li><li><strong>1 salade</strong></li><li>Presentatie op mooie schalen + chafing dishes</li><li>In buffetvorm opgesteld</li><li>Op- en afbouw inbegrepen</li><li>Afwas inbegrepen</li><li>Gratis levering in Rotterdam</li>', en:'<li><strong>4 main courses</strong> of your choice</li><li><strong>4 mezze\'s</strong> (dips &amp; starters)</li><li><strong>1 salad</strong></li><li>Presentation on beautiful platters + chafing dishes</li><li>Presented in buffet style</li><li>Setup &amp; breakdown included</li><li>Washing up included</li><li>Free delivery in Rotterdam</li>' },
+  'pak-table-list':   { nl:'<li><strong>2 hoofdgerechten</strong> naar keuze</li><li><strong>3 mezze\'s</strong> naar keuze</li><li><strong>1 salade</strong> naar keuze</li><li>Warm uitgeserveerd op schalen per tafel</li><li>Inclusief bedienend personeel</li><li>Op- en afbouw inbegrepen</li><li>Afwas inbegrepen</li><li>Gratis levering in Rotterdam</li>', en:'<li><strong>2 main courses</strong> of your choice</li><li><strong>3 mezze\'s</strong> of your choice</li><li><strong>1 salad</strong> of your choice</li><li>Served warm on platters per table</li><li>Service staff included</li><li>Setup &amp; breakdown included</li><li>Washing up included</li><li>Free delivery in Rotterdam</li>' },
+  'pak-bbq-list':     { nl:'<li><strong>1 grote shish kebab</strong> (lams-rundergehakt spies) p.p.</li><li><strong>1 grote shish tavuk</strong> (kipspies) p.p.</li><li>Kippenvleugeltjes</li><li>Diverse gegrilde groenten van de BBQ</li><li>Hummus dip &amp; muhammara (paprika-walnoten) dip</li><li>Salade &amp; diverse sauzen</li><li>Inclusief BBQ &amp; alle benodigdheden</li><li>Inclusief personeel dat de BBQ bedient</li><li>Op- en afbouw inbegrepen</li><li>Afwas inbegrepen</li><li>Gratis levering in Rotterdam</li>', en:'<li><strong>1 large shish kebab</strong> (lamb-beef mince skewer) p.p.</li><li><strong>1 large shish tavuk</strong> (chicken skewer) p.p.</li><li>Chicken wings</li><li>Assorted grilled vegetables from the BBQ</li><li>Hummus dip &amp; muhammara (pepper-walnut) dip</li><li>Salad &amp; assorted sauces</li><li>Including BBQ &amp; all supplies</li><li>Including staff to operate the BBQ</li><li>Setup &amp; breakdown included</li><li>Washing up included</li><li>Free delivery in Rotterdam</li>' },
+  'pak-classic-note': { nl:'Borden &amp; bestek: +&euro;1,- p.p. optioneel', en:'Plates &amp; cutlery: +&euro;1,- p.p. optional' },
+  'pak-luxe-note':    { nl:'Borden &amp; bestek: +&euro;1,- p.p. optioneel. Bedienend personeel op aanvraag.', en:'Plates &amp; cutlery: +&euro;1,- p.p. optional. Service staff on request.' },
+  'pak-table-note':   { nl:'Geen buffet &mdash; gerechten worden warm aan tafel geserveerd door ons personeel.', en:'No buffet &mdash; dishes are served warm at your table by our staff.' },
+  'pak-bbq-note':     { nl:'Extra soorten vlees of vega opties op aanvraag', en:'Additional meat varieties or vegan options on request' },
+  'pak-hapjes-name':  { nl:'Mezze Selectie', en:'Mezze Selection' },
+  'pak-hapjes-per':   { nl:'per persoon &middot; min. 15 personen<br><span style="font-size:.75rem;color:rgba(245,237,214,.4);">Mix van 5 hapjes per persoon</span>', en:'per person &middot; min. 15 persons<br><span style="font-size:.75rem;color:rgba(245,237,214,.4);">Mix of 5 bites per person</span>' },
+  'pak-hapjes-list':  { nl:'<li><strong>3 soorten b&ouml;rek</strong> (spinazie, kaas, gehakt)</li><li><strong>3 soorten luxe toastjes</strong> (hummus, muhammara, labneh)</li><li>Gevulde gehaktballen (kibbeh)</li><li>Gevulde druivenbladeren (yalanci)</li><li>Andere hapjes of volledig vegetarisch op aanvraag</li><li>Zonder personeel (bedienend personeel op aanvraag)</li><li>Koud geleverd in disposable schalen</li>', en:'<li><strong>3 types of b&ouml;rek</strong> (spinach, cheese, mince)</li><li><strong>3 types of luxury toasts</strong> (hummus, muhammara, labneh)</li><li>Stuffed meatballs (kibbeh)</li><li>Stuffed grape leaves (yalanci)</li><li>Other bites or fully vegetarian on request</li><li>Without service staff (available on request)</li><li>Delivered cold in disposable trays</li>' },
+  'pak-hapjes-note':  { nl:'Extra hapjes op aanvraag &middot; Alternatieve presentatie in overleg', en:'Additional bites on request &middot; Alternative presentation by arrangement' },
+  'pak-maat-name':    { nl:'Catering op Maat', en:'Custom Catering' },
+  'pak-maat-per':     { nl:'Prijs op maat &middot; geheel vrijblijvend', en:'Custom pricing &middot; no obligations' },
+  'pak-maat-list':    { nl:'<li>Niet zeker welk pakket past?</li><li>Wij maken een <strong>menu op maat</strong></li><li>Persoonlijk adviesgesprek</li><li>Afgestemd op uw wensen en budget</li><li>Pakketten combineren mogelijk</li><li>Vegetarisch, vegan of dieetwensen</li>', en:'<li>Not sure which package suits you?</li><li>We create a <strong>custom menu</strong> for you</li><li>Personal consultation</li><li>Tailored to your wishes and budget</li><li>Package combinations possible</li><li>Vegetarian, vegan or dietary needs</li>' },
+  'pak-maat-btn':     { nl:'Neem Contact Op', en:'Get in Touch' },
+  'pak-ex1-label':    { nl:'Bezorgkosten buiten regio', en:'Delivery outside region' },
+  'pak-ex1-val':      { nl:'&euro;0,50 per km (retour) vanaf Rotterdam', en:'&euro;0.50 per km (return) from Rotterdam' },
+  'pak-ex2-label':    { nl:'Servicebereik', en:'Service area' },
+  'pak-ex2-val':      { nl:'Nederland &middot; Belgi&euml; &middot; Duitsland', en:'Netherlands &middot; Belgium &middot; Germany' },
+  'pak-ex3-label':    { nl:'Vrijblijvende proeverij', en:'Free tasting session' },
+  'pak-ex3-val':      { nl:'Gratis bij huwelijkscatering en andere grote feesten', en:'Free for wedding catering and other large celebrations' },
+
+  // Configurator
   'conf-label':       { nl:'Stel Zelf Samen', en:'Customise Your Order' },
-  'conf-title':       { nl:'Uw catering <em>op maat</em>', en:'Your catering <em>tailored</em>' },
-  'ws-label':         { nl:'Workshops', en:'Workshops' },
-  'ws-title':         { nl:'Kookworkshops in <em>Rotterdam</em>', en:'Cooking workshops in <em>Rotterdam</em>' },
+  'conf-title':       { nl:'Uw catering <em>op maat</em>', en:'Your catering <em>tailored to you</em>' },
+  'conf-intro':       { nl:'Kies uw pakket, stel uw menusamenstelling samen, bereken de reiskosten en prik een datum. U ontvangt direct een vrijblijvende offerte op maat.', en:'Choose your package, compose your menu, calculate travel costs and pick a date. You will receive a free custom quote right away.' },
+  'conf-s1-num':      { nl:'Stap 1', en:'Step 1' },
+  'conf-s1-title':    { nl:'Kies uw pakket', en:'Choose your package' },
+  'conf-s2-num':      { nl:'Stap 2', en:'Step 2' },
+  'conf-s2-title':    { nl:'Aantal personen', en:'Number of guests' },
+  'conf-s3-num':      { nl:'Stap 3', en:'Step 3' },
+  'conf-s3-title':    { nl:'Kies uw gerechten', en:'Choose your dishes' },
+  'conf-s4-num':      { nl:'Stap 4', en:'Step 4' },
+  'conf-s4-title':    { nl:"Extra's toevoegen", en:'Add extras' },
+  'conf-s4-opt':      { nl:'(optioneel)', en:'(optional)' },
+  'conf-s5-num':      { nl:'Stap 5', en:'Step 5' },
+  'conf-s5-title':    { nl:'Bereken reiskosten', en:'Calculate travel costs' },
+  'conf-s5-desc':     { nl:'Wij rijden vanuit Rotterdam naar u toe. Tarief: <strong style="color:var(--parchment)">&euro;0,50 per km retour</strong>. Gratis binnen 15 km van Rotterdam.', en:'We travel from Rotterdam to your location. Rate: <strong style="color:var(--parchment)">&euro;0.50 per km return</strong>. Free within 15 km of Rotterdam.' },
+  'conf-s6-num':      { nl:'Stap 6', en:'Step 6' },
+  'conf-s6-title':    { nl:'Kies een datum', en:'Choose a date' },
+  'conf-s6-desc':     { nl:'Rood = bezet (geblokkeerd). Gouden stip = bijna volgeboekt. Groen = beschikbaar.', en:'Red = unavailable (blocked). Gold dot = almost full. Green = available.' },
+  'conf-calc-btn':    { nl:'Bereken', en:'Calculate' },
+  'conf-personen-lbl':{ nl:'personen', en:'persons' },
+  'conf-personen-note':{ nl:'Minimum 10 personen voor het Classic pakket', en:'Minimum 10 persons for the Classic package' },
+  'conf-hint-post':   { nl:'gekozen', en:'chosen' },
+  'conf-hoofd-lbl':   { nl:'Hoofdgerechten &mdash; kies', en:'Main courses &mdash; choose' },
+  'conf-salade-lbl':  { nl:'Salade &mdash; kies', en:'Salad &mdash; choose' },
+  'conf-mezze-lbl':   { nl:"Mezze's &amp; Bijgerechten &mdash; kies", en:"Mezze's &amp; Sides &mdash; choose" },
+  'conf-datum-onbekend':{ nl:'Ik weet de datum nog niet', en:"I don't know the date yet" },
+  'conf-tijdstip-lbl':{ nl:'Tijdstip', en:'Time' },
+  'conf-type-lbl':    { nl:'Type evenement', en:'Event type' },
+  'conf-type-select': { nl:'<option value="">Selecteer...</option><option>Bruiloft / Huwelijkscatering</option><option>Eid / Ramadan-iftar</option><option>Jubileum</option><option>Bedrijfslunch / Diner</option><option>Borrel / Receptie</option><option>Kookworkshop</option><option>Ruimte huren</option><option>Anders</option>', en:'<option value="">Select...</option><option>Wedding catering</option><option>Eid / Ramadan iftar</option><option>Anniversary</option><option>Business lunch / Dinner</option><option>Reception / Drinks</option><option>Cooking workshop</option><option>Venue hire</option><option>Other</option>' },
+  'conf-postcode-ph': { nl:'Postcode (bijv. 3011 AB)', en:'Postal code (e.g. 3011 AB)' },
+  'conf-straat-ph':   { nl:'Straat + huisnummer', en:'Street + house number' },
+  'conf-plaats-ph':   { nl:'Plaats', en:'City' },
+
+  // Package mini-descriptions
+  'pk-classic-desc':  { nl:"3 hoofdgerechten + 3 mezze's + salade &middot; min. 10 pers.", en:"3 main courses + 3 mezze's + salad &middot; min. 10 persons" },
+  'pk-luxe-desc':     { nl:"4 hoofdgerechten + 4 mezze's + salade &middot; min. 15 pers.", en:"4 main courses + 4 mezze's + salad &middot; min. 15 persons" },
+  'pk-table-desc':    { nl:"2 hoofdgerechten + 3 mezze's + salade &middot; min. 20 pers.", en:"2 main courses + 3 mezze's + salad &middot; min. 20 persons" },
+  'pk-bbq-desc':      { nl:'Vast BBQ menu &middot; min. 20 pers.', en:'Fixed BBQ menu &middot; min. 20 persons' },
+  'pk-hapjes-name':   { nl:'Mezze Selectie', en:'Mezze Selection' },
+  'pk-hapjes-desc':   { nl:'Mix van 5 hapjes p.p. &middot; min. 15 pers.', en:'Mix of 5 bites p.p. &middot; min. 15 persons' },
+
+  // Add-ons
+  'addon-grp-machines':{ nl:'Machines &amp; Apparatuur', en:'Machines &amp; Equipment' },
+  'addon-grp-servies': { nl:'Serviesgoed &amp; Meubilair', en:'Tableware &amp; Furniture' },
+  'addon-grp-dranken': { nl:'Dranken', en:'Drinks' },
+  'addon-perstuk':     { nl:'per stuk', en:'per piece' },
+  'addon-popcorn-machine': { nl:'Popcornmachine huur', en:'Popcorn machine rental' },
+  'addon-popcorn-beno':    { nl:'Popcornbenodigdheden', en:'Popcorn supplies' },
+  'addon-popcorn-beno-desc':{ nl:'Zakjes &amp; ingredi&euml;nten &middot; min. 20 pers.', en:'Bags &amp; ingredients &middot; min. 20 persons' },
+  'addon-suikerspin-machine':{ nl:'Suikerspinmachine huur', en:'Cotton candy machine rental' },
+  'addon-suikerspin-beno': { nl:'Suikerspinbenodigdheden', en:'Cotton candy supplies' },
+  'addon-suikerspin-beno-desc':{ nl:'Stokjes &amp; ingredi&euml;nten &middot; min. 20 pers.', en:'Sticks &amp; ingredients &middot; min. 20 persons' },
+  'addon-choco-machine':   { nl:'Warme chocolademelk machine', en:'Hot chocolate machine' },
+  'addon-choco-glas':      { nl:'Warme chocolademelk per glas', en:'Hot chocolate per glass' },
+  'addon-choco-glas-desc': { nl:'Inclusief slagroom', en:'Including whipped cream' },
+  'addon-borden-zilver':   { nl:'Borden &amp; bestek', en:'Plates &amp; cutlery' },
+  'addon-borden-zilver-desc':{ nl:'Witte borden, zilverkleurig bestek', en:'White plates, silver-coloured cutlery' },
+  'addon-borden-goud':     { nl:'Borden &amp; bestek luxe', en:'Plates &amp; cutlery deluxe' },
+  'addon-borden-goud-desc':{ nl:'Witte borden, goudkleurig onderbord, doorzichtig voorgerechtbordje, goudkleurig bestek', en:'White plates, gold charger plate, transparent starter plate, gold cutlery' },
+  'addon-statafel':        { nl:'Statafel incl. zwarte tafelrok', en:'Standing table incl. black table skirt' },
+  'addon-koffie':          { nl:'Koffie &amp; thee arrangement', en:'Coffee &amp; tea arrangement' },
+  'addon-koffie-desc':     { nl:'~2 kopjes p.p. incl. kopjes, schotels, suiker, melk &amp; lepeltjes', en:'~2 cups p.p. incl. cups, saucers, sugar, milk &amp; spoons' },
+  'addon-fris3':           { nl:'Fris arrangement (3 uur)', en:'Soft drinks (3 hours)' },
+  'addon-fris3-desc':      { nl:'Onbeperkt fris, max. 3 uur &middot; incl. 2 glazen p.p.', en:'Unlimited soft drinks, max. 3 hours &middot; incl. 2 glasses p.p.' },
+  'addon-fris5':           { nl:'Fris arrangement (5 uur)', en:'Soft drinks (5 hours)' },
+  'addon-fris5-desc':      { nl:'Onbeperkt fris, max. 5 uur &middot; incl. 2 glazen p.p.', en:'Unlimited soft drinks, max. 5 hours &middot; incl. 2 glasses p.p.' },
+  'addon-mocktails':       { nl:'Mocktails', en:'Mocktails' },
+  'addon-mocktails-desc':  { nl:'Virgin Mojito, Virgin Pi&ntilde;a Colada of Tropical Fizz', en:'Virgin Mojito, Virgin Pi&ntilde;a Colada or Tropical Fizz' },
+
+  // 50km+ panel
+  'afstand-title':         { nl:'Serviesgoed &amp; opruiming', en:'Tableware &amp; cleanup' },
+  'afstand-desc':          { nl:'Bij een afstand van 50 km of meer vragen wij u een keuze te maken voor het retourneren van serviesgoed:', en:'For distances of 50 km or more, we ask you to choose an option for returning tableware:' },
+  'afstand-peruur':        { nl:'per uur', en:'per hour' },
+  'afstand-uren-lbl':      { nl:'uur', en:'hours' },
+  'afstand-opt1-naam':     { nl:'Personeel blijft aanwezig', en:'Staff stays on-site' },
+  'afstand-opt1-desc':     { nl:'Ons personeel blijft ter plekke voor opruiming en afvoer', en:'Our staff stays on location for cleanup and collection' },
+  'afstand-opt2-naam':     { nl:'Ophaalservice volgende dag', en:'Next-day collection' },
+  'afstand-opt2-prijs-pre':{ nl:'+', en:'+' },
+  'afstand-opt2-desc':     { nl:'Wij halen serviesgoed de volgende dag op', en:'We collect tableware the next day' },
+  'afstand-opt3-naam':     { nl:'Zelf terugbrengen', en:'Self-return' },
+  'afstand-opt3-prijs':    { nl:'Gratis', en:'Free' },
+  'afstand-opt3-desc':     { nl:'U brengt het serviesgoed zelf retour naar onze dichtstbijzijnde locatie', en:'You return the tableware yourself to our nearest location' },
+  'afstand-opt4-naam':     { nl:'Disposable serviesgoed', en:'Disposable tableware' },
+  'afstand-opt4-prijs':    { nl:'Gratis', en:'Free' },
+  'afstand-opt4-desc':     { nl:'Wij serveren het eten in wegwerpverpakkingen &mdash; niets retourneren', en:'We serve the food in disposable packaging &mdash; nothing to return' },
+  'reis-lbl-regio':        { nl:'Regio', en:'Region' },
+  'reis-lbl-loc':          { nl:'Dichtstbijzijnde locatie', en:'Nearest location' },
+  'reis-lbl-afstand':      { nl:'Afstand (retour)', en:'Distance (return)' },
+  'reis-lbl-kosten':       { nl:'Reiskosten', en:'Travel costs' },
+
+  // Calendar
+  'cal-free':         { nl:'Beschikbaar', en:'Available' },
+  'cal-blocked':      { nl:'Bezet', en:'Unavailable' },
+  'cal-bijna':        { nl:'Bijna vol', en:'Almost full' },
+
+  // Quote summary
+  'ct-title':         { nl:'Uw Offerte Overzicht', en:'Your Quote Summary' },
+  'ct-lbl-pakket':    { nl:'Pakket', en:'Package' },
+  'ct-lbl-personen':  { nl:'Personen', en:'Persons' },
+  'ct-lbl-subtotaal': { nl:'Subtotaal catering', en:'Subtotal catering' },
+  'ct-lbl-totaal':    { nl:'Totaal', en:'Total' },
+  'ct-quote':         { nl:'"Wij helpen u graag verder &mdash; of u nu een klein feestje plant of een groot evenement. Stuur uw aanvraag in en wij nemen persoonlijk contact met u op."', en:'"We are happy to help you further &mdash; whether you are planning a small party or a large event. Send your request and we will contact you personally."' },
+  'ct-btn':           { nl:'Offerte Aanvragen &rarr;', en:'Request Quote &rarr;' },
+  'ct-btn-betaal':    { nl:'Direct Afrekenen &mdash; Binnenkort beschikbaar', en:'Pay Now &mdash; Coming soon' },
+  'ct-note':          { nl:'BTW inbegrepen &middot; Op- &amp; afbouw inbegrepen', en:'VAT included &middot; Setup &amp; breakdown included' },
+  'ct-voorbehoud':    { nl:'Geheel vrijblijvend &middot; Reactie binnen 24 uur', en:'Completely free of obligation &middot; Response within 24 hours' },
+
+  // Workshops
+  'ws-label':         { nl:'Kookworkshops', en:'Cooking Workshops' },
+  'ws-title':         { nl:'Kook mee in <em>Rotterdam</em>', en:'Cook with us in <em>Rotterdam</em>' },
+  'ws-intro':         { nl:'Een middag of avond onder leiding van <strong style="color:var(--parchment)">chef Mohamad Habanakeh</strong>. Samen koken, proeven en eten &mdash; met de verhalen van Damascus op de achtergrond.', en:'An afternoon or evening under the guidance of <strong style="color:var(--parchment)">chef Mohamad Habanakeh</strong>. Cook, taste and eat together &mdash; with the stories of Damascus in the background.' },
+  'ws1-name':         { nl:'Tapas &amp; Mezze', en:'Tapas &amp; Mezze' },
+  'ws1-desc':         { nl:'Voor groepen &mdash; leer Arabische mezze bereiden en geniet er samen van.', en:'For groups &mdash; learn to prepare Arabic mezze and enjoy them together.' },
+  'ws2-name':         { nl:'Arabische Gerechten', en:'Arabic Dishes' },
+  'ws2-desc':         { nl:'Kruiden, technieken en bijzondere groenten &mdash; vegetarisch of met vlees.', en:'Spices, techniques and special vegetables &mdash; vegetarian or with meat.' },
+  'ws3-name':         { nl:'Workshopreeks', en:'Workshop Series' },
+  'ws3-desc':         { nl:"Vier avonden, vier thema's &mdash; de basis van de Syrische keuken voor individuen.", en:'Four evenings, four themes &mdash; the basics of Syrian cuisine for individuals.' },
+  'ws-cta':           { nl:'Ontdek alle workshops &rarr;', en:'Discover all workshops &rarr;' },
+  'ws-note':          { nl:'Prijzen, data en inschrijven &mdash; bekijk het volledige aanbod.', en:'Prices, dates and registration &mdash; view the full offer.' },
+
+  // Ruimte huren
   'ruimte-label':     { nl:'Evenementen', en:'Events' },
-  'ruimte-title':     { nl:'Ruimte huren in <em>de Bibliotheek</em>', en:'Venue hire in <em>the Library</em>' },
+  'ruimte-title':     { nl:'Ruimte huren in <em>de Bibliotheek</em>', en:'Venue hire at <em>the Library</em>' },
+  'ruimte-body':      { nl:'De begane grond van Morgenland is beschikbaar voor priv&eacute;evenementen. Of het nu gaat om een feest, vergadering, workshop of presentatie &mdash; onze ruimte in de Centrale Bibliotheek Rotterdam biedt een unieke setting.', en:'The ground floor of Morgenland is available for private events. Whether it\'s a celebration, meeting, workshop or presentation &mdash; our space in Rotterdam Central Library offers a unique setting.' },
+  'rf1':              { nl:'Priv&eacute;feestjes &amp; borrels', en:'Private parties &amp; drinks' },
+  'rf2':              { nl:'Vergaderingen &amp; presentaties', en:'Meetings &amp; presentations' },
+  'rf3':              { nl:'Workshops &amp; trainingen', en:'Workshops &amp; training sessions' },
+  'rf4':              { nl:'Catering inbegrepen mogelijk', en:'Catering included possible' },
+  'rf5':              { nl:'Unieke locatie in de bibliotheek', en:'Unique location in the library' },
+  'ruimte-btn':       { nl:'Neem Contact Op', en:'Get in Touch' },
+
+  // Testimonials
   'test-label':       { nl:'Wat Klanten Zeggen', en:'What Customers Say' },
   'test-title':       { nl:'<em>Ervaringen</em> van onze klanten', en:"Our customers' <em>experiences</em>" },
+  'reviews-score':    { nl:'104 reviews &middot; Google Reviews', en:'104 reviews &middot; Google Reviews' },
+
+  // Contact
   'cont-label':       { nl:'Neem Contact Op', en:'Get In Touch' },
   'cont-title':       { nl:'Vraag een <em>offerte</em> aan', en:'Request a <em>quote</em>' },
-  'faq-label':        { nl:'Veelgestelde Vragen', en:'FAQ' },
+  'cont-desc':        { nl:'Vertel ons over uw wensen en wij sturen u binnen 24 uur een vrijblijvende offerte op maat.', en:'Tell us about your wishes and we will send you a no-obligation custom quote within 24 hours.' },
+  'cont-btn':         { nl:'Verstuur &mdash; Gratis &amp; Vrijblijvend', en:'Send &mdash; Free &amp; No Obligation' },
+  'cont-info-title':  { nl:'Direct Contact', en:'Direct Contact' },
+  'cont-info-text':   { nl:'Liever direct bellen of appen? Wij zijn bereikbaar op onderstaande gegevens.', en:'Prefer to call or message directly? You can reach us at the details below.' },
+  'form-naam':        { nl:'Naam *', en:'Name *' },
+  'form-email':       { nl:'E-mailadres *', en:'Email address *' },
+  'form-tel':         { nl:'Telefoonnummer *', en:'Phone number *' },
+  'form-type':        { nl:'Type', en:'Type' },
+  'form-bericht':     { nl:'Bericht *', en:'Message *' },
+  'form-type-select': { nl:'<option value="">Selecteer...</option><option>Catering</option><option>Kookworkshop</option><option>Ruimte Huren</option><option>Overig</option>', en:'<option value="">Select...</option><option>Catering</option><option>Cooking workshop</option><option>Venue hire</option><option>Other</option>' },
+
+  // Contact details
+  'cd-tel-lbl':       { nl:'Telefoon &amp; WhatsApp', en:'Phone &amp; WhatsApp' },
+  'cd-email-lbl':     { nl:'E-mail', en:'Email' },
+  'cd-adres-lbl':     { nl:'Adres', en:'Address' },
+  'cd-adres-val':     { nl:'Librijesteeg 4, 3011 EB Rotterdam<br><span style="font-size:.82rem;color:rgba(245,237,214,.4);">2e verdieping Centrale Bibliotheek</span>', en:'Librijesteeg 4, 3011 EB Rotterdam<br><span style="font-size:.82rem;color:rgba(245,237,214,.4);">2nd floor Central Library</span>' },
+  'cd-hours-lbl':     { nl:'Openingstijden', en:'Opening hours' },
+  'cd-hours-val':     { nl:'zo-do 12:00-21:00<br>vr-za 12:00-22:00', en:'Sun-Thu 12:00-21:00<br>Fri-Sat 12:00-22:00' },
+  'cd-bereik-lbl':    { nl:'Bereikbaarheid', en:'Availability' },
+  'cd-bereik-val':    { nl:'WhatsApp &amp; telefoon &mdash; reactie binnen 24 uur', en:'WhatsApp &amp; phone &mdash; response within 24 hours' },
+  'halal-badge-txt':  { nl:'<strong>100% Halal</strong>Alle gerechten en bereidingen zijn volledig halal', en:'<strong>100% Halal</strong>All dishes and preparations are fully halal' },
+
+  // FAQ
+  'faq-label':        { nl:'Veelgestelde Vragen', en:'Frequently Asked Questions' },
   'faq-title':        { nl:'Heeft u een <em>vraag</em>?', en:'Have a <em>question</em>?' },
+  'faq-q1':           { nl:'Waar zit Morgenland precies?', en:'Where exactly is Morgenland located?' },
+  'faq-a1':           { nl:'Morgenland bevindt zich op de 2e verdieping van de Centrale Bibliotheek Rotterdam, Librijesteeg 4, 3011 EB Rotterdam. U vindt ons eenvoudig via de roltrappen of lift in de bibliotheek.', en:'Morgenland is located on the 2nd floor of Rotterdam Central Library, Librijesteeg 4, 3011 EB Rotterdam. You can easily find us via the escalators or lift in the library.' },
+  'faq-q2':           { nl:'Is alles halal?', en:'Is everything halal?' },
+  'faq-a2':           { nl:'Ja, al onze gerechten en bereidingen zijn 100% halal. Wij werken uitsluitend met halal-gecertificeerde leveranciers en ingredi&euml;nten.', en:'Yes, all our dishes and preparations are 100% halal. We work exclusively with halal-certified suppliers and ingredients.' },
+  'faq-q3':           { nl:'Kan ik online bestellen?', en:'Can I order online?' },
+  'faq-a3':           { nl:'Ja, u kunt eenvoudig online bestellen via Lightspeed Order Anywhere. Uw bestelling kunt u afhalen bij ons in de Centrale Bibliotheek Rotterdam.', en:'Yes, you can easily order online via Lightspeed Order Anywhere. You can pick up your order at our location in Rotterdam Central Library.' },
+  'faq-q4':           { nl:'Bieden jullie ook catering aan?', en:'Do you also offer catering?' },
+  'faq-a4':           { nl:'Ja, wij bieden dezelfde authentieke Syrisch-Libanese catering aan als Memories of Damascus. Van bruiloften tot bedrijfsevenementen &mdash; compleet verzorgd vanuit Rotterdam.', en:'Yes, we offer the same authentic Syrian-Lebanese catering as Memories of Damascus. From weddings to corporate events &mdash; fully arranged from Rotterdam.' },
+  'faq-q5':           { nl:'Kan ik de ruimte huren?', en:'Can I hire the venue?' },
+  'faq-a5':           { nl:'Ja, de begane grond van Morgenland is beschikbaar voor priv&eacute;evenementen. Neem contact met ons op voor beschikbaarheid en mogelijkheden.', en:'Yes, the ground floor of Morgenland is available for private events. Contact us for availability and options.' },
+  'faq-q6':           { nl:'Geven jullie kookworkshops?', en:'Do you host cooking workshops?' },
+  'faq-a6':           { nl:'Ja! Wij bieden Arabische kookworkshops aan onder leiding van chef Mohamad Habanakeh. Bekijk het volledige aanbod op onze workshop-pagina.', en:'Yes! We host Arabic cooking workshops led by chef Mohamad Habanakeh. View the full offer on our workshop page.' },
+
+  // Footer
+  'footer-tagline':   { nl:'"Wereldse smaken, Rotterdams karakter &mdash; internationale keuken en Syrisch-Libanese catering in de Centrale Bibliotheek Rotterdam."', en:'"Global flavours, Rotterdam character &mdash; international cuisine and Syrian-Lebanese catering in Rotterdam Central Library."' },
+  'footer-col1-h':    { nl:'Restaurant', en:'Restaurant' },
+  'footer-col2-h':    { nl:'Catering', en:'Catering' },
+  'footer-col3-h':    { nl:'Contact', en:'Contact' },
+  'footer-hours':     { nl:'Openingstijden', en:'Opening hours' },
+  'footer-pakketten': { nl:'Pakketten', en:'Packages' },
+  'footer-configurator':{ nl:'Configurator', en:'Configurator' },
+  'footer-address':   { nl:'Librijesteeg 4, Rotterdam', en:'Librijesteeg 4, Rotterdam' },
   'footer-copy':      { nl:'\u00a9 2020 \u2013 2026 Morgenland \u2014 by Memories of Damascus \u00b7 KVK 81201974', en:'\u00a9 2020 \u2013 2026 Morgenland \u2014 by Memories of Damascus \u00b7 KVK 81201974' },
   'footer-halal':     { nl:'\u262e 100% Halal', en:'\u262e 100% Halal' },
-  'ct-btn':           { nl:'Offerte Aanvragen \u2192', en:'Request Quote \u2192' },
-  'ct-note':          { nl:'BTW inbegrepen \u00b7 Op- & afbouw inbegrepen', en:'VAT included \u00b7 Setup & breakdown included' },
+
+  // Modal
   'modal-title':      { nl:'Offerte <em>aanvragen</em>', en:'Request a <em>quote</em>' },
-  'conf-s1-num':{ nl:'Stap 1', en:'Step 1' }, 'conf-s1-title':{ nl:'Kies uw pakket', en:'Choose your package' },
-  'conf-s2-num':{ nl:'Stap 2', en:'Step 2' }, 'conf-s2-title':{ nl:'Aantal personen', en:'Number of guests' },
-  'conf-s3-num':{ nl:'Stap 3', en:'Step 3' }, 'conf-s3-title':{ nl:'Kies uw gerechten', en:'Choose your dishes' },
-  'conf-s4-num':{ nl:'Stap 4', en:'Step 4' }, 'conf-s4-title':{ nl:"Extra's toevoegen", en:'Add extras' },
-  'conf-s5-num':{ nl:'Stap 5', en:'Step 5' }, 'conf-s5-title':{ nl:'Bereken reiskosten', en:'Calculate travel costs' },
-  'conf-s6-num':{ nl:'Stap 6', en:'Step 6' }, 'conf-s6-title':{ nl:'Kies een datum', en:'Choose a date' },
-  'conf-calc-btn':{ nl:'Bereken', en:'Calculate' },
-  'conf-personen-lbl':{ nl:'personen', en:'persons' },
-  'conf-hint-post':{ nl:'gekozen', en:'chosen' },
-  'cal-free':{ nl:'Beschikbaar', en:'Available' }, 'cal-blocked':{ nl:'Bezet', en:'Unavailable' }, 'cal-bijna':{ nl:'Bijna vol', en:'Almost full' },
-  'ct-lbl-pakket':{ nl:'Pakket', en:'Package' }, 'ct-lbl-personen':{ nl:'Personen', en:'Persons' },
-  'ct-lbl-subtotaal':{ nl:'Subtotaal catering', en:'Subtotal catering' }, 'ct-lbl-totaal':{ nl:'Totaal', en:'Total' },
-  'ct-title':{ nl:'Uw Offerte Overzicht', en:'Your Quote Summary' },
-  'conf-datum-onbekend':{ nl:'Ik weet de datum nog niet', en:"I don't know the date yet" }
+  'modal-eyebrow':    { nl:'Uw aanvraag', en:'Your request' },
+  'modal-tagline':    { nl:'Internationale keuken &amp; catering Rotterdam', en:'International cuisine &amp; catering Rotterdam' },
+  'modal-summary-lbl':{ nl:'Uw configuratie', en:'Your configuration' },
+  'modal-naam-lbl':   { nl:'Naam *', en:'Name *' },
+  'modal-naam-ph':    { nl:'Uw volledige naam', en:'Your full name' },
+  'modal-tel-lbl':    { nl:'Telefoonnummer *', en:'Phone number *' },
+  'modal-email-lbl':  { nl:'E-mailadres *', en:'Email address *' },
+  'modal-wensen-lbl': { nl:'Uw wensen / opmerkingen', en:'Your wishes / remarks' },
+  'modal-wensen-ph':  { nl:'Dieetvereisten, allergie&euml;n, speciale wensen...', en:'Dietary requirements, allergies, special wishes...' },
+  'modal-submit-btn': { nl:'Verstuur Aanvraag &mdash; Gratis &amp; Vrijblijvend', en:'Send Request &mdash; Free &amp; No Obligation' },
+  'modal-fineprint':  { nl:'Wij nemen binnen 24 uur contact met u op &middot; Geen verplichtingen', en:'We will contact you within 24 hours &middot; No obligations' },
+  'modal-success-title':{ nl:'Aanvraag <em>ontvangen</em>', en:'Request <em>received</em>' },
+  'modal-success-text':{ nl:'Dank u wel. Wij nemen binnen 24 uur persoonlijk contact met u op met een offerte op maat.', en:'Thank you. We will personally contact you within 24 hours with a custom quote.' },
+  'modal-close-btn':  { nl:'Sluiten', en:'Close' },
+
+  // Mobile price bar
+  'mob-price-lbl':    { nl:'Totaal', en:'Total' },
+  'mob-price-sub-empty':{ nl:'Kies een pakket om te beginnen', en:'Choose a package to begin' },
+  'mob-price-btn':    { nl:'Offerte &rarr;', en:'Quote &rarr;' }
 };
 
 function toggleLang() {
@@ -1880,6 +2158,10 @@ function toggleLang() {
   document.querySelectorAll('[data-i18n]').forEach(function(el) {
     var key = el.getAttribute('data-i18n');
     if (i18n[key] && i18n[key][currentLang]) el.innerHTML = i18n[key][currentLang];
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
+    var key = el.getAttribute('data-i18n-placeholder');
+    if (i18n[key] && i18n[key][currentLang]) el.placeholder = i18n[key][currentLang];
   });
   renderCal();
   updateTotaal();
