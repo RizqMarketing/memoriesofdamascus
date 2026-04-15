@@ -3,7 +3,7 @@
 // Returns: { ok, kmBest, kmRotterdam, city }
 
 const ORIGINS = {
-  best: 'De Run 21, 5481 AA Best, Netherlands',
+  best: 'De Run 21, 5684 PW Best, Netherlands',
   rotterdam: 'Librijesteeg 4, 3011 HR Rotterdam, Netherlands'
 };
 
