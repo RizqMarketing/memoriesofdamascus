@@ -2,7 +2,7 @@
 // Query: /.netlify/functions/distance?pc=3011AB
 // Returns: { ok, km, city }
 
-const ORIGIN = 'Librijesteeg 4, 3011 HR Rotterdam, Netherlands';
+const ORIGIN = 'Librijesteeg 4, 3011 EB Rotterdam, Netherlands';
 
 exports.handler = async (event) => {
   const pc = (event.queryStringParameters?.pc || '').replace(/\s/g, '').toUpperCase();

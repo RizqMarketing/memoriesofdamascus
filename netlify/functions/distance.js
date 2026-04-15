@@ -4,7 +4,7 @@
 
 const ORIGINS = {
   best: 'De Run 21, 5684 PW Best, Netherlands',
-  rotterdam: 'Librijesteeg 4, 3011 HR Rotterdam, Netherlands'
+  rotterdam: 'Librijesteeg 4, 3011 EB Rotterdam, Netherlands'
 };
 
 exports.handler = async (event) => {
