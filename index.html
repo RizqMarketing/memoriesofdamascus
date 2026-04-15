@@ -4340,13 +4340,7 @@
     return null;
   }
 
-  function berekenReiskosten() {
-    var raw = document.getElementById('postcodeInp').value.replace(/\s/g,'').trim();
-    var num = parseInt(raw.substring(0,4), 10);
-    if (isNaN(num) || num < 1000 || num > 9999) { alert(currentLang === 'nl' ? 'Vul een geldige postcode in (bijv. 3851 of 3851 CD).' : 'Please enter a valid postcode (e.g. 3851 or 3851 CD).'); return; }
-    var range = findPcRange(num);
-    if (!range) { alert(currentLang === 'nl' ? 'Postcode niet gevonden in onze database.' : 'Postcode not found in our database.'); return; }
-    var city = range[2], kB = range[3], kR = range[4];
+  function applyReiskosten(city, kB, kR) {
     var useBest = kB <= kR;
     var km = useBest ? kB : kR;
     var locNaam = useBest ? 'Best — De Run 21' : 'Rotterdam — Librijesteeg 4';
@@ -4359,19 +4353,51 @@
     document.getElementById('reisResult').classList.add('reisvis');
     confState.reiskosten = kosten;
     confState.reisKm = km;
-    // Show/hide 50km+ serviesgoed panel
-    var panel = document.getElementById('afstandPanel');
-    if (km >= 50) {
-      panel.classList.add('vis');
-      document.getElementById('afstandOphaalPrijs').textContent = '€' + kosten + ',-';
-    } else {
-      panel.classList.remove('vis');
-      confState.afstandOptie = null;
-      confState.afstandKosten = 0;
-      document.getElementById('afstandUren').style.display = 'none';
-      document.querySelectorAll('.afstand-opt').forEach(function(o){ o.classList.remove('afstand-sel'); });
-    }
-    updateTotaal();
+    return { km: km, kosten: kosten };
+  }
+
+  function berekenReiskosten() {
+    var raw = document.getElementById('postcodeInp').value.replace(/\s/g,'').trim();
+    var num = parseInt(raw.substring(0,4), 10);
+    if (isNaN(num) || num < 1000 || num > 9999) { alert(currentLang === 'nl' ? 'Vul een geldige postcode in (bijv. 3851 of 3851 CD).' : 'Please enter a valid postcode (e.g. 3851 or 3851 CD).'); return; }
+    var btn = document.querySelector('.reis-calc-btn');
+    var origLabel = btn ? btn.textContent : '';
+    if (btn) { btn.disabled = true; btn.textContent = currentLang === 'nl' ? 'Berekenen…' : 'Calculating…'; }
+
+    var doFallback = function() {
+      var range = findPcRange(num);
+      if (!range) { alert(currentLang === 'nl' ? 'Postcode niet gevonden in onze database.' : 'Postcode not found in our database.'); return null; }
+      return applyReiskosten(range[2], range[3], range[4]);
+    };
+
+    var finish = function(result) {
+      if (btn) { btn.disabled = false; btn.textContent = origLabel; }
+      if (!result) return;
+      var km = result.km, kosten = result.kosten;
+      var panel = document.getElementById('afstandPanel');
+      if (km >= 50) {
+        panel.classList.add('vis');
+        document.getElementById('afstandOphaalPrijs').textContent = '€' + kosten + ',-';
+      } else {
+        panel.classList.remove('vis');
+        confState.afstandOptie = null;
+        confState.afstandKosten = 0;
+        document.getElementById('afstandUren').style.display = 'none';
+        document.querySelectorAll('.afstand-opt').forEach(function(o){ o.classList.remove('afstand-sel'); });
+      }
+      updateTotaal();
+    };
+
+    fetch('/.netlify/functions/distance?pc=' + encodeURIComponent(raw))
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        if (d && d.ok) {
+          finish(applyReiskosten(d.city || '', d.kmBest, d.kmRotterdam));
+        } else {
+          finish(doFallback());
+        }
+      })
+      .catch(function(){ finish(doFallback()); });
   }
 
   function selectAfstandOptie(el, optie) {

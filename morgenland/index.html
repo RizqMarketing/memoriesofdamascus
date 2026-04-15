@@ -2325,15 +2325,7 @@ var pcRanges = [
 
 function findPcRange(num) { for (var i = 0; i < pcRanges.length; i++) { if (num >= pcRanges[i][0] && num <= pcRanges[i][1]) return pcRanges[i]; } return null; }
 
-function berekenReiskosten() {
-  var raw = document.getElementById('postcodeInp').value.replace(/\s/g,'').trim();
-  var num = parseInt(raw.substring(0,4), 10);
-  if (isNaN(num) || num < 1000 || num > 9999) { alert('Vul een geldige postcode in (bijv. 3011 of 3011 AB).'); return; }
-  var range = findPcRange(num);
-  if (!range) { alert('Postcode niet gevonden in onze database.'); return; }
-  var city = range[2];
-  // ALWAYS use kmRotterdam (range[4])
-  var km = range[4];
+function applyReis(city, km) {
   var locNaam = 'Rotterdam \u2014 Librijesteeg 4';
   var retourKm = km * 2;
   var kosten = km <= 15 ? 0 : Math.round(retourKm * 0.5);
@@ -2348,6 +2340,26 @@ function berekenReiskosten() {
   if (km >= 50) { panel.classList.add('vis'); document.getElementById('afstandOphaalPrijs').textContent = '\u20ac' + kosten + ',-'; }
   else { panel.classList.remove('vis'); confState.afstandOptie = null; confState.afstandKosten = 0; document.getElementById('afstandUren').style.display = 'none'; document.querySelectorAll('.afstand-opt').forEach(function(o){ o.classList.remove('afstand-sel'); }); }
   updateTotaal();
+}
+
+function berekenReiskosten() {
+  var raw = document.getElementById('postcodeInp').value.replace(/\s/g,'').trim();
+  var num = parseInt(raw.substring(0,4), 10);
+  if (isNaN(num) || num < 1000 || num > 9999) { alert('Vul een geldige postcode in (bijv. 3011 of 3011 AB).'); return; }
+  var btn = document.querySelector('.reis-calc-btn');
+  var origLabel = btn ? btn.textContent : '';
+  if (btn) { btn.disabled = true; btn.textContent = 'Berekenen\u2026'; }
+  var fallback = function() {
+    var range = findPcRange(num);
+    if (!range) { alert('Postcode niet gevonden in onze database.'); return false; }
+    applyReis(range[2], range[4]);
+    return true;
+  };
+  fetch('/.netlify/functions/distance?pc=' + encodeURIComponent(raw))
+    .then(function(r){ return r.json(); })
+    .then(function(d){ if (d && d.ok) applyReis(d.city || '', d.km); else fallback(); })
+    .catch(function(){ fallback(); })
+    .finally(function(){ if (btn) { btn.disabled = false; btn.textContent = origLabel; } });
 }
 
 function selectAfstandOptie(el, optie) {
