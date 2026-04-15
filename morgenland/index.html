@@ -2357,7 +2357,13 @@ function berekenReiskosten() {
   };
   fetch('/.netlify/functions/distance?pc=' + encodeURIComponent(raw))
     .then(function(r){ return r.json(); })
-    .then(function(d){ if (d && d.ok) applyReis(d.city || '', d.km); else fallback(); })
+    .then(function(d){
+      if (d && d.ok) {
+        var km = (d.km != null) ? d.km : d.kmRotterdam;
+        if (km == null || isNaN(km)) { fallback(); return; }
+        applyReis(d.city || '', km);
+      } else { fallback(); }
+    })
     .catch(function(){ fallback(); })
     .finally(function(){ if (btn) { btn.disabled = false; btn.textContent = origLabel; } });
 }
