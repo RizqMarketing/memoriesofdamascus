@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Morgenland Kookt — Arabische Kookworkshops Rotterdam & Eindhoven</title>
+  <meta name="description" content="Authentieke Arabische & Syrische kookworkshops in Rotterdam en Best/Eindhoven. Voor bedrijven, teamuitjes en privé-groepen. Kook mee met het verhaal achter elk gerecht." />
+  <meta name="keywords" content="arabische kookworkshop rotterdam, syrische kookworkshop, teamuitje eindhoven, kookworkshop best, morgenland kookt, arabische kookles, workshop koken rotterdam, kookworkshop bedrijven" />
+  <meta property="og:title" content="Morgenland Kookt — Arabische Kookworkshops Rotterdam & Eindhoven" />
+  <meta property="og:description" content="Authentieke Arabische & Syrische kookworkshops. Een avond in Damascus, aan jouw tafel." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="nl_NL" />
+  <link rel="canonical" href="https://morgenlandkookt.nl/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Cormorant+SC:wght@300;400;500;600&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Morgenland Kookt",
+    "description": "Arabische en Syrische kookworkshops in Rotterdam en Best/Eindhoven.",
+    "telephone": "+31620777624",
+    "url": "https://morgenlandkookt.nl",
+    "areaServed": ["Rotterdam", "Eindhoven", "Best", "Nederland"],
+    "address": [
+      { "@type": "PostalAddress", "streetAddress": "Librijesteeg 4", "postalCode": "3011 EB", "addressLocality": "Rotterdam", "addressCountry": "NL" },
+      { "@type": "PostalAddress", "streetAddress": "De Run 21", "postalCode": "5684 PW", "addressLocality": "Best", "addressCountry": "NL" }
+    ]
+  }
+  </script>
+
+  <style>
+    /* ─── TOKENS (shared met Morgenland) ─── */
+    :root {
+      --ink:        #160808;
+      --deep:       #1e0d0d;
+      --wine:       #4a0e0e;
+      --terracotta: #7c2d12;
+      --copper:     #9a4a1a;
+      --gold:       #c9942a;
+      --gold-lt:    #e8c46a;
+      --parchment:  #f5edd6;
+      --cream:      #fdf8ef;
+      --muted:      #9e8060;
+      --divider:    rgba(201,148,42,.25);
+      --font-display: 'Cormorant SC', serif;
+      --font-heading: 'Cormorant Garamond', serif;
+      --font-body:    'Crimson Pro', serif;
+    }
+
+    /* ─── PRELOADER ─── */
+    #preloader { position: fixed; inset: 0; z-index: 99999; background: var(--ink); display: flex; align-items: center; justify-content: center; transition: opacity .6s ease, visibility .6s ease; overflow: hidden; }
+    #preloader::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 55% at center, rgba(21,18,15,.82) 0%, rgba(21,18,15,.55) 45%, rgba(21,18,15,0) 85%); z-index: 0; pointer-events: none; }
+    #preloader.hide { opacity: 0; visibility: hidden; pointer-events: none; }
+    .preloader-inner { text-align: center; position: relative; z-index: 1; }
+    .preloader-brand { font-family: var(--font-display); font-size: clamp(2rem, 6vw, 3.5rem); letter-spacing: .2em; color: var(--gold-lt); opacity: 0; transform: translateY(14px); animation: pLogoIn 1.1s cubic-bezier(0.22, 1, 0.36, 1) forwards; animation-delay: .15s; margin-bottom: .5rem; }
+    .preloader-sub { font-family: var(--font-heading); font-style: italic; font-size: clamp(.85rem, 2vw, 1.05rem); color: rgba(245,237,214,.55); letter-spacing: .08em; margin-bottom: 2rem; opacity: 0; animation: pLogoIn 1.1s cubic-bezier(0.22, 1, 0.36, 1) forwards; animation-delay: .4s; }
+    @keyframes pLogoIn { to { opacity: 1; transform: translateY(0); } }
+    .preloader-line { width: clamp(120px, 30vw, 200px); height: 1px; background: rgba(201,148,42,.15); margin: 0 auto; overflow: hidden; border-radius: 1px; }
+    .preloader-line-fill { width: 0%; height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold-lt)); animation: pProg 1.8s ease-in-out forwards; animation-delay: .3s; border-radius: 1px; }
+    @keyframes pProg { 0% { width: 0%; } 60% { width: 70%; } 100% { width: 100%; } }
+
+    /* ─── CUSTOM CURSOR ─── */
+    @media (pointer: fine) {
+      * { cursor: none !important; }
+      #cursor-dot { position: fixed; top: 0; left: 0; z-index: 999999; width: 8px; height: 8px; background: var(--gold); border-radius: 50%; pointer-events: none; will-change: transform; transform: translate3d(var(--cx, -100px), var(--cy, -100px), 0) translate(-50%, -50%); transition: background .25s ease; }
+      #cursor-ring { position: fixed; top: 0; left: 0; z-index: 999998; width: 36px; height: 36px; border: 1px solid rgba(201,148,42,.45); border-radius: 50%; pointer-events: none; will-change: transform, width, height; transform: translate3d(var(--rx, -100px), var(--ry, -100px), 0) translate(-50%, -50%); transition: width .3s ease, height .3s ease, border-color .3s ease, background .3s ease; }
+      #cursor-dot.hovering { transform: translate3d(var(--cx, -100px), var(--cy, -100px), 0) translate(-50%, -50%) scale(1.4); background: var(--gold-lt); }
+      #cursor-ring.hovering { width: 50px; height: 50px; border-color: rgba(232,196,106,.6); background: rgba(201,148,42,.06); }
+      #cursor-ring.clicking { width: 28px; height: 28px; border-color: var(--gold-lt); }
+    }
+
+    /* ─── RESET ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 18px; overflow-x: clip; max-width: 100%; }
+    body { background: var(--ink); color: var(--parchment); font-family: var(--font-body); font-weight: 300; line-height: 1.7; overflow-x: clip; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button { font: inherit; }
+
+    /* ─── TYPOGRAPHY ─── */
+    h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 400; line-height: 1.15; }
+    .eyebrow { font-family: var(--font-display); font-size: .72rem; letter-spacing: .28em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; }
+    .section-title { font-size: clamp(2.2rem, 4.5vw, 3.6rem); font-weight: 300; color: var(--parchment); margin-bottom: 1.2rem; letter-spacing: -.01em; }
+    .section-title em { font-style: italic; color: var(--gold-lt); font-family: var(--font-heading); }
+    .section-intro { font-size: 1.05rem; color: rgba(245,237,214,.7); max-width: 640px; line-height: 1.8; }
+
+    /* ─── LAYOUT ─── */
+    .wrap { max-width: 1280px; margin: 0 auto; padding: 0 1.8rem; }
+    section { padding: 6rem 0; position: relative; }
+    @media (max-width: 768px) { section { padding: 4rem 0; } }
+    .divider { width: 60px; height: 1px; background: var(--gold); margin: 2rem 0; }
+
+    /* ─── NAV ─── */
+    #navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 1.4rem 2rem; transition: background .35s, backdrop-filter .35s, padding .35s; display: flex; align-items: center; justify-content: space-between; }
+    #navbar.scrolled { background: rgba(22,8,8,.88); backdrop-filter: blur(12px); padding: .9rem 2rem; }
+    .nav-brand { font-family: var(--font-display); letter-spacing: .2em; color: var(--gold-lt); font-size: 1.1rem; }
+    .nav-brand em { font-style: italic; font-family: var(--font-heading); color: rgba(245,237,214,.55); font-size: .8rem; letter-spacing: .08em; margin-left: .4rem; }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-links a { font-family: var(--font-display); font-size: .72rem; letter-spacing: .2em; color: rgba(245,237,214,.7); transition: color .2s; }
+    .nav-links a:hover { color: var(--gold-lt); }
+    .nav-cta { padding: .55rem 1.2rem; border: 1px solid var(--gold); color: var(--gold-lt) !important; border-radius: 2px; transition: background .25s; }
+    .nav-cta:hover { background: rgba(201,148,42,.15); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { width: 22px; height: 1px; background: var(--gold); }
+    @media (max-width: 880px) { .nav-links { display: none; } .hamburger { display: flex; } }
+
+    /* ─── MOBILE MENU ─── */
+    .mobile-menu { position: fixed; inset: 0; background: var(--ink); z-index: 998; padding: 5rem 2rem 2rem; opacity: 0; visibility: hidden; transition: opacity .3s, visibility .3s; }
+    .mobile-menu.open { opacity: 1; visibility: visible; }
+    .mobile-menu-close { position: absolute; top: 1.4rem; right: 1.4rem; width: 36px; height: 36px; background: rgba(201,148,42,.08); border: 1px solid rgba(201,148,42,.2); color: var(--gold-lt); cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .mobile-menu a { display: block; padding: 1.1rem 0; border-bottom: 1px solid rgba(201,148,42,.1); font-family: var(--font-display); font-size: .95rem; letter-spacing: .16em; color: var(--parchment); }
+
+    /* ─── HERO ─── */
+    .hero { min-height: 100vh; display: flex; align-items: center; padding: 8rem 0 6rem; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 20% 40%, rgba(74,14,14,.35), transparent 60%), radial-gradient(ellipse at 80% 60%, rgba(201,148,42,.08), transparent 55%); z-index: 0; }
+    .hero-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 5rem; align-items: center; position: relative; z-index: 1; }
+    @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+    .hero-title { font-size: clamp(2.6rem, 6vw, 5.2rem); font-weight: 300; line-height: 1.05; letter-spacing: -.015em; color: var(--parchment); margin-bottom: 1.8rem; }
+    .hero-title em { font-style: italic; color: var(--gold-lt); }
+    .hero-lead { font-size: 1.15rem; line-height: 1.85; color: rgba(245,237,214,.78); max-width: 520px; margin-bottom: 2.5rem; }
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary { padding: 1rem 2rem; background: var(--gold); color: var(--ink); font-family: var(--font-display); font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; border: none; border-radius: 2px; transition: transform .2s, background .2s; display: inline-flex; align-items: center; gap: .5rem; }
+    .btn-primary:hover { background: var(--gold-lt); transform: translateY(-2px); }
+    .btn-ghost { padding: 1rem 2rem; background: transparent; color: var(--gold-lt); border: 1px solid var(--gold); font-family: var(--font-display); font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; border-radius: 2px; transition: background .2s; display: inline-flex; align-items: center; gap: .5rem; }
+    .btn-ghost:hover { background: rgba(201,148,42,.12); }
+
+    .hero-side { position: relative; }
+    .hero-tile { aspect-ratio: 4/5; background: linear-gradient(135deg, rgba(74,14,14,.8), rgba(22,8,8,.9)); border: 1px solid var(--divider); border-radius: 2px; padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; }
+    .hero-tile::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 20%, rgba(201,148,42,.1), transparent 55%); }
+    .hero-tile-ornament { font-family: var(--font-display); color: var(--gold); font-size: .65rem; letter-spacing: .3em; opacity: .8; position: relative; }
+    .hero-tile-quote { font-family: var(--font-heading); font-style: italic; font-size: clamp(1.4rem, 3vw, 2rem); color: var(--parchment); line-height: 1.4; position: relative; }
+    .hero-tile-quote em { color: var(--gold-lt); }
+    .hero-tile-attr { font-family: var(--font-display); font-size: .68rem; letter-spacing: .24em; color: rgba(245,237,214,.55); position: relative; }
+
+    /* ─── USP STRIP ─── */
+    .usp { background: var(--deep); border-top: 1px solid var(--divider); border-bottom: 1px solid var(--divider); padding: 2.4rem 0; }
+    .usp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; align-items: center; }
+    @media (max-width: 768px) { .usp-grid { grid-template-columns: 1fr; gap: 1.2rem; text-align: center; } }
+    .usp-item { display: flex; align-items: center; gap: 1rem; }
+    @media (max-width: 768px) { .usp-item { justify-content: center; } }
+    .usp-mark { width: 34px; height: 34px; border: 1px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--gold-lt); font-family: var(--font-display); font-size: .7rem; flex-shrink: 0; }
+    .usp-text { font-family: var(--font-heading); font-size: .98rem; color: var(--parchment); line-height: 1.4; }
+    .usp-text strong { color: var(--gold-lt); font-weight: 500; }
+
+    /* ─── VERHAAL / OVER ─── */
+    .verhaal { background: linear-gradient(180deg, var(--ink), var(--deep)); }
+    .verhaal-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 4rem; align-items: center; }
+    @media (max-width: 900px) { .verhaal-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+    .verhaal-visual { position: relative; aspect-ratio: 3/4; background: linear-gradient(135deg, var(--wine), var(--deep)); border: 1px solid var(--divider); border-radius: 2px; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; padding: 3rem; }
+    .verhaal-visual::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 70% 30%, rgba(201,148,42,.14), transparent 55%); }
+    .verhaal-arabic { font-family: 'Cormorant Garamond', serif; font-size: 4rem; color: var(--gold); opacity: .35; line-height: 1; position: relative; }
+    .verhaal-visual-quote { font-family: var(--font-heading); font-style: italic; font-size: 1.35rem; color: var(--gold-lt); line-height: 1.5; position: relative; }
+    .verhaal-text p { font-size: 1.05rem; line-height: 1.85; color: rgba(245,237,214,.78); margin-bottom: 1.2rem; }
+    .verhaal-text p:first-of-type::first-letter { font-family: var(--font-heading); font-size: 3.5rem; float: left; line-height: .85; padding: .4rem .6rem 0 0; color: var(--gold); }
+
+    /* ─── WORKSHOPS ─── */
+    .workshops-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8rem; margin-top: 3rem; }
+    @media (max-width: 960px) { .workshops-grid { grid-template-columns: 1fr; } }
+    .ws-card { background: linear-gradient(180deg, var(--deep), var(--ink)); border: 1px solid var(--divider); border-radius: 2px; padding: 2.8rem 2.2rem; display: flex; flex-direction: column; position: relative; overflow: hidden; transition: transform .35s, border-color .35s; }
+    .ws-card:hover { transform: translateY(-4px); border-color: var(--gold); }
+    .ws-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: 0; transition: opacity .35s; }
+    .ws-card:hover::before { opacity: 1; }
+    .ws-num { font-family: var(--font-display); font-size: .7rem; letter-spacing: .28em; color: var(--gold); margin-bottom: 1.4rem; }
+    .ws-title { font-size: 1.75rem; color: var(--parchment); margin-bottom: .8rem; line-height: 1.2; }
+    .ws-title em { color: var(--gold-lt); font-style: italic; }
+    .ws-tag { font-family: var(--font-heading); font-style: italic; font-size: .95rem; color: rgba(245,237,214,.55); margin-bottom: 1.6rem; }
+    .ws-divider { width: 40px; height: 1px; background: var(--divider); margin-bottom: 1.6rem; }
+    .ws-meta { display: flex; flex-direction: column; gap: .6rem; margin-bottom: 1.8rem; }
+    .ws-meta-row { display: flex; justify-content: space-between; font-size: .9rem; border-bottom: 1px dashed rgba(201,148,42,.12); padding-bottom: .5rem; }
+    .ws-meta-lbl { color: rgba(245,237,214,.5); font-family: var(--font-display); font-size: .65rem; letter-spacing: .16em; text-transform: uppercase; }
+    .ws-meta-val { color: var(--parchment); font-family: var(--font-heading); font-size: 1rem; }
+    .ws-desc { font-size: .98rem; line-height: 1.75; color: rgba(245,237,214,.72); margin-bottom: 2rem; flex: 1; }
+    .ws-price { font-family: var(--font-heading); font-size: 2rem; color: var(--gold-lt); font-weight: 400; margin-bottom: .2rem; }
+    .ws-price small { font-size: .75rem; color: rgba(245,237,214,.4); font-family: var(--font-body); letter-spacing: .04em; }
+    .ws-price-note { font-size: .72rem; color: rgba(245,237,214,.4); font-style: italic; margin-bottom: 1.6rem; }
+    .ws-cta { display: block; text-align: center; padding: .9rem; background: transparent; border: 1px solid var(--gold); color: var(--gold-lt); font-family: var(--font-display); font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; border-radius: 2px; transition: background .22s; margin-top: auto; cursor: pointer; }
+    .ws-cta:hover { background: rgba(201,148,42,.12); }
+    .ws-cta-primary { background: var(--gold); color: var(--ink); border-color: var(--gold); margin-top: .6rem; opacity: .5; cursor: not-allowed; position: relative; }
+    .ws-cta-primary::after { content: 'Binnenkort'; position: absolute; top: -8px; right: -8px; background: var(--wine); color: var(--gold-lt); font-size: .55rem; padding: .18rem .4rem; border-radius: 2px; letter-spacing: .1em; }
+
+    /* ─── HOE WERKT HET ─── */
+    .stappen { background: var(--deep); }
+    .stappen-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 3rem; }
+    @media (max-width: 900px) { .stappen-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 520px) { .stappen-grid { grid-template-columns: 1fr; } }
+    .stap { position: relative; padding: 2rem 1.6rem; border: 1px solid var(--divider); border-radius: 2px; background: rgba(22,8,8,.4); }
+    .stap-num { font-family: var(--font-display); color: var(--gold); font-size: 2.5rem; line-height: 1; margin-bottom: 1rem; opacity: .8; }
+    .stap-title { font-size: 1.2rem; color: var(--parchment); margin-bottom: .6rem; }
+    .stap-desc { font-size: .92rem; line-height: 1.65; color: rgba(245,237,214,.65); }
+
+    /* ─── LOCATIES ─── */
+    .loc-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-top: 3rem; }
+    @media (max-width: 768px) { .loc-grid { grid-template-columns: 1fr; } }
+    .loc-card { border: 1px solid var(--divider); border-radius: 2px; padding: 2.4rem; background: linear-gradient(135deg, var(--deep), var(--ink)); position: relative; overflow: hidden; }
+    .loc-card::before { content: ''; position: absolute; top: -40px; right: -40px; width: 140px; height: 140px; border-radius: 50%; background: radial-gradient(circle, rgba(201,148,42,.12), transparent 70%); }
+    .loc-eyebrow { font-family: var(--font-display); font-size: .65rem; letter-spacing: .26em; color: var(--gold); margin-bottom: .8rem; }
+    .loc-city { font-size: 1.8rem; color: var(--parchment); margin-bottom: .4rem; }
+    .loc-venue { font-family: var(--font-heading); font-style: italic; color: var(--gold-lt); font-size: 1.05rem; margin-bottom: 1.4rem; }
+    .loc-addr { font-size: .95rem; color: rgba(245,237,214,.7); line-height: 1.7; margin-bottom: 1.4rem; }
+    .loc-detail { font-size: .88rem; color: rgba(245,237,214,.55); font-style: italic; }
+
+    /* ─── OPEN WORKSHOPS TEASER ─── */
+    .open { background: linear-gradient(180deg, var(--ink), var(--deep)); }
+    .open-wrap { text-align: center; max-width: 720px; margin: 0 auto; }
+    .open-title { font-size: clamp(1.9rem, 4vw, 3rem); color: var(--parchment); margin-bottom: 1.4rem; }
+    .open-title em { color: var(--gold-lt); font-style: italic; }
+    .open-text { font-size: 1.05rem; line-height: 1.85; color: rgba(245,237,214,.7); margin-bottom: 2.2rem; }
+    .open-preview { display: flex; flex-direction: column; gap: .8rem; margin-bottom: 2.4rem; text-align: left; }
+    .open-row { display: grid; grid-template-columns: auto 1fr auto; gap: 1.4rem; align-items: center; padding: 1rem 1.4rem; border: 1px solid var(--divider); border-radius: 2px; background: rgba(22,8,8,.5); }
+    @media (max-width: 560px) { .open-row { grid-template-columns: 1fr; text-align: center; gap: .5rem; } }
+    .open-date { font-family: var(--font-display); color: var(--gold); font-size: .85rem; letter-spacing: .14em; }
+    .open-dish { font-family: var(--font-heading); color: var(--parchment); font-size: 1.05rem; }
+    .open-seats { font-size: .8rem; color: rgba(245,237,214,.5); font-style: italic; }
+    .open-placeholder { padding: 2rem; border: 1px dashed var(--divider); border-radius: 2px; color: rgba(245,237,214,.4); font-style: italic; text-align: center; }
+
+    /* ─── FAQ ─── */
+    .faq-wrap { max-width: 820px; margin: 3rem auto 0; }
+    .faq-item { border-bottom: 1px solid var(--divider); cursor: pointer; transition: background .2s; }
+    .faq-item:first-child { border-top: 1px solid var(--divider); }
+    .faq-q { padding: 1.4rem 0; display: flex; justify-content: space-between; align-items: center; gap: 1rem; font-family: var(--font-heading); font-size: 1.15rem; color: var(--parchment); }
+    .faq-toggle { color: var(--gold); font-size: 1.3rem; transition: transform .25s; }
+    .faq-item.open .faq-toggle { transform: rotate(45deg); }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height .35s ease, padding .35s ease; font-size: .98rem; line-height: 1.8; color: rgba(245,237,214,.7); }
+    .faq-item.open .faq-a { max-height: 400px; padding-bottom: 1.4rem; }
+
+    /* ─── CONTACT FORM ─── */
+    .contact { background: var(--deep); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; }
+    @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+    .contact-info h2 { font-size: clamp(2rem, 4vw, 3rem); color: var(--parchment); margin-bottom: 1.4rem; }
+    .contact-info h2 em { color: var(--gold-lt); font-style: italic; }
+    .contact-info p { color: rgba(245,237,214,.7); line-height: 1.85; margin-bottom: 2rem; }
+    .contact-detail { display: flex; gap: 1rem; margin-bottom: 1.4rem; align-items: flex-start; }
+    .contact-detail-mark { width: 32px; height: 32px; border: 1px solid var(--divider); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--gold); flex-shrink: 0; font-family: var(--font-display); font-size: .68rem; }
+    .contact-detail-label { font-family: var(--font-display); font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; color: rgba(245,237,214,.5); margin-bottom: .2rem; }
+    .contact-detail-value { font-family: var(--font-heading); color: var(--parchment); font-size: 1rem; }
+    .wa-btn { display: inline-flex; align-items: center; gap: .7rem; padding: .9rem 1.4rem; background: rgba(37,211,102,.12); border: 1px solid rgba(37,211,102,.45); color: #8df3b2; font-family: var(--font-display); font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; border-radius: 2px; transition: background .22s; margin-top: 1rem; }
+    .wa-btn:hover { background: rgba(37,211,102,.2); }
+
+    .form { background: linear-gradient(180deg, var(--ink), var(--deep)); border: 1px solid var(--divider); border-radius: 2px; padding: 2.4rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    @media (max-width: 520px) { .form-row { grid-template-columns: 1fr; } }
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { font-family: var(--font-display); font-size: .65rem; letter-spacing: .18em; text-transform: uppercase; color: rgba(245,237,214,.55); margin-bottom: .45rem; display: block; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; background: rgba(255,255,255,.04); border: 1px solid rgba(201,148,42,.2); color: var(--parchment); font-family: var(--font-body); font-size: .95rem; padding: .75rem 1rem; outline: none; border-radius: 2px; transition: border-color .25s, background .25s; appearance: none; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold); background: rgba(201,148,42,.06); }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(245,237,214,.28); }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-group select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9942a' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; }
+    .form-group select option { background: var(--deep); }
+    .form-submit { width: 100%; padding: 1.1rem; background: var(--gold); border: none; color: var(--ink); font-family: var(--font-display); font-size: .78rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; cursor: pointer; border-radius: 2px; transition: background .2s, transform .2s; margin-top: .6rem; }
+    .form-submit:hover { background: var(--gold-lt); transform: translateY(-1px); }
+    .form-honeypot { position: absolute; left: -9999px; }
+    .form-success { display: none; padding: 1.4rem; background: rgba(37,211,102,.1); border: 1px solid rgba(37,211,102,.4); color: #8df3b2; border-radius: 2px; font-family: var(--font-heading); font-style: italic; margin-top: 1rem; text-align: center; }
+    .form-success.show { display: block; }
+
+    /* ─── FOOTER ─── */
+    footer { padding: 3.5rem 0 2rem; border-top: 1px solid var(--divider); background: var(--ink); }
+    .foot-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 2.5rem; }
+    @media (max-width: 760px) { .foot-grid { grid-template-columns: 1fr 1fr; gap: 2rem; } }
+    @media (max-width: 480px) { .foot-grid { grid-template-columns: 1fr; } }
+    .foot-brand { font-family: var(--font-display); color: var(--gold-lt); font-size: 1.3rem; letter-spacing: .2em; margin-bottom: .5rem; }
+    .foot-tag { font-family: var(--font-heading); font-style: italic; color: rgba(245,237,214,.5); font-size: .92rem; line-height: 1.6; max-width: 320px; }
+    .foot-heading { font-family: var(--font-display); font-size: .68rem; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; }
+    .foot-list { list-style: none; display: flex; flex-direction: column; gap: .6rem; }
+    .foot-list a, .foot-list li { font-size: .88rem; color: rgba(245,237,214,.6); transition: color .2s; }
+    .foot-list a:hover { color: var(--gold-lt); }
+    .foot-bottom { border-top: 1px solid var(--divider); padding-top: 1.6rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; font-size: .8rem; color: rgba(245,237,214,.35); font-family: var(--font-display); letter-spacing: .12em; }
+
+    /* ─── REVEAL ANIMATION ─── */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), transform 1s cubic-bezier(0.22, 1, 0.36, 1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  </style>
+</head>
+<body>
+
+<!-- ═══ CUSTOM CURSOR ═══ -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<!-- ═══ PRELOADER ═══ -->
+<div id="preloader">
+  <div class="preloader-inner">
+    <div class="preloader-brand">Morgenland Kookt</div>
+    <div class="preloader-sub">— een avond in Damascus —</div>
+    <div class="preloader-line"><div class="preloader-line-fill"></div></div>
+  </div>
+</div>
+
+<!-- ═══ NAV ═══ -->
+<nav id="navbar">
+  <a href="#" class="nav-brand">Morgenland Kookt <em>by Memories of Damascus</em></a>
+  <div class="nav-links">
+    <a href="#workshops">Workshops</a>
+    <a href="#verhaal">Het verhaal</a>
+    <a href="#locaties">Locaties</a>
+    <a href="#open">Open data</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact" class="nav-cta">Boek een avond</a>
+  </div>
+  <div class="hamburger" onclick="document.getElementById('mobileMenu').classList.add('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" onclick="document.getElementById('mobileMenu').classList.remove('open')">✕</button>
+  <a href="#workshops" onclick="closeMobMenu()">Workshops</a>
+  <a href="#verhaal" onclick="closeMobMenu()">Het verhaal</a>
+  <a href="#locaties" onclick="closeMobMenu()">Locaties</a>
+  <a href="#open" onclick="closeMobMenu()">Open data</a>
+  <a href="#faq" onclick="closeMobMenu()">FAQ</a>
+  <a href="#contact" onclick="closeMobMenu()">Boek een avond</a>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">Arabische Kookworkshops · Rotterdam · Best</div>
+        <h1 class="hero-title">Een avond in <em>Damascus</em>, aan jouw tafel.</h1>
+        <p class="hero-lead">
+          <!-- VERVANG: Anouks eigen intro-tekst (~3 zinnen). Onderstaand is voorzet in haar stijl. -->
+          Geen kookles. Een avond. De geur van kardemom in olijfolie, rijst die wordt omgekeerd, knafeh die siddert in de oven. En tussen de pannen door: de verhalen achter elk gerecht, zoals mijn grootmoeder ze vertelde.
+        </p>
+        <div class="hero-ctas">
+          <a href="#workshops" class="btn-primary">Bekijk workshops →</a>
+          <a href="#contact" class="btn-ghost">Offerte aanvragen</a>
+        </div>
+      </div>
+      <div class="hero-side">
+        <div class="hero-tile">
+          <div class="hero-tile-ornament">— من القلب —</div>
+          <div class="hero-tile-quote">"Koken is <em>thuiskomen</em>, ook als je ver van huis bent."</div>
+          <div class="hero-tile-attr">Anouk · Morgenland Kookt</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ USP STRIP ═══ -->
+<div class="usp">
+  <div class="wrap">
+    <div class="usp-grid">
+      <div class="usp-item"><div class="usp-mark">١</div><div class="usp-text"><strong>100% Halal</strong> · authentieke Syrische keuken</div></div>
+      <div class="usp-item"><div class="usp-mark">٢</div><div class="usp-text"><strong>Rotterdam & Best</strong> · ook op locatie in overleg</div></div>
+      <div class="usp-item"><div class="usp-mark">٣</div><div class="usp-text"><strong>Maximaal 12 — 20 pers.</strong> · persoonlijke aandacht gegarandeerd</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ VERHAAL ═══ -->
+<section class="verhaal" id="verhaal">
+  <div class="wrap">
+    <div class="verhaal-grid">
+      <div class="verhaal-visual reveal">
+        <div class="verhaal-arabic">مطبخ</div>
+        <div class="verhaal-visual-quote">
+          <!-- VERVANG: Kort Anouk-citaat (1-2 zinnen) over waarom zij dit doet -->
+          "Ik kook niet om recepten door te geven. Ik kook om een stukje thuis door te geven."
+        </div>
+      </div>
+      <div class="verhaal-text reveal">
+        <div class="eyebrow">Het verhaal achter Morgenland Kookt</div>
+        <h2 class="section-title">Méér dan een <em>recept</em></h2>
+        <p>
+          <!-- VERVANG: Anouks eigen verhaal, 3-5 alineas. Onderstaand is placeholder in haar stijl. -->
+          Een Morgenland-workshop is geen kookcursus. Het is een avond waarin je meekookt in een keuken die ik zelf van thuis heb meegenomen — een keuken waarin geuren belangrijker zijn dan tijden, en waar elk gerecht een verhaal draagt.
+        </p>
+        <p>
+          Je leert niet alleen hoe je maqluba omkeert zonder dat de rijst uit elkaar valt. Je leert waarom het gerecht "omgekeerd" heet, wat het betekent in Syrische huizen, en waarom er altijd één persoon aan tafel is die de pan durft te omvatten.
+        </p>
+        <p>
+          Tussen de pannen door drinken we zoete thee met munt. Soms speelt Fairuz zacht op de achtergrond. Aan het einde van de avond zit je aan tafel met wat je zelf hebt gemaakt, en gaat naar huis met meer dan alleen een recept.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WORKSHOPS ═══ -->
+<section id="workshops">
+  <div class="wrap">
+    <div style="max-width:720px;" class="reveal">
+      <div class="eyebrow">Drie Workshops</div>
+      <h2 class="section-title">Kies je <em>avond</em></h2>
+      <p class="section-intro">Elke workshop heeft zijn eigen karakter. Kleiner en intiem, of juist een hele groep. Eén avond of een reeks van vier — waarin je écht leert koken zoals thuis.</p>
+    </div>
+
+    <div class="workshops-grid">
+      <!-- Workshop 1: Privé-groep -->
+      <div class="ws-card reveal">
+        <div class="ws-num">Workshop 01</div>
+        <h3 class="ws-title"><em>Privé</em>-avond</h3>
+        <div class="ws-tag">Voor vrienden, familie, kleine groepen</div>
+        <div class="ws-divider"></div>
+        <div class="ws-meta">
+          <div class="ws-meta-row"><span class="ws-meta-lbl">Duur</span><span class="ws-meta-val">2,5 uur</span></div>
+          <div class="ws-meta-row"><span class="ws-meta-lbl">Groep</span><span class="ws-meta-val">6 — 10 pers.</span></div>
+          <div class="ws-meta-row"><span class="ws-meta-lbl">Locatie</span><span class="ws-meta-val">Rotterdam / Best</span></div>
+        </div>
+        <p class="ws-desc">
+          <!-- VERVANG: Anouk bepaalt exacte gerechten -->
+          Je maakt samen een klassiek Syrisch 3-gangen menu. Denk aan mezze-schalen om te beginnen, een hoofdgerecht zoals maqluba of kabsa, en knafeh als afsluiter. Alles wordt samen gegeten.
+        </p>
+        <div class="ws-price">€65 <small>p.p.</small></div>
+        <div class="ws-price-note">*prijs indicatief — op aanvraag bevestigd</div>
+        <a href="#contact" class="ws-cta" data-ws="prive">Aanvragen</a>
+        <button class="ws-cta ws-cta-primary" disabled>Direct Boeken</button>
+      </div>
+
+      <!-- Workshop 2: Teamuitje -->
+      <div class="ws-card reveal">
+        <div class="ws-num">Workshop 02</div>
+        <h3 class="ws-title"><em>Team</em>uitje</h3>
+        <div class="ws-tag">Voor bedrijven, afdelingen, teams</div>
+        <div class="ws-divider"></div>
+        <div class="ws-meta">
+          <div class="ws-meta-row"><span class="ws-meta-lbl">Duur</span><span class="ws-meta-val">3 uur</span></div>
+          <div class="ws-meta-row"><span class="ws-meta-lbl">Groep</span><span class="ws-meta-val">8 — 20 pers.</span></div>
+          <div class="ws-meta-row"><span class="ws-meta-lbl">Locatie</span><span class="ws-meta-val">Rotterdam / Best / op locatie</span></div>
+        </div>
+        <p class="ws-desc">
+          <!-- VERVANG: Anouk bepaalt exacte inhoud -->
+          Een volledig avond- of middagprogramma voor teams. Uitgebreid mezze-platform, gezamenlijk hoofdgerecht, en een zoet einde. Inclusief materiaal, drankjes en ontspannen begeleiding. Factuur mogelijk.
+        </p>
+        <div class="ws-price">€85 <small>p.p.</small></div>
+        <div class="ws-price-note">*prijs indicatief — op aanvraag bevestigd</div>
+        <a href="#contact" class="ws-cta" data-ws="team">Aanvragen</a>
+        <button class="ws-cta ws-cta-primary" disabled>Direct Boeken</button>
+      </div>
+
+      <!-- Workshop 3: Reeks -->
+      <div class="ws-card reveal">
+        <div class="ws-num">Workshop 03</div>
+        <h3 class="ws-title"><em>Reeks</em> — 4 avonden</h3>
+        <div class="ws-tag">Voor individuen die écht willen leren</div>
+        <div class="ws-divider"></div>
+        <div class="ws-meta">
+          <div class="ws-meta-row"><span class="ws-meta-lbl">Duur</span><span class="ws-meta-val">4 × 2,5 uur</span></div>
+          <div class="ws-meta-row"><span class="ws-meta-lbl">Groep</span><span class="ws-meta-val">per avond 8 pers.</span></div>
+          <div class="ws-meta-row"><span class="ws-meta-lbl">Locatie</span><span class="ws-meta-val">Rotterdam</span></div>
+        </div>
+        <p class="ws-desc">
+          <!-- VERVANG: Anouk bepaalt exacte indeling per avond -->
+          Vier aaneensluitende avonden waarin je de basis van de Syrische keuken écht onder de knie krijgt: mezze, rijstgerechten, vlees & vis, en desserts. Je gaat naar huis met een eigen verzameling recepten.
+        </p>
+        <div class="ws-price">€295 <small>totaal</small></div>
+        <div class="ws-price-note">*prijs indicatief — inclusief alle avonden</div>
+        <a href="#contact" class="ws-cta" data-ws="reeks">Aanvragen</a>
+        <button class="ws-cta ws-cta-primary" disabled>Direct Boeken</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STAPPEN ═══ -->
+<section class="stappen">
+  <div class="wrap">
+    <div style="max-width:720px;" class="reveal">
+      <div class="eyebrow">Hoe het werkt</div>
+      <h2 class="section-title">Van aanvraag tot <em>avond</em></h2>
+    </div>
+    <div class="stappen-grid">
+      <div class="stap reveal">
+        <div class="stap-num">01</div>
+        <h3 class="stap-title">Aanvraag</h3>
+        <p class="stap-desc">Vul het formulier in of stuur een bericht via WhatsApp. Vertel welke workshop, wanneer en met hoeveel personen.</p>
+      </div>
+      <div class="stap reveal">
+        <div class="stap-num">02</div>
+        <h3 class="stap-title">Afstemmen</h3>
+        <p class="stap-desc">Binnen 24 uur reactie. We bespreken dieetwensen, gerechten en eventuele wensen over locatie of tijdstip.</p>
+      </div>
+      <div class="stap reveal">
+        <div class="stap-num">03</div>
+        <h3 class="stap-title">Bevestiging</h3>
+        <p class="stap-desc">Je krijgt een definitieve offerte met gerechten, tijden en prijs. Bij akkoord wordt de datum vastgelegd.</p>
+      </div>
+      <div class="stap reveal">
+        <div class="stap-num">04</div>
+        <h3 class="stap-title">De avond</h3>
+        <p class="stap-desc">Jij komt. Wij hebben alles klaar. Samen koken we, samen eten we. Jij gaat naar huis met recepten en verhalen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ LOCATIES ═══ -->
+<section id="locaties">
+  <div class="wrap">
+    <div style="max-width:720px;" class="reveal">
+      <div class="eyebrow">Twee Locaties</div>
+      <h2 class="section-title">Waar je <em>meekookt</em></h2>
+      <p class="section-intro">Twee open keukens, één werkwijze. Kies wat het beste past bij jouw groep of gelegenheid.</p>
+    </div>
+    <div class="loc-grid">
+      <div class="loc-card reveal">
+        <div class="loc-eyebrow">Locatie 01</div>
+        <h3 class="loc-city">Rotterdam</h3>
+        <div class="loc-venue">Morgenland — Centrale Bibliotheek</div>
+        <div class="loc-addr">Librijesteeg 4, 2e verdieping<br>3011 EB Rotterdam</div>
+        <div class="loc-detail">In het hart van Rotterdam. OV op loopafstand (Blaak), fietsparkeren voor de deur.</div>
+      </div>
+      <div class="loc-card reveal">
+        <div class="loc-eyebrow">Locatie 02</div>
+        <h3 class="loc-city">Best / Eindhoven</h3>
+        <div class="loc-venue">Productiekeuken — De Run</div>
+        <div class="loc-addr">De Run 21<br>5684 PW Best</div>
+        <div class="loc-detail">Rustige locatie net buiten Eindhoven. Ruime parkeergelegenheid. Ideaal voor teamuitjes uit de Brainport regio.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ OPEN WORKSHOPS TEASER ═══ -->
+<section class="open" id="open">
+  <div class="wrap">
+    <div class="open-wrap reveal">
+      <div class="eyebrow">Open inschrijvingen</div>
+      <h2 class="open-title">Geen groep? <em>Sluit aan</em>.</h2>
+      <p class="open-text">Op vaste data plannen we open workshops waar iedereen zich los kan aanmelden. Kom alleen, met een partner, of met een vriend(in) — de andere stoelen vullen zich vanzelf.</p>
+
+      <div class="open-preview">
+        <!-- VERVANG: Anouk plant echte open workshops. Onderstaand is visueel voorbeeld. -->
+        <div class="open-row">
+          <div class="open-date">za 17 mei · 18:00</div>
+          <div class="open-dish">Maqluba & Fattoush — Rotterdam</div>
+          <div class="open-seats">4 / 10 plekken vrij</div>
+        </div>
+        <div class="open-row">
+          <div class="open-date">vr 30 mei · 18:30</div>
+          <div class="open-dish">Mezze-avond — Best</div>
+          <div class="open-seats">7 / 10 plekken vrij</div>
+        </div>
+        <div class="open-placeholder">Meer data volgen binnenkort — meld je aan voor onze updates</div>
+      </div>
+
+      <a href="#contact" class="btn-primary">Meld je aan →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FAQ ═══ -->
+<section id="faq">
+  <div class="wrap">
+    <div style="max-width:720px;" class="reveal">
+      <div class="eyebrow">Veelgestelde vragen</div>
+      <h2 class="section-title">Vooraf <em>duidelijkheid</em></h2>
+    </div>
+    <div class="faq-wrap reveal">
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q"><span>Is alles halal?</span><span class="faq-toggle">+</span></div>
+        <div class="faq-a"><p>Ja. Alle gerechten zijn 100% halal. Vlees is halal-gecertificeerd, er komt geen alcohol of onrein vlees in de keuken — nergens in het proces.</p></div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q"><span>Kan ik rekening houden met dieetwensen?</span><span class="faq-toggle">+</span></div>
+        <div class="faq-a"><p>Vegetarische varianten zijn standaard mogelijk. Allergieën en glutenvrij in overleg — geef het door bij je aanvraag, dan stemmen we het menu af.</p></div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q"><span>Wat moet ik meenemen?</span><span class="faq-toggle">+</span></div>
+        <div class="faq-a"><p>Alleen jezelf. Ingrediënten, schorten, koksmessen, receptenkaart en een goed humeur — dat regelen wij.</p></div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q"><span>Kan de workshop op onze kantoorlocatie?</span><span class="faq-toggle">+</span></div>
+        <div class="faq-a"><p>Bij teamuitjes is dat in overleg mogelijk, mits er een geschikte keuken of kookruimte is. Reiskosten worden dan vanaf onze dichtstbijzijnde locatie berekend.</p></div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q"><span>Wat als we moeten annuleren?</span><span class="faq-toggle">+</span></div>
+        <div class="faq-a"><p>Tot 14 dagen voor de datum: kosteloos verplaatsen of annuleren. Binnen 14 dagen: verplaatsen mogelijk, annuleren alleen bij uitzondering. Exacte voorwaarden staan in de offerte.</p></div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q"><span>Krijg ik een factuur voor mijn bedrijf?</span><span class="faq-toggle">+</span></div>
+        <div class="faq-a"><p>Ja, BTW-conform. Geef je factuurgegevens door bij de aanvraag, dan ontvang je de factuur per mail.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT ═══ -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <div class="eyebrow">Boek een avond</div>
+        <h2>Vertel me over jouw <em>avond</em></h2>
+        <p>Vul het formulier in of stuur direct een bericht via WhatsApp. Je krijgt binnen 24 uur persoonlijk reactie — geen standaard antwoordmachine.</p>
+
+        <div class="contact-detail">
+          <div class="contact-detail-mark">☎</div>
+          <div>
+            <div class="contact-detail-label">Telefoon & WhatsApp</div>
+            <div class="contact-detail-value">06 20 77 76 24</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-mark">⏱</div>
+          <div>
+            <div class="contact-detail-label">Reactietijd</div>
+            <div class="contact-detail-value">Binnen 24 uur — persoonlijk</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-mark">✉</div>
+          <div>
+            <div class="contact-detail-label">E-mail</div>
+            <div class="contact-detail-value">via het formulier hiernaast</div>
+          </div>
+        </div>
+
+        <a href="https://wa.me/31620777624?text=Hallo%20Anouk%2C%20ik%20wil%20graag%20meer%20weten%20over%20Morgenland%20Kookt." class="wa-btn" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm0 18.15c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31c-.82-1.31-1.26-2.83-1.26-4.38 0-4.54 3.7-8.24 8.24-8.24s8.24 3.7 8.24 8.24-3.69 8.24-8.23 8.24zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.42-.14-.01-.31-.01-.48-.01-.17 0-.43.06-.66.31-.23.25-.87.85-.87 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.66 4.23 3.73.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29z"/></svg>
+          WhatsApp direct
+        </a>
+      </div>
+
+      <!-- Netlify Form — submissions zichtbaar in Netlify dashboard, geen email setup nodig -->
+      <form class="form reveal" name="workshop-aanvraag" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" onsubmit="handleFormSubmit(event)">
+        <input type="hidden" name="form-name" value="workshop-aanvraag">
+        <p class="form-honeypot"><label>Laat leeg: <input name="bot-field"></label></p>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Naam</label>
+            <input name="naam" type="text" required placeholder="Je naam">
+          </div>
+          <div class="form-group">
+            <label>E-mail</label>
+            <input name="email" type="email" required placeholder="jouw@email.nl">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Telefoon</label>
+            <input name="telefoon" type="tel" placeholder="06 ...">
+          </div>
+          <div class="form-group">
+            <label>Welke workshop</label>
+            <select name="workshop" id="formWorkshop" required>
+              <option value="">Maak een keuze</option>
+              <option value="prive">Privé-avond (€65 p.p.)</option>
+              <option value="team">Teamuitje (€85 p.p.)</option>
+              <option value="reeks">Reeks — 4 avonden (€295)</option>
+              <option value="open">Open inschrijving</option>
+              <option value="onbekend">Weet ik nog niet</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Aantal personen</label>
+            <input name="personen" type="number" min="1" max="40" placeholder="bv. 12">
+          </div>
+          <div class="form-group">
+            <label>Locatie voorkeur</label>
+            <select name="locatie">
+              <option value="">Maak een keuze</option>
+              <option value="rotterdam">Rotterdam</option>
+              <option value="best">Best / Eindhoven</option>
+              <option value="op-locatie">Bij ons op locatie</option>
+              <option value="geen-voorkeur">Geen voorkeur</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Gewenste datum / periode</label>
+          <input name="datum" type="text" placeholder="bv. zaterdag 17 mei, of 'tweede helft juni'">
+        </div>
+
+        <div class="form-group">
+          <label>Bericht & eventuele dieetwensen</label>
+          <textarea name="bericht" placeholder="Vertel kort over jouw wensen, gelegenheid, eventuele allergieën..."></textarea>
+        </div>
+
+        <button type="submit" class="form-submit">Verstuur aanvraag</button>
+        <div class="form-success" id="formSuccess">Je aanvraag is verstuurd. Je krijgt binnen 24 uur persoonlijk reactie, in sha Allah.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">Morgenland Kookt</div>
+        <div class="foot-tag">Arabische & Syrische kookworkshops. Onderdeel van Memories of Damascus. Een avond in Damascus, aan jouw tafel.</div>
+      </div>
+      <div>
+        <div class="foot-heading">Workshops</div>
+        <ul class="foot-list">
+          <li><a href="#workshops">Privé-avond</a></li>
+          <li><a href="#workshops">Teamuitje</a></li>
+          <li><a href="#workshops">Reeks (4 avonden)</a></li>
+          <li><a href="#open">Open data</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-heading">Locaties</div>
+        <ul class="foot-list">
+          <li>Rotterdam — Librijesteeg 4</li>
+          <li>Best — De Run 21</li>
+          <li>Op locatie (in overleg)</li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-heading">Binnen 24u reactie</div>
+        <ul class="foot-list">
+          <li>06 20 77 76 24</li>
+          <li><a href="https://wa.me/31620777624" target="_blank" rel="noopener">WhatsApp</a></li>
+          <li><a href="#contact">Offerte aanvragen</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div>© 2026 Morgenland Kookt · Memories of Damascus</div>
+      <div>Rotterdam · Best · Nederland</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── Preloader
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      var pre = document.getElementById('preloader');
+      pre.classList.add('hide');
+      setTimeout(function() { pre.style.display = 'none'; }, 700);
+    }, 1400);
+  });
+
+  // ── Custom cursor (GPU-accelerated + rAF-throttled)
+  (function() {
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+    var dot = document.getElementById('cursor-dot');
+    var ring = document.getElementById('cursor-ring');
+    var mx = 0, my = 0, rx = 0, ry = 0, hasMoved = false, rafId = null;
+    document.addEventListener('mousemove', function(e) { mx = e.clientX; my = e.clientY; hasMoved = true; }, { passive: true });
+    function tick() {
+      if (hasMoved) { dot.style.setProperty('--cx', mx + 'px'); dot.style.setProperty('--cy', my + 'px'); hasMoved = false; }
+      rx += (mx - rx) * 0.15; ry += (my - ry) * 0.15;
+      ring.style.setProperty('--rx', rx + 'px'); ring.style.setProperty('--ry', ry + 'px');
+      rafId = requestAnimationFrame(tick);
+    }
+    rafId = requestAnimationFrame(tick);
+    var hoverTargets = 'a, button, input, textarea, select, [onclick], .ws-card, .loc-card, .faq-item, .stap';
+    document.addEventListener('mouseover', function(e) { if (e.target.closest(hoverTargets)) { dot.classList.add('hovering'); ring.classList.add('hovering'); } });
+    document.addEventListener('mouseout', function(e) { if (e.target.closest(hoverTargets)) { dot.classList.remove('hovering'); ring.classList.remove('hovering'); } });
+    document.addEventListener('mousedown', function() { ring.classList.add('clicking'); });
+    document.addEventListener('mouseup', function() { ring.classList.remove('clicking'); });
+    document.addEventListener('mouseleave', function() { dot.style.opacity = '0'; ring.style.opacity = '0'; });
+    document.addEventListener('mouseenter', function() { dot.style.opacity = '1'; ring.style.opacity = '1'; });
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden && rafId) { cancelAnimationFrame(rafId); rafId = null; }
+      else if (!document.hidden && !rafId) { rafId = requestAnimationFrame(tick); }
+    });
+  })();
+
+  // ── Nav scroll effect
+  var navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', function() { navbar.classList.toggle('scrolled', window.scrollY > 60); });
+
+  // ── Scroll reveal
+  var reveals = document.querySelectorAll('.reveal');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+  reveals.forEach(function(el) { observer.observe(el); });
+
+  // ── Workshop CTA → pre-fill form select
+  document.querySelectorAll('[data-ws]').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      var type = btn.getAttribute('data-ws');
+      var sel = document.getElementById('formWorkshop');
+      if (sel) sel.value = type;
+    });
+  });
+
+  // ── Mobile menu close
+  function closeMobMenu() { document.getElementById('mobileMenu').classList.remove('open'); }
+
+  // ── Form submit (Netlify handles backend; show in-page success for AJAX UX)
+  function handleFormSubmit(e) {
+    // Netlify picks this up automatically. For live visual feedback we do a fetch.
+    e.preventDefault();
+    var form = e.target;
+    var data = new FormData(form);
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(data).toString()
+    }).then(function() {
+      document.getElementById('formSuccess').classList.add('show');
+      form.reset();
+      setTimeout(function() {
+        document.getElementById('formSuccess').classList.remove('show');
+      }, 8000);
+    }).catch(function() {
+      alert('Er ging iets mis — probeer het opnieuw of stuur ons een WhatsApp.');
+    });
+  }
+</script>
+
+</body>
+</html>
