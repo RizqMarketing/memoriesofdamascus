@@ -681,7 +681,9 @@
       .hero-subtitle { font-size: clamp(1rem, 4vw, 1.3rem); }
       .hero-desc { text-align: center; max-width: 100%; font-size: .88rem; }
       .hero-actions { justify-content: center; }
-      .hero-mobile-photo { margin: 2.5rem -1.5rem 0; aspect-ratio: 4/3; }
+      .hero-mobile-photo { margin: 2.5rem 0.5rem 0; aspect-ratio: 16/10; border: 1px solid var(--divider); border-radius: 2px; box-shadow: 0 8px 32px rgba(0,0,0,.4), 0 0 0 1px rgba(201,148,42,.08); }
+      .hero-mobile-photo::after { content: ''; position: absolute; inset: 6px; border: 1px solid rgba(201,148,42,.12); border-radius: 1px; pointer-events: none; }
+      .hero-mobile-photo img { border-radius: 2px; }
       .form-row { grid-template-columns: 1fr; }
       .footer-inner { padding: 2rem 1.5rem 2rem; }
       .footer-bottom { padding: 1.5rem 1.5rem; flex-direction: column; text-align: center; }
