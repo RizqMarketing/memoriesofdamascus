@@ -347,17 +347,18 @@
     .hero-actions { display: flex; gap: 1.2rem; align-items: center; flex-wrap: wrap; }
     .btn-primary {
       display: inline-block;
-      padding: .85rem 2.2rem;
-      background: var(--gold);
-      color: var(--ink);
-      font-family: var(--font-body);
-      font-size: .82rem;
-      font-weight: 600;
-      letter-spacing: .15em;
+      padding: .7rem 2.4rem;
+      background: transparent;
+      color: var(--gold-lt);
+      border: 1px solid var(--gold);
+      font-family: var(--font-display);
+      font-size: .72rem;
+      font-weight: 400;
+      letter-spacing: .22em;
       text-transform: uppercase;
-      transition: background .25s, transform .2s;
+      transition: background .3s, color .3s, border-color .3s, transform .2s;
     }
-    .btn-primary:hover { background: var(--gold-lt); transform: translateY(-2px); }
+    .btn-primary:hover { background: rgba(201,148,42,.12); color: var(--gold-lt); border-color: var(--gold-lt); transform: translateY(-2px); }
     .btn-ghost {
       display: inline-flex; align-items: center; gap: .6rem;
       font-family: var(--font-body);
