@@ -94,9 +94,9 @@
 
     /* ─── RESET ─── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; font-size: 18px; overflow-x: clip; max-width: 100%; -webkit-overflow-scrolling: touch; }
+    html { scroll-behavior: smooth; font-size: 18px; overflow-x: hidden; overflow-x: clip; max-width: 100%; -webkit-overflow-scrolling: touch; }
     @supports (overscroll-behavior: contain) { html { overscroll-behavior-y: contain; } }
-    body { background: var(--ink); color: var(--parchment); font-family: var(--font-body); font-weight: 300; line-height: 1.7; overflow-x: clip; max-width: 100%; }
+    body { background: var(--ink); color: var(--parchment); font-family: var(--font-body); font-weight: 300; line-height: 1.7; overflow-x: hidden; overflow-x: clip; max-width: 100%; }
     a { color: inherit; text-decoration: none; }
     img { display: block; max-width: 100%; }
 
@@ -811,7 +811,7 @@
       </a>
     </div>
     </div>
-  <div class="hero-mobile-photo">
+  <div class="hero-mobile-photo reveal reveal-delay-4">
     <img src="sfeerimpressie.jpg" alt="Morgenland sfeerimpressie">
   </div>
   <div class="hero-right" data-noop="true">
@@ -1762,6 +1762,8 @@ window.scrollTo(0, 0);
       heroReveals.forEach(function(el, i) {
         setTimeout(function() { el.classList.add('visible'); }, 300 + i * 200);
       });
+      var heroPhoto = document.querySelector('#hero .hero-mobile-photo.reveal');
+      if (heroPhoto) setTimeout(function() { heroPhoto.classList.add('visible'); }, 300 + heroReveals.length * 200);
       setTimeout(function() { pre.remove(); }, 600);
     }, 2100);
   });

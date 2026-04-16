@@ -162,7 +162,7 @@
 
     /* ─── RESET ─── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; font-size: 18px; overflow-x: clip; max-width: 100%; -webkit-overflow-scrolling: touch; }
+    html { scroll-behavior: smooth; font-size: 18px; overflow-x: hidden; overflow-x: clip; max-width: 100%; -webkit-overflow-scrolling: touch; }
     @supports (overscroll-behavior: contain) {
       html { overscroll-behavior-y: contain; }
     }
@@ -1504,7 +1504,7 @@
       nav { padding: 1.2rem 2rem; gap: .6rem; }
       nav.scrolled { padding: .9rem 2rem; }
       .nav-links, .nav-cta { display: none; }
-      .hamburger { display: flex; }
+      .hamburger { display: flex; margin-left: .8rem; }
       .lang-toggle { margin-left: auto; }
     }
     @media (max-width: 640px) {
