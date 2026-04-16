@@ -651,7 +651,7 @@
       .nav-links, .nav-cta { display: none; }
       .hamburger { display: flex; padding: 6px; margin-left: .55rem; }
       .hamburger span { width: 22px; }
-      .lang-toggle { margin-left: auto; padding: .22rem .55rem; font-size: .7rem; }
+      .lang-toggle { margin-left: auto; margin-right: .8rem; padding: .22rem .55rem; font-size: .7rem; }
       .mob-price-bar { display: flex; }
       .conf-body { grid-template-columns: 1fr; gap: 2rem; }
       .conf-steps, .conf-sidebar { min-width: 0; }
@@ -665,9 +665,9 @@
     @media (max-width: 640px) {
       .over-visual { display: none; }
       section { padding: 4rem 1.5rem; }
-      .hero-left { padding: 5.5rem 1.5rem 2.5rem; }
+      .hero-left { padding: 5.5rem 1.5rem 0; }
+      .hero-eyebrow::before { width: 1.5rem; }
       .hero-mobile-photo { margin: 2.5rem -1.5rem 0; aspect-ratio: 4/3; }
-      .hero-left { padding-bottom: 0; }
       .form-row { grid-template-columns: 1fr; }
       .footer-inner { padding: 2rem 1.5rem 2rem; }
       .footer-bottom { padding: 1.5rem 1.5rem; flex-direction: column; text-align: center; }
@@ -1600,7 +1600,7 @@
   <div class="footer-inner">
     <div class="footer-top">
       <div class="footer-brand">
-        <span class="nav-logo" style="height:82px;margin-left:-52px;"><img src="logo-horizontal.png" alt="Morgenland — by Memories of Damascus"></span>
+        <span class="nav-logo" style="height:82px;margin-left:-42px;"><img src="logo-horizontal.png" alt="Morgenland — by Memories of Damascus"></span>
         <p class="footer-tagline" data-i18n="footer-tagline">
           "Wereldse smaken, Rotterdams karakter &mdash; internationale keuken en
           Syrisch-Libanese catering in de Centrale Bibliotheek Rotterdam."
