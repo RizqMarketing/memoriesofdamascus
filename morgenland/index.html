@@ -82,8 +82,15 @@
     .preloader-line-fill { width: 0%; height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold-lt)); animation: preloaderProgress 1.8s ease-in-out forwards; animation-delay: .3s; border-radius: 1px; }
     @keyframes preloaderProgress { 0% { width: 0%; } 60% { width: 70%; } 100% { width: 100%; } }
 
-    /* ─── CUSTOM CURSOR DISABLED — standaard browser cursor gebruiken ─── */
-    #cursor-dot, #cursor-ring { display: none !important; }
+    /* ─── CUSTOM CURSOR (GPU-accelerated) ─── */
+    @media (pointer: fine) {
+      * { cursor: none !important; }
+      #cursor-dot { position: fixed; top: 0; left: 0; z-index: 999999; width: 8px; height: 8px; background: var(--gold); border-radius: 50%; pointer-events: none; will-change: transform; transform: translate3d(var(--cx, -100px), var(--cy, -100px), 0) translate(-50%, -50%); transition: background .25s ease; }
+      #cursor-ring { position: fixed; top: 0; left: 0; z-index: 999998; width: 36px; height: 36px; border: 1px solid rgba(201,148,42,.45); border-radius: 50%; pointer-events: none; will-change: transform, width, height; transform: translate3d(var(--rx, -100px), var(--ry, -100px), 0) translate(-50%, -50%); transition: width .3s ease, height .3s ease, border-color .3s ease, background .3s ease; }
+      #cursor-dot.hovering { transform: translate3d(var(--cx, -100px), var(--cy, -100px), 0) translate(-50%, -50%) scale(1.4); background: var(--gold-lt); }
+      #cursor-ring.hovering { width: 50px; height: 50px; border-color: rgba(232,196,106,.6); background: rgba(201,148,42,.06); }
+      #cursor-ring.clicking { width: 28px; height: 28px; border-color: var(--gold-lt); }
+    }
 
     /* ─── RESET ─── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -1739,7 +1746,32 @@ window.scrollTo(0, 0);
   });
 })();
 
-// ── Custom cursor disabled — standaard browser cursor gebruiken
+// ── Custom cursor (GPU-accelerated + rAF-throttled)
+(function() {
+  if (!window.matchMedia('(pointer: fine)').matches) return;
+  var dot = document.getElementById('cursor-dot');
+  var ring = document.getElementById('cursor-ring');
+  var mx = 0, my = 0, rx = 0, ry = 0, hasMoved = false, rafId = null;
+  document.addEventListener('mousemove', function(e) { mx = e.clientX; my = e.clientY; hasMoved = true; }, { passive: true });
+  function tick() {
+    if (hasMoved) { dot.style.setProperty('--cx', mx + 'px'); dot.style.setProperty('--cy', my + 'px'); hasMoved = false; }
+    rx += (mx - rx) * 0.15; ry += (my - ry) * 0.15;
+    ring.style.setProperty('--rx', rx + 'px'); ring.style.setProperty('--ry', ry + 'px');
+    rafId = requestAnimationFrame(tick);
+  }
+  rafId = requestAnimationFrame(tick);
+  var hoverTargets = 'a, button, input, textarea, select, [onclick], .pakket-card, .menu-item, .dienst-card, .faq-item';
+  document.addEventListener('mouseover', function(e) { if (e.target.closest(hoverTargets)) { dot.classList.add('hovering'); ring.classList.add('hovering'); } });
+  document.addEventListener('mouseout', function(e) { if (e.target.closest(hoverTargets)) { dot.classList.remove('hovering'); ring.classList.remove('hovering'); } });
+  document.addEventListener('mousedown', function() { ring.classList.add('clicking'); });
+  document.addEventListener('mouseup', function() { ring.classList.remove('clicking'); });
+  document.addEventListener('mouseleave', function() { dot.style.opacity = '0'; ring.style.opacity = '0'; });
+  document.addEventListener('mouseenter', function() { dot.style.opacity = '1'; ring.style.opacity = '1'; });
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden && rafId) { cancelAnimationFrame(rafId); rafId = null; }
+    else if (!document.hidden && !rafId) { rafId = requestAnimationFrame(tick); }
+  });
+})();
 
 // ── Nav scroll effect
 var navbar = document.getElementById('navbar');
@@ -2119,7 +2151,7 @@ var i18n = {
   'footer-col3-h':    { nl:'Contact', en:'Contact' },
   'footer-hours':     { nl:'Openingstijden', en:'Opening hours' },
   'footer-pakketten': { nl:'Pakketten', en:'Packages' },
-  'footer-configurator':{ nl:'Stel Zelf Samen', en:'Build Your Own' },
+  'footer-configurator':{ nl:'Stel Zelf Samen', en:'Choose Yourself' },
   'footer-address':   { nl:'Librijesteeg 4, Rotterdam', en:'Librijesteeg 4, Rotterdam' },
   'footer-copy':      { nl:'\u00a9 2020 \u2013 2026 Morgenland \u2014 by Memories of Damascus \u00b7 KVK 81201974', en:'\u00a9 2020 \u2013 2026 Morgenland \u2014 by Memories of Damascus \u00b7 KVK 81201974' },
   'footer-halal':     { nl:'\u262e 100% Halal', en:'\u262e 100% Halal' },
