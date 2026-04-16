@@ -484,6 +484,9 @@
     .afstand-opt-prijs { font-size: .72rem; color: var(--gold); font-family: var(--font-heading); }
     .afstand-opt-desc { font-size: .68rem; color: rgba(245,237,214,.35); margin-top: .1rem; }
     .reis-row { display: flex; gap: .8rem; }
+    .reis-adres { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; margin-top: 1rem; min-width: 0; }
+    .reis-adres .reis-inp { min-width: 0; width: 100%; }
+    @media (max-width: 600px) { .reis-adres { grid-template-columns: 1fr; gap: .6rem; } }
     .reis-inp { flex: 1; background: rgba(255,255,255,.04); border: 1px solid rgba(201,148,42,.2); border-radius: 2px; padding: .8rem 1rem; color: var(--parchment); font-family: var(--font-body); font-size: .95rem; outline: none; transition: border-color .2s; }
     .reis-inp:focus { border-color: var(--gold); }
     .reis-inp::placeholder { color: rgba(245,237,214,.28); }
@@ -1304,7 +1307,7 @@
           <input class="reis-inp" id="postcodeInp" type="text" maxlength="7" placeholder="Postcode (bijv. 3011 AB)" data-i18n-placeholder="conf-postcode-ph" style="max-width:180px;" />
           <button class="reis-calc-btn" onclick="berekenReiskosten()" data-i18n="conf-calc-btn">Bereken</button>
         </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:1rem;">
+        <div class="reis-adres">
           <input class="reis-inp" id="straatInp" type="text" placeholder="Straat + huisnummer" data-i18n-placeholder="conf-straat-ph" />
           <input class="reis-inp" id="plaatsInp" type="text" placeholder="Plaats" data-i18n-placeholder="conf-plaats-ph" />
         </div>
