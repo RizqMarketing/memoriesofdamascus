@@ -1642,6 +1642,12 @@
     .addon-desc { font-size: .65rem; color: rgba(245,237,214,.35); margin-top: .15rem; font-style: italic; }
     .addon-groep-lbl { font-family: var(--font-display); font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; color: rgba(201,148,42,.5); margin: 1.2rem 0 .5rem; grid-column: 1 / -1; }
     .addon-groep-lbl:first-child { margin-top: 0; }
+    .addon .addon-qty { display: none; }
+    .addon.addon-sel .addon-qty { display: flex; align-items: center; gap: .45rem; flex-wrap: wrap; margin-top: .55rem; }
+    .addon-qty-val { font-family: var(--font-heading); font-size: 1rem; color: var(--cream); min-width: 2ch; text-align: center; padding: 0 .3rem; }
+    .addon-qty-lbl { font-size: .7rem; color: rgba(245,237,214,.4); }
+    .addon-qty-tot { font-size: .74rem; color: var(--gold); font-family: var(--font-heading); margin-left: .25rem; }
+    .addon .addon-qty .pers-btn { width: 26px; height: 26px; font-size: .8rem; }
     .afstand-panel { margin-top: 1.2rem; background: rgba(201,148,42,.06); border: 1px solid rgba(201,148,42,.2); border-radius: 2px; padding: 1.2rem; display: none; }
     .afstand-panel.vis { display: block; }
     .afstand-panel-title { font-family: var(--font-display); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin-bottom: .8rem; }
@@ -2253,7 +2259,7 @@
 
     <!-- Houtskool BBQ -->
     <div class="pakket-card reveal reveal-delay-3">
-      <div class="pakket-name">Ateş BBQ</div>
+      <div class="pakket-name">Levant BBQ</div>
       <div class="pakket-price"><sup>€</sup>33</div>
       <div class="pakket-per" data-i18n="pak-bbq-per">per persoon · min. 20 personen</div>
       <div class="pakket-divider"></div>
@@ -2367,7 +2373,7 @@
           </button>
           <button class="pk-btn" onclick="selectPakket('bbq',33,0,0)" data-pakket="bbq">
             <div class="pk-btn-top">
-              <span class="pk-btn-name">Ateş BBQ</span>
+              <span class="pk-btn-name">Levant BBQ</span>
               <span class="pk-btn-price"><sup>€</sup>33</span>
             </div>
             <div class="pk-btn-desc" data-i18n="pk-bbq-desc">Vast BBQ menu · min. 20 pers.</div>
@@ -2498,6 +2504,117 @@
           <div class="addon" onclick="toggleAddon(this,'Statafel incl. zwarte tafelrok',15,'vast')">
             <div class="addon-chk">✓</div>
             <div class="addon-info"><div class="addon-naam" data-i18n="addon-statafel">Statafel incl. zwarte tafelrok</div><div class="addon-prijs">+€15,- <span data-i18n="addon-perstuk">per stuk</span></div></div>
+          </div>
+
+          <!-- Toetjes -->
+          <div class="addon-groep-lbl" data-i18n="addon-grp-toetjes">Toetjes</div>
+          <div class="addon" onclick="toggleAddon(this,'Arabische pistache baklava mix',1.75,'perstuk',5)">
+            <div class="addon-chk">✓</div>
+            <div class="addon-info">
+              <div class="addon-naam" data-i18n="addon-baklava">Arabische pistache baklava mix</div>
+              <div class="addon-prijs">+€1,75 <span data-i18n="addon-perstuk">per stuk</span></div>
+              <div class="addon-desc" data-i18n="addon-min5">Min. 5 stuks · bestelhoeveelheid</div>
+              <div class="addon-qty">
+                <button class="pers-btn" onclick="event.stopPropagation();changeAddonQty('Arabische pistache baklava mix',-1)">−</button>
+                <span class="addon-qty-val" data-addonqty="Arabische pistache baklava mix">5</span>
+                <span class="addon-qty-lbl" data-i18n="addon-stuks">stuks</span>
+                <button class="pers-btn" onclick="event.stopPropagation();changeAddonQty('Arabische pistache baklava mix',1)">+</button>
+                <span class="addon-qty-tot" data-addontot="Arabische pistache baklava mix">= €8,75</span>
+              </div>
+            </div>
+          </div>
+          <div class="addon" onclick="toggleAddon(this,'Arabisch roomtoetje (muhalayya)',5.5,'perstuk',5)">
+            <div class="addon-chk">✓</div>
+            <div class="addon-info">
+              <div class="addon-naam" data-i18n="addon-muhalayya">Arabisch roomtoetje (muhalayya)</div>
+              <div class="addon-prijs">+€5,50 <span data-i18n="addon-perstuk">per stuk</span></div>
+              <div class="addon-desc" data-i18n="addon-min5">Min. 5 stuks · bestelhoeveelheid</div>
+              <div class="addon-qty">
+                <button class="pers-btn" onclick="event.stopPropagation();changeAddonQty('Arabisch roomtoetje (muhalayya)',-1)">−</button>
+                <span class="addon-qty-val" data-addonqty="Arabisch roomtoetje (muhalayya)">5</span>
+                <span class="addon-qty-lbl" data-i18n="addon-stuks">stuks</span>
+                <button class="pers-btn" onclick="event.stopPropagation();changeAddonQty('Arabisch roomtoetje (muhalayya)',1)">+</button>
+                <span class="addon-qty-tot" data-addontot="Arabisch roomtoetje (muhalayya)">= €27,50</span>
+              </div>
+            </div>
+          </div>
+          <div class="addon" onclick="toggleAddon(this,'Arabische griesmeelcake met pistache (basbousa/harissa)',4.5,'perstuk',5)">
+            <div class="addon-chk">✓</div>
+            <div class="addon-info">
+              <div class="addon-naam" data-i18n="addon-basbousa">Arabische griesmeelcake met pistache (basbousa / harissa)</div>
+              <div class="addon-prijs">+€4,50 <span data-i18n="addon-perstuk">per stuk</span></div>
+              <div class="addon-desc" data-i18n="addon-min5">Min. 5 stuks · bestelhoeveelheid</div>
+              <div class="addon-qty">
+                <button class="pers-btn" onclick="event.stopPropagation();changeAddonQty('Arabische griesmeelcake met pistache (basbousa/harissa)',-1)">−</button>
+                <span class="addon-qty-val" data-addonqty="Arabische griesmeelcake met pistache (basbousa/harissa)">5</span>
+                <span class="addon-qty-lbl" data-i18n="addon-stuks">stuks</span>
+                <button class="pers-btn" onclick="event.stopPropagation();changeAddonQty('Arabische griesmeelcake met pistache (basbousa/harissa)',1)">+</button>
+                <span class="addon-qty-tot" data-addontot="Arabische griesmeelcake met pistache (basbousa/harissa)">= €22,50</span>
+              </div>
+            </div>
+          </div>
+          <div class="addon" onclick="toggleAddon(this,'Chocolate-caramel shortcake (glutenvrij)',5.5,'perstuk',5)">
+            <div class="addon-chk">✓</div>
+            <div class="addon-info">
+              <div class="addon-naam" data-i18n="addon-choc-shortcake">Chocolate-caramel shortcake <span style="color:rgba(245,237,214,.35);font-size:.72rem;" data-i18n="addon-glutenvrij">(glutenvrij)</span></div>
+              <div class="addon-prijs">+€5,50 <span data-i18n="addon-perstuk">per stuk</span></div>
+              <div class="addon-desc" data-i18n="addon-min5">Min. 5 stuks · bestelhoeveelheid</div>
+              <div class="addon-qty">
+                <button class="pers-btn" onclick="event.stopPropagation();changeAddonQty('Chocolate-caramel shortcake (glutenvrij)',-1)">−</button>
+                <span class="addon-qty-val" data-addonqty="Chocolate-caramel shortcake (glutenvrij)">5</span>
+                <span class="addon-qty-lbl" data-i18n="addon-stuks">stuks</span>
+                <button class="pers-btn" onclick="event.stopPropagation();changeAddonQty('Chocolate-caramel shortcake (glutenvrij)',1)">+</button>
+                <span class="addon-qty-tot" data-addontot="Chocolate-caramel shortcake (glutenvrij)">= €27,50</span>
+              </div>
+            </div>
+          </div>
+          <div class="addon" onclick="toggleAddon(this,'White chocolate shortcake',5.5,'perstuk',5)">
+            <div class="addon-chk">✓</div>
+            <div class="addon-info">
+              <div class="addon-naam" data-i18n="addon-white-shortcake">White chocolate shortcake</div>
+              <div class="addon-prijs">+€5,50 <span data-i18n="addon-perstuk">per stuk</span></div>
+              <div class="addon-desc" data-i18n="addon-min5">Min. 5 stuks · bestelhoeveelheid</div>
+              <div class="addon-qty">
+                <button class="pers-btn" onclick="event.stopPropagation();changeAddonQty('White chocolate shortcake',-1)">−</button>
+                <span class="addon-qty-val" data-addonqty="White chocolate shortcake">5</span>
+                <span class="addon-qty-lbl" data-i18n="addon-stuks">stuks</span>
+                <button class="pers-btn" onclick="event.stopPropagation();changeAddonQty('White chocolate shortcake',1)">+</button>
+                <span class="addon-qty-tot" data-addontot="White chocolate shortcake">= €27,50</span>
+              </div>
+            </div>
+          </div>
+          <div class="addon" onclick="toggleAddon(this,'Pistache cheesecake',6,'perstuk',5)">
+            <div class="addon-chk">✓</div>
+            <div class="addon-info">
+              <div class="addon-naam" data-i18n="addon-cheesecake">Pistache cheesecake</div>
+              <div class="addon-prijs">+€6,- <span data-i18n="addon-perstuk">per stuk</span></div>
+              <div class="addon-desc" data-i18n="addon-min5">Min. 5 stuks · bestelhoeveelheid</div>
+              <div class="addon-qty">
+                <button class="pers-btn" onclick="event.stopPropagation();changeAddonQty('Pistache cheesecake',-1)">−</button>
+                <span class="addon-qty-val" data-addonqty="Pistache cheesecake">5</span>
+                <span class="addon-qty-lbl" data-i18n="addon-stuks">stuks</span>
+                <button class="pers-btn" onclick="event.stopPropagation();changeAddonQty('Pistache cheesecake',1)">+</button>
+                <span class="addon-qty-tot" data-addontot="Pistache cheesecake">= €30,-</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Kids Menu -->
+          <div class="addon-groep-lbl" data-i18n="addon-grp-kids">Kids Menu</div>
+          <div class="addon" onclick="toggleAddon(this,'Frietjes met mayonaise, ketchup & halal snack',8,'perstuk',5)">
+            <div class="addon-chk">✓</div>
+            <div class="addon-info">
+              <div class="addon-naam" data-i18n="addon-frietjes">Frietjes met mayonaise, ketchup &amp; halal snack</div>
+              <div class="addon-prijs">+€8,- <span data-i18n="addon-perkind">per kind</span></div>
+              <div class="addon-desc" data-i18n="addon-min5-kids">Min. 5 kindermenu's · bestelhoeveelheid</div>
+              <div class="addon-qty">
+                <button class="pers-btn" onclick="event.stopPropagation();changeAddonQty('Frietjes met mayonaise, ketchup & halal snack',-1)">−</button>
+                <span class="addon-qty-val" data-addonqty="Frietjes met mayonaise, ketchup & halal snack">5</span>
+                <span class="addon-qty-lbl" data-i18n="addon-kinderen">kinderen</span>
+                <button class="pers-btn" onclick="event.stopPropagation();changeAddonQty('Frietjes met mayonaise, ketchup & halal snack',1)">+</button>
+                <span class="addon-qty-tot" data-addontot="Frietjes met mayonaise, ketchup & halal snack">= €40,-</span>
+              </div>
+            </div>
           </div>
 
           <!-- Dranken -->
@@ -3489,7 +3606,7 @@
 
       <div class="faq-item" onclick="this.classList.toggle('faq-open')">
         <div class="faq-q" data-i18n="faq-q5">Wat is het minimum aantal personen?</div>
-        <div class="faq-a" data-i18n="faq-a5">Dit verschilt per pakket: Classic Buffet vanaf 10 personen, Luxe Buffet vanaf 15 personen, Mezze Selectie vanaf 15 personen, en À la Table en Ateş BBQ vanaf 20 personen. Voor maatwerk is alles bespreekbaar.</div>
+        <div class="faq-a" data-i18n="faq-a5">Dit verschilt per pakket: Classic Buffet vanaf 10 personen, Luxe Buffet vanaf 15 personen, Mezze Selectie vanaf 15 personen, en À la Table en Levant BBQ vanaf 20 personen. Voor maatwerk is alles bespreekbaar.</div>
       </div>
 
       <div class="faq-item" onclick="this.classList.toggle('faq-open')">
@@ -3900,6 +4017,21 @@
     'addon-fris5-desc':      { nl:'Onbeperkt fris, max. 5 uur · incl. 2 glazen p.p.', en:'Unlimited soft drinks, max. 5 hours · incl. 2 glasses p.p.' },
     'addon-mocktails':       { nl:'Mocktails', en:'Mocktails' },
     'addon-mocktails-desc':  { nl:'Virgin Mojito, Virgin Piña Colada of Tropical Fizz', en:'Virgin Mojito, Virgin Piña Colada or Tropical Fizz' },
+    'addon-grp-toetjes':     { nl:'Toetjes', en:'Desserts' },
+    'addon-grp-kids':        { nl:'Kids Menu', en:'Kids Menu' },
+    'addon-baklava':         { nl:'Arabische pistache baklava mix', en:'Arabic pistachio baklava mix' },
+    'addon-muhalayya':       { nl:'Arabisch roomtoetje (muhalayya)', en:'Arabic cream pudding (muhalayya)' },
+    'addon-basbousa':        { nl:'Arabische griesmeelcake met pistache (basbousa / harissa)', en:'Arabic semolina cake with pistachio (basbousa / harissa)' },
+    'addon-choc-shortcake':  { nl:'Chocolate-caramel shortcake', en:'Chocolate-caramel shortcake' },
+    'addon-glutenvrij':      { nl:'(glutenvrij)', en:'(gluten free)' },
+    'addon-white-shortcake': { nl:'White chocolate shortcake', en:'White chocolate shortcake' },
+    'addon-cheesecake':      { nl:'Pistache cheesecake', en:'Pistachio cheesecake' },
+    'addon-frietjes':        { nl:'Frietjes met mayonaise, ketchup &amp; halal snack', en:'Fries with mayo, ketchup &amp; halal snack' },
+    'addon-perkind':         { nl:'per kind', en:'per child' },
+    'addon-min5':            { nl:'Min. 5 stuks · bestelhoeveelheid', en:'Min. 5 pieces · minimum order' },
+    'addon-min5-kids':       { nl:'Min. 5 kindermenu\'s · bestelhoeveelheid', en:'Min. 5 kids menus · minimum order' },
+    'addon-stuks':           { nl:'stuks', en:'pieces' },
+    'addon-kinderen':        { nl:'kinderen', en:'children' },
     // 50km+ panel
     'afstand-title':         { nl:'Serviesgoed & opruiming', en:'Tableware & cleanup' },
     'afstand-desc':          { nl:'Bij een afstand van 50 km of meer vragen wij u een keuze te maken voor het retourneren van serviesgoed:', en:'For distances of 50 km or more, we ask you to choose an option for returning tableware:' },
@@ -4100,7 +4232,7 @@
     'faq-q4':           { nl:'In welke regio\'s zijn jullie actief?', en:'In which regions are you active?' },
     'faq-a4':           { nl:'Wij verzorgen catering door heel Nederland, België en Duitsland. Levering in Eindhoven en Rotterdam is gratis. Voor andere regio\'s berekenen wij €0,50 per km retour vanaf onze dichtstbijzijnde locatie.', en:'We provide catering throughout the Netherlands, Belgium and Germany. Delivery in Eindhoven and Rotterdam is free. For other regions we charge €0.50 per km return from our nearest location.' },
     'faq-q5':           { nl:'Wat is het minimum aantal personen?', en:'What is the minimum number of persons?' },
-    'faq-a5':           { nl:'Dit verschilt per pakket: Classic Buffet vanaf 10 personen, Luxe Buffet vanaf 15 personen, Mezze Selectie vanaf 15 personen, en À la Table en Ateş BBQ vanaf 20 personen. Voor maatwerk is alles bespreekbaar.', en:'This varies per package: Classic Buffet from 10 persons, Luxe Buffet from 15 persons, Mezze Selection from 15 persons, and À la Table and Ateş BBQ from 20 persons. For custom catering everything is negotiable.' },
+    'faq-a5':           { nl:'Dit verschilt per pakket: Classic Buffet vanaf 10 personen, Luxe Buffet vanaf 15 personen, Mezze Selectie vanaf 15 personen, en À la Table en Levant BBQ vanaf 20 personen. Voor maatwerk is alles bespreekbaar.', en:'This varies per package: Classic Buffet from 10 persons, Luxe Buffet from 15 persons, Mezze Selection from 15 persons, and À la Table and Levant BBQ from 20 persons. For custom catering everything is negotiable.' },
     'faq-q6':           { nl:'Hoe snel kan ik een offerte verwachten?', en:'How quickly can I expect a quote?' },
     'faq-a6':           { nl:'Wij reageren binnen 24 uur op uw aanvraag. U kunt ons ook direct bereiken via WhatsApp op 06 20 77 76 24.', en:'We respond to your request within 24 hours. You can also reach us directly via WhatsApp on 06 20 77 76 24.' },
     'footer-col1-h':    { nl:'Catering', en:'Catering' },
@@ -4145,7 +4277,7 @@
   };
 
   var pakketMinPersonen = { classic: 10, luxe: 15, table: 20, bbq: 20, hapjes: 15 };
-  var pakketNamen = { classic: 'Classic Buffet', luxe: 'Luxe Buffet', table: 'À la Table', bbq: 'Ateş BBQ', hapjes: 'Mezze Selectie' };
+  var pakketNamen = { classic: 'Classic Buffet', luxe: 'Luxe Buffet', table: 'À la Table', bbq: 'Levant BBQ', hapjes: 'Mezze Selectie' };
   var pakketVastMenu = { bbq: true, hapjes: true };
 
   function selectPakket(type, price, maxH, maxM) {
@@ -4223,19 +4355,47 @@
     });
   }
 
+  function fmtEuro(v) {
+    if (v % 1 === 0) return '€' + v.toLocaleString('nl') + ',-';
+    var s = (Math.round(v * 100) / 100).toFixed(2).replace('.', ',');
+    return '€' + s;
+  }
   function toggleAddon(el, naam, prijs, type, minPers) {
-    if (minPers && confState.personen < minPers) return;
+    if (type !== 'perstuk' && minPers && confState.personen < minPers) return;
     el.classList.toggle('addon-sel');
-    if (el.classList.contains('addon-sel')) confState.addonState[naam] = { prijs: prijs, type: type, minPers: minPers || 0 };
-    else delete confState.addonState[naam];
+    if (el.classList.contains('addon-sel')) {
+      var obj = { prijs: prijs, type: type, minPers: type === 'perstuk' ? 0 : (minPers || 0) };
+      if (type === 'perstuk') { obj.minQty = minPers || 1; obj.qty = obj.minQty; }
+      confState.addonState[naam] = obj;
+      if (type === 'perstuk') renderAddonQty(naam);
+    } else {
+      delete confState.addonState[naam];
+    }
     updateTotaal();
+  }
+  function changeAddonQty(naam, delta) {
+    var d = confState.addonState[naam];
+    if (!d || d.type !== 'perstuk') return;
+    d.qty = Math.max(d.minQty || 1, (d.qty || d.minQty || 1) + delta);
+    renderAddonQty(naam);
+    updateTotaal();
+  }
+  function renderAddonQty(naam) {
+    var d = confState.addonState[naam];
+    if (!d) return;
+    var qSel = '[data-addonqty="' + (window.CSS && CSS.escape ? CSS.escape(naam) : naam.replace(/"/g, '\\"')) + '"]';
+    var tSel = '[data-addontot="' + (window.CSS && CSS.escape ? CSS.escape(naam) : naam.replace(/"/g, '\\"')) + '"]';
+    var qEl = document.querySelector(qSel);
+    var tEl = document.querySelector(tSel);
+    if (qEl) qEl.textContent = d.qty;
+    if (tEl) tEl.textContent = '= ' + fmtEuro(d.prijs * d.qty);
   }
   function updateAddonDisabled() {
     document.querySelectorAll('.addon[onclick*="minPers"],.addon').forEach(function(el) {
       var m = el.getAttribute('onclick');
       if (!m) return;
-      var parts = m.match(/toggleAddon\(this,'[^']*',[\d.]+,'[a-z]+',(\d+)\)/);
-      if (parts && parseInt(parts[1]) > confState.personen) {
+      var parts = m.match(/toggleAddon\(this,'[^']*',[\d.]+,'([a-z]+)',(\d+)\)/);
+      if (parts && parts[1] !== 'perstuk' && parseInt(parts[2]) > confState.personen) {
         el.classList.add('addon-disabled');
         el.classList.remove('addon-sel');
         var naam = m.match(/toggleAddon\(this,'([^']*)'/);
@@ -4253,6 +4413,7 @@
       var naam = e[0], d = e[1];
       if (d.type === 'pp') addonTotal += d.prijs * Math.max(pers, d.minPers || 0);
       else if (d.type === 'vast') addonTotal += d.prijs;
+      else if (d.type === 'perstuk') addonTotal += d.prijs * (d.qty || d.minQty || 1);
     });
     var afstandExtra = confState.afstandKosten || 0;
     var totaal = subtotaal + addonTotal + confState.reiskosten + afstandExtra;
@@ -4269,8 +4430,11 @@
       var detailHtml = '';
       Object.entries(confState.addonState).forEach(function(e){
         var n = e[0], d = e[1];
-        var bedrag = d.type === 'pp' ? d.prijs * Math.max(pers, d.minPers || 0) : d.prijs;
-        detailHtml += '<div style="display:flex;justify-content:space-between;font-size:.72rem;padding:.12rem 0;color:rgba(245,237,214,.45);"><span>' + n + '</span><span style="color:rgba(201,148,42,.6);">€' + bedrag.toLocaleString('nl') + ',-</span></div>';
+        var bedrag = d.type === 'pp' ? d.prijs * Math.max(pers, d.minPers || 0)
+                   : d.type === 'perstuk' ? d.prijs * (d.qty || d.minQty || 1)
+                   : d.prijs;
+        var label = d.type === 'perstuk' ? (n + ' × ' + (d.qty || d.minQty || 1)) : n;
+        detailHtml += '<div style="display:flex;justify-content:space-between;font-size:.72rem;padding:.12rem 0;color:rgba(245,237,214,.45);gap:.5rem;"><span style="flex:1;">' + label + '</span><span style="color:rgba(201,148,42,.6);white-space:nowrap;">' + fmtEuro(bedrag) + '</span></div>';
       });
       addonDetails.innerHTML = detailHtml;
     } else {
@@ -4693,9 +4857,12 @@
         rows += secTitle('Extra\'s');
         addonNames.forEach(function(n){
           var d = confState.addonState[n];
-          var bedrag = d.type === 'pp' ? d.prijs * Math.max(pers, d.minPers || 0) : d.prijs;
+          var bedrag = d.type === 'pp' ? d.prijs * Math.max(pers, d.minPers || 0)
+                     : d.type === 'perstuk' ? d.prijs * (d.qty || d.minQty || 1)
+                     : d.prijs;
+          var label = d.type === 'perstuk' ? (n + ' × ' + (d.qty || d.minQty || 1)) : n;
           addonTotalCalc += bedrag;
-          rows += dRow(n, '€' + bedrag.toLocaleString('nl') + ',-');
+          rows += dRow(label, fmtEuro(bedrag));
         });
         rows += subRow('Subtotaal extra\'s', '€' + addonTotalCalc.toLocaleString('nl') + ',-');
         rows += '</div>';
@@ -4769,9 +4936,11 @@
       document.getElementById('modalGerechten').value = alleGerechten.join(', ');
       document.getElementById('modalAddons').value = addonNames.map(function(n){
         var d = confState.addonState[n];
-        var effectiefPers = d.type === 'pp' ? Math.max(pers, d.minPers || 0) : 0;
-        var bedrag = d.type === 'pp' ? (d.prijs * effectiefPers) : d.prijs;
-        return n + ': €' + bedrag + ',-';
+        var bedrag = d.type === 'pp' ? d.prijs * Math.max(pers, d.minPers || 0)
+                   : d.type === 'perstuk' ? d.prijs * (d.qty || d.minQty || 1)
+                   : d.prijs;
+        var suffix = d.type === 'perstuk' ? (' × ' + (d.qty || d.minQty || 1)) : '';
+        return n + suffix + ': ' + fmtEuro(bedrag);
       }).join(' | ');
       document.getElementById('modalReiskosten').value = confState.reiskosten;
       document.getElementById('modalPostcode').value = pc;
