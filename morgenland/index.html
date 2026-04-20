@@ -590,7 +590,7 @@
     .mob-price-bar-btn:hover { background: var(--terracotta); }
 
     /* ─── OFFERTE MODAL ─── */
-    .modal-overlay { position: fixed; inset: 0; z-index: 500; background: rgba(10,3,3,.85); backdrop-filter: blur(6px); display: flex; align-items: flex-start; justify-content: center; padding: 2rem 1.5rem; overflow-y: auto; opacity: 0; visibility: hidden; transition: opacity .35s, visibility 0s .35s; }
+    .modal-overlay { position: fixed; inset: 0; z-index: 500; background: rgba(10,3,3,.85); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; padding: 2rem 1.5rem; overflow-y: auto; opacity: 0; visibility: hidden; transition: opacity .35s, visibility 0s .35s; }
     .modal-overlay.open { opacity: 1; visibility: visible; transition: opacity .35s, visibility 0s; }
     .modal { display: grid; grid-template-columns: 360px 1fr; max-width: 920px; width: 100%; background: var(--deep); border: 1px solid var(--divider); border-radius: 3px; overflow: visible; transform: translateY(24px) scale(.98); transition: transform .35s cubic-bezier(.16,1,.3,1); }
     .modal-overlay.open .modal { transform: none; }
