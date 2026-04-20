@@ -1708,7 +1708,11 @@
     .leg-bijna { background: var(--gold); }
     .sel-date-display { display: none; margin-top: .8rem; padding: .75rem 1rem; background: rgba(201,148,42,.07); border: 1px solid rgba(201,148,42,.22); border-radius: 2px; font-size: .82rem; color: var(--gold); }
     .sel-date-display.sdvis { display: block; }
-    .conf-sidebar { position: sticky; top: 5.5rem; align-self: start; }
+    .conf-sidebar { position: sticky; top: 5.5rem; align-self: start; max-height: calc(100vh - 7rem); overflow-y: auto; scrollbar-width: thin; scrollbar-color: rgba(201,148,42,.3) transparent; }
+    .conf-sidebar::-webkit-scrollbar { width: 6px; }
+    .conf-sidebar::-webkit-scrollbar-track { background: transparent; }
+    .conf-sidebar::-webkit-scrollbar-thumb { background: rgba(201,148,42,.25); border-radius: 3px; }
+    .conf-sidebar::-webkit-scrollbar-thumb:hover { background: rgba(201,148,42,.5); }
     .conf-totaal { background: rgba(255,255,255,.022); border: 1px solid rgba(201,148,42,.22); border-radius: 2px; padding: 2rem; }
     .ct-title { font-family: var(--font-display); font-size: .88rem; letter-spacing: .14em; color: var(--cream); margin-bottom: 1.4rem; padding-bottom: 1rem; border-bottom: 1px solid var(--divider); }
     .ct-regel { display: flex; justify-content: space-between; align-items: baseline; font-size: .82rem; padding: .45rem 0; border-bottom: 1px solid rgba(201,148,42,.07); }
