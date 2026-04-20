@@ -51,8 +51,8 @@
     }
 
     /* ─── PRELOADER ─── */
-    #preloader { position: fixed; inset: 0; z-index: 99999; background: var(--ink); display: flex; align-items: center; justify-content: center; transition: opacity .6s ease, visibility .6s ease; overflow: hidden; }
-    #preloader::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 55% at center, rgba(21,18,15,.82) 0%, rgba(21,18,15,.55) 45%, rgba(21,18,15,0) 85%); z-index: 0; pointer-events: none; }
+    #preloader { position: fixed; inset: 0; z-index: 99999; background: var(--ink) url('preloader-bg.png') center/cover no-repeat; display: flex; align-items: center; justify-content: center; transition: opacity .6s ease, visibility .6s ease; overflow: hidden; }
+    #preloader::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 65% at center, rgba(15,5,5,.65) 0%, rgba(15,5,5,.82) 50%, rgba(15,5,5,.95) 100%); z-index: 0; pointer-events: none; }
     #preloader.hide { opacity: 0; visibility: hidden; pointer-events: none; }
     .preloader-inner { text-align: center; position: relative; z-index: 1; }
     .preloader-brand { font-family: var(--font-display); font-size: clamp(2rem, 6vw, 3.5rem); letter-spacing: .2em; color: var(--gold-lt); opacity: 0; transform: translateY(14px); animation: pLogoIn 1.1s cubic-bezier(0.22, 1, 0.36, 1) forwards; animation-delay: .15s; margin-bottom: .5rem; }
@@ -155,9 +155,9 @@
     /* ─── USP STRIP ─── */
     .usp { background: var(--deep); border-top: 1px solid var(--divider); border-bottom: 1px solid var(--divider); padding: 2.4rem 0; }
     .usp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; align-items: center; }
-    @media (max-width: 768px) { .usp-grid { grid-template-columns: 1fr; gap: 1.2rem; text-align: center; } }
+    @media (max-width: 768px) { .usp-grid { grid-template-columns: 1fr; gap: 1rem; max-width: 310px; margin: 0 auto; text-align: left; } }
     .usp-item { display: flex; align-items: center; gap: 1rem; }
-    @media (max-width: 768px) { .usp-item { justify-content: center; } }
+    @media (max-width: 768px) { .usp-item { justify-content: flex-start; } }
     .usp-mark { width: 34px; height: 34px; border: 1px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--gold-lt); font-family: var(--font-display); font-size: .7rem; flex-shrink: 0; }
     .usp-text { font-family: var(--font-heading); font-size: .98rem; color: var(--parchment); line-height: 1.4; }
     .usp-text strong { color: var(--gold-lt); font-weight: 500; }
@@ -360,69 +360,55 @@
     .open-foot { text-align: center; margin-top: 2.8rem; }
     .open-foot-note { font-family: var(--font-heading); font-style: italic; color: rgba(245,237,214,.5); font-size: .92rem; margin-top: 1rem; }
 
-    /* ─── FAQ ─── */
+    /* ─── FAQ — elegant line-based, geen kaart-blokjes ─── */
     #faq { background: var(--ink); }
-    .faq-wrap { max-width: 860px; margin: 3.5rem auto 0; display: flex; flex-direction: column; gap: 1rem; }
+    .faq-wrap { max-width: 760px; margin: 3.5rem auto 0; }
     .faq-item {
       position: relative;
-      border: 1px solid var(--divider);
-      border-radius: 2px;
-      background: linear-gradient(180deg, rgba(74,14,14,.18), rgba(22,8,8,.4));
+      border-bottom: 1px solid rgba(201,148,42,.14);
       cursor: pointer;
-      transition: border-color .35s, background .35s, transform .35s;
-      overflow: hidden;
+      transition: border-color .35s;
     }
+    .faq-item:first-child { border-top: 1px solid rgba(201,148,42,.14); }
     .faq-item::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      opacity: 0; transition: opacity .35s;
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 1px; background: var(--gold);
+      transform: scaleY(0); transform-origin: center;
+      transition: transform .4s cubic-bezier(.16,1,.3,1);
     }
     @media (hover: hover) {
-      .faq-item:hover { border-color: rgba(201,148,42,.45); transform: translateY(-2px); }
-      .faq-item:hover::before { opacity: .5; }
+      .faq-item:hover .faq-q { color: var(--cream); }
+      .faq-item:hover .faq-toggle { color: var(--gold-lt); }
     }
-    .faq-item.open {
-      border-color: rgba(201,148,42,.55);
-      background: linear-gradient(180deg, rgba(74,14,14,.3), rgba(22,8,8,.55));
-    }
-    .faq-item.open::before { opacity: 1; }
+    .faq-item.open { border-color: rgba(201,148,42,.38); }
+    .faq-item.open::before { transform: scaleY(1); }
     .faq-q {
-      padding: 1.4rem 1.8rem;
+      padding: 1.4rem .2rem 1.4rem 1.3rem;
       display: flex; justify-content: space-between; align-items: center; gap: 1.2rem;
-      font-family: var(--font-heading); font-size: 1.1rem; color: var(--parchment);
-      transition: color .25s;
+      font-family: var(--font-heading); font-size: 1.15rem; color: var(--parchment);
+      transition: color .3s, padding-left .4s cubic-bezier(.16,1,.3,1);
+      letter-spacing: .002em;
     }
+    .faq-item.open .faq-q { padding-left: 1.7rem; color: var(--cream); }
     .faq-q > span:first-child { flex: 1; line-height: 1.4; }
-    .faq-item:hover .faq-q { color: var(--cream); }
     .faq-toggle {
       flex-shrink: 0;
-      width: 30px; height: 30px;
-      border: 1px solid rgba(201,148,42,.35);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-heading);
       color: var(--gold);
-      font-size: 1rem; font-weight: 300;
-      transition: transform .35s cubic-bezier(.16,1,.3,1), background .25s, border-color .25s, color .25s;
+      font-size: 1.45rem; line-height: 1;
+      transition: transform .4s cubic-bezier(.16,1,.3,1), color .25s;
+      width: 18px; text-align: center;
     }
-    .faq-item:hover .faq-toggle { border-color: var(--gold); background: rgba(201,148,42,.08); }
-    .faq-item.open .faq-toggle {
-      transform: rotate(45deg);
-      background: var(--gold);
-      color: var(--ink);
-      border-color: var(--gold);
-    }
+    .faq-item.open .faq-toggle { transform: rotate(45deg); color: var(--gold-lt); }
     .faq-a {
       max-height: 0; overflow: hidden;
-      transition: max-height .45s ease, padding .35s ease, opacity .4s ease;
-      font-size: .96rem; line-height: 1.8; color: rgba(245,237,214,.72);
-      opacity: 0; padding: 0 1.8rem;
+      transition: max-height .45s ease, padding .35s ease, opacity .45s ease;
+      font-size: .98rem; line-height: 1.8; color: rgba(245,237,214,.7);
+      opacity: 0;
+      padding: 0 .2rem 0 1.7rem;
     }
-    .faq-a p {
-      padding: 0 0 0 1rem;
-      border-left: 1px solid rgba(201,148,42,.3);
-      max-width: 72ch;
-    }
-    .faq-item.open .faq-a { max-height: 500px; padding-top: 0; padding-bottom: 1.5rem; opacity: 1; }
+    .faq-a p { max-width: 62ch; font-family: var(--font-heading); font-style: italic; color: rgba(245,237,214,.72); }
+    .faq-item.open .faq-a { max-height: 420px; padding-top: .2rem; padding-bottom: 1.6rem; opacity: 1; }
 
     /* ─── CONTACT FORM ─── */
     .contact { background: linear-gradient(180deg, var(--ink) 0%, var(--deep) 100%); position: relative; overflow: hidden; }
@@ -698,7 +684,7 @@
   <div class="wrap">
     <div class="usp-grid">
       <div class="usp-item"><div class="usp-mark">١</div><div class="usp-text"><strong>100% Halal</strong> · authentieke Syrische keuken</div></div>
-      <div class="usp-item"><div class="usp-mark">٢</div><div class="usp-text"><strong>Rotterdam & Best</strong> · ook op locatie in overleg</div></div>
+      <div class="usp-item"><div class="usp-mark">٢</div><div class="usp-text"><strong>Rotterdam & Best</strong> · ook op locatie</div></div>
       <div class="usp-item"><div class="usp-mark">٣</div><div class="usp-text"><strong>12 — 20 pers.</strong> · persoonlijke aandacht</div></div>
     </div>
   </div>

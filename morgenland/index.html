@@ -306,20 +306,44 @@
     .ruimte-features li::before { content: '\25C6'; font-size: .4rem; color: var(--gold); flex-shrink: 0; }
 
     /* ─── CONTACT ─── */
-    #contact { background: var(--deep); display: grid; grid-template-columns: 3fr 2fr; gap: 4rem; align-items: stretch; position: relative; overflow: hidden; }
-    #contact::before { content: ''; position: absolute; inset: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cdefs%3E%3Cpattern id='g' patternUnits='userSpaceOnUse' width='80' height='80'%3E%3Cg fill='none' stroke='%23c9942a' stroke-width='.5' opacity='.07'%3E%3Cpolygon points='40,4 52,16 64,16 72,28 64,40 52,40 40,52 28,40 16,40 8,28 16,16 28,16'/%3E%3Ccircle cx='40' cy='28' r='3'/%3E%3C/g%3E%3C/pattern%3E%3C/defs%3E%3Crect width='80' height='80' fill='url(%23g)'/%3E%3C/svg%3E"); pointer-events: none; }
-    .contact-form-section { position: relative; z-index: 1; background: rgba(0,0,0,.2); border: 1px solid rgba(201,148,42,.1); padding: 2.5rem; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
-    .form-group { margin-bottom: 1.2rem; }
-    .form-group label { display: block; font-size: .73rem; letter-spacing: .16em; text-transform: uppercase; color: rgba(245,237,214,.5); margin-bottom: .5rem; }
-    .form-group input, .form-group select, .form-group textarea { width: 100%; background: rgba(255,255,255,.04); border: 1px solid rgba(201,148,42,.2); color: var(--parchment); font-family: var(--font-body); font-size: .9rem; padding: .75rem 1rem; outline: none; transition: border-color .25s, background .25s; appearance: none; }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold); background: rgba(201,148,42,.06); }
-    .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(245,237,214,.25); }
-    .form-group textarea { resize: vertical; min-height: 110px; }
+    #contact { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cdefs%3E%3Cpattern id='g' patternUnits='userSpaceOnUse' width='80' height='80'%3E%3Cg fill='none' stroke='%23c9942a' stroke-width='.5' opacity='.06'%3E%3Cpolygon points='40,4 52,16 64,16 72,28 64,40 52,40 40,52 28,40 16,40 8,28 16,16 28,16'/%3E%3Ccircle cx='40' cy='28' r='3'/%3E%3C/g%3E%3C/pattern%3E%3C/defs%3E%3Crect width='80' height='80' fill='url(%23g)'/%3E%3C/svg%3E") repeat, var(--ink); padding: 4.5rem max(1.8rem, calc((100vw - 1080px) / 2)) 4rem; display: grid; grid-template-columns: 1fr 1.15fr; gap: 4rem; align-items: flex-start; position: relative; }
+    #contact .section-title { font-size: clamp(1.5rem, 2.4vw, 2.1rem); letter-spacing: .02em; line-height: 1.18; margin-bottom: 1rem; }
+    #contact .section-label { margin-bottom: .5rem; }
+    #contact .contact-info-title { font-size: 1.25rem; }
+    .contact-info { order: -1; }
+    @media (max-width: 900px) { .contact-info { order: 1; } #contact { padding: 4rem 1.5rem; gap: 2.5rem; } }
+    #contact::before { content: ''; position: absolute; top: 0; left: 14%; right: 14%; height: 1px; background: linear-gradient(90deg, transparent, rgba(201,148,42,.42), transparent); z-index: 2; }
+    #contact::after { content: ''; position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%) rotate(45deg); width: 9px; height: 9px; background: var(--ink); border: 1px solid var(--gold); z-index: 3; }
+    .contact-form-section { position: relative; z-index: 1; background: linear-gradient(180deg, rgba(74,14,14,.35), rgba(22,8,8,.7)); border: 1px solid var(--divider); border-radius: 2px; padding: 1.4rem 1.7rem; }
+    .contact-form-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: .6; }
+    .form-corner { position: absolute; width: 18px; height: 18px; border-color: var(--gold); opacity: .5; pointer-events: none; }
+    .form-corner.tl { top: 10px; left: 10px; border-top: 1px solid; border-left: 1px solid; }
+    .form-corner.tr { top: 10px; right: 10px; border-top: 1px solid; border-right: 1px solid; }
+    .form-corner.bl { bottom: 10px; left: 10px; border-bottom: 1px solid; border-left: 1px solid; }
+    .form-corner.br { bottom: 10px; right: 10px; border-bottom: 1px solid; border-right: 1px solid; }
+    .contact-info-ornament { display: flex; align-items: center; gap: .8rem; margin-bottom: 1rem; }
+    .contact-info-ornament-line { flex: 0 0 40px; height: 1px; background: var(--gold); opacity: .6; }
+    .contact-info-ornament-diamond { width: 10px; height: 10px; border: 1px solid var(--gold); transform: rotate(45deg); flex-shrink: 0; }
+    .contact-info-ornament-ar { font-family: var(--font-heading); color: var(--gold-lt); font-size: 1.35rem; letter-spacing: .03em; }
+    .form-section { margin-bottom: .85rem; }
+    .form-section:last-of-type { margin-bottom: .7rem; }
+    .form-section-hd { display: flex; align-items: baseline; gap: .5rem; margin-bottom: .55rem; padding-bottom: .35rem; border-bottom: 1px solid rgba(201,148,42,.15); }
+    .form-section-num-ar { font-family: var(--font-heading); font-size: .95rem; color: var(--gold-lt); line-height: 1; }
+    .form-section-lbl { font-family: var(--font-display); font-size: .6rem; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; margin-bottom: .55rem; }
+    .form-group { margin-bottom: .55rem; position: relative; }
+    .form-row .form-group { margin-bottom: 0; }
+    .form-section > .form-group:last-child { margin-bottom: 0; }
+    .form-group label { display: block; font-family: var(--font-display); font-size: .58rem; letter-spacing: .2em; text-transform: uppercase; color: rgba(245,237,214,.55); margin-bottom: .28rem; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; background: rgba(0,0,0,.3); border: 1px solid rgba(201,148,42,.18); color: var(--parchment); font-family: var(--font-body); font-size: .88rem; padding: .55rem .8rem; outline: none; border-radius: 2px; transition: border-color .3s, background .3s, box-shadow .3s; appearance: none; }
+    .form-group input:hover, .form-group select:hover, .form-group textarea:hover { border-color: rgba(201,148,42,.35); }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold); background: rgba(201,148,42,.05); box-shadow: 0 0 0 3px rgba(201,148,42,.08); }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(245,237,214,.26); font-style: italic; }
+    .form-group textarea { resize: vertical; min-height: 64px; }
     .form-group select option { background: var(--deep); }
-    .form-submit { width: 100%; padding: 1rem; background: var(--gold); border: none; color: var(--ink); font-family: var(--font-body); font-size: .82rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; cursor: pointer; transition: background .25s, transform .2s; }
-    .form-submit:hover { background: var(--gold-lt); transform: translateY(-2px); }
-    .contact-info { position: relative; z-index: 1; background: rgba(0,0,0,.2); border: 1px solid rgba(201,148,42,.1); padding: 2.5rem; }
+    .form-submit { width: 100%; padding: .82rem 1.3rem; background: var(--gold); border: 1px solid var(--gold); color: var(--ink); font-family: var(--font-display); font-size: .72rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; cursor: pointer; border-radius: 2px; transition: background .25s, transform .25s, box-shadow .25s, letter-spacing .3s, border-color .25s; margin-top: .3rem; }
+    .form-submit:hover { background: var(--gold-lt); border-color: var(--gold-lt); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(201,148,42,.2); letter-spacing: .26em; }
+    .contact-info { position: relative; z-index: 1; padding: .5rem 0 0 .5rem; }
     .contact-info-title { font-family: var(--font-display); font-size: 1.4rem; color: var(--cream); margin-bottom: .8rem; }
     .contact-info-text { font-size: .88rem; color: rgba(245,237,214,.55); line-height: 1.8; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(201,148,42,.1); }
     .contact-detail { display: flex; align-items: flex-start; gap: .9rem; margin-bottom: 1.3rem; }
@@ -333,7 +357,7 @@
     .halal-badge-text strong { display: block; color: var(--gold); font-size: .8rem; letter-spacing: .05em; margin-bottom: .1rem; }
 
     /* ─── FAQ ─── */
-    #faq { padding: 5rem 2rem; }
+    #faq { background: var(--deep); padding: 5rem 2rem; }
     .faq-item { border-bottom: 1px solid var(--divider); cursor: pointer; transition: background .2s; }
     .faq-item:first-child { border-top: 1px solid var(--divider); }
     .faq-q { padding: 1.3rem 2.5rem 1.3rem 0; font-family: var(--font-heading); font-size: 1.05rem; color: var(--parchment); position: relative; }
@@ -1182,7 +1206,7 @@
     </div>
     <div class="extra-item">
       <div class="extra-label" data-i18n="pak-ex2-label">Servicebereik</div>
-      <div class="extra-value" data-i18n="pak-ex2-val">Nederland &middot; Belgi&euml; &middot; Duitsland</div>
+      <div class="extra-value" data-i18n="pak-ex2-val">Nederland &middot; België &middot; Duitsland</div>
     </div>
     <div class="extra-item">
       <div class="extra-label" data-i18n="pak-ex3-label">Vrijblijvende proeverij</div>
@@ -1311,9 +1335,9 @@
         <div class="addon-grid">
           <div class="addon-groep-lbl" data-i18n="addon-grp-machines">Machines &amp; Apparatuur</div>
           <div class="addon" onclick="toggleAddon(this,'Popcornmachine huur',50,'vast')"><div class="addon-chk">&#x2713;</div><div class="addon-info"><div class="addon-naam" data-i18n="addon-popcorn-machine">Popcornmachine huur</div><div class="addon-prijs">+&euro;50,-</div></div></div>
-          <div class="addon" onclick="toggleAddon(this,'Popcornbenodigdheden',1.5,'pp',20)"><div class="addon-chk">&#x2713;</div><div class="addon-info"><div class="addon-naam" data-i18n="addon-popcorn-beno">Popcornbenodigdheden</div><div class="addon-prijs">+&euro;1,50 p.p.</div><div class="addon-desc" data-i18n="addon-popcorn-beno-desc">Zakjes &amp; ingredi&euml;nten &middot; min. 20 pers.</div></div></div>
+          <div class="addon" onclick="toggleAddon(this,'Popcornbenodigdheden',1.5,'pp',20)"><div class="addon-chk">&#x2713;</div><div class="addon-info"><div class="addon-naam" data-i18n="addon-popcorn-beno">Popcornbenodigdheden</div><div class="addon-prijs">+&euro;1,50 p.p.</div><div class="addon-desc" data-i18n="addon-popcorn-beno-desc">Zakjes &amp; ingrediënten &middot; min. 20 pers.</div></div></div>
           <div class="addon" onclick="toggleAddon(this,'Suikerspinmachine huur',50,'vast')"><div class="addon-chk">&#x2713;</div><div class="addon-info"><div class="addon-naam" data-i18n="addon-suikerspin-machine">Suikerspinmachine huur</div><div class="addon-prijs">+&euro;50,-</div></div></div>
-          <div class="addon" onclick="toggleAddon(this,'Suikerspinbenodigdheden',1.5,'pp',20)"><div class="addon-chk">&#x2713;</div><div class="addon-info"><div class="addon-naam" data-i18n="addon-suikerspin-beno">Suikerspinbenodigdheden</div><div class="addon-prijs">+&euro;1,50 p.p.</div><div class="addon-desc" data-i18n="addon-suikerspin-beno-desc">Stokjes &amp; ingredi&euml;nten &middot; min. 20 pers.</div></div></div>
+          <div class="addon" onclick="toggleAddon(this,'Suikerspinbenodigdheden',1.5,'pp',20)"><div class="addon-chk">&#x2713;</div><div class="addon-info"><div class="addon-naam" data-i18n="addon-suikerspin-beno">Suikerspinbenodigdheden</div><div class="addon-prijs">+&euro;1,50 p.p.</div><div class="addon-desc" data-i18n="addon-suikerspin-beno-desc">Stokjes &amp; ingrediënten &middot; min. 20 pers.</div></div></div>
           <div class="addon" onclick="toggleAddon(this,'Warme chocolademelk machine huur',30,'vast')"><div class="addon-chk">&#x2713;</div><div class="addon-info"><div class="addon-naam" data-i18n="addon-choco-machine">Warme chocolademelk machine</div><div class="addon-prijs">+&euro;30,-</div></div></div>
           <div class="addon" onclick="toggleAddon(this,'Warme chocolademelk per glas',3,'pp')"><div class="addon-chk">&#x2713;</div><div class="addon-info"><div class="addon-naam" data-i18n="addon-choco-glas">Warme chocolademelk per glas</div><div class="addon-prijs">+&euro;3,- p.p.</div><div class="addon-desc" data-i18n="addon-choco-glas-desc">Inclusief slagroom</div></div></div>
           <div class="addon-groep-lbl" data-i18n="addon-grp-servies">Serviesgoed &amp; Meubilair</div>
@@ -1563,30 +1587,80 @@
   <div class="reviews-cta reveal"><div class="reviews-score"><strong>4.9</strong> <span data-i18n="reviews-score">104 reviews &middot; Google Reviews</span></div></div>
 </section>
 
+<!-- ═══ FAQ ═══ -->
+<section id="faq">
+  <div style="max-width:740px;margin:0 auto;">
+    <p class="section-label reveal" style="justify-content:center;" data-i18n="faq-label">Veelgestelde Vragen</p>
+    <h2 class="section-title reveal reveal-delay-1" style="text-align:center;" data-i18n="faq-title">Heeft u een <em>vraag</em>?</h2>
+    <div style="margin-top:3rem;">
+      <div class="faq-item" onclick="this.classList.toggle('faq-open')"><div class="faq-q" data-i18n="faq-q1">Waar zit Morgenland precies?</div><div class="faq-a" data-i18n="faq-a1">Morgenland bevindt zich op de 2e verdieping van de Centrale Bibliotheek Rotterdam, Librijesteeg 4, 3011 EB Rotterdam. U vindt ons eenvoudig via de roltrappen of lift in de bibliotheek.</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('faq-open')"><div class="faq-q" data-i18n="faq-q2">Is alles halal?</div><div class="faq-a" data-i18n="faq-a2">Ja, al onze gerechten en bereidingen zijn 100% halal. Wij werken uitsluitend met halal-gecertificeerde leveranciers en ingrediënten.</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('faq-open')"><div class="faq-q" data-i18n="faq-q3">Kan ik online bestellen?</div><div class="faq-a" data-i18n="faq-a3">Ja, u kunt eenvoudig online bestellen via Lightspeed Order Anywhere. Uw bestelling kunt u afhalen bij ons in de Centrale Bibliotheek Rotterdam.</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('faq-open')"><div class="faq-q" data-i18n="faq-q4">Bieden jullie ook catering aan?</div><div class="faq-a" data-i18n="faq-a4">Ja, wij bieden dezelfde authentieke Syrisch-Libanese catering aan als Memories of Damascus. Van bruiloften tot bedrijfsevenementen &mdash; compleet verzorgd vanuit Rotterdam.</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('faq-open')"><div class="faq-q" data-i18n="faq-q5">Kan ik de ruimte huren?</div><div class="faq-a" data-i18n="faq-a5">Ja, de begane grond van Morgenland is beschikbaar voor privëevenementen. Neem contact met ons op voor beschikbaarheid en mogelijkheden.</div></div>
+      <div class="faq-item" onclick="this.classList.toggle('faq-open')"><div class="faq-q" data-i18n="faq-q6">Geven jullie kookworkshops?</div><div class="faq-a" data-i18n="faq-a6">Binnenkort! Wij zijn bezig met het opzetten van Syrisch-Libanese kookworkshops. Neem contact met ons op als u op de wachtlijst wilt komen.</div></div>
+    </div>
+  </div>
+</section>
+
 <!-- ═══ CONTACT ═══ -->
 <section id="contact">
   <div class="contact-form-section">
+    <span class="form-corner tl"></span>
+    <span class="form-corner tr"></span>
+    <span class="form-corner bl"></span>
+    <span class="form-corner br"></span>
+
     <p class="section-label" data-i18n="cont-label">Neem Contact Op</p>
+    <div class="contact-info-ornament">
+      <span class="contact-info-ornament-line"></span>
+      <span class="contact-info-ornament-diamond"></span>
+      <span class="contact-info-ornament-ar">طلب عرض</span>
+    </div>
     <h2 class="section-title" data-i18n="cont-title">Vraag een <em>offerte</em> aan</h2>
-    <div class="ornamental-divider"><div class="ornamental-diamond"></div></div>
-    <p style="font-size:.9rem;color:rgba(245,237,214,.55);line-height:1.75;margin-bottom:2rem;" data-i18n="cont-desc">Vertel ons over uw wensen en wij sturen u binnen 24 uur een vrijblijvende offerte op maat.</p>
+    <p style="font-size:.9rem;color:rgba(245,237,214,.55);line-height:1.75;margin-bottom:1.6rem;" data-i18n="cont-desc">Vertel ons over uw wensen en wij sturen u binnen 24 uur een vrijblijvende offerte op maat.</p>
     <form onsubmit="handleSubmit(event)">
-      <div class="form-row">
-        <div class="form-group"><label data-i18n="form-naam">Naam *</label><input type="text" name="naam" required autocomplete="name" /></div>
-        <div class="form-group"><label data-i18n="form-email">E-mailadres *</label><input type="email" name="email" required autocomplete="email" /></div>
+
+      <div class="form-section">
+        <div class="form-section-hd">
+          <span class="form-section-num-ar">١</span>
+          <span class="form-section-lbl" data-i18n="form-sec1">Over u</span>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label data-i18n="form-naam">Naam *</label><input type="text" name="naam" required autocomplete="name" placeholder="Uw naam" /></div>
+          <div class="form-group"><label data-i18n="form-email">E-mailadres *</label><input type="email" name="email" required autocomplete="email" placeholder="uw@email.nl" /></div>
+        </div>
+        <div class="form-group"><label data-i18n="form-tel">Telefoonnummer *</label><input type="tel" name="telefoon" required autocomplete="tel" placeholder="06 ..." /></div>
       </div>
-      <div class="form-row">
-        <div class="form-group"><label data-i18n="form-tel">Telefoonnummer *</label><input type="tel" name="telefoon" required autocomplete="tel" /></div>
+
+      <div class="form-section">
+        <div class="form-section-hd">
+          <span class="form-section-num-ar">٢</span>
+          <span class="form-section-lbl" data-i18n="form-sec2">Over uw aanvraag</span>
+        </div>
         <div class="form-group">
           <label data-i18n="form-type">Type</label>
           <select name="type" data-i18n="form-type-select"><option value="">Selecteer...</option><option>Catering</option><option>Kookworkshop</option><option>Ruimte Huren</option><option>Overig</option></select>
         </div>
       </div>
-      <div class="form-group"><label data-i18n="form-bericht">Bericht *</label><textarea name="bericht" required></textarea></div>
+
+      <div class="form-section">
+        <div class="form-section-hd">
+          <span class="form-section-num-ar">٣</span>
+          <span class="form-section-lbl" data-i18n="form-sec3">Uw bericht</span>
+        </div>
+        <div class="form-group"><label data-i18n="form-bericht">Bericht *</label><textarea name="bericht" required placeholder="Vertel kort over uw wensen..."></textarea></div>
+      </div>
+
       <button type="submit" class="form-submit" data-i18n="cont-btn">Verstuur &mdash; Gratis &amp; Vrijblijvend</button>
     </form>
   </div>
   <div class="contact-info">
+    <div class="contact-info-ornament">
+      <span class="contact-info-ornament-line"></span>
+      <span class="contact-info-ornament-diamond"></span>
+      <span class="contact-info-ornament-ar">تواصل معنا</span>
+    </div>
     <div class="contact-info-title" data-i18n="cont-info-title">Direct Contact</div>
     <div class="contact-info-text" data-i18n="cont-info-text">Liever direct bellen of appen? Wij zijn bereikbaar op onderstaande gegevens.</div>
     <div class="contact-detail">
@@ -1615,22 +1689,6 @@
     </div>
     <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid rgba(201,148,42,.1);font-size:.78rem;color:rgba(245,237,214,.3);font-style:italic;">
       Onderdeel van <a href="https://memoriesofdamascus.nl" target="_blank" rel="noopener" style="color:rgba(201,148,42,.5);text-decoration:underline;">Memories of Damascus</a>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ FAQ ═══ -->
-<section id="faq">
-  <div style="max-width:740px;margin:0 auto;">
-    <p class="section-label reveal" style="justify-content:center;" data-i18n="faq-label">Veelgestelde Vragen</p>
-    <h2 class="section-title reveal reveal-delay-1" style="text-align:center;" data-i18n="faq-title">Heeft u een <em>vraag</em>?</h2>
-    <div style="margin-top:3rem;">
-      <div class="faq-item" onclick="this.classList.toggle('faq-open')"><div class="faq-q" data-i18n="faq-q1">Waar zit Morgenland precies?</div><div class="faq-a" data-i18n="faq-a1">Morgenland bevindt zich op de 2e verdieping van de Centrale Bibliotheek Rotterdam, Librijesteeg 4, 3011 EB Rotterdam. U vindt ons eenvoudig via de roltrappen of lift in de bibliotheek.</div></div>
-      <div class="faq-item" onclick="this.classList.toggle('faq-open')"><div class="faq-q" data-i18n="faq-q2">Is alles halal?</div><div class="faq-a" data-i18n="faq-a2">Ja, al onze gerechten en bereidingen zijn 100% halal. Wij werken uitsluitend met halal-gecertificeerde leveranciers en ingredi&euml;nten.</div></div>
-      <div class="faq-item" onclick="this.classList.toggle('faq-open')"><div class="faq-q" data-i18n="faq-q3">Kan ik online bestellen?</div><div class="faq-a" data-i18n="faq-a3">Ja, u kunt eenvoudig online bestellen via Lightspeed Order Anywhere. Uw bestelling kunt u afhalen bij ons in de Centrale Bibliotheek Rotterdam.</div></div>
-      <div class="faq-item" onclick="this.classList.toggle('faq-open')"><div class="faq-q" data-i18n="faq-q4">Bieden jullie ook catering aan?</div><div class="faq-a" data-i18n="faq-a4">Ja, wij bieden dezelfde authentieke Syrisch-Libanese catering aan als Memories of Damascus. Van bruiloften tot bedrijfsevenementen &mdash; compleet verzorgd vanuit Rotterdam.</div></div>
-      <div class="faq-item" onclick="this.classList.toggle('faq-open')"><div class="faq-q" data-i18n="faq-q5">Kan ik de ruimte huren?</div><div class="faq-a" data-i18n="faq-a5">Ja, de begane grond van Morgenland is beschikbaar voor priv&eacute;evenementen. Neem contact met ons op voor beschikbaarheid en mogelijkheden.</div></div>
-      <div class="faq-item" onclick="this.classList.toggle('faq-open')"><div class="faq-q" data-i18n="faq-q6">Geven jullie kookworkshops?</div><div class="faq-a" data-i18n="faq-a6">Binnenkort! Wij zijn bezig met het opzetten van Syrisch-Libanese kookworkshops. Neem contact met ons op als u op de wachtlijst wilt komen.</div></div>
     </div>
   </div>
 </section>
@@ -1751,7 +1809,7 @@
           <div class="form-group"><label data-i18n="modal-tel-lbl">Telefoonnummer *</label><input type="tel" name="telefoon" placeholder="+31 6 00 00 00 00" required autocomplete="tel"></div>
         </div>
         <div class="form-group"><label data-i18n="modal-email-lbl">E-mailadres *</label><input type="email" name="email" placeholder="uw@email.nl" required autocomplete="email"></div>
-        <div class="form-group"><label data-i18n="modal-wensen-lbl">Uw wensen / opmerkingen</label><textarea name="bericht" placeholder="Dieetvereisten, allergie&euml;n, speciale wensen..." data-i18n-placeholder="modal-wensen-ph"></textarea></div>
+        <div class="form-group"><label data-i18n="modal-wensen-lbl">Uw wensen / opmerkingen</label><textarea name="bericht" placeholder="Dieetvereisten, allergieën, speciale wensen..." data-i18n-placeholder="modal-wensen-ph"></textarea></div>
         <button type="submit" class="modal-submit" data-i18n="modal-submit-btn">Verstuur Aanvraag &mdash; Gratis &amp; Vrijblijvend</button>
         <div class="modal-fine-print" data-i18n="modal-fineprint">Wij nemen binnen 24 uur contact met u op &middot; Geen verplichtingen</div>
       </form>
@@ -2009,7 +2067,7 @@ var i18n = {
   'pak-ex1-label':    { nl:'Bezorgkosten buiten regio', en:'Delivery outside region' },
   'pak-ex1-val':      { nl:'&euro;0,50 per km (retour) vanaf Rotterdam', en:'&euro;0.50 per km (return) from Rotterdam' },
   'pak-ex2-label':    { nl:'Servicebereik', en:'Service area' },
-  'pak-ex2-val':      { nl:'Nederland &middot; Belgi&euml; &middot; Duitsland', en:'Netherlands &middot; Belgium &middot; Germany' },
+  'pak-ex2-val':      { nl:'Nederland &middot; België &middot; Duitsland', en:'Netherlands &middot; Belgium &middot; Germany' },
   'pak-ex3-label':    { nl:'Vrijblijvende proeverij', en:'Free tasting session' },
   'pak-ex3-val':      { nl:'Gratis bij huwelijkscatering en andere grote feesten', en:'Free for wedding catering and other large celebrations' },
 
@@ -2062,10 +2120,10 @@ var i18n = {
   'addon-perstuk':     { nl:'per stuk', en:'per piece' },
   'addon-popcorn-machine': { nl:'Popcornmachine huur', en:'Popcorn machine rental' },
   'addon-popcorn-beno':    { nl:'Popcornbenodigdheden', en:'Popcorn supplies' },
-  'addon-popcorn-beno-desc':{ nl:'Zakjes &amp; ingredi&euml;nten &middot; min. 20 pers.', en:'Bags &amp; ingredients &middot; min. 20 persons' },
+  'addon-popcorn-beno-desc':{ nl:'Zakjes &amp; ingrediënten &middot; min. 20 pers.', en:'Bags &amp; ingredients &middot; min. 20 persons' },
   'addon-suikerspin-machine':{ nl:'Suikerspinmachine huur', en:'Cotton candy machine rental' },
   'addon-suikerspin-beno': { nl:'Suikerspinbenodigdheden', en:'Cotton candy supplies' },
-  'addon-suikerspin-beno-desc':{ nl:'Stokjes &amp; ingredi&euml;nten &middot; min. 20 pers.', en:'Sticks &amp; ingredients &middot; min. 20 persons' },
+  'addon-suikerspin-beno-desc':{ nl:'Stokjes &amp; ingrediënten &middot; min. 20 pers.', en:'Sticks &amp; ingredients &middot; min. 20 persons' },
   'addon-choco-machine':   { nl:'Warme chocolademelk machine', en:'Hot chocolate machine' },
   'addon-choco-glas':      { nl:'Warme chocolademelk per glas', en:'Hot chocolate per glass' },
   'addon-choco-glas-desc': { nl:'Inclusief slagroom', en:'Including whipped cream' },
@@ -2196,7 +2254,7 @@ var i18n = {
   'faq-q1':           { nl:'Waar zit Morgenland precies?', en:'Where exactly is Morgenland located?' },
   'faq-a1':           { nl:'Morgenland bevindt zich op de 2e verdieping van de Centrale Bibliotheek Rotterdam, Librijesteeg 4, 3011 EB Rotterdam. U vindt ons eenvoudig via de roltrappen of lift in de bibliotheek.', en:'Morgenland is located on the 2nd floor of Rotterdam Central Library, Librijesteeg 4, 3011 EB Rotterdam. You can easily find us via the escalators or lift in the library.' },
   'faq-q2':           { nl:'Is alles halal?', en:'Is everything halal?' },
-  'faq-a2':           { nl:'Ja, al onze gerechten en bereidingen zijn 100% halal. Wij werken uitsluitend met halal-gecertificeerde leveranciers en ingredi&euml;nten.', en:'Yes, all our dishes and preparations are 100% halal. We work exclusively with halal-certified suppliers and ingredients.' },
+  'faq-a2':           { nl:'Ja, al onze gerechten en bereidingen zijn 100% halal. Wij werken uitsluitend met halal-gecertificeerde leveranciers en ingrediënten.', en:'Yes, all our dishes and preparations are 100% halal. We work exclusively with halal-certified suppliers and ingredients.' },
   'faq-q3':           { nl:'Kan ik online bestellen?', en:'Can I order online?' },
   'faq-a3':           { nl:'Ja, u kunt eenvoudig online bestellen via Lightspeed Order Anywhere. Uw bestelling kunt u afhalen bij ons in de Centrale Bibliotheek Rotterdam.', en:'Yes, you can easily order online via Lightspeed Order Anywhere. You can pick up your order at our location in Rotterdam Central Library.' },
   'faq-q4':           { nl:'Bieden jullie ook catering aan?', en:'Do you also offer catering?' },
@@ -2228,7 +2286,10 @@ var i18n = {
   'modal-tel-lbl':    { nl:'Telefoonnummer *', en:'Phone number *' },
   'modal-email-lbl':  { nl:'E-mailadres *', en:'Email address *' },
   'modal-wensen-lbl': { nl:'Uw wensen / opmerkingen', en:'Your wishes / remarks' },
-  'modal-wensen-ph':  { nl:'Dieetvereisten, allergie&euml;n, speciale wensen...', en:'Dietary requirements, allergies, special wishes...' },
+  'modal-wensen-ph':  { nl:'Dieetvereisten, allergieën, speciale wensen...', en:'Dietary requirements, allergies, special wishes...' },
+  'form-sec1':        { nl:'Over u', en:'About you' },
+  'form-sec2':        { nl:'Over uw aanvraag', en:'About your request' },
+  'form-sec3':        { nl:'Uw bericht', en:'Your message' },
   'modal-submit-btn': { nl:'Verstuur Aanvraag &mdash; Gratis &amp; Vrijblijvend', en:'Send Request &mdash; Free &amp; No Obligation' },
   'modal-fineprint':  { nl:'Wij nemen binnen 24 uur contact met u op &middot; Geen verplichtingen', en:'We will contact you within 24 hours &middot; No obligations' },
   'modal-success-title':{ nl:'Aanvraag <em>ontvangen</em>', en:'Request <em>received</em>' },
