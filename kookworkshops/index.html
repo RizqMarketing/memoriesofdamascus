@@ -51,7 +51,7 @@
     }
 
     /* ─── PRELOADER ─── */
-    #preloader { position: fixed; inset: 0; z-index: 99999; background: var(--ink) url('preloader-bg.png') center/cover no-repeat; display: flex; align-items: center; justify-content: center; transition: opacity .6s ease, visibility .6s ease; overflow: hidden; }
+    #preloader { position: fixed; inset: 0; z-index: 99999; background: var(--ink) url('preloader-bg.webp') center/cover no-repeat; display: flex; align-items: center; justify-content: center; transition: opacity .6s ease, visibility .6s ease; overflow: hidden; }
     #preloader::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 65% at center, rgba(15,5,5,.65) 0%, rgba(15,5,5,.82) 50%, rgba(15,5,5,.95) 100%); z-index: 0; pointer-events: none; }
     #preloader.hide { opacity: 0; visibility: hidden; pointer-events: none; }
     .preloader-inner { text-align: center; position: relative; z-index: 1; }
@@ -130,7 +130,7 @@
     .hero-side { position: relative; }
     .hero-tile {
       aspect-ratio: 4/5;
-      background: #160808 url('hero-tile.png') center/cover no-repeat;
+      background: #160808 url('hero-tile.webp') center/cover no-repeat;
       border: 1px solid var(--divider); border-radius: 2px;
       padding: 3rem 2.5rem;
       display: flex; flex-direction: column; justify-content: space-between;
@@ -197,7 +197,7 @@
     }
     .verhaal-visual {
       position: relative; aspect-ratio: 5/6;
-      background: #160808 url('verhaal-visual.png') right center/cover no-repeat;
+      background: #160808 url('verhaal-visual.webp') right center/cover no-repeat;
       border: 1px solid var(--divider); border-radius: 2px;
       overflow: hidden;
       display: flex; flex-direction: column; justify-content: space-between;
