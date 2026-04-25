@@ -3843,6 +3843,12 @@
       body: JSON.stringify(payload)
     }).then(function(r) {
       if (!r.ok) return r.text().then(function(t) { throw new Error('Supabase ' + r.status + ': ' + t); });
+      // Fire-and-forget: trigger Netlify Function voor email-notificaties
+      fetch('/.netlify/functions/notify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).catch(function(e) { console.warn('notify failed', e); });
       return r;
     });
   }

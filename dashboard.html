@@ -573,13 +573,25 @@
       </div>
       <div class="dash-card">
         <div class="dash-card-header">
-          <div class="dash-card-title">Alle aanvragen</div>
-          <select class="form-input" style="width:auto;max-width:160px;padding:.3rem .7rem;font-size:.75rem">
-            <option>Alle statussen</option>
-            <option>Nieuw</option>
-            <option>In behandeling</option>
-            <option>Bevestigd</option>
-          </select>
+          <div class="dash-card-title">Alle aanvragen <span id="offertesCount" style="color:rgba(245,237,214,.4);font-size:.8rem;font-weight:400;margin-left:.5rem"></span></div>
+          <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+            <select id="filterSite" class="form-input" onchange="applyFilters()" style="width:auto;padding:.3rem .7rem;font-size:.75rem">
+              <option value="">Alle sites</option>
+              <option value="mod">MoD</option>
+              <option value="morgenland">Morgenland</option>
+              <option value="kookworkshops">Kookworkshops</option>
+            </select>
+            <select id="filterStatus" class="form-input" onchange="applyFilters()" style="width:auto;padding:.3rem .7rem;font-size:.75rem">
+              <option value="">Alle statussen</option>
+              <option value="nieuw">Nieuw</option>
+              <option value="in_behandeling">In behandeling</option>
+              <option value="verstuurd">Verstuurd</option>
+              <option value="bevestigd">Bevestigd</option>
+              <option value="afgehandeld">Afgehandeld</option>
+              <option value="geannuleerd">Geannuleerd</option>
+            </select>
+            <input id="filterSearch" type="search" oninput="applyFilters()" placeholder="Zoek op naam/email…" class="form-input" style="width:auto;padding:.3rem .7rem;font-size:.75rem">
+          </div>
         </div>
         <div class="table-wrap"><table class="data-table">
           <thead>
@@ -1094,6 +1106,8 @@
     };
   }
 
+  var allOffertes = [];
+
   function loadOffertes() {
     var url = SUPABASE_URL + '/rest/v1/offerteverzoeken?order=created_at.desc&limit=200';
     fetch(url, { headers: authHeaders() }).then(function(r) {
@@ -1101,9 +1115,49 @@
       return r.json();
     }).then(function(rows) {
       if (!rows) return;
-      renderOffertes(rows);
+      allOffertes = rows;
+      applyFilters();
       renderStats(rows);
+      renderRecentOnOverview(rows);
     }).catch(function(e) { console.error('loadOffertes', e); });
+  }
+
+  function applyFilters() {
+    var site = document.getElementById('filterSite');
+    var status = document.getElementById('filterStatus');
+    var search = document.getElementById('filterSearch');
+    var siteVal = site ? site.value : '';
+    var statusVal = status ? status.value : '';
+    var q = search ? search.value.toLowerCase().trim() : '';
+    var filtered = allOffertes.filter(function(r) {
+      if (siteVal && r.site !== siteVal) return false;
+      if (statusVal && r.status !== statusVal) return false;
+      if (q) {
+        var hay = (r.naam + ' ' + r.email + ' ' + (r.telefoon||'') + ' ' + (r.bericht||'')).toLowerCase();
+        if (hay.indexOf(q) === -1) return false;
+      }
+      return true;
+    });
+    renderOffertes(filtered);
+    var c = document.getElementById('offertesCount');
+    if (c) c.textContent = '(' + filtered.length + (filtered.length !== allOffertes.length ? ' van ' + allOffertes.length : '') + ')';
+  }
+  window.applyFilters = applyFilters;
+
+  function renderRecentOnOverview(rows) {
+    var tbody = document.querySelector('#panel-overview .dash-card tbody');
+    if (!tbody) return;
+    var recent = rows.slice(0, 5);
+    if (!recent.length) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:1.5rem;color:rgba(245,237,214,.4)">Nog geen aanvragen.</td></tr>'; return; }
+    tbody.innerHTML = recent.map(function(r) {
+      return '<tr>' +
+        '<td><strong style="color:var(--cream)">' + esc(r.naam) + '</strong><br><span style="font-size:.7rem;color:rgba(245,237,214,.4)">' + esc(SITE_LABEL[r.site] || r.site) + '</span></td>' +
+        '<td class="col-hide-sm">' + esc(r.formulier) + '</td>' +
+        '<td class="col-hide-sm">' + fmtDate(r.datum) + '</td>' +
+        '<td>' + fmtBedrag(r.totaal_bedrag) + '</td>' +
+        '<td><span class="badge ' + (STATUS_BADGE[r.status] || 'badge-new') + '">' + esc(STATUS_LABEL[r.status] || r.status) + '</span></td>' +
+      '</tr>';
+    }).join('');
   }
 
   var SITE_LABEL = { mod: 'MoD', morgenland: 'Morgenland', kookworkshops: 'Kookworkshops' };

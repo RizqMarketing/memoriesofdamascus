@@ -1,8 +1,11 @@
-// Google Distance Matrix proxy — Morgenland (Rotterdam only)
+// Google Distance Matrix proxy — keeps API key server-side.
 // Query: /.netlify/functions/distance?pc=3011AB
-// Returns: { ok, km, city }
+// Returns: { ok, kmBest, kmRotterdam, city }
 
-const ORIGIN = 'Librijesteeg 4, 3011 EB Rotterdam, Netherlands';
+const ORIGINS = {
+  best: 'De Run 21, 5684 PW Best, Netherlands',
+  rotterdam: 'Librijesteeg 4, 3011 EB Rotterdam, Netherlands'
+};
 
 exports.handler = async (event) => {
   const pc = (event.queryStringParameters?.pc || '').replace(/\s/g, '').toUpperCase();
@@ -14,21 +17,32 @@ exports.handler = async (event) => {
   if (!key) return json(500, { ok: false, error: 'missing_api_key' });
 
   const dest = encodeURIComponent(pc + ', Netherlands');
-  const origin = encodeURIComponent(ORIGIN);
-  const url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${origin}&destinations=${dest}&mode=driving&language=nl&region=nl&units=metric&key=${key}`;
+  const origins = encodeURIComponent(`${ORIGINS.best}|${ORIGINS.rotterdam}`);
+  const url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${origins}&destinations=${dest}&mode=driving&language=nl&region=nl&units=metric&key=${key}`;
 
   try {
     const res = await fetch(url);
     const data = await res.json();
     if (data.status !== 'OK') return json(502, { ok: false, error: 'api_' + data.status });
 
-    const el = data.rows?.[0]?.elements?.[0];
-    if (el?.status !== 'OK') return json(404, { ok: false, error: 'no_route' });
+    const rows = data.rows;
+    const eBest = rows[0]?.elements?.[0];
+    const eRot = rows[1]?.elements?.[0];
+    if (eBest?.status !== 'OK' || eRot?.status !== 'OK') {
+      return json(404, { ok: false, error: 'no_route' });
+    }
 
-    const km = Math.round(el.distance.value / 1000);
+    const kmBest = Math.round(eBest.distance.value / 1000);
+    const kmRotterdam = Math.round(eRot.distance.value / 1000);
     const city = (data.destination_addresses?.[0] || '').split(',')[0] || pc;
 
-    return json(200, { ok: true, km, city }, { 'Cache-Control': 'public, max-age=86400' });
+    return json(200, {
+      ok: true,
+      kmBest,
+      kmRotterdam,
+      city,
+      cached: false
+    }, { 'Cache-Control': 'public, max-age=86400' });
   } catch (err) {
     return json(500, { ok: false, error: 'fetch_failed' });
   }
