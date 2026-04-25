@@ -1284,6 +1284,26 @@
 </footer>
 
 <script>
+  // ══ SUPABASE CONFIG ══
+  var SUPABASE_URL = 'https://sphnynlfyzialpldrgew.supabase.co';
+  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNwaG55bmxmeXppYWxwbGRyZ2V3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcwNzUyNTcsImV4cCI6MjA5MjY1MTI1N30.4e_i-Q1upnaLWVSN2lKTIT7sRz3EO8sdMBWlDw2WwgI';
+
+  function postOfferte(payload) {
+    return fetch(SUPABASE_URL + '/rest/v1/offerteverzoeken', {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(payload)
+    }).then(function(r) {
+      if (!r.ok) return r.text().then(function(t) { throw new Error('Supabase ' + r.status + ': ' + t); });
+      return r;
+    });
+  }
+
   // ── Preloader
   window.addEventListener('load', function() {
     setTimeout(function() {
@@ -1347,16 +1367,36 @@
   function handleFormSubmit(e) {
     e.preventDefault();
     var form = e.target;
-    var data = new FormData(form);
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(data).toString()
-    }).then(function() {
+    var fd = new FormData(form);
+    var personen = parseInt(fd.get('personen'), 10);
+
+    var payload = {
+      site: 'kookworkshops',
+      formulier: 'workshop-aanvraag',
+      naam: (fd.get('naam') || '').trim(),
+      email: (fd.get('email') || '').trim(),
+      telefoon: (fd.get('telefoon') || '').trim() || null,
+      bericht: (fd.get('bericht') || '').trim() || null,
+      personen: isNaN(personen) ? null : personen,
+      workshop_type: fd.get('workshop') || null,
+      configurator: {
+        locatie: fd.get('locatie') || null,
+        datum_voorkeur: fd.get('datum') || null
+      },
+      user_agent: navigator.userAgent
+    };
+
+    var btn = form.querySelector('.form-submit');
+    if (btn) btn.disabled = true;
+
+    postOfferte(payload).then(function() {
       document.getElementById('formSuccess').classList.add('show');
       form.reset();
+      if (btn) btn.disabled = false;
       setTimeout(function() { document.getElementById('formSuccess').classList.remove('show'); }, 8000);
-    }).catch(function() {
+    }).catch(function(err) {
+      console.error('Form submit failed:', err);
+      if (btn) btn.disabled = false;
       alert('Er ging iets mis — probeer het opnieuw of stuur ons een WhatsApp.');
     });
   }
@@ -1390,19 +1430,39 @@
   function handleOfferteSubmit(e) {
     e.preventDefault();
     var form = e.target;
-    var data = new FormData(form);
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(data).toString()
-    }).then(function() {
+    var fd = new FormData(form);
+    var personen = parseInt(fd.get('personen'), 10);
+
+    var payload = {
+      site: 'kookworkshops',
+      formulier: 'offerte-aanvraag',
+      naam: (fd.get('naam') || '').trim(),
+      email: (fd.get('email') || '').trim(),
+      telefoon: (fd.get('telefoon') || '').trim() || null,
+      bericht: (fd.get('bericht') || '').trim() || null,
+      personen: isNaN(personen) ? null : personen,
+      workshop_type: fd.get('workshop') || null,
+      configurator: {
+        locatie: fd.get('locatie') || null,
+        datum_voorkeur: fd.get('datum') || null
+      },
+      user_agent: navigator.userAgent
+    };
+
+    var btn = form.querySelector('.form-submit');
+    if (btn) btn.disabled = true;
+
+    postOfferte(payload).then(function() {
       document.getElementById('omSuccess').classList.add('show');
       form.reset();
+      if (btn) btn.disabled = false;
       setTimeout(function() {
         document.getElementById('omSuccess').classList.remove('show');
         closeOfferteModal();
       }, 3500);
-    }).catch(function() {
+    }).catch(function(err) {
+      console.error('Offerte submit failed:', err);
+      if (btn) btn.disabled = false;
       alert('Er ging iets mis — probeer het opnieuw of stuur ons een WhatsApp.');
     });
   }
