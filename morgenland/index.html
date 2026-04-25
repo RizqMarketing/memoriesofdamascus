@@ -17,6 +17,8 @@
   <meta name="twitter:image" content="https://morgenland.nu/og-image.jpg" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="alternate icon" href="favicon.svg" />
+  <!-- Plausible analytics — activeren door regel uit te commentaren -->
+  <!-- <script defer data-domain="morgenland.nu" src="https://plausible.io/js/script.js"></script> -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Cormorant+SC:wght@300;400;500;600&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet" />
@@ -1843,6 +1845,11 @@
         <div class="modal-success-icon">&#10023; &#10022; &#10023;</div>
         <div class="modal-success-title" data-i18n="modal-success-title">Aanvraag <em>ontvangen</em></div>
         <div class="modal-success-text" data-i18n="modal-success-text">Dank u wel. Wij nemen binnen 24 uur persoonlijk contact met u op met een offerte op maat.</div>
+        <div id="mollieBtnWrap" style="display:none;margin:1.4rem 0 .5rem;padding:1.2rem;background:rgba(201,148,42,.08);border:1px solid rgba(201,148,42,.25);border-radius:4px;max-width:32rem">
+          <div style="font-size:.78rem;color:rgba(245,237,214,.6);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem">Liever direct vooraf betalen?</div>
+          <div style="font-size:.9rem;color:rgba(245,237,214,.85);margin-bottom:.9rem">U kunt nu meteen veilig afrekenen — sneller, geen factuur achteraf.</div>
+          <button class="btn-primary" style="width:100%" onclick="startMolliePayment(this.parentNode.dataset.offerteId, this)">Direct afrekenen <span id="mollieBedrag"></span> &rarr;</button>
+        </div>
         <button class="btn-primary modal-success-close" onclick="closeOfferteModal()" data-i18n="modal-close-btn">Sluiten</button>
       </div>
     </div>
@@ -1854,7 +1861,16 @@
 var SUPABASE_URL = 'https://sphnynlfyzialpldrgew.supabase.co';
 var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNwaG55bmxmeXppYWxwbGRyZ2V3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcwNzUyNTcsImV4cCI6MjA5MjY1MTI1N30.4e_i-Q1upnaLWVSN2lKTIT7sRz3EO8sdMBWlDw2WwgI';
 
+function genUuid() {
+  if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
+
 function postOfferte(payload) {
+  if (!payload.id) payload.id = genUuid();
   return fetch(SUPABASE_URL + '/rest/v1/offerteverzoeken', {
     method: 'POST',
     headers: {
@@ -1871,9 +1887,27 @@ function postOfferte(payload) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     }).catch(function(e) { console.warn('notify failed', e); });
-    return r;
+    return payload.id;
   });
 }
+
+function startMolliePayment(offerteId, btn) {
+  if (btn) { btn.disabled = true; btn.textContent = 'Betaling voorbereiden…'; }
+  fetch('/.netlify/functions/mollie-create-payment', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ offerte_id: offerteId })
+  }).then(function(r) { return r.json().then(function(d) { return { ok: r.ok, data: d }; }); })
+    .then(function(res) {
+      if (!res.ok || !res.data.checkoutUrl) throw new Error(res.data.error || 'Geen checkout URL');
+      window.location.href = res.data.checkoutUrl;
+    }).catch(function(e) {
+      console.error('Mollie create failed:', e);
+      if (btn) { btn.disabled = false; btn.textContent = 'Direct afrekenen'; }
+      alert('Betaling kon niet worden opgestart. Probeer opnieuw of neem contact op.');
+    });
+}
+window.startMolliePayment = startMolliePayment;
 
 // ── Always start at top on page load
 history.scrollRestoration = 'manual';
@@ -2901,12 +2935,21 @@ function submitOfferteModal(e) {
 
   if (btn) { btn.disabled = true; btn.style.opacity = '.7'; }
 
-  postOfferte(payload).then(function() {
+  postOfferte(payload).then(function(offerteId) {
     document.getElementById('offerteForm').style.display = 'none';
     document.getElementById('offerteSuccess').classList.add('show');
     var bar = document.getElementById('mobPriceBar');
     if (bar) bar.classList.remove('visible');
     window.showMobPriceBar = function(){};
+    if (payload.totaal_bedrag && payload.totaal_bedrag > 0) {
+      var mb = document.getElementById('mollieBtnWrap');
+      if (mb) {
+        mb.style.display = 'block';
+        mb.dataset.offerteId = offerteId;
+        var amt = document.getElementById('mollieBedrag');
+        if (amt) amt.textContent = '€' + Number(payload.totaal_bedrag).toLocaleString('nl-NL', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+      }
+    }
   }).catch(function(err) {
     console.error('Modal submit failed:', err);
     if (btn) { btn.disabled = false; btn.style.opacity = ''; }

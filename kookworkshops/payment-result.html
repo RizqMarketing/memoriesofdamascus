@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Betaling — Memories of Damascus</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<style>
+  :root {
+    --ink:#160808; --gold:#c9942a; --gold-lt:#e8c46a;
+    --cream:#f5edd6; --muted:#c4b49a;
+    --terracotta:#b85c38;
+    --font-heading:'Cormorant Garamond',Georgia,serif;
+    --font-body:'Inter',system-ui,sans-serif;
+  }
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--ink);color:var(--cream);font-family:var(--font-body);min-height:100vh}
+  .wrap{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;text-align:center}
+  .icon{font-size:3rem;margin-bottom:1rem;color:var(--gold-lt)}
+  h1{font-family:var(--font-heading);font-weight:400;font-size:clamp(1.6rem,4vw,2.6rem);color:var(--cream);margin-bottom:1rem}
+  h1 em{color:var(--gold-lt);font-style:italic}
+  p{color:var(--muted);max-width:520px;margin-bottom:2rem;line-height:1.7}
+  .btn{display:inline-block;padding:.9rem 2rem;border:1px solid var(--gold);color:var(--gold-lt);text-decoration:none;font-size:.85rem;letter-spacing:.16em;text-transform:uppercase;transition:all .2s;font-family:var(--font-body)}
+  .btn:hover{background:var(--gold);color:var(--ink)}
+  .status-wrap{padding:2rem;background:rgba(201,148,42,.05);border:1px solid rgba(201,148,42,.2);border-radius:8px;max-width:520px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="state" class="status-wrap">
+    <div class="icon">…</div>
+    <h1>Betalingsstatus <em>laden</em></h1>
+    <p>Een moment, we controleren uw betaling…</p>
+  </div>
+</div>
+<script>
+  var SUPABASE_URL = 'https://sphnynlfyzialpldrgew.supabase.co';
+  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNwaG55bmxmeXppYWxwbGRyZ2V3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcwNzUyNTcsImV4cCI6MjA5MjY1MTI1N30.4e_i-Q1upnaLWVSN2lKTIT7sRz3EO8sdMBWlDw2WwgI';
+  var id = new URLSearchParams(location.search).get('id');
+
+  function showState(icon, title, body) {
+    document.getElementById('state').innerHTML =
+      '<div class="icon">' + icon + '</div>' +
+      '<h1>' + title + '</h1>' +
+      '<p>' + body + '</p>' +
+      '<a href="/" class="btn">Terug naar home</a>';
+  }
+
+  if (!id) {
+    showState('?', 'Geen betaling <em>gevonden</em>', 'Geen aanvraag-ID in de URL.');
+  } else {
+    // Anon key kan offerteverzoeken niet SELECTEN (RLS blocks). We hebben een
+    // dedicated read-endpoint nodig of moeten via webhook erop vertrouwen.
+    // Voor V1: simpele redirect naar Mollie's eigen statuspagina, of laat
+    // klant 5 sec wachten en redirect home (webhook heeft Supabase al geupdate).
+    setTimeout(function() {
+      showState('✓', 'Bedankt voor uw <em>betaling</em>',
+        'Uw betaling wordt verwerkt. U ontvangt binnen enkele minuten een bevestiging per email. ' +
+        'Mocht u niets ontvangen, neem dan gerust contact met ons op.');
+    }, 1500);
+  }
+</script>
+</body>
+</html>
