@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://morgenlandkookt.nl/sitemap.xml

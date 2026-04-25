@@ -1,0 +1,26 @@
+<!--
+  Cookie banner snippet — plaats DIRECT vóór de </body> sluit-tag op alle 3 sites.
+  Zet alleen een banner als gebruiker nog niet heeft geaccepteerd. Gebruikt localStorage.
+  Geen tracking-cookies actief op dit moment; banner is voor toekomstige Plausible-integratie + GDPR-bewijs.
+-->
+<div id="cookieBanner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9998;background:rgba(22,8,8,.97);backdrop-filter:blur(8px);border-top:1px solid rgba(201,148,42,.3);padding:1.2rem 1.5rem;font-family:system-ui,-apple-system,sans-serif;color:#f5edd6;box-shadow:0 -4px 20px rgba(0,0,0,.5)">
+  <div style="max-width:980px;margin:0 auto;display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap">
+    <div style="flex:1;min-width:240px;font-size:.85rem;line-height:1.55;color:rgba(245,237,214,.85)">
+      Wij respecteren uw privacy. Deze website gebruikt alleen functionele cookies (geen tracking, geen advertenties). Lees meer in onze <a href="privacy.html" style="color:#e8c46a;text-decoration:underline">privacyverklaring</a>.
+    </div>
+    <button onclick="acceptCookies()" style="background:#c9942a;color:#160808;border:0;padding:.7rem 1.5rem;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;cursor:pointer;border-radius:3px;flex-shrink:0">Begrepen</button>
+  </div>
+</div>
+<script>
+  (function() {
+    if (!localStorage.getItem('mod_cookie_ack')) {
+      var b = document.getElementById('cookieBanner');
+      if (b) setTimeout(function() { b.style.display = 'block'; }, 1500);
+    }
+  })();
+  function acceptCookies() {
+    localStorage.setItem('mod_cookie_ack', '1');
+    var b = document.getElementById('cookieBanner');
+    if (b) b.style.display = 'none';
+  }
+</script>
