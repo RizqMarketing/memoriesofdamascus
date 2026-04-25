@@ -2651,8 +2651,23 @@ function updateAfstandKosten() {
 }
 
 // ── Kalender
-var blockedDates = new Set(['2026-04-12','2026-04-13','2026-04-19','2026-04-20','2026-04-26','2026-04-27','2026-05-03','2026-05-09','2026-05-10','2026-05-17','2026-05-24','2026-05-31','2026-06-06','2026-06-07','2026-06-13','2026-06-14','2026-06-21']);
-var bijnaVolDates = new Set(['2026-04-18','2026-04-25','2026-05-16','2026-05-23','2026-06-05','2026-06-20']);
+var blockedDates = new Set();
+var bijnaVolDates = new Set();
+
+function loadKalender() {
+  fetch(SUPABASE_URL + '/rest/v1/kalender_blokkering?site=eq.morgenland&select=datum,status', {
+    headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY }
+  }).then(function(r) { return r.ok ? r.json() : []; })
+    .then(function(rows) {
+      blockedDates.clear(); bijnaVolDates.clear();
+      rows.forEach(function(row) {
+        if (row.status === 'bijna_vol') bijnaVolDates.add(row.datum);
+        else blockedDates.add(row.datum);
+      });
+      if (typeof renderCal === 'function' && document.getElementById('calGrid')) renderCal();
+    }).catch(function(e) { console.warn('Kalender laden mislukt:', e); });
+}
+loadKalender();
 var maanden = ['Januari','Februari','Maart','April','Mei','Juni','Juli','Augustus','September','Oktober','November','December'];
 var maandenEN = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 

@@ -751,66 +751,20 @@
       <div class="grid-2" style="align-items:start">
         <div class="dash-card" style="max-width:460px">
           <div class="dash-card-header">
-            <div class="dash-card-title">April 2026</div>
-            <div style="display:flex;gap:.5rem">
-              <button class="cal-nav-btn">‹</button>
-              <button class="cal-nav-btn">›</button>
+            <div class="dash-card-title" id="calMonthTitle">—</div>
+            <div style="display:flex;gap:.5rem;align-items:center">
+              <select id="calSiteFilter" onchange="loadKalenderDash()" style="background:var(--panel);border:1px solid var(--divider);color:var(--cream);padding:.35rem .6rem;font-size:.75rem;border-radius:4px">
+                <option value="mod">MoD</option>
+                <option value="morgenland">Morgenland</option>
+              </select>
+              <button class="cal-nav-btn" onclick="calNavDash(-1)">‹</button>
+              <button class="cal-nav-btn" onclick="calNavDash(1)">›</button>
             </div>
           </div>
           <div class="dash-card-body">
-            <div class="cal-grid">
-              <div class="cal-day-label">Ma</div>
-              <div class="cal-day-label">Di</div>
-              <div class="cal-day-label">Wo</div>
-              <div class="cal-day-label">Do</div>
-              <div class="cal-day-label">Vr</div>
-              <div class="cal-day-label">Za</div>
-              <div class="cal-day-label">Zo</div>
-
-              <!-- week 1: start Wednesday April 1 -->
-              <div class="cal-day cal-empty"></div>
-              <div class="cal-day cal-empty"></div>
-              <div class="cal-day cal-past">1</div>
-              <div class="cal-day cal-past">2</div>
-              <div class="cal-day cal-past">3</div>
-              <div class="cal-day cal-past">4</div>
-              <div class="cal-day cal-past">5</div>
-
-              <div class="cal-day cal-past">6</div>
-              <div class="cal-day cal-today">7</div>
-              <div class="cal-day" onclick="toggleBlock(this)">8</div>
-              <div class="cal-day" onclick="toggleBlock(this)">9</div>
-              <div class="cal-day" onclick="toggleBlock(this)">10</div>
-              <div class="cal-day" onclick="toggleBlock(this)">11</div>
-              <div class="cal-day" onclick="toggleBlock(this)">12</div>
-
-              <div class="cal-day" onclick="toggleBlock(this)">13</div>
-              <div class="cal-day" onclick="toggleBlock(this)">14</div>
-              <div class="cal-day" onclick="toggleBlock(this)">15</div>
-              <div class="cal-day" onclick="toggleBlock(this)">16</div>
-              <div class="cal-day" onclick="toggleBlock(this)">17</div>
-              <div class="cal-day cal-event" onclick="toggleBlock(this)">18<div class="cal-dot"></div></div>
-              <div class="cal-day" onclick="toggleBlock(this)">19</div>
-
-              <div class="cal-day cal-blocked" onclick="toggleBlock(this)">20</div>
-              <div class="cal-day" onclick="toggleBlock(this)">21</div>
-              <div class="cal-day cal-event" onclick="toggleBlock(this)">22<div class="cal-dot"></div></div>
-              <div class="cal-day" onclick="toggleBlock(this)">23</div>
-              <div class="cal-day" onclick="toggleBlock(this)">24</div>
-              <div class="cal-day" onclick="toggleBlock(this)">25</div>
-              <div class="cal-day" onclick="toggleBlock(this)">26</div>
-
-              <div class="cal-day cal-blocked" onclick="toggleBlock(this)">27</div>
-              <div class="cal-day" onclick="toggleBlock(this)">28</div>
-              <div class="cal-day" onclick="toggleBlock(this)">29</div>
-              <div class="cal-day" onclick="toggleBlock(this)">30</div>
-              <div class="cal-day cal-empty"></div>
-              <div class="cal-day cal-empty"></div>
-              <div class="cal-day cal-empty"></div>
-            </div>
+            <div class="cal-grid" id="calGridDash"></div>
             <div class="cal-legend">
               <div class="cal-legend-item"><div class="cal-legend-dot" style="background:rgba(192,57,43,.5)"></div> Geblokkeerd</div>
-              <div class="cal-legend-item"><div class="cal-legend-dot" style="background:rgba(201,148,42,.3)"></div> Event gepland</div>
               <div class="cal-legend-item"><div class="cal-legend-dot" style="background:rgba(201,148,42,.5);border:1px solid var(--gold)"></div> Vandaag</div>
             </div>
           </div>
@@ -821,21 +775,8 @@
             <div class="dash-card-header">
               <div class="dash-card-title">Geblokkeerde data</div>
             </div>
-            <div class="dash-card-body">
-              <div class="menu-row">
-                <div style="flex:1">
-                  <div style="font-size:.85rem;color:var(--cream)">Zondag 20 april 2026</div>
-                  <div style="font-size:.72rem;color:rgba(245,237,214,.3);margin-top:.15rem">Volzet — eigen evenement</div>
-                </div>
-                <button class="btn-sm danger" onclick="toast('Datum vrijgegeven')">Verwijder</button>
-              </div>
-              <div class="menu-row">
-                <div style="flex:1">
-                  <div style="font-size:.85rem;color:var(--cream)">Maandag 27 april 2026</div>
-                  <div style="font-size:.72rem;color:rgba(245,237,214,.3);margin-top:.15rem">Gesloten — familiedag</div>
-                </div>
-                <button class="btn-sm danger" onclick="toast('Datum vrijgegeven')">Verwijder</button>
-              </div>
+            <div class="dash-card-body" id="calBlockedList">
+              <div style="color:rgba(245,237,214,.4);font-size:.85rem">Laden…</div>
             </div>
           </div>
 
@@ -845,15 +786,22 @@
             </div>
             <div class="dash-card-body">
               <div class="form-group">
+                <label class="form-label">Site</label>
+                <select id="blokSite" class="form-input">
+                  <option value="mod">MoD</option>
+                  <option value="morgenland">Morgenland</option>
+                </select>
+              </div>
+              <div class="form-group">
                 <label class="form-label">Datum</label>
-                <input type="date" class="form-input">
+                <input id="blokDatum" type="date" class="form-input">
               </div>
               <div class="form-group">
                 <label class="form-label">Reden (optioneel)</label>
-                <input type="text" class="form-input" placeholder="bv. Volzet, onderhoud...">
+                <input id="blokReden" type="text" class="form-input" placeholder="bv. Volzet, onderhoud…">
               </div>
               <div class="form-group" style="margin-bottom:0">
-                <button class="btn-primary-sm" style="width:100%" onclick="toast('Datum geblokkeerd')">Blokkeer datum</button>
+                <button class="btn-primary-sm" style="width:100%" onclick="blokeerDatumViaForm()">Blokkeer datum</button>
               </div>
             </div>
           </div>
@@ -1116,6 +1064,7 @@
       localStorage.setItem(SESSION_KEY, JSON.stringify(session));
       hideLogin();
       loadOffertes();
+      loadKalenderDash();
     }).catch(function(e) {
       btn.disabled = false;
       btn.textContent = 'Inloggen';
@@ -1218,6 +1167,132 @@
     var card4 = document.querySelector('[data-stat="omzet"]');     if (card4) card4.textContent = fmtBedrag(stats.omzet);
   }
 
+  // ── kalender ──
+  var calDashYear, calDashMonth;
+  var calBlokSet = {}; // { 'YYYY-MM-DD': {id, status, reden} }
+  var MAANDEN_NL = ['Januari','Februari','Maart','April','Mei','Juni','Juli','Augustus','September','Oktober','November','December'];
+
+  function calNavDash(delta) {
+    calDashMonth += delta;
+    if (calDashMonth < 0) { calDashMonth = 11; calDashYear--; }
+    if (calDashMonth > 11) { calDashMonth = 0; calDashYear++; }
+    renderCalDash();
+  }
+
+  function loadKalenderDash() {
+    var site = document.getElementById('calSiteFilter').value;
+    fetch(SUPABASE_URL + '/rest/v1/kalender_blokkering?site=eq.' + site + '&order=datum.asc', {
+      headers: authHeaders()
+    }).then(function(r) { return r.ok ? r.json() : []; })
+      .then(function(rows) {
+        calBlokSet = {};
+        rows.forEach(function(r) { calBlokSet[r.datum] = r; });
+        renderCalDash();
+        renderBlockedList(rows);
+      }).catch(function(e) { console.error('kalender laden mislukt', e); });
+  }
+  window.loadKalenderDash = loadKalenderDash;
+
+  function renderCalDash() {
+    var grid = document.getElementById('calGridDash');
+    var title = document.getElementById('calMonthTitle');
+    if (!grid || !title) return;
+    if (calDashYear == null) {
+      var n = new Date();
+      calDashYear = n.getFullYear();
+      calDashMonth = n.getMonth();
+    }
+    title.textContent = MAANDEN_NL[calDashMonth] + ' ' + calDashYear;
+    grid.innerHTML = '';
+    ['Ma','Di','Wo','Do','Vr','Za','Zo'].forEach(function(d) {
+      var h = document.createElement('div'); h.className = 'cal-day-label'; h.textContent = d; grid.appendChild(h);
+    });
+    var first = new Date(calDashYear, calDashMonth, 1);
+    var startDow = first.getDay(); startDow = startDow === 0 ? 6 : startDow - 1;
+    var daysInMonth = new Date(calDashYear, calDashMonth + 1, 0).getDate();
+    var today = new Date(); today.setHours(0,0,0,0);
+    for (var i = 0; i < startDow; i++) {
+      var e = document.createElement('div'); e.className = 'cal-day cal-empty'; grid.appendChild(e);
+    }
+    for (var day = 1; day <= daysInMonth; day++) {
+      var ds = calDashYear + '-' + String(calDashMonth+1).padStart(2,'0') + '-' + String(day).padStart(2,'0');
+      var d = new Date(calDashYear, calDashMonth, day);
+      var el = document.createElement('div');
+      el.className = 'cal-day';
+      el.textContent = day;
+      if (d < today) el.classList.add('cal-past');
+      else if (d.getTime() === today.getTime()) el.classList.add('cal-today');
+      if (calBlokSet[ds]) el.classList.add('cal-blocked');
+      el.dataset.date = ds;
+      el.onclick = function() { toggleBlokDatum(this); };
+      grid.appendChild(el);
+    }
+  }
+
+  function renderBlockedList(rows) {
+    var list = document.getElementById('calBlockedList');
+    if (!list) return;
+    var future = rows.filter(function(r) { return r.datum >= new Date().toISOString().slice(0,10); });
+    if (!future.length) {
+      list.innerHTML = '<div style="color:rgba(245,237,214,.4);font-size:.85rem">Geen toekomstige blokkeringen.</div>';
+      return;
+    }
+    list.innerHTML = future.map(function(r) {
+      var d = new Date(r.datum);
+      var label = d.toLocaleDateString('nl-NL', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+      var reden = r.reden ? esc(r.reden) : '—';
+      return '<div class="menu-row"><div style="flex:1"><div style="font-size:.85rem;color:var(--cream)">' + label.charAt(0).toUpperCase()+label.slice(1) + '</div><div style="font-size:.72rem;color:rgba(245,237,214,.3);margin-top:.15rem">' + reden + '</div></div><button class="btn-sm danger" onclick="vrijgevenDatum(\'' + r.id + '\')">Verwijder</button></div>';
+    }).join('');
+  }
+
+  function toggleBlokDatum(el) {
+    if (el.classList.contains('cal-past')) return;
+    var ds = el.dataset.date;
+    var site = document.getElementById('calSiteFilter').value;
+    var existing = calBlokSet[ds];
+    if (existing) {
+      vrijgevenDatum(existing.id);
+    } else {
+      blokeerDatum(site, ds, '');
+    }
+  }
+  window.toggleBlokDatum = toggleBlokDatum;
+
+  function blokeerDatum(site, datum, reden) {
+    fetch(SUPABASE_URL + '/rest/v1/kalender_blokkering', {
+      method: 'POST',
+      headers: Object.assign({}, authHeaders(), { 'Content-Type': 'application/json', 'Prefer': 'return=minimal' }),
+      body: JSON.stringify({ site: site, datum: datum, status: 'geblokkeerd', reden: reden || null })
+    }).then(function(r) {
+      if (!r.ok) throw new Error('POST ' + r.status);
+      toast('Datum geblokkeerd');
+      loadKalenderDash();
+    }).catch(function(e) { console.error(e); toast('Blokkeren mislukt'); });
+  }
+
+  function vrijgevenDatum(id) {
+    fetch(SUPABASE_URL + '/rest/v1/kalender_blokkering?id=eq.' + encodeURIComponent(id), {
+      method: 'DELETE',
+      headers: authHeaders()
+    }).then(function(r) {
+      if (!r.ok) throw new Error('DELETE ' + r.status);
+      toast('Datum vrijgegeven');
+      loadKalenderDash();
+    }).catch(function(e) { console.error(e); toast('Vrijgeven mislukt'); });
+  }
+  window.vrijgevenDatum = vrijgevenDatum;
+
+  function blokeerDatumViaForm() {
+    var site = document.getElementById('blokSite').value;
+    var datum = document.getElementById('blokDatum').value;
+    var reden = document.getElementById('blokReden').value;
+    if (!datum) { toast('Kies eerst een datum'); return; }
+    blokeerDatum(site, datum, reden);
+    document.getElementById('blokDatum').value = '';
+    document.getElementById('blokReden').value = '';
+  }
+  window.blokeerDatumViaForm = blokeerDatumViaForm;
+
   // ── status update ──
   function updateStatus(id, status) {
     fetch(SUPABASE_URL + '/rest/v1/offerteverzoeken?id=eq.' + encodeURIComponent(id), {
@@ -1273,6 +1348,7 @@
     if (session) {
       hideLogin();
       loadOffertes();
+      loadKalenderDash();
     } else {
       showLogin();
     }
@@ -1296,18 +1372,6 @@
     if (window.innerWidth <= 900) closeSidebar();
   }
 
-  function toggleBlock(el) {
-    if (el.classList.contains('cal-past') || el.classList.contains('cal-empty')) return;
-    if (el.classList.contains('cal-blocked')) {
-      el.classList.remove('cal-blocked');
-      toast('Datum vrijgegeven');
-    } else {
-      el.classList.add('cal-blocked');
-      el.querySelector('.cal-dot') && el.querySelector('.cal-dot').remove();
-      el.classList.remove('cal-event');
-      toast('Datum geblokkeerd');
-    }
-  }
 
   function openSidebar() {
     document.getElementById('sidebar').classList.add('open');
