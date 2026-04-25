@@ -360,6 +360,20 @@
 </head>
 <body>
 
+<!-- ══ LOGIN OVERLAY ══ -->
+<div id="loginOverlay" style="position:fixed;inset:0;background:var(--ink);display:flex;align-items:center;justify-content:center;z-index:9999;font-family:var(--font-body,system-ui)">
+  <div style="background:var(--card);border:1px solid var(--divider);border-radius:8px;padding:2.5rem;width:min(92vw,380px);box-shadow:0 12px 40px rgba(0,0,0,.6)">
+    <div style="font-family:var(--font-heading,serif);color:var(--cream);font-size:1.6rem;letter-spacing:.02em;margin-bottom:.3rem">Dashboard</div>
+    <div style="color:var(--muted);font-size:.8rem;margin-bottom:1.8rem">Memories of Damascus · Morgenland · Kookworkshops</div>
+    <form onsubmit="doLogin(event)" autocomplete="on">
+      <input id="loginEmail" type="email" required placeholder="email" autocomplete="username" style="width:100%;background:var(--panel);border:1px solid var(--divider);color:var(--cream);padding:.75rem 1rem;font-size:.9rem;border-radius:4px;margin-bottom:.7rem;box-sizing:border-box">
+      <input id="loginPassword" type="password" required placeholder="wachtwoord" autocomplete="current-password" style="width:100%;background:var(--panel);border:1px solid var(--divider);color:var(--cream);padding:.75rem 1rem;font-size:.9rem;border-radius:4px;margin-bottom:.7rem;box-sizing:border-box">
+      <button id="loginBtn" type="submit" style="width:100%;background:var(--gold);color:var(--ink);border:0;padding:.85rem;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;margin-top:.5rem;border-radius:4px;font-weight:600">Inloggen</button>
+      <div id="loginError" style="color:var(--terracotta);font-size:.8rem;margin-top:.9rem;min-height:1.2em;text-align:center"></div>
+    </form>
+  </div>
+</div>
+
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 
 <!-- ══ SIDEBAR ══ -->
@@ -427,26 +441,26 @@
         <p>Hier is een overzicht van vandaag — maandag 7 april 2026</p>
       </div>
 
-      <div class="stats-grid">
+      <div class="stats-grid" id="statBlocks">
         <div class="stat-card">
           <div class="stat-label">Nieuwe aanvragen</div>
-          <div class="stat-value">3</div>
-          <div class="stat-sub warn">↑ 2 nog niet beantwoord</div>
+          <div class="stat-value" data-stat="nieuw">—</div>
+          <div class="stat-sub">Nog niet behandeld</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">Events deze maand</div>
-          <div class="stat-value">7</div>
-          <div class="stat-sub up">↑ 3 meer dan vorige maand</div>
+          <div class="stat-label">Totaal aanvragen</div>
+          <div class="stat-value" data-stat="aanvragen">—</div>
+          <div class="stat-sub">Alle 3 sites samen</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">Omzet april</div>
-          <div class="stat-value">€4.820</div>
-          <div class="stat-sub up">↑ Op schema</div>
+          <div class="stat-label">Bevestigd</div>
+          <div class="stat-value" data-stat="bevestigd">—</div>
+          <div class="stat-sub up">Geboekte events</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">Baklava bestellingen</div>
-          <div class="stat-value">5</div>
-          <div class="stat-sub warn">2 wachten op verzending</div>
+          <div class="stat-label">Omzet bevestigd</div>
+          <div class="stat-value" data-stat="omzet">—</div>
+          <div class="stat-sub">Som totaal_bedrag</div>
         </div>
       </div>
 
@@ -1059,6 +1073,211 @@
 <div class="toast" id="toast"></div>
 
 <script>
+  // ══ SUPABASE ══
+  var SUPABASE_URL = 'https://sphnynlfyzialpldrgew.supabase.co';
+  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNwaG55bmxmeXppYWxwbGRyZ2V3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcwNzUyNTcsImV4cCI6MjA5MjY1MTI1N30.4e_i-Q1upnaLWVSN2lKTIT7sRz3EO8sdMBWlDw2WwgI';
+  var SESSION_KEY = 'mod_dash_session';
+  var session = null;
+
+  // ── auth ──
+  function loadStoredSession() {
+    try {
+      var raw = localStorage.getItem(SESSION_KEY);
+      if (!raw) return null;
+      var s = JSON.parse(raw);
+      if (s && s.access_token) return s;
+    } catch (e) {}
+    return null;
+  }
+
+  function doLogin(e) {
+    e.preventDefault();
+    var email = document.getElementById('loginEmail').value.trim();
+    var password = document.getElementById('loginPassword').value;
+    var btn = document.getElementById('loginBtn');
+    var err = document.getElementById('loginError');
+    err.textContent = '';
+    btn.disabled = true;
+    btn.textContent = 'Inloggen…';
+    fetch(SUPABASE_URL + '/auth/v1/token?grant_type=password', {
+      method: 'POST',
+      headers: { 'apikey': SUPABASE_ANON_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, password: password })
+    }).then(function(r) {
+      return r.json().then(function(d) { return { ok: r.ok, data: d }; });
+    }).then(function(res) {
+      btn.disabled = false;
+      btn.textContent = 'Inloggen';
+      if (!res.ok) {
+        err.textContent = res.data.error_description || res.data.msg || 'Inloggen mislukt';
+        return;
+      }
+      session = res.data;
+      localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+      hideLogin();
+      loadOffertes();
+    }).catch(function(e) {
+      btn.disabled = false;
+      btn.textContent = 'Inloggen';
+      err.textContent = 'Verbindingsfout. Probeer opnieuw.';
+    });
+  }
+
+  function logout() {
+    localStorage.removeItem(SESSION_KEY);
+    session = null;
+    location.reload();
+  }
+  window.logout = logout;
+
+  function hideLogin() {
+    document.getElementById('loginOverlay').style.display = 'none';
+  }
+  function showLogin() {
+    document.getElementById('loginOverlay').style.display = 'flex';
+  }
+
+  // ── data ──
+  function authHeaders() {
+    return {
+      'apikey': SUPABASE_ANON_KEY,
+      'Authorization': 'Bearer ' + (session && session.access_token)
+    };
+  }
+
+  function loadOffertes() {
+    var url = SUPABASE_URL + '/rest/v1/offerteverzoeken?order=created_at.desc&limit=200';
+    fetch(url, { headers: authHeaders() }).then(function(r) {
+      if (r.status === 401) { logout(); return null; }
+      return r.json();
+    }).then(function(rows) {
+      if (!rows) return;
+      renderOffertes(rows);
+      renderStats(rows);
+    }).catch(function(e) { console.error('loadOffertes', e); });
+  }
+
+  var SITE_LABEL = { mod: 'MoD', morgenland: 'Morgenland', kookworkshops: 'Kookworkshops' };
+  var STATUS_LABEL = { nieuw: 'Nieuw', in_behandeling: 'In behandeling', verstuurd: 'Verstuurd', bevestigd: 'Bevestigd', afgehandeld: 'Afgehandeld', geannuleerd: 'Geannuleerd' };
+  var STATUS_BADGE = { nieuw: 'badge-new', in_behandeling: 'badge-pending', verstuurd: 'badge-pending', bevestigd: 'badge-done', afgehandeld: 'badge-done', geannuleerd: 'badge-pending' };
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function(c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]; });
+  }
+
+  function fmtDate(s) {
+    if (!s) return '—';
+    try { return new Date(s).toLocaleDateString('nl-NL', { day: '2-digit', month: 'short', year: 'numeric' }); } catch (e) { return s; }
+  }
+
+  function fmtBedrag(n) {
+    if (n == null) return '—';
+    var v = parseFloat(n);
+    return '€' + v.toLocaleString('nl-NL', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+  }
+
+  function renderOffertes(rows) {
+    var tbody = document.querySelector('#panel-offertes tbody');
+    if (!tbody) return;
+    if (!rows.length) {
+      tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:2rem;color:rgba(245,237,214,.4)">Nog geen aanvragen binnengekomen.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = rows.map(function(r) {
+      var idShort = r.id ? r.id.slice(0, 8) : '';
+      var statusOpts = Object.keys(STATUS_LABEL).map(function(k) {
+        return '<option value="' + k + '"' + (r.status === k ? ' selected' : '') + '>' + STATUS_LABEL[k] + '</option>';
+      }).join('');
+      return '' +
+        '<tr data-id="' + esc(r.id) + '">' +
+          '<td class="col-hide-sm" style="color:rgba(245,237,214,.3);font-size:.7rem">' + esc(SITE_LABEL[r.site] || r.site) + '<br>' + idShort + '</td>' +
+          '<td><strong style="color:var(--cream)">' + esc(r.naam) + '</strong><br><span style="font-size:.7rem;color:rgba(245,237,214,.4)">' + esc(r.email) + (r.telefoon ? ' · ' + esc(r.telefoon) : '') + '</span></td>' +
+          '<td class="col-hide-sm">' + esc(r.type_evenement || r.formulier) + '</td>' +
+          '<td class="col-hide-sm">' + fmtDate(r.datum) + '</td>' +
+          '<td class="col-hide-sm">' + (r.personen || '—') + '</td>' +
+          '<td class="col-hide-sm" style="font-size:.72rem;color:rgba(245,237,214,.5)">' + esc(r.formulier) + '</td>' +
+          '<td style="color:var(--gold-lt);font-family:var(--font-heading,serif)">' + fmtBedrag(r.totaal_bedrag) + '</td>' +
+          '<td><select onchange="updateStatus(\'' + r.id + '\', this.value)" style="background:var(--panel);border:1px solid var(--divider);color:var(--cream);padding:.3rem .5rem;font-size:.72rem;border-radius:4px">' + statusOpts + '</select></td>' +
+          '<td><button class="btn-sm" onclick="openDetail(\'' + r.id + '\')">Open</button></td>' +
+        '</tr>';
+    }).join('');
+  }
+
+  function renderStats(rows) {
+    var stats = {
+      totaal: rows.length,
+      nieuw: rows.filter(function(r) { return r.status === 'nieuw'; }).length,
+      bevestigd: rows.filter(function(r) { return r.status === 'bevestigd'; }).length,
+      omzet: rows.filter(function(r) { return r.status === 'bevestigd'; }).reduce(function(s, r) { return s + (parseFloat(r.totaal_bedrag) || 0); }, 0)
+    };
+    var sb = document.getElementById('statBlocks');
+    if (sb) sb.dataset.totaal = stats.totaal; // hook voor later
+    var card1 = document.querySelector('[data-stat="aanvragen"]'); if (card1) card1.textContent = stats.totaal;
+    var card2 = document.querySelector('[data-stat="nieuw"]');     if (card2) card2.textContent = stats.nieuw;
+    var card3 = document.querySelector('[data-stat="bevestigd"]'); if (card3) card3.textContent = stats.bevestigd;
+    var card4 = document.querySelector('[data-stat="omzet"]');     if (card4) card4.textContent = fmtBedrag(stats.omzet);
+  }
+
+  // ── status update ──
+  function updateStatus(id, status) {
+    fetch(SUPABASE_URL + '/rest/v1/offerteverzoeken?id=eq.' + encodeURIComponent(id), {
+      method: 'PATCH',
+      headers: Object.assign({}, authHeaders(), { 'Content-Type': 'application/json', 'Prefer': 'return=minimal' }),
+      body: JSON.stringify({ status: status })
+    }).then(function(r) {
+      if (!r.ok) throw new Error('PATCH ' + r.status);
+      toast('Status bijgewerkt');
+    }).catch(function(e) { console.error(e); toast('Update mislukt'); });
+  }
+  window.updateStatus = updateStatus;
+
+  // ── detail modal ──
+  function openDetail(id) {
+    fetch(SUPABASE_URL + '/rest/v1/offerteverzoeken?id=eq.' + encodeURIComponent(id), { headers: authHeaders() })
+      .then(function(r) { return r.json(); })
+      .then(function(rows) {
+        var r = rows[0]; if (!r) return;
+        var lines = [
+          ['Site', SITE_LABEL[r.site] || r.site],
+          ['Formulier', r.formulier],
+          ['Status', STATUS_LABEL[r.status] || r.status],
+          ['Naam', r.naam],
+          ['Email', r.email],
+          ['Telefoon', r.telefoon || '—'],
+          ['Type', r.type_evenement || '—'],
+          ['Datum', fmtDate(r.datum)],
+          ['Tijdstip', r.tijdstip || '—'],
+          ['Personen', r.personen || '—'],
+          ['Postcode', r.adres_postcode || '—'],
+          ['Workshop', r.workshop_type || '—'],
+          ['Totaal', fmtBedrag(r.totaal_bedrag)],
+          ['Bericht', r.bericht || '—'],
+          ['Aangemaakt', fmtDate(r.created_at)]
+        ];
+        var html = '<div style="position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:10000;padding:2rem" onclick="if(event.target===this)this.remove()">'
+          + '<div style="background:var(--card);border:1px solid var(--divider);border-radius:8px;padding:2rem;max-width:600px;width:100%;max-height:90vh;overflow-y:auto">'
+          + '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem"><div style="font-family:var(--font-heading,serif);color:var(--cream);font-size:1.3rem">Aanvraag</div><button onclick="this.closest(\'[style*=fixed]\').remove()" style="background:none;border:0;color:var(--cream);font-size:1.4rem;cursor:pointer">×</button></div>'
+          + '<table style="width:100%;font-size:.85rem;color:var(--cream)"><tbody>'
+          + lines.map(function(l) { return '<tr><td style="padding:.4rem .8rem .4rem 0;color:var(--muted);width:30%;vertical-align:top">' + l[0] + '</td><td style="padding:.4rem 0">' + esc(l[1]) + '</td></tr>'; }).join('')
+          + (r.configurator ? '<tr><td style="padding:.4rem .8rem .4rem 0;color:var(--muted);vertical-align:top">Configurator</td><td style="padding:.4rem 0"><pre style="background:var(--panel);padding:.8rem;border-radius:4px;font-size:.72rem;overflow-x:auto;color:var(--cream);white-space:pre-wrap">' + esc(JSON.stringify(r.configurator, null, 2)) + '</pre></td></tr>' : '')
+          + '</tbody></table>'
+          + '</div></div>';
+        document.body.insertAdjacentHTML('beforeend', html);
+      });
+  }
+  window.openDetail = openDetail;
+
+  // ── init ──
+  window.addEventListener('DOMContentLoaded', function() {
+    session = loadStoredSession();
+    if (session) {
+      hideLogin();
+      loadOffertes();
+    } else {
+      showLogin();
+    }
+  });
+
   function showPanel(name, el) {
     document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
