@@ -21,7 +21,7 @@
   <!-- <script defer data-domain="memoriesofdamascus.nl" src="https://plausible.io/js/script.js"></script> -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Cormorant+SC:wght@300;400;500;600&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Cormorant+SC:wght@300;400;500;600&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
     /* ─── TOKENS ─── */
@@ -2020,6 +2020,65 @@
       .reis-adres { grid-template-columns: 1fr !important; }
       .conf-step { padding: 1.4rem 1rem; }
     }
+
+    /* ═══ RTL / ARABIC ═══ */
+    html[dir="rtl"] body { font-family: 'Cairo', 'Crimson Pro', serif; }
+    html[dir="rtl"] h1, html[dir="rtl"] h2, html[dir="rtl"] h3, html[dir="rtl"] h4,
+    html[dir="rtl"] .section-title, html[dir="rtl"] .nav-logo,
+    html[dir="rtl"] .pakket-name, html[dir="rtl"] .dienst-name,
+    html[dir="rtl"] .menu-item-name, html[dir="rtl"] .pakket-price,
+    html[dir="rtl"] .stat-value, html[dir="rtl"] .review-author { font-family: 'Amiri', 'Cormorant Garamond', serif; }
+    html[dir="rtl"] .section-label, html[dir="rtl"] .pakket-per,
+    html[dir="rtl"] .nav-cta, html[dir="rtl"] .btn-primary,
+    html[dir="rtl"] .btn-secondary { font-family: 'Cairo', sans-serif; letter-spacing: 0; }
+    html[dir="rtl"] body { text-align: right; }
+    html[dir="rtl"] .nav-links { flex-direction: row-reverse; }
+    html[dir="rtl"] .pakketten-grid, html[dir="rtl"] .diensten-grid,
+    html[dir="rtl"] .menu-grid, html[dir="rtl"] .review-track,
+    html[dir="rtl"] .locaties-grid, html[dir="rtl"] .conf-grid { direction: rtl; }
+    html[dir="rtl"] .conf-summary, html[dir="rtl"] .form-group,
+    html[dir="rtl"] .pakket-features, html[dir="rtl"] .dienst-list,
+    html[dir="rtl"] .footer-col, html[dir="rtl"] .faq-q,
+    html[dir="rtl"] .faq-a { text-align: right; }
+    html[dir="rtl"] .pakket-features li::before,
+    html[dir="rtl"] .dienst-list li::before { margin-left: .6rem; margin-right: 0; }
+    html[dir="rtl"] .pakket-features li,
+    html[dir="rtl"] .dienst-list li { padding-right: 1.4rem; padding-left: 0; }
+    html[dir="rtl"] .lang-toggle { flex-direction: row-reverse; }
+    html[dir="rtl"] .gerecht-grid, html[dir="rtl"] .addon-grid { direction: rtl; }
+    html[dir="rtl"] .gc-naam { text-align: center; }
+    html[dir="rtl"] .pers-controls,
+    html[dir="rtl"] .conf-step-num + * { text-align: right; }
+    html[dir="rtl"] .conf-step-num { margin-left: .8rem; margin-right: 0; }
+    html[dir="rtl"] .reis-adres input,
+    html[dir="rtl"] .form-input,
+    html[dir="rtl"] textarea { text-align: right; }
+    html[dir="rtl"] .footer-bottom,
+    html[dir="rtl"] .cookie-banner { text-align: right; }
+    html[dir="rtl"] .modal-body,
+    html[dir="rtl"] .modal-header { text-align: right; }
+    html[dir="rtl"] .nav-cta,
+    html[dir="rtl"] .btn-primary,
+    html[dir="rtl"] .btn-secondary { letter-spacing: 0 !important; }
+    html[dir="rtl"] .hero-eyebrow,
+    html[dir="rtl"] .section-label { letter-spacing: 0; }
+    html[dir="rtl"] .review-track { direction: rtl; }
+    html[dir="rtl"] .review-card { text-align: right; }
+    html[dir="rtl"] .testimonial-text { font-family: 'Amiri', serif; }
+    html[dir="rtl"] .mob-menu-num { margin-left: 1rem; margin-right: 0; }
+    html[dir="rtl"] #mobMenu { right: auto; left: 0; transform: translateX(-100%); }
+    html[dir="rtl"] #mobMenu.open { transform: translateX(0); }
+    html[dir="rtl"] .hamburger { margin-left: 0; margin-right: auto; }
+    html[dir="rtl"] .nav-logo { margin-right: 0; margin-left: auto; }
+    /* Numbers en pricing blijven LTR voor leesbaarheid */
+    html[dir="rtl"] .pakket-price,
+    html[dir="rtl"] .stat-value,
+    html[dir="rtl"] .price-display,
+    html[dir="rtl"] [data-prijs],
+    html[dir="rtl"] .bedrag,
+    html[dir="rtl"] input[type="number"],
+    html[dir="rtl"] input[type="email"],
+    html[dir="rtl"] input[type="tel"] { direction: ltr; text-align: right; unicode-bidi: embed; }
   </style>
 </head>
 <body>
@@ -2087,9 +2146,11 @@
   <div class="mob-menu-footer">
     <button class="mob-menu-cta" onclick="closeMobile();openOfferteModal('general')" data-i18n="nav-cta">Offerte Aanvragen</button>
     <div class="mob-menu-lang">
-      <button id="mobLangNL" class="active" onclick="if(currentLang!=='nl'){toggleLang();}">NL</button>
+      <button id="mobLangNL" class="active" onclick="setLang('nl')" type="button">NL</button>
       <span>·</span>
-      <button id="mobLangEN" onclick="if(currentLang!=='en'){toggleLang();}">EN</button>
+      <button id="mobLangEN" onclick="setLang('en')" type="button">EN</button>
+      <span>·</span>
+      <button id="mobLangAR" onclick="setLang('ar')" type="button">ع</button>
     </div>
   </div>
 
@@ -2108,11 +2169,13 @@
     <li><a href="#baklava" data-i18n="nav-baklava">Baklava</a></li>
   </ul>
   <a href="#" onclick="event.preventDefault();openOfferteModal('general')" class="nav-cta" data-i18n="nav-cta">Offerte Aanvragen</a>
-  <button class="lang-toggle" onclick="toggleLang()" aria-label="Taal wisselen">
-    <span class="lang-opt lang-active" id="langNL">NL</span>
+  <div class="lang-toggle" aria-label="Taal wisselen" role="group">
+    <button class="lang-opt lang-active" id="langNL" onclick="setLang('nl')" type="button">NL</button>
     <span class="lang-sep">·</span>
-    <span class="lang-opt" id="langEN">EN</span>
-  </button>
+    <button class="lang-opt" id="langEN" onclick="setLang('en')" type="button">EN</button>
+    <span class="lang-sep">·</span>
+    <button class="lang-opt" id="langAR" onclick="setLang('ar')" type="button">ع</button>
+  </div>
   <div class="hamburger" id="hamburger">
     <span></span><span></span><span></span>
   </div>
@@ -3878,7 +3941,7 @@
       }).catch(function(e) {
         console.error('Mollie create failed:', e);
         if (btn) { btn.disabled = false; btn.textContent = 'Direct afrekenen'; }
-        alert(currentLang === 'nl' ? 'Betaling kon niet worden opgestart. Probeer opnieuw of neem contact op.' : 'Could not start payment. Please try again.');
+        alert(currentLang === 'ar' ? 'تعذّر بدء عمليّة الدفع. حاول مجدّداً أو تواصل معنا.' : (currentLang === 'nl' ? 'Betaling kon niet worden opgestart. Probeer opnieuw of neem contact op.' : 'Could not start payment. Please try again.'));
       });
   }
   window.startMolliePayment = startMolliePayment;
@@ -4058,16 +4121,16 @@
 
     var originalText = btn.textContent;
     btn.disabled = true;
-    btn.textContent = currentLang === 'nl' ? 'Versturen…' : 'Sending…';
+    btn.textContent = currentLang === 'ar' ? 'جارٍ الإرسال…' : (currentLang === 'nl' ? 'Versturen…' : 'Sending…');
 
     postOfferte(payload).then(function() {
-      btn.textContent = currentLang === 'nl' ? '✓ Ontvangen! Wij nemen binnen 24 uur contact op.' : '✓ Received! We will contact you within 24 hours.';
+      btn.textContent = currentLang === 'ar' ? '✓ تمّ الاستلام! سنتواصل معك خلال ٢٤ ساعة.' : (currentLang === 'nl' ? '✓ Ontvangen! Wij nemen binnen 24 uur contact op.' : '✓ Received! We will contact you within 24 hours.');
       btn.style.background = 'rgba(45,106,45,.8)';
       btn.style.color = 'var(--parchment)';
     }).catch(function(err) {
       console.error('Form submit failed:', err);
       btn.disabled = false;
-      btn.textContent = currentLang === 'nl' ? 'Er ging iets mis. Probeer opnieuw of bel ons.' : 'Something went wrong. Please try again or call us.';
+      btn.textContent = currentLang === 'ar' ? 'حدث خطأ ما. حاول مجدّداً أو اتّصل بنا.' : (currentLang === 'nl' ? 'Er ging iets mis. Probeer opnieuw of bel ons.' : 'Something went wrong. Please try again or call us.');
       btn.style.background = 'rgba(180,40,40,.8)';
       btn.style.color = 'var(--parchment)';
       setTimeout(function() {
@@ -4079,411 +4142,419 @@
   }
 
   // ══ TAAL TOGGLE ══
-  var currentLang = 'nl';
+  var currentLang = (function(){ try { var s = localStorage.getItem('mod_lang'); return (s === 'en' || s === 'ar') ? s : 'nl'; } catch(e){ return 'nl'; } })();
   var i18n = {
-    'nav-catering':     { nl:'Catering', en:'Catering' },
-    'nav-azc':          { nl:'AZC & Overheid', en:'Government' },
-    'nav-over':         { nl:'Over Ons', en:'About Us' },
-    'nav-menu':         { nl:'Menu', en:'Menu' },
-    'nav-conf':         { nl:'Stel Samen', en:'Configure' },
-    'nav-loc':          { nl:'Locaties', en:'Locations' },
-    'nav-baklava':      { nl:'Baklava', en:'Baklava' },
-    'nav-cta':          { nl:'Offerte Aanvragen', en:'Request Quote' },
-    'hero-eyebrow':     { nl:'Syrisch-Libanees · 100% Halal · Gecertificeerd', en:'Syrian-Lebanese · 100% Halal · Certified' },
-    'hero-subtitle':    { nl:'Arabische catering en zoetigheden', en:'Arabic catering and sweets' },
-    'hero-scroll':      { nl:'Ontdek meer', en:'Discover more' },
-    'hero-desc':        { nl:'Authentieke Syrisch-Libanese catering voor particulieren, bedrijven en overheidsinstanties. Vanuit onze productiekeuken in Best verzorgen wij catering door heel <strong style="color:var(--parchment)">Nederland, België en Duitsland</strong> — volledig halal, liefdevol bereid door een team van 20+ medewerkers.', en:'Authentic Syrian-Lebanese catering for private clients, businesses and government institutions. From our production kitchen in Best, we provide catering throughout <strong style="color:var(--parchment)">the Netherlands, Belgium and Germany</strong> — fully halal, lovingly prepared by a team of 20+ staff.' },
-    'hero-btn1':        { nl:'Gratis Offerte Aanvragen', en:'Request Free Quote' },
-    'hero-btn2':        { nl:'Bekijk Diensten', en:'View Services' },
-    'hero-calligraphy': { nl:'De ware smaken van<br>Syrië en Libanon', en:'The true flavours of<br>Syria and Lebanon' },
-    'usp-halal-desc':   { nl:'Alle catering en gerechten zijn volledig halal gecertificeerd', en:'All catering and dishes are fully halal certified' },
-    'usp-stars-title':  { nl:'4.9/5 Sterren', en:'4.9/5 Stars' },
-    'usp-stars-desc':   { nl:'104 reviews op Google', en:'104 reviews on Google' },
-    'usp-countries-desc':{ nl:'Actief in Nederland, België én Duitsland', en:'Active in the Netherlands, Belgium and Germany' },
-    'usp-gov-title':    { nl:'Overheidspartner', en:'Government Partner' },
-    'usp-gov-desc':     { nl:"Gecertificeerd voor AZC's, gemeenten en overheidsinstanties", en:'Certified for asylum centres, municipalities and government institutions' },
-    'diensten-label':   { nl:'Wat Wij Bieden', en:'What We Offer' },
-    'diensten-title':   { nl:'Catering voor <em>elke gelegenheid</em>', en:'Catering for <em>every occasion</em>' },
-    'd1-name':          { nl:'Feesten & Bruiloften', en:'Celebrations & Weddings' },
-    'd1-desc':          { nl:'Maak uw feest onvergetelijk met authentieke Syrisch-Libanese gerechten. Gratis proeverij bij huwelijkscatering en andere grote feesten — geheel vrijblijvend.', en:'Make your celebration unforgettable with authentic Syrian-Lebanese dishes. Free tasting for wedding catering and other large celebrations — no obligations.' },
-    'd2-name':          { nl:'Bedrijven', en:'Corporate' },
-    'd2-desc':          { nl:'Professionele bedrijfscatering in Eindhoven en omgeving. Wij verzorgen alles inclusief op- en afbouw, zodat u zich volledig op uw gasten kunt richten.', en:'Professional corporate catering in Eindhoven and surroundings. We handle everything including setup and breakdown, so you can focus entirely on your guests.' },
-    'd3-name':          { nl:'AZC & Overheidsinstanties', en:'Asylum Centres & Government' },
-    'd3-desc':          { nl:"Betrouwbare, complete catering voor AZC's en crisisnoodopvang. Van ontbijt tot avondeten, inclusief koelingen, buffetten en koffie-/theevoorzieningen.", en:'Reliable, complete catering for asylum centres and crisis shelters. From breakfast to dinner, including cooling units, buffets and coffee/tea provisions.' },
-    'pak-label':        { nl:'Transparante Prijzen', en:'Transparent Pricing' },
-    'pak-title':        { nl:'Onze catering <em>pakketten</em>', en:'Our catering <em>packages</em>' },
-    'conf-label':       { nl:'Stel Zelf Samen', en:'Customise Your Order' },
-    'conf-title':       { nl:'Uw catering <em>op maat</em>', en:'Your catering <em>tailored to you</em>' },
-    'over-label':       { nl:'Ons Verhaal', en:'Our Story' },
-    'over-title':       { nl:'Geboren uit <em>liefde</em><br>en een nieuw begin', en:'Born from <em>love</em><br>and a new beginning' },
-    'menu-label':       { nl:'Onze Specialiteiten', en:'Our Specialities' },
-    'menu-title':       { nl:'De smaken van <em>Syrië en Libanon</em>', en:'The flavours of <em>Syria and Lebanon</em>' },
-    'azc-label':        { nl:'AZC & Noodopvang', en:'Asylum & Emergency Shelter' },
-    'azc-title':        { nl:'Betrouwbare partner voor <em>overheidsinstanties</em>', en:'Trusted partner for <em>government institutions</em>' },
-    'bak-label':        { nl:'Webshop', en:'Webshop' },
-    'bak-title':        { nl:'Baklava <em>per post</em>', en:'Baklava <em>by post</em>' },
-    'loc-label':        { nl:'Onze Locaties', en:'Our Locations' },
-    'loc-title':        { nl:'Waar u ons kunt <em>vinden</em>', en:'Where you can <em>find us</em>' },
-    'test-label':       { nl:'Wat Klanten Zeggen', en:'What Customers Say' },
-    'test-title':       { nl:'<em>Ervaringen</em> van onze klanten', en:"Our customers' <em>experiences</em>" },
-    'cont-label':       { nl:'Neem Contact Op', en:'Get In Touch' },
-    'cont-title':       { nl:'Vraag een <em>offerte</em> aan', en:'Request a <em>quote</em>' },
-    'cont-btn':         { nl:'Offerte Aanvragen — Gratis &amp; Vrijblijvend', en:'Request Quote — Free &amp; No Obligation' },
-    'cont-desc':        { nl:'Vertel ons over uw wensen en wij sturen u binnen 24 uur een vrijblijvende offerte op maat. Wij spreken <strong style="color:var(--parchment)">Nederlands, Arabisch en Engels</strong>.', en:'Tell us about your wishes and we will send you a no-obligation custom quote within 24 hours. We speak <strong style="color:var(--parchment)">Dutch, Arabic and English</strong>.' },
-    'cont-info-title':  { nl:'Direct Contact', en:'Direct Contact' },
-    'form-sec1':        { nl:'Over u', en:'About you' },
-    'form-sec2':        { nl:'Over het evenement', en:'About your event' },
-    'form-sec3':        { nl:'Uw bericht', en:'Your message' },
-    'cont-info-text':   { nl:'Liever direct bellen of appen? Wij zijn bereikbaar op onderstaande gegevens. We staan u graag te woord in het Nederlands, Arabisch of Engels.', en:'Prefer to call or message directly? You can reach us at the details below. We are happy to assist you in Dutch, Arabic or English.' },
+    'nav-catering':     { nl:'Catering', en:'Catering', ar:'التموين' },
+    'nav-azc':          { nl:'AZC & Overheid', en:'Government', ar:'الحكومة واللاجئين' },
+    'nav-over':         { nl:'Over Ons', en:'About Us', ar:'من نحن' },
+    'nav-menu':         { nl:'Menu', en:'Menu', ar:'القائمة' },
+    'nav-conf':         { nl:'Stel Samen', en:'Configure', ar:'صمّم طلبك' },
+    'nav-loc':          { nl:'Locaties', en:'Locations', ar:'المواقع' },
+    'nav-baklava':      { nl:'Baklava', en:'Baklava', ar:'بقلاوة' },
+    'nav-cta':          { nl:'Offerte Aanvragen', en:'Request Quote', ar:'اطلب عرض سعر' },
+    'hero-eyebrow':     { nl:'Syrisch-Libanees · 100% Halal · Gecertificeerd', en:'Syrian-Lebanese · 100% Halal · Certified', ar:'سوري لبناني · حلال ١٠٠٪ · معتمد' },
+    'hero-subtitle':    { nl:'Arabische catering en zoetigheden', en:'Arabic catering and sweets', ar:'تموين وحلويات عربية' },
+    'hero-scroll':      { nl:'Ontdek meer', en:'Discover more', ar:'اكتشف المزيد' },
+    'hero-desc':        { nl:'Authentieke Syrisch-Libanese catering voor particulieren, bedrijven en overheidsinstanties. Vanuit onze productiekeuken in Best verzorgen wij catering door heel <strong style="color:var(--parchment)">Nederland, België en Duitsland</strong> — volledig halal, liefdevol bereid door een team van 20+ medewerkers.', en:'Authentic Syrian-Lebanese catering for private clients, businesses and government institutions. From our production kitchen in Best, we provide catering throughout <strong style="color:var(--parchment)">the Netherlands, Belgium and Germany</strong> — fully halal, lovingly prepared by a team of 20+ staff.', ar:'تموين سوري لبناني أصيل للأفراد والشركات والمؤسسات الحكومية. ننطلق من مطبخنا الإنتاجي في مدينة Best لنقدّم خدمات التموين في جميع أنحاء <strong style="color:var(--parchment)">هولندا وبلجيكا وألمانيا</strong> — حلال بالكامل، يُعدّ بمحبّة على يد فريق يضمّ أكثر من ٢٠ موظفاً.' },
+    'hero-btn1':        { nl:'Gratis Offerte Aanvragen', en:'Request Free Quote', ar:'اطلب عرض سعر مجاني' },
+    'hero-btn2':        { nl:'Bekijk Diensten', en:'View Services', ar:'تصفّح خدماتنا' },
+    'hero-calligraphy': { nl:'De ware smaken van<br>Syrië en Libanon', en:'The true flavours of<br>Syria and Lebanon', ar:'النكهات الأصيلة<br>من سوريا ولبنان' },
+    'usp-halal-desc':   { nl:'Alle catering en gerechten zijn volledig halal gecertificeerd', en:'All catering and dishes are fully halal certified', ar:'جميع خدمات التموين والأطباق معتمدة كحلال بالكامل' },
+    'usp-stars-title':  { nl:'4.9/5 Sterren', en:'4.9/5 Stars', ar:'٤٫٩ من ٥ نجوم' },
+    'usp-stars-desc':   { nl:'104 reviews op Google', en:'104 reviews on Google', ar:'١٠٤ تقييمات على غوغل' },
+    'usp-countries-desc':{ nl:'Actief in Nederland, België én Duitsland', en:'Active in the Netherlands, Belgium and Germany', ar:'نعمل في هولندا وبلجيكا وألمانيا' },
+    'usp-gov-title':    { nl:'Overheidspartner', en:'Government Partner', ar:'شريك حكومي' },
+    'usp-gov-desc':     { nl:"Gecertificeerd voor AZC's, gemeenten en overheidsinstanties", en:'Certified for asylum centres, municipalities and government institutions', ar:'معتمد لخدمة مراكز اللجوء والبلديات والمؤسسات الحكومية' },
+    'diensten-label':   { nl:'Wat Wij Bieden', en:'What We Offer', ar:'ما نقدّمه' },
+    'diensten-title':   { nl:'Catering voor <em>elke gelegenheid</em>', en:'Catering for <em>every occasion</em>', ar:'تموين <em>لكلّ مناسبة</em>' },
+    'd1-name':          { nl:'Feesten & Bruiloften', en:'Celebrations & Weddings', ar:'الحفلات والأعراس' },
+    'd1-desc':          { nl:'Maak uw feest onvergetelijk met authentieke Syrisch-Libanese gerechten. Gratis proeverij bij huwelijkscatering en andere grote feesten — geheel vrijblijvend.', en:'Make your celebration unforgettable with authentic Syrian-Lebanese dishes. Free tasting for wedding catering and other large celebrations — no obligations.', ar:'اجعل مناسبتك لا تُنسى مع أطباق سورية لبنانية أصيلة. جلسة تذوّق مجانية لحفلات الأعراس والمناسبات الكبرى — دون أي التزام.' },
+    'd2-name':          { nl:'Bedrijven', en:'Corporate', ar:'الشركات' },
+    'd2-desc':          { nl:'Professionele bedrijfscatering in Eindhoven en omgeving. Wij verzorgen alles inclusief op- en afbouw, zodat u zich volledig op uw gasten kunt richten.', en:'Professional corporate catering in Eindhoven and surroundings. We handle everything including setup and breakdown, so you can focus entirely on your guests.', ar:'تموين احترافي للشركات في آيندهوفن والمحيط. نهتمّ بكلّ شيء — التحضير والتنصيب والتنظيف — لتتفرّغ لضيوفك تماماً.' },
+    'd3-name':          { nl:'AZC & Overheidsinstanties', en:'Asylum Centres & Government', ar:'مراكز اللجوء والمؤسسات الحكومية' },
+    'd3-desc':          { nl:"Betrouwbare, complete catering voor AZC's en crisisnoodopvang. Van ontbijt tot avondeten, inclusief koelingen, buffetten en koffie-/theevoorzieningen.", en:'Reliable, complete catering for asylum centres and crisis shelters. From breakfast to dinner, including cooling units, buffets and coffee/tea provisions.', ar:'تموين موثوق ومتكامل لمراكز اللجوء ومرافق الإيواء الطارئ. من الفطور إلى العشاء، مع تجهيزات التبريد والبوفيهات وخدمات القهوة والشاي.' },
+    'pak-label':        { nl:'Transparante Prijzen', en:'Transparent Pricing', ar:'أسعار شفّافة' },
+    'pak-title':        { nl:'Onze catering <em>pakketten</em>', en:'Our catering <em>packages</em>', ar:'<em>باقات</em> التموين لدينا' },
+    'conf-label':       { nl:'Stel Zelf Samen', en:'Customise Your Order', ar:'صمّم طلبك بنفسك' },
+    'conf-title':       { nl:'Uw catering <em>op maat</em>', en:'Your catering <em>tailored to you</em>', ar:'تموينك <em>كما تريد</em>' },
+    'over-label':       { nl:'Ons Verhaal', en:'Our Story', ar:'قصّتنا' },
+    'over-title':       { nl:'Geboren uit <em>liefde</em><br>en een nieuw begin', en:'Born from <em>love</em><br>and a new beginning', ar:'ولدنا من <em>محبّة</em><br>وبداية جديدة' },
+    'menu-label':       { nl:'Onze Specialiteiten', en:'Our Specialities', ar:'اختصاصاتنا' },
+    'menu-title':       { nl:'De smaken van <em>Syrië en Libanon</em>', en:'The flavours of <em>Syria and Lebanon</em>', ar:'نكهات <em>سوريا ولبنان</em>' },
+    'azc-label':        { nl:'AZC & Noodopvang', en:'Asylum & Emergency Shelter', ar:'مراكز اللجوء والإيواء الطارئ' },
+    'azc-title':        { nl:'Betrouwbare partner voor <em>overheidsinstanties</em>', en:'Trusted partner for <em>government institutions</em>', ar:'شريك موثوق <em>للمؤسسات الحكومية</em>' },
+    'bak-label':        { nl:'Webshop', en:'Webshop', ar:'المتجر الإلكتروني' },
+    'bak-title':        { nl:'Baklava <em>per post</em>', en:'Baklava <em>by post</em>', ar:'بقلاوة <em>عبر البريد</em>' },
+    'loc-label':        { nl:'Onze Locaties', en:'Our Locations', ar:'مواقعنا' },
+    'loc-title':        { nl:'Waar u ons kunt <em>vinden</em>', en:'Where you can <em>find us</em>', ar:'أين <em>تجدنا</em>' },
+    'test-label':       { nl:'Wat Klanten Zeggen', en:'What Customers Say', ar:'ماذا يقول عملاؤنا' },
+    'test-title':       { nl:'<em>Ervaringen</em> van onze klanten', en:"Our customers' <em>experiences</em>", ar:'<em>تجارب</em> عملائنا' },
+    'cont-label':       { nl:'Neem Contact Op', en:'Get In Touch', ar:'تواصل معنا' },
+    'cont-title':       { nl:'Vraag een <em>offerte</em> aan', en:'Request a <em>quote</em>', ar:'اطلب <em>عرض سعر</em>' },
+    'cont-btn':         { nl:'Offerte Aanvragen — Gratis &amp; Vrijblijvend', en:'Request Quote — Free &amp; No Obligation', ar:'اطلب عرض سعر — مجاني وبدون التزام' },
+    'cont-desc':        { nl:'Vertel ons over uw wensen en wij sturen u binnen 24 uur een vrijblijvende offerte op maat. Wij spreken <strong style="color:var(--parchment)">Nederlands, Arabisch en Engels</strong>.', en:'Tell us about your wishes and we will send you a no-obligation custom quote within 24 hours. We speak <strong style="color:var(--parchment)">Dutch, Arabic and English</strong>.', ar:'أخبرنا برغباتك وسنرسل لك عرض سعر مخصّصاً خلال ٢٤ ساعة دون أي التزام. نتحدّث <strong style="color:var(--parchment)">الهولندية والعربية والإنجليزية</strong>.' },
+    'cont-info-title':  { nl:'Direct Contact', en:'Direct Contact', ar:'اتّصال مباشر' },
+    'form-sec1':        { nl:'Over u', en:'About you', ar:'معلوماتك' },
+    'form-sec2':        { nl:'Over het evenement', en:'About your event', ar:'عن المناسبة' },
+    'form-sec3':        { nl:'Uw bericht', en:'Your message', ar:'رسالتك' },
+    'cont-info-text':   { nl:'Liever direct bellen of appen? Wij zijn bereikbaar op onderstaande gegevens. We staan u graag te woord in het Nederlands, Arabisch of Engels.', en:'Prefer to call or message directly? You can reach us at the details below. We are happy to assist you in Dutch, Arabic or English.', ar:'تفضّل الاتصال أو المراسلة مباشرةً؟ يمكنك التواصل معنا عبر التفاصيل أدناه. نسعد بخدمتك بالهولندية أو العربية أو الإنجليزية.' },
 
     // Diensten lists
-    'd1-list': { nl:'<li>Voor particulieren en bedrijven</li><li>Huwelijkscatering — gratis proeverij</li><li>Hapjescatering (mezze/tapas)</li><li>Uitgebreide buffetcatering met bediening</li><li>Volledig vegetarisch of vegan mogelijk</li><li>Dieetwensen: lactosevrij, glutenvrij, notenvrij e.a.</li><li>Toetjesbuffetten & losse maaltijden</li>', en:'<li>For private clients and businesses</li><li>Wedding catering — free tasting</li><li>Starter catering (mezze/tapas)</li><li>Extensive buffet catering with service</li><li>Fully vegetarian or vegan options available</li><li>Dietary needs: lactose-free, gluten-free, nut-free etc.</li><li>Dessert buffets & individual meals</li>' },
-    'd2-list': { nl:'<li>Bedrijfslunches & -diners</li><li>Vergaderingen & productlanceringen</li><li>Personeelsevents & teambuilding</li><li>Vaste dagelijkse cateringcontracten</li><li>Inclusieve menuopties (halal, vegan, vegetarisch)</li><li>Dieetwensen: lactosevrij, glutenvrij, notenvrij e.a.</li>', en:'<li>Business lunches & dinners</li><li>Meetings & product launches</li><li>Staff events & team building</li><li>Fixed daily catering contracts</li><li>Inclusive menu options (halal, vegan, vegetarian)</li><li>Dietary needs: lactose-free, gluten-free, nut-free etc.</li>' },
-    'd3-list': { nl:'<li>Asielzoekerscentra (AZC) — dagelijkse maaltijden</li><li>Crisisnoodopvanglocaties</li><li>Gemeenten & zorginstellingen</li><li>Volledige uitrusting geleverd</li><li>Schaalbaar voor honderden personen</li><li>Voorkeur voor aanstelling statushouders</li>', en:'<li>Asylum seeker centres (AZC) — daily meals</li><li>Crisis emergency shelter locations</li><li>Municipalities & care institutions</li><li>Full equipment supplied on site</li><li>Scalable for hundreds of people</li><li>Priority hiring of permit holders</li>' },
-    'diensten-intro':   { nl:'Van een intiem familiefeest tot dagelijkse maaltijden voor honderden bewoners — wij verzorgen catering van A tot Z, altijd met dezelfde passie en halal-kwaliteit.', en:'From an intimate family celebration to daily meals for hundreds of residents — we handle catering from A to Z, always with the same passion and halal quality.' },
+    'd1-list': { nl:'<li>Voor particulieren en bedrijven</li><li>Huwelijkscatering — gratis proeverij</li><li>Hapjescatering (mezze/tapas)</li><li>Uitgebreide buffetcatering met bediening</li><li>Volledig vegetarisch of vegan mogelijk</li><li>Dieetwensen: lactosevrij, glutenvrij, notenvrij e.a.</li><li>Toetjesbuffetten & losse maaltijden</li>', en:'<li>For private clients and businesses</li><li>Wedding catering — free tasting</li><li>Starter catering (mezze/tapas)</li><li>Extensive buffet catering with service</li><li>Fully vegetarian or vegan options available</li><li>Dietary needs: lactose-free, gluten-free, nut-free etc.</li><li>Dessert buffets & individual meals</li>', ar:'<li>للأفراد والشركات</li><li>تموين الأعراس — جلسة تذوّق مجانية</li><li>تموين المازات والمقبّلات</li><li>بوفيه واسع مع خدمة الضيافة</li><li>خيارات نباتية ونباتية صرف بالكامل</li><li>احتياجات غذائية: خالٍ من اللاكتوز والغلوتين والمكسّرات وغيرها</li><li>بوفيه حلويات ووجبات منفردة</li>' },
+    'd2-list': { nl:'<li>Bedrijfslunches & -diners</li><li>Vergaderingen & productlanceringen</li><li>Personeelsevents & teambuilding</li><li>Vaste dagelijkse cateringcontracten</li><li>Inclusieve menuopties (halal, vegan, vegetarisch)</li><li>Dieetwensen: lactosevrij, glutenvrij, notenvrij e.a.</li>', en:'<li>Business lunches & dinners</li><li>Meetings & product launches</li><li>Staff events & team building</li><li>Fixed daily catering contracts</li><li>Inclusive menu options (halal, vegan, vegetarian)</li><li>Dietary needs: lactose-free, gluten-free, nut-free etc.</li>', ar:'<li>غداء وعشاء الشركات</li><li>اجتماعات وإطلاق منتجات</li><li>فعاليات الموظفين وبناء الفريق</li><li>عقود تموين يومي ثابتة</li><li>قوائم شاملة (حلال، نباتي، نباتي صرف)</li><li>احتياجات غذائية: خالٍ من اللاكتوز والغلوتين والمكسّرات وغيرها</li>' },
+    'd3-list': { nl:'<li>Asielzoekerscentra (AZC) — dagelijkse maaltijden</li><li>Crisisnoodopvanglocaties</li><li>Gemeenten & zorginstellingen</li><li>Volledige uitrusting geleverd</li><li>Schaalbaar voor honderden personen</li><li>Voorkeur voor aanstelling statushouders</li>', en:'<li>Asylum seeker centres (AZC) — daily meals</li><li>Crisis emergency shelter locations</li><li>Municipalities & care institutions</li><li>Full equipment supplied on site</li><li>Scalable for hundreds of people</li><li>Priority hiring of permit holders</li>', ar:'<li>مراكز اللجوء — وجبات يومية</li><li>مرافق الإيواء الطارئ</li><li>البلديات ومؤسسات الرعاية</li><li>توفير كامل التجهيزات في الموقع</li><li>قابل للتوسّع لمئات الأشخاص</li><li>أولوية التوظيف لحاملي تصاريح الإقامة</li>' },
+    'diensten-intro':   { nl:'Van een intiem familiefeest tot dagelijkse maaltijden voor honderden bewoners — wij verzorgen catering van A tot Z, altijd met dezelfde passie en halal-kwaliteit.', en:'From an intimate family celebration to daily meals for hundreds of residents — we handle catering from A to Z, always with the same passion and halal quality.', ar:'من حفلة عائلية صغيرة إلى وجبات يومية لمئات المقيمين — نهتمّ بكلّ تفاصيل التموين، دائماً بالشغف نفسه وبجودة حلال متّسقة.' },
 
     // Pakketten
-    'pak-intro':        { nl:'BTW inbegrepen. Opbouw, afbouw en afwas inbegrepen. Gratis levering in Eindhoven en Rotterdam.', en:'VAT included. Setup, breakdown and washing up included. Free delivery in Eindhoven and Rotterdam.' },
-    'pak-classic-per':  { nl:'per persoon · min. 10 personen', en:'per person · min. 10 persons' },
-    'pak-luxe-per':     { nl:'per persoon · min. 15 personen', en:'per person · min. 15 persons' },
-    'pak-table-per':    { nl:'per persoon · min. 20 personen', en:'per person · min. 20 persons' },
-    'pak-classic-list': { nl:'<li><strong>3 hoofdgerechten</strong> naar keuze</li><li><strong>3 mezze\'s</strong> (smeersels & hapjes)</li><li><strong>1 salade</strong></li><li>Presentatie op mooie schalen + chafing dishes</li><li>In buffetvorm opgesteld</li><li>Op- en afbouw inbegrepen</li><li>Afwas inbegrepen</li><li>Gratis levering Eindhoven en Rotterdam</li>', en:'<li><strong>3 main courses</strong> of your choice</li><li><strong>3 mezze\'s</strong> (dips & starters)</li><li><strong>1 salad</strong></li><li>Presentation on beautiful platters + chafing dishes</li><li>Presented in buffet style</li><li>Setup & breakdown included</li><li>Washing up included</li><li>Free delivery Eindhoven and Rotterdam</li>' },
-    'pak-luxe-list':    { nl:'<li><strong>4 hoofdgerechten</strong> naar keuze</li><li><strong>4 mezze\'s</strong> (smeersels & hapjes)</li><li><strong>1 salade</strong></li><li>Presentatie op mooie schalen + chafing dishes</li><li>In buffetvorm opgesteld</li><li>Op- en afbouw inbegrepen</li><li>Afwas inbegrepen</li><li>Gratis levering Eindhoven en Rotterdam</li>', en:'<li><strong>4 main courses</strong> of your choice</li><li><strong>4 mezze\'s</strong> (dips & starters)</li><li><strong>1 salad</strong></li><li>Presentation on beautiful platters + chafing dishes</li><li>Presented in buffet style</li><li>Setup & breakdown included</li><li>Washing up included</li><li>Free delivery Eindhoven and Rotterdam</li>' },
-    'pak-table-list':   { nl:'<li><strong>2 hoofdgerechten</strong> naar keuze</li><li><strong>3 mezze\'s</strong> naar keuze</li><li><strong>1 salade</strong> naar keuze</li><li>Warm uitgeserveerd op schalen per tafel</li><li>Inclusief bedienend personeel</li><li>Op- en afbouw inbegrepen</li><li>Afwas inbegrepen</li><li>Gratis levering Eindhoven en Rotterdam</li>', en:'<li><strong>2 main courses</strong> of your choice</li><li><strong>3 mezze\'s</strong> of your choice</li><li><strong>1 salad</strong> of your choice</li><li>Served warm on platters per table</li><li>Service staff included</li><li>Setup & breakdown included</li><li>Washing up included</li><li>Free delivery Eindhoven and Rotterdam</li>' },
-    'pak-classic-note': { nl:'Borden & bestek: +€1,- p.p. optioneel', en:'Plates & cutlery: +€1,- p.p. optional' },
-    'pak-luxe-note':    { nl:'Borden & bestek: +€1,- p.p. optioneel. Bedienend personeel op aanvraag.', en:'Plates & cutlery: +€1,- p.p. optional. Service staff on request.' },
-    'pak-table-note':   { nl:'Geen buffet — gerechten worden warm aan tafel geserveerd door ons personeel.', en:'No buffet — dishes are served warm at your table by our staff.' },
-    'pak-bbq-per':      { nl:'per persoon · min. 20 personen', en:'per person · min. 20 persons' },
-    'pak-bbq-list':     { nl:'<li><strong>1 grote shish kebab</strong> (lams-rundergehakt spies) p.p.</li><li><strong>1 grote shish tavuk</strong> (kipspies) p.p.</li><li>Kippenvleugeltjes</li><li>Diverse gegrilde groenten van de BBQ</li><li>Hummus dip & muhammara (paprika-walnoten) dip</li><li>Salade & diverse sauzen</li><li>Inclusief BBQ & alle benodigdheden</li><li>Inclusief personeel dat de BBQ bedient</li><li>Op- en afbouw inbegrepen</li><li>Afwas inbegrepen</li><li>Gratis levering Eindhoven en Rotterdam</li>', en:'<li><strong>1 large shish kebab</strong> (lamb-beef mince skewer) p.p.</li><li><strong>1 large shish tavuk</strong> (chicken skewer) p.p.</li><li>Chicken wings</li><li>Assorted grilled vegetables from the BBQ</li><li>Hummus dip & muhammara (pepper-walnut) dip</li><li>Salad & assorted sauces</li><li>Including BBQ & all supplies</li><li>Including staff to operate the BBQ</li><li>Setup & breakdown included</li><li>Washing up included</li><li>Free delivery Eindhoven and Rotterdam</li>' },
-    'pak-bbq-note':     { nl:'Extra soorten vlees of vega opties op aanvraag', en:'Additional meat varieties or vegan options on request' },
-    'pak-hapjes-name':  { nl:'Mezze Selectie', en:'Mezze Selection' },
-    'pak-hapjes-per':   { nl:'per persoon · min. 15 personen<br><span style="font-size:.75rem;color:rgba(245,237,214,.4);">Mix van 5 hapjes per persoon</span>', en:'per person · min. 15 persons<br><span style="font-size:.75rem;color:rgba(245,237,214,.4);">Mix of 5 bites per person</span>' },
-    'pak-hapjes-list':  { nl:'<li><strong>3 soorten börek</strong> (spinazie, kaas, gehakt)</li><li><strong>3 soorten luxe toastjes</strong> (hummus, muhammara, labneh)</li><li>Gevulde gehaktballen (kibbeh)</li><li>Gevulde druivenbladeren (yalanci)</li><li>Andere hapjes of volledig vegetarisch op aanvraag</li><li>Zonder personeel (bedienend personeel op aanvraag)</li><li>Koud geleverd in disposable schalen</li>', en:'<li><strong>3 types of börek</strong> (spinach, cheese, mince)</li><li><strong>3 types of luxury toasts</strong> (hummus, muhammara, labneh)</li><li>Stuffed meatballs (kibbeh)</li><li>Stuffed grape leaves (yalanci)</li><li>Other bites or fully vegetarian on request</li><li>Without service staff (available on request)</li><li>Delivered cold in disposable trays</li>' },
-    'pak-hapjes-note':  { nl:'Extra hapjes op aanvraag · Alternatieve presentatie in overleg', en:'Additional bites on request · Alternative presentation by arrangement' },
-    'pak-maat-name':    { nl:'Catering op Maat', en:'Custom Catering' },
-    'pak-maat-per':     { nl:'Prijs op maat · geheel vrijblijvend', en:'Custom pricing · no obligations' },
-    'pak-maat-list':    { nl:'<li>Niet zeker welk pakket past?</li><li>Wij maken een <strong>menu op maat</strong></li><li>Persoonlijk adviesgesprek</li><li>Afgestemd op uw wensen en budget</li><li>Pakketten combineren mogelijk</li><li>Vegetarisch, vegan of dieetwensen</li>', en:'<li>Not sure which package suits you?</li><li>We create a <strong>custom menu</strong> for you</li><li>Personal consultation</li><li>Tailored to your wishes and budget</li><li>Package combinations possible</li><li>Vegetarian, vegan or dietary needs</li>' },
-    'pak-maat-btn':     { nl:'Neem Contact Op', en:'Get in Touch' },
-    'pak-ex1-label':    { nl:'Bezorgkosten buiten regio', en:'Delivery outside region' },
-    'pak-ex1-val':      { nl:'€0,50 per km (retour) vanaf Best', en:'€0.50 per km (return) from Best' },
-    'pak-ex2-label':    { nl:'Servicebereik', en:'Service area' },
-    'pak-ex2-val':      { nl:'Nederland · België · Duitsland', en:'Netherlands · Belgium · Germany' },
-    'pak-ex3-label':    { nl:'Vrijblijvende proeverij', en:'Free tasting session' },
-    'pak-ex3-val':      { nl:'Gratis bij huwelijkscatering en andere grote feesten', en:'Free for wedding catering and other large celebrations' },
+    'pak-intro':        { nl:'BTW inbegrepen. Opbouw, afbouw en afwas inbegrepen. Gratis levering in Eindhoven en Rotterdam.', en:'VAT included. Setup, breakdown and washing up included. Free delivery in Eindhoven and Rotterdam.', ar:'تشمل ضريبة القيمة المضافة. يشمل السعر التحضير والتنصيب والتنظيف. توصيل مجاني في آيندهوفن وروتردام.' },
+    'pak-classic-per':  { nl:'per persoon · min. 10 personen', en:'per person · min. 10 persons', ar:'للشخص الواحد · ١٠ أشخاص كحدّ أدنى' },
+    'pak-luxe-per':     { nl:'per persoon · min. 15 personen', en:'per person · min. 15 persons', ar:'للشخص الواحد · ١٥ شخصاً كحدّ أدنى' },
+    'pak-table-per':    { nl:'per persoon · min. 20 personen', en:'per person · min. 20 persons', ar:'للشخص الواحد · ٢٠ شخصاً كحدّ أدنى' },
+    'pak-classic-list': { nl:'<li><strong>3 hoofdgerechten</strong> naar keuze</li><li><strong>3 mezze\'s</strong> (smeersels & hapjes)</li><li><strong>1 salade</strong></li><li>Presentatie op mooie schalen + chafing dishes</li><li>In buffetvorm opgesteld</li><li>Op- en afbouw inbegrepen</li><li>Afwas inbegrepen</li><li>Gratis levering Eindhoven en Rotterdam</li>', en:'<li><strong>3 main courses</strong> of your choice</li><li><strong>3 mezze\'s</strong> (dips & starters)</li><li><strong>1 salad</strong></li><li>Presentation on beautiful platters + chafing dishes</li><li>Presented in buffet style</li><li>Setup & breakdown included</li><li>Washing up included</li><li>Free delivery Eindhoven and Rotterdam</li>', ar:'<li><strong>٣ أطباق رئيسية</strong> من اختيارك</li><li><strong>٣ مازات</strong> (مقبّلات ومنقوعات)</li><li><strong>سلطة واحدة</strong></li><li>تقديم على صحون أنيقة مع شافينغ ديش</li><li>على شكل بوفيه</li><li>التحضير والتنصيب ضمن السعر</li><li>التنظيف ضمن السعر</li><li>توصيل مجاني في آيندهوفن وروتردام</li>' },
+    'pak-luxe-list':    { nl:'<li><strong>4 hoofdgerechten</strong> naar keuze</li><li><strong>4 mezze\'s</strong> (smeersels & hapjes)</li><li><strong>1 salade</strong></li><li>Presentatie op mooie schalen + chafing dishes</li><li>In buffetvorm opgesteld</li><li>Op- en afbouw inbegrepen</li><li>Afwas inbegrepen</li><li>Gratis levering Eindhoven en Rotterdam</li>', en:'<li><strong>4 main courses</strong> of your choice</li><li><strong>4 mezze\'s</strong> (dips & starters)</li><li><strong>1 salad</strong></li><li>Presentation on beautiful platters + chafing dishes</li><li>Presented in buffet style</li><li>Setup & breakdown included</li><li>Washing up included</li><li>Free delivery Eindhoven and Rotterdam</li>', ar:'<li><strong>٤ أطباق رئيسية</strong> من اختيارك</li><li><strong>٤ مازات</strong> (مقبّلات ومنقوعات)</li><li><strong>سلطة واحدة</strong></li><li>تقديم على صحون أنيقة مع شافينغ ديش</li><li>على شكل بوفيه</li><li>التحضير والتنصيب ضمن السعر</li><li>التنظيف ضمن السعر</li><li>توصيل مجاني في آيندهوفن وروتردام</li>' },
+    'pak-table-list':   { nl:'<li><strong>2 hoofdgerechten</strong> naar keuze</li><li><strong>3 mezze\'s</strong> naar keuze</li><li><strong>1 salade</strong> naar keuze</li><li>Warm uitgeserveerd op schalen per tafel</li><li>Inclusief bedienend personeel</li><li>Op- en afbouw inbegrepen</li><li>Afwas inbegrepen</li><li>Gratis levering Eindhoven en Rotterdam</li>', en:'<li><strong>2 main courses</strong> of your choice</li><li><strong>3 mezze\'s</strong> of your choice</li><li><strong>1 salad</strong> of your choice</li><li>Served warm on platters per table</li><li>Service staff included</li><li>Setup & breakdown included</li><li>Washing up included</li><li>Free delivery Eindhoven and Rotterdam</li>', ar:'<li><strong>طبقان رئيسيان</strong> من اختيارك</li><li><strong>٣ مازات</strong> من اختيارك</li><li><strong>سلطة واحدة</strong> من اختيارك</li><li>تُقدَّم ساخنة على صحون لكلّ طاولة</li><li>طاقم خدمة الضيافة ضمن السعر</li><li>التحضير والتنصيب ضمن السعر</li><li>التنظيف ضمن السعر</li><li>توصيل مجاني في آيندهوفن وروتردام</li>' },
+    'pak-classic-note': { nl:'Borden & bestek: +€1,- p.p. optioneel', en:'Plates & cutlery: +€1,- p.p. optional', ar:'الصحون والأدوات: +١ يورو للشخص (اختياري)' },
+    'pak-luxe-note':    { nl:'Borden & bestek: +€1,- p.p. optioneel. Bedienend personeel op aanvraag.', en:'Plates & cutlery: +€1,- p.p. optional. Service staff on request.', ar:'الصحون والأدوات: +١ يورو للشخص (اختياري). طاقم الخدمة عند الطلب.' },
+    'pak-table-note':   { nl:'Geen buffet — gerechten worden warm aan tafel geserveerd door ons personeel.', en:'No buffet — dishes are served warm at your table by our staff.', ar:'بدون بوفيه — تُقدَّم الأطباق ساخنة على الطاولات من قِبَل طاقمنا.' },
+    'pak-bbq-per':      { nl:'per persoon · min. 20 personen', en:'per person · min. 20 persons', ar:'للشخص الواحد · ٢٠ شخصاً كحدّ أدنى' },
+    'pak-bbq-list':     { nl:'<li><strong>1 grote shish kebab</strong> (lams-rundergehakt spies) p.p.</li><li><strong>1 grote shish tavuk</strong> (kipspies) p.p.</li><li>Kippenvleugeltjes</li><li>Diverse gegrilde groenten van de BBQ</li><li>Hummus dip & muhammara (paprika-walnoten) dip</li><li>Salade & diverse sauzen</li><li>Inclusief BBQ & alle benodigdheden</li><li>Inclusief personeel dat de BBQ bedient</li><li>Op- en afbouw inbegrepen</li><li>Afwas inbegrepen</li><li>Gratis levering Eindhoven en Rotterdam</li>', en:'<li><strong>1 large shish kebab</strong> (lamb-beef mince skewer) p.p.</li><li><strong>1 large shish tavuk</strong> (chicken skewer) p.p.</li><li>Chicken wings</li><li>Assorted grilled vegetables from the BBQ</li><li>Hummus dip & muhammara (pepper-walnut) dip</li><li>Salad & assorted sauces</li><li>Including BBQ & all supplies</li><li>Including staff to operate the BBQ</li><li>Setup & breakdown included</li><li>Washing up included</li><li>Free delivery Eindhoven and Rotterdam</li>', ar:'<li><strong>سيخ كباب كبير</strong> (لحم الغنم والبقر) للشخص</li><li><strong>سيخ شيش طاووق كبير</strong> (دجاج) للشخص</li><li>أجنحة دجاج</li><li>تشكيلة من الخضار المشوية</li><li>غموس حمّص ومحمّرة (فلفل وجوز)</li><li>سلطة وصلصات متنوّعة</li><li>الشواية وكلّ مستلزماتها ضمن السعر</li><li>طاقم تشغيل الشواية ضمن السعر</li><li>التحضير والتنصيب ضمن السعر</li><li>التنظيف ضمن السعر</li><li>توصيل مجاني في آيندهوفن وروتردام</li>' },
+    'pak-bbq-note':     { nl:'Extra soorten vlees of vega opties op aanvraag', en:'Additional meat varieties or vegan options on request', ar:'أنواع لحوم إضافية أو خيارات نباتية عند الطلب' },
+    'pak-hapjes-name':  { nl:'Mezze Selectie', en:'Mezze Selection', ar:'تشكيلة المازات' },
+    'pak-hapjes-per':   { nl:'per persoon · min. 15 personen<br><span style="font-size:.75rem;color:rgba(245,237,214,.4);">Mix van 5 hapjes per persoon</span>', en:'per person · min. 15 persons<br><span style="font-size:.75rem;color:rgba(245,237,214,.4);">Mix of 5 bites per person</span>', ar:'للشخص الواحد · ١٥ شخصاً كحدّ أدنى<br><span style="font-size:.75rem;color:rgba(245,237,214,.4);">٥ مقبّلات منوّعة لكلّ شخص</span>' },
+    'pak-hapjes-list':  { nl:'<li><strong>3 soorten börek</strong> (spinazie, kaas, gehakt)</li><li><strong>3 soorten luxe toastjes</strong> (hummus, muhammara, labneh)</li><li>Gevulde gehaktballen (kibbeh)</li><li>Gevulde druivenbladeren (yalanci)</li><li>Andere hapjes of volledig vegetarisch op aanvraag</li><li>Zonder personeel (bedienend personeel op aanvraag)</li><li>Koud geleverd in disposable schalen</li>', en:'<li><strong>3 types of börek</strong> (spinach, cheese, mince)</li><li><strong>3 types of luxury toasts</strong> (hummus, muhammara, labneh)</li><li>Stuffed meatballs (kibbeh)</li><li>Stuffed grape leaves (yalanci)</li><li>Other bites or fully vegetarian on request</li><li>Without service staff (available on request)</li><li>Delivered cold in disposable trays</li>', ar:'<li><strong>٣ أنواع من البوريك</strong> (سبانخ، جبنة، لحمة)</li><li><strong>٣ أنواع من التوست الفاخر</strong> (حمّص، محمّرة، لبنة)</li><li>كبّة محشوّة</li><li>ورق عنب (يالنجي)</li><li>مقبّلات أخرى أو خيار نباتي بالكامل عند الطلب</li><li>بدون طاقم خدمة (متاح عند الطلب)</li><li>تُقدَّم باردة في صحون يمكن التخلّص منها</li>' },
+    'pak-hapjes-note':  { nl:'Extra hapjes op aanvraag · Alternatieve presentatie in overleg', en:'Additional bites on request · Alternative presentation by arrangement', ar:'مقبّلات إضافية عند الطلب · تقديم بطريقة مختلفة بعد التنسيق' },
+    'pak-maat-name':    { nl:'Catering op Maat', en:'Custom Catering', ar:'تموين مخصّص' },
+    'pak-maat-per':     { nl:'Prijs op maat · geheel vrijblijvend', en:'Custom pricing · no obligations', ar:'سعر مخصّص · دون أي التزام' },
+    'pak-maat-list':    { nl:'<li>Niet zeker welk pakket past?</li><li>Wij maken een <strong>menu op maat</strong></li><li>Persoonlijk adviesgesprek</li><li>Afgestemd op uw wensen en budget</li><li>Pakketten combineren mogelijk</li><li>Vegetarisch, vegan of dieetwensen</li>', en:'<li>Not sure which package suits you?</li><li>We create a <strong>custom menu</strong> for you</li><li>Personal consultation</li><li>Tailored to your wishes and budget</li><li>Package combinations possible</li><li>Vegetarian, vegan or dietary needs</li>', ar:'<li>غير متأكّد أيّ باقة تناسبك؟</li><li>نُعدّ لك <strong>قائمة مخصّصة</strong></li><li>استشارة شخصية</li><li>تُصمَّم وفقاً لرغباتك وميزانيتك</li><li>إمكانية الجمع بين الباقات</li><li>خيارات نباتية أو نباتية صرف أو احتياجات غذائية</li>' },
+    'pak-maat-btn':     { nl:'Neem Contact Op', en:'Get in Touch', ar:'تواصل معنا' },
+    'pak-ex1-label':    { nl:'Bezorgkosten buiten regio', en:'Delivery outside region', ar:'تكاليف التوصيل خارج المنطقة' },
+    'pak-ex1-val':      { nl:'€0,50 per km (retour) vanaf Best', en:'€0.50 per km (return) from Best', ar:'٠٫٥٠ يورو لكلّ كيلومتر (ذهاباً وإياباً) من Best' },
+    'pak-ex2-label':    { nl:'Servicebereik', en:'Service area', ar:'نطاق الخدمة' },
+    'pak-ex2-val':      { nl:'Nederland · België · Duitsland', en:'Netherlands · Belgium · Germany', ar:'هولندا · بلجيكا · ألمانيا' },
+    'pak-ex3-label':    { nl:'Vrijblijvende proeverij', en:'Free tasting session', ar:'جلسة تذوّق مجانية' },
+    'pak-ex3-val':      { nl:'Gratis bij huwelijkscatering en andere grote feesten', en:'Free for wedding catering and other large celebrations', ar:'مجانية لتموين الأعراس والمناسبات الكبرى' },
 
     // Configurator
-    'conf-intro':       { nl:'Kies uw pakket, stel uw menusamenstelling samen, bereken de reiskosten en prik een datum. U ontvangt direct een vrijblijvende offerte op maat.', en:'Choose your package, compose your menu, calculate travel costs and pick a date. You will receive a free custom quote right away.' },
-    'conf-s1-num':      { nl:'Stap 1', en:'Step 1' },
-    'conf-s1-title':    { nl:'Kies uw pakket', en:'Choose your package' },
-    'conf-s2-num':      { nl:'Stap 2', en:'Step 2' },
-    'conf-s2-title':    { nl:'Aantal personen', en:'Number of guests' },
-    'conf-s3-num':      { nl:'Stap 3', en:'Step 3' },
-    'conf-s3-title':    { nl:'Kies uw gerechten', en:'Choose your dishes' },
-    'conf-s4-num':      { nl:'Stap 4', en:'Step 4' },
-    'conf-s4-title':    { nl:'Extra\'s toevoegen', en:'Add extras' },
-    'conf-s4-opt':      { nl:'(optioneel)', en:'(optional)' },
-    'conf-s5-num':      { nl:'Stap 5', en:'Step 5' },
-    'conf-s5-title':    { nl:'Bereken reiskosten', en:'Calculate travel costs' },
-    'conf-s5-desc':     { nl:'Wij rijden vanuit onze dichtstbijzijnde locatie naar u toe — automatisch berekend. Tarief: <strong style="color:var(--parchment)">€0,50 per km retour</strong>. Gratis in regio Eindhoven.', en:'We travel from our nearest location to you — calculated automatically. Rate: <strong style="color:var(--parchment)">€0.50 per km return</strong>. Free in the Eindhoven region.' },
-    'conf-s6-num':      { nl:'Stap 6', en:'Step 6' },
-    'conf-s6-title':    { nl:'Kies een datum', en:'Choose a date' },
-    'conf-s6-desc':     { nl:'Rood = bezet (geblokkeerd). Gouden stip = bijna volgeboekt. Groen = beschikbaar.', en:'Red = unavailable (blocked). Gold dot = almost full. Green = available.' },
-    'conf-datum-onbekend': { nl:'Ik weet de datum nog niet', en:'I don\'t know the date yet' },
-    'conf-straat-ph':   { nl:'Straat + huisnummer', en:'Street + house number' },
-    'conf-plaats-ph':   { nl:'Plaats', en:'City' },
-    'conf-tijdstip-lbl':{ nl:'Tijdstip', en:'Time' },
-    'conf-type-lbl':    { nl:'Type evenement', en:'Event type' },
-    'conf-type-select': { nl:'<option value="">Selecteer...</option><option>Bruiloft / Huwelijkscatering</option><option>Eid / Ramadan-iftar</option><option>Jubileum</option><option>Bedrijfslunch / Diner</option><option>Borrel / Receptie</option><option>AZC / Noodopvang</option><option>Kookworkshop</option><option>Anders</option>', en:'<option value="">Select...</option><option>Wedding catering</option><option>Eid / Ramadan iftar</option><option>Anniversary</option><option>Business lunch / Dinner</option><option>Reception / Drinks</option><option>Asylum centre / Shelter</option><option>Cooking workshop</option><option>Other</option>' },
-    'conf-calc-btn':    { nl:'Bereken', en:'Calculate' },
-    'conf-personen-lbl':{ nl:'personen', en:'persons' },
-    'conf-personen-note':{ nl:'Minimum 10 personen voor het Classic pakket', en:'Minimum 10 persons for the Classic package' },
-    'pk-classic-desc':  { nl:'3 hoofdgerechten + 3 mezze\'s + salade · min. 10 pers.', en:'3 main courses + 3 mezze\'s + salad · min. 10 persons' },
-    'pk-luxe-desc':     { nl:'4 hoofdgerechten + 4 mezze\'s + salade · min. 15 pers.', en:'4 main courses + 4 mezze\'s + salad · min. 15 persons' },
-    'pk-table-desc':    { nl:'2 hoofdgerechten + 3 mezze\'s + salade · min. 20 pers.', en:'2 main courses + 3 mezze\'s + salad · min. 20 persons' },
-    'pk-bbq-desc':      { nl:'Vast BBQ menu · min. 20 pers.', en:'Fixed BBQ menu · min. 20 persons' },
-    'pk-hapjes-name':   { nl:'Mezze Selectie', en:'Mezze Selection' },
-    'pk-hapjes-desc':   { nl:'Mix van 5 hapjes p.p. · min. 15 pers.', en:'Mix of 5 bites p.p. · min. 15 persons' },
+    'conf-intro':       { nl:'Kies uw pakket, stel uw menusamenstelling samen, bereken de reiskosten en prik een datum. U ontvangt direct een vrijblijvende offerte op maat.', en:'Choose your package, compose your menu, calculate travel costs and pick a date. You will receive a free custom quote right away.', ar:'اختر باقتك، اضبط قائمة الطعام، احسب تكاليف التنقّل، وحدّد التاريخ. ستحصل مباشرةً على عرض سعر مخصّص دون أي التزام.' },
+    'conf-s1-num':      { nl:'Stap 1', en:'Step 1', ar:'الخطوة ١' },
+    'conf-s1-title':    { nl:'Kies uw pakket', en:'Choose your package', ar:'اختر باقتك' },
+    'conf-s2-num':      { nl:'Stap 2', en:'Step 2', ar:'الخطوة ٢' },
+    'conf-s2-title':    { nl:'Aantal personen', en:'Number of guests', ar:'عدد الأشخاص' },
+    'conf-s3-num':      { nl:'Stap 3', en:'Step 3', ar:'الخطوة ٣' },
+    'conf-s3-title':    { nl:'Kies uw gerechten', en:'Choose your dishes', ar:'اختر أطباقك' },
+    'conf-s4-num':      { nl:'Stap 4', en:'Step 4', ar:'الخطوة ٤' },
+    'conf-s4-title':    { nl:'Extra\'s toevoegen', en:'Add extras', ar:'إضافات' },
+    'conf-s4-opt':      { nl:'(optioneel)', en:'(optional)', ar:'(اختياري)' },
+    'conf-s5-num':      { nl:'Stap 5', en:'Step 5', ar:'الخطوة ٥' },
+    'conf-s5-title':    { nl:'Bereken reiskosten', en:'Calculate travel costs', ar:'احسب تكاليف التنقّل' },
+    'conf-s5-desc':     { nl:'Wij rijden vanuit onze dichtstbijzijnde locatie naar u toe — automatisch berekend. Tarief: <strong style="color:var(--parchment)">€0,50 per km retour</strong>. Gratis in regio Eindhoven.', en:'We travel from our nearest location to you — calculated automatically. Rate: <strong style="color:var(--parchment)">€0.50 per km return</strong>. Free in the Eindhoven region.', ar:'ننطلق من أقرب موقع لدينا إليك — يُحسب تلقائياً. السعر: <strong style="color:var(--parchment)">٠٫٥٠ يورو لكلّ كيلومتر ذهاباً وإياباً</strong>. مجاني في منطقة آيندهوفن.' },
+    'conf-s6-num':      { nl:'Stap 6', en:'Step 6', ar:'الخطوة ٦' },
+    'conf-s6-title':    { nl:'Kies een datum', en:'Choose a date', ar:'اختر التاريخ' },
+    'conf-s6-desc':     { nl:'Rood = bezet (geblokkeerd). Gouden stip = bijna volgeboekt. Groen = beschikbaar.', en:'Red = unavailable (blocked). Gold dot = almost full. Green = available.', ar:'الأحمر = غير متاح (محجوز). نقطة ذهبية = شبه ممتلئ. الأخضر = متاح.' },
+    'conf-datum-onbekend': { nl:'Ik weet de datum nog niet', en:'I don\'t know the date yet', ar:'لا أعرف التاريخ بعد' },
+    'conf-straat-ph':   { nl:'Straat + huisnummer', en:'Street + house number', ar:'الشارع ورقم المنزل' },
+    'conf-plaats-ph':   { nl:'Plaats', en:'City', ar:'المدينة' },
+    'conf-tijdstip-lbl':{ nl:'Tijdstip', en:'Time', ar:'الوقت' },
+    'conf-type-lbl':    { nl:'Type evenement', en:'Event type', ar:'نوع المناسبة' },
+    'conf-type-select': { nl:'<option value="">Selecteer...</option><option>Bruiloft / Huwelijkscatering</option><option>Eid / Ramadan-iftar</option><option>Jubileum</option><option>Bedrijfslunch / Diner</option><option>Borrel / Receptie</option><option>AZC / Noodopvang</option><option>Kookworkshop</option><option>Anders</option>', en:'<option value="">Select...</option><option>Wedding catering</option><option>Eid / Ramadan iftar</option><option>Anniversary</option><option>Business lunch / Dinner</option><option>Reception / Drinks</option><option>Asylum centre / Shelter</option><option>Cooking workshop</option><option>Other</option>', ar:'<option value="">اختر...</option><option>زفاف / تموين عرس</option><option>عيد / إفطار رمضان</option><option>ذكرى سنوية</option><option>غداء أو عشاء عمل</option><option>استقبال / حفل توديع</option><option>مركز لجوء / إيواء طارئ</option><option>ورشة طهي</option><option>أخرى</option>' },
+    'conf-calc-btn':    { nl:'Bereken', en:'Calculate', ar:'احسب' },
+    'conf-personen-lbl':{ nl:'personen', en:'persons', ar:'شخص' },
+    'conf-personen-note':{ nl:'Minimum 10 personen voor het Classic pakket', en:'Minimum 10 persons for the Classic package', ar:'الحدّ الأدنى ١٠ أشخاص لباقة كلاسيك' },
+    'pk-classic-desc':  { nl:'3 hoofdgerechten + 3 mezze\'s + salade · min. 10 pers.', en:'3 main courses + 3 mezze\'s + salad · min. 10 persons', ar:'٣ أطباق رئيسية + ٣ مازات + سلطة · ١٠ أشخاص كحدّ أدنى' },
+    'pk-luxe-desc':     { nl:'4 hoofdgerechten + 4 mezze\'s + salade · min. 15 pers.', en:'4 main courses + 4 mezze\'s + salad · min. 15 persons', ar:'٤ أطباق رئيسية + ٤ مازات + سلطة · ١٥ شخصاً كحدّ أدنى' },
+    'pk-table-desc':    { nl:'2 hoofdgerechten + 3 mezze\'s + salade · min. 20 pers.', en:'2 main courses + 3 mezze\'s + salad · min. 20 persons', ar:'طبقان رئيسيان + ٣ مازات + سلطة · ٢٠ شخصاً كحدّ أدنى' },
+    'pk-bbq-desc':      { nl:'Vast BBQ menu · min. 20 pers.', en:'Fixed BBQ menu · min. 20 persons', ar:'قائمة شواء ثابتة · ٢٠ شخصاً كحدّ أدنى' },
+    'pk-hapjes-name':   { nl:'Mezze Selectie', en:'Mezze Selection', ar:'تشكيلة المازات' },
+    'pk-hapjes-desc':   { nl:'Mix van 5 hapjes p.p. · min. 15 pers.', en:'Mix of 5 bites p.p. · min. 15 persons', ar:'٥ مقبّلات منوّعة لكلّ شخص · ١٥ شخصاً كحدّ أدنى' },
     // Add-on groepen
-    'addon-grp-machines':{ nl:'Machines & Apparatuur', en:'Machines & Equipment' },
-    'addon-grp-servies': { nl:'Serviesgoed & Meubilair', en:'Tableware & Furniture' },
-    'addon-grp-dranken': { nl:'Dranken', en:'Drinks' },
-    'addon-perstuk':     { nl:'per stuk', en:'per piece' },
+    'addon-grp-machines':{ nl:'Machines & Apparatuur', en:'Machines & Equipment', ar:'الآلات والتجهيزات' },
+    'addon-grp-servies': { nl:'Serviesgoed & Meubilair', en:'Tableware & Furniture', ar:'الأدوات والأثاث' },
+    'addon-grp-dranken': { nl:'Dranken', en:'Drinks', ar:'المشروبات' },
+    'addon-perstuk':     { nl:'per stuk', en:'per piece', ar:'للقطعة الواحدة' },
     // Machines add-ons
-    'addon-popcorn-machine': { nl:'Popcornmachine huur', en:'Popcorn machine rental' },
-    'addon-popcorn-beno':    { nl:'Popcornbenodigdheden', en:'Popcorn supplies' },
-    'addon-popcorn-beno-desc':{ nl:'Zakjes & ingrediënten · min. 20 pers.', en:'Bags & ingredients · min. 20 persons' },
-    'addon-suikerspin-machine':{ nl:'Suikerspinmachine huur', en:'Cotton candy machine rental' },
-    'addon-suikerspin-beno': { nl:'Suikerspinbenodigdheden', en:'Cotton candy supplies' },
-    'addon-suikerspin-beno-desc':{ nl:'Stokjes & ingrediënten · min. 20 pers.', en:'Sticks & ingredients · min. 20 persons' },
-    'addon-choco-machine':   { nl:'Warme chocolademelk machine', en:'Hot chocolate machine' },
-    'addon-choco-glas':      { nl:'Warme chocolademelk per glas', en:'Hot chocolate per glass' },
-    'addon-choco-glas-desc': { nl:'Inclusief slagroom', en:'Including whipped cream' },
+    'addon-popcorn-machine': { nl:'Popcornmachine huur', en:'Popcorn machine rental', ar:'استئجار آلة فشار' },
+    'addon-popcorn-beno':    { nl:'Popcornbenodigdheden', en:'Popcorn supplies', ar:'مستلزمات الفشار' },
+    'addon-popcorn-beno-desc':{ nl:'Zakjes & ingrediënten · min. 20 pers.', en:'Bags & ingredients · min. 20 persons', ar:'أكياس ومكوّنات · ٢٠ شخصاً كحدّ أدنى' },
+    'addon-suikerspin-machine':{ nl:'Suikerspinmachine huur', en:'Cotton candy machine rental', ar:'استئجار آلة غزل البنات' },
+    'addon-suikerspin-beno': { nl:'Suikerspinbenodigdheden', en:'Cotton candy supplies', ar:'مستلزمات غزل البنات' },
+    'addon-suikerspin-beno-desc':{ nl:'Stokjes & ingrediënten · min. 20 pers.', en:'Sticks & ingredients · min. 20 persons', ar:'عيدان ومكوّنات · ٢٠ شخصاً كحدّ أدنى' },
+    'addon-choco-machine':   { nl:'Warme chocolademelk machine', en:'Hot chocolate machine', ar:'آلة شوكولاتة ساخنة' },
+    'addon-choco-glas':      { nl:'Warme chocolademelk per glas', en:'Hot chocolate per glass', ar:'شوكولاتة ساخنة للكوب' },
+    'addon-choco-glas-desc': { nl:'Inclusief slagroom', en:'Including whipped cream', ar:'مع الكريمة المخفوقة' },
     // Serviesgoed add-ons
-    'addon-borden-zilver':   { nl:'Borden & bestek', en:'Plates & cutlery' },
-    'addon-borden-zilver-desc':{ nl:'Witte borden, zilverkleurig bestek', en:'White plates, silver-coloured cutlery' },
-    'addon-borden-goud':     { nl:'Borden & bestek luxe', en:'Plates & cutlery deluxe' },
-    'addon-borden-goud-desc':{ nl:'Witte borden, goudkleurig onderbord, doorzichtig voorgerechtbordje, goudkleurig bestek', en:'White plates, gold charger plate, transparent starter plate, gold cutlery' },
-    'addon-statafel':        { nl:'Statafel incl. zwarte tafelrok', en:'Standing table incl. black table skirt' },
+    'addon-borden-zilver':   { nl:'Borden & bestek', en:'Plates & cutlery', ar:'صحون وأدوات مائدة' },
+    'addon-borden-zilver-desc':{ nl:'Witte borden, zilverkleurig bestek', en:'White plates, silver-coloured cutlery', ar:'صحون بيضاء وأدوات بلون فضّي' },
+    'addon-borden-goud':     { nl:'Borden & bestek luxe', en:'Plates & cutlery deluxe', ar:'صحون وأدوات مائدة فاخرة' },
+    'addon-borden-goud-desc':{ nl:'Witte borden, goudkleurig onderbord, doorzichtig voorgerechtbordje, goudkleurig bestek', en:'White plates, gold charger plate, transparent starter plate, gold cutlery', ar:'صحون بيضاء، صحن سفلي ذهبي، صحن مقبّلات شفّاف، أدوات بلون ذهبي' },
+    'addon-statafel':        { nl:'Statafel incl. zwarte tafelrok', en:'Standing table incl. black table skirt', ar:'طاولة وقوف مع تنّورة سوداء' },
     // Dranken add-ons
-    'addon-koffie':          { nl:'Koffie & thee arrangement', en:'Coffee & tea arrangement' },
-    'addon-koffie-desc':     { nl:'~2 kopjes p.p. incl. kopjes, schotels, suiker, melk & lepeltjes', en:'~2 cups p.p. incl. cups, saucers, sugar, milk & spoons' },
-    'addon-fris3':           { nl:'Fris arrangement (3 uur)', en:'Soft drinks (3 hours)' },
-    'addon-fris3-desc':      { nl:'Onbeperkt fris, max. 3 uur · incl. 2 glazen p.p.', en:'Unlimited soft drinks, max. 3 hours · incl. 2 glasses p.p.' },
-    'addon-fris5':           { nl:'Fris arrangement (5 uur)', en:'Soft drinks (5 hours)' },
-    'addon-fris5-desc':      { nl:'Onbeperkt fris, max. 5 uur · incl. 2 glazen p.p.', en:'Unlimited soft drinks, max. 5 hours · incl. 2 glasses p.p.' },
-    'addon-mocktails':       { nl:'Mocktails', en:'Mocktails' },
-    'addon-mocktails-desc':  { nl:'Virgin Mojito, Virgin Piña Colada of Tropical Fizz', en:'Virgin Mojito, Virgin Piña Colada or Tropical Fizz' },
-    'addon-grp-toetjes':     { nl:'Toetjes', en:'Desserts' },
-    'addon-grp-kids':        { nl:'Kids Menu', en:'Kids Menu' },
-    'addon-baklava':         { nl:'Arabische pistache baklava mix', en:'Arabic pistachio baklava mix' },
-    'addon-muhalayya':       { nl:'Arabisch roomtoetje (muhalayya)', en:'Arabic cream pudding (muhalayya)' },
-    'addon-basbousa':        { nl:'Arabische griesmeelcake met pistache (basbousa / harissa)', en:'Arabic semolina cake with pistachio (basbousa / harissa)' },
-    'addon-choc-shortcake':  { nl:'Chocolate-caramel shortcake', en:'Chocolate-caramel shortcake' },
-    'addon-glutenvrij':      { nl:'(glutenvrij)', en:'(gluten free)' },
-    'addon-white-shortcake': { nl:'White chocolate shortcake', en:'White chocolate shortcake' },
-    'addon-cheesecake':      { nl:'Pistache cheesecake', en:'Pistachio cheesecake' },
-    'addon-frietjes':        { nl:'Frietjes met mayonaise, ketchup &amp; halal snack', en:'Fries with mayo, ketchup &amp; halal snack' },
-    'addon-perkind':         { nl:'per kind', en:'per child' },
-    'addon-min5':            { nl:'Min. 5 stuks · bestelhoeveelheid', en:'Min. 5 pieces · minimum order' },
-    'addon-min5-kids':       { nl:'Min. 5 kindermenu\'s · bestelhoeveelheid', en:'Min. 5 kids menus · minimum order' },
-    'addon-stuks':           { nl:'stuks', en:'pieces' },
-    'addon-kinderen':        { nl:'kinderen', en:'children' },
+    'addon-koffie':          { nl:'Koffie & thee arrangement', en:'Coffee & tea arrangement', ar:'باقة قهوة وشاي' },
+    'addon-koffie-desc':     { nl:'~2 kopjes p.p. incl. kopjes, schotels, suiker, melk & lepeltjes', en:'~2 cups p.p. incl. cups, saucers, sugar, milk & spoons', ar:'حوالى كوبين للشخص مع الفناجين والصحون والسكّر والحليب والملاعق' },
+    'addon-fris3':           { nl:'Fris arrangement (3 uur)', en:'Soft drinks (3 hours)', ar:'مشروبات غازية (٣ ساعات)' },
+    'addon-fris3-desc':      { nl:'Onbeperkt fris, max. 3 uur · incl. 2 glazen p.p.', en:'Unlimited soft drinks, max. 3 hours · incl. 2 glasses p.p.', ar:'مشروبات غازية بلا حدود لمدّة ٣ ساعات · مع كأسين لكلّ شخص' },
+    'addon-fris5':           { nl:'Fris arrangement (5 uur)', en:'Soft drinks (5 hours)', ar:'مشروبات غازية (٥ ساعات)' },
+    'addon-fris5-desc':      { nl:'Onbeperkt fris, max. 5 uur · incl. 2 glazen p.p.', en:'Unlimited soft drinks, max. 5 hours · incl. 2 glasses p.p.', ar:'مشروبات غازية بلا حدود لمدّة ٥ ساعات · مع كأسين لكلّ شخص' },
+    'addon-mocktails':       { nl:'Mocktails', en:'Mocktails', ar:'موكتيلز' },
+    'addon-mocktails-desc':  { nl:'Virgin Mojito, Virgin Piña Colada of Tropical Fizz', en:'Virgin Mojito, Virgin Piña Colada or Tropical Fizz', ar:'فيرجن موهيتو، فيرجن بينا كولادا، أو تروبيكال فيز' },
+    'addon-grp-toetjes':     { nl:'Toetjes', en:'Desserts', ar:'الحلويات' },
+    'addon-grp-kids':        { nl:'Kids Menu', en:'Kids Menu', ar:'قائمة الأطفال' },
+    'addon-baklava':         { nl:'Arabische pistache baklava mix', en:'Arabic pistachio baklava mix', ar:'تشكيلة بقلاوة عربية بالفستق' },
+    'addon-muhalayya':       { nl:'Arabisch roomtoetje (muhalayya)', en:'Arabic cream pudding (muhalayya)', ar:'مهلّبية عربية' },
+    'addon-basbousa':        { nl:'Arabische griesmeelcake met pistache (basbousa / harissa)', en:'Arabic semolina cake with pistachio (basbousa / harissa)', ar:'بسبوسة بالفستق (هريسة)' },
+    'addon-choc-shortcake':  { nl:'Chocolate-caramel shortcake', en:'Chocolate-caramel shortcake', ar:'كعك قصير بالشوكولاتة والكراميل' },
+    'addon-glutenvrij':      { nl:'(glutenvrij)', en:'(gluten free)', ar:'(خالٍ من الغلوتين)' },
+    'addon-white-shortcake': { nl:'White chocolate shortcake', en:'White chocolate shortcake', ar:'كعك قصير بالشوكولاتة البيضاء' },
+    'addon-cheesecake':      { nl:'Pistache cheesecake', en:'Pistachio cheesecake', ar:'تشيز كيك بالفستق' },
+    'addon-frietjes':        { nl:'Frietjes met mayonaise, ketchup &amp; halal snack', en:'Fries with mayo, ketchup &amp; halal snack', ar:'بطاطا مقلية مع المايونيز والكاتشب وسناك حلال' },
+    'addon-perkind':         { nl:'per kind', en:'per child', ar:'للطفل' },
+    'addon-min5':            { nl:'Min. 5 stuks · bestelhoeveelheid', en:'Min. 5 pieces · minimum order', ar:'الحدّ الأدنى للطلب: ٥ قطع' },
+    'addon-min5-kids':       { nl:'Min. 5 kindermenu\'s · bestelhoeveelheid', en:'Min. 5 kids menus · minimum order', ar:'الحدّ الأدنى للطلب: ٥ قوائم أطفال' },
+    'addon-stuks':           { nl:'stuks', en:'pieces', ar:'قطعة' },
+    'addon-kinderen':        { nl:'kinderen', en:'children', ar:'طفل' },
     // 50km+ panel
-    'afstand-title':         { nl:'Serviesgoed & opruiming', en:'Tableware & cleanup' },
-    'afstand-desc':          { nl:'Bij een afstand van 50 km of meer vragen wij u een keuze te maken voor het retourneren van serviesgoed:', en:'For distances of 50 km or more, we ask you to choose an option for returning tableware:' },
-    'afstand-peruur':        { nl:'per uur', en:'per hour' },
-    'afstand-uren-lbl':      { nl:'uur', en:'hours' },
-    'afstand-opt1-naam':     { nl:'Personeel blijft aanwezig', en:'Staff stays on-site' },
-    'afstand-opt1-desc':     { nl:'Ons personeel blijft ter plekke voor opruiming en afvoer', en:'Our staff stays on location for cleanup and collection' },
-    'afstand-opt2-naam':     { nl:'Ophaalservice volgende dag', en:'Next-day collection' },
-    'afstand-opt2-prijs-pre':{ nl:'+', en:'+' },
-    'afstand-opt2-desc':     { nl:'Wij halen serviesgoed de volgende dag op', en:'We collect tableware the next day' },
-    'afstand-opt3-naam':     { nl:'Zelf terugbrengen', en:'Self-return' },
-    'afstand-opt3-prijs':    { nl:'Gratis', en:'Free' },
-    'afstand-opt3-desc':     { nl:'U brengt het serviesgoed zelf retour naar onze dichtstbijzijnde locatie', en:'You return the tableware yourself to our nearest location' },
-    'afstand-opt4-naam':     { nl:'Disposable serviesgoed', en:'Disposable tableware' },
-    'afstand-opt4-prijs':    { nl:'Gratis', en:'Free' },
-    'afstand-opt4-desc':     { nl:'Wij serveren het eten in wegwerpverpakkingen — niets retourneren', en:'We serve the food in disposable packaging — nothing to return' },
-    'reis-lbl-regio':   { nl:'Regio', en:'Region' },
-    'reis-lbl-loc':     { nl:'Dichtstbijzijnde locatie', en:'Nearest location' },
-    'reis-lbl-afstand': { nl:'Afstand (retour)', en:'Distance (return)' },
-    'reis-lbl-kosten':  { nl:'Reiskosten', en:'Travel costs' },
-    'cal-free':         { nl:'Beschikbaar', en:'Available' },
-    'cal-blocked':      { nl:'Bezet', en:'Unavailable' },
-    'cal-bijna':        { nl:'Bijna vol', en:'Almost full' },
-    'ct-title':         { nl:'Uw Offerte Overzicht', en:'Your Quote Summary' },
-    'ct-lbl-pakket':    { nl:'Pakket', en:'Package' },
-    'ct-lbl-personen':  { nl:'Personen', en:'Persons' },
-    'ct-lbl-subtotaal': { nl:'Subtotaal', en:'Subtotal' },
-    'ct-lbl-extras':    { nl:"Extra's", en:'Extras' },
-    'ct-lbl-reiskosten':{ nl:'Reiskosten (schatting)', en:'Travel costs (estimate)' },
-    'ct-lbl-totaal':    { nl:'Totaal', en:'Total' },
-    'ct-note':          { nl:'BTW inbegrepen · Op- &amp; afbouw inbegrepen', en:'VAT included · Setup &amp; breakdown included' },
-    'ct-quote':         { nl:'"Wij helpen u graag verder — of u nu een klein feestje plant of een groot evenement. Stuur uw aanvraag in en wij nemen persoonlijk contact met u op."', en:'"We are happy to help you further — whether you are planning a small party or a large event. Send your request and we will contact you personally."' },
-    'ct-btn':           { nl:'Offerte Aanvragen →', en:'Request Quote →' },
-    'ct-voorbehoud':    { nl:'Geheel vrijblijvend · Reactie binnen 24 uur · Wij spreken Nederlands, Arabisch &amp; Engels', en:'Completely free of obligation · Response within 24 hours · We speak Dutch, Arabic &amp; English' },
+    'afstand-title':         { nl:'Serviesgoed & opruiming', en:'Tableware & cleanup', ar:'الأدوات والتنظيف' },
+    'afstand-desc':          { nl:'Bij een afstand van 50 km of meer vragen wij u een keuze te maken voor het retourneren van serviesgoed:', en:'For distances of 50 km or more, we ask you to choose an option for returning tableware:', ar:'في حال كانت المسافة ٥٠ كيلومتراً أو أكثر، نطلب منك اختيار طريقة لإعادة الأدوات:' },
+    'afstand-peruur':        { nl:'per uur', en:'per hour', ar:'للساعة' },
+    'afstand-uren-lbl':      { nl:'uur', en:'hours', ar:'ساعة' },
+    'afstand-opt1-naam':     { nl:'Personeel blijft aanwezig', en:'Staff stays on-site', ar:'بقاء الطاقم في الموقع' },
+    'afstand-opt1-desc':     { nl:'Ons personeel blijft ter plekke voor opruiming en afvoer', en:'Our staff stays on location for cleanup and collection', ar:'يبقى طاقمنا في الموقع للتنظيف وأخذ الأدوات' },
+    'afstand-opt2-naam':     { nl:'Ophaalservice volgende dag', en:'Next-day collection', ar:'خدمة الاستلام في اليوم التالي' },
+    'afstand-opt2-prijs-pre':{ nl:'+', en:'+', ar:'+' },
+    'afstand-opt2-desc':     { nl:'Wij halen serviesgoed de volgende dag op', en:'We collect tableware the next day', ar:'نأتي لاستلام الأدوات في اليوم التالي' },
+    'afstand-opt3-naam':     { nl:'Zelf terugbrengen', en:'Self-return', ar:'إعادتها بنفسك' },
+    'afstand-opt3-prijs':    { nl:'Gratis', en:'Free', ar:'مجاناً' },
+    'afstand-opt3-desc':     { nl:'U brengt het serviesgoed zelf retour naar onze dichtstbijzijnde locatie', en:'You return the tableware yourself to our nearest location', ar:'تعيد الأدوات بنفسك إلى أقرب موقع لدينا' },
+    'afstand-opt4-naam':     { nl:'Disposable serviesgoed', en:'Disposable tableware', ar:'أدوات يمكن التخلّص منها' },
+    'afstand-opt4-prijs':    { nl:'Gratis', en:'Free', ar:'مجاناً' },
+    'afstand-opt4-desc':     { nl:'Wij serveren het eten in wegwerpverpakkingen — niets retourneren', en:'We serve the food in disposable packaging — nothing to return', ar:'نقدّم الطعام في عبوات يمكن التخلّص منها — لا حاجة لإعادة شيء' },
+    'reis-lbl-regio':   { nl:'Regio', en:'Region', ar:'المنطقة' },
+    'reis-lbl-loc':     { nl:'Dichtstbijzijnde locatie', en:'Nearest location', ar:'أقرب موقع' },
+    'reis-lbl-afstand': { nl:'Afstand (retour)', en:'Distance (return)', ar:'المسافة (ذهاباً وإياباً)' },
+    'reis-lbl-kosten':  { nl:'Reiskosten', en:'Travel costs', ar:'تكاليف التنقّل' },
+    'cal-free':         { nl:'Beschikbaar', en:'Available', ar:'متاح' },
+    'cal-blocked':      { nl:'Bezet', en:'Unavailable', ar:'محجوز' },
+    'cal-bijna':        { nl:'Bijna vol', en:'Almost full', ar:'شبه ممتلئ' },
+    'ct-title':         { nl:'Uw Offerte Overzicht', en:'Your Quote Summary', ar:'ملخّص عرض السعر' },
+    'ct-lbl-pakket':    { nl:'Pakket', en:'Package', ar:'الباقة' },
+    'ct-lbl-personen':  { nl:'Personen', en:'Persons', ar:'الأشخاص' },
+    'ct-lbl-subtotaal': { nl:'Subtotaal', en:'Subtotal', ar:'المجموع الفرعي' },
+    'ct-lbl-extras':    { nl:"Extra's", en:'Extras', ar:'الإضافات' },
+    'ct-lbl-reiskosten':{ nl:'Reiskosten (schatting)', en:'Travel costs (estimate)', ar:'تكاليف التنقّل (تقديرية)' },
+    'ct-lbl-totaal':    { nl:'Totaal', en:'Total', ar:'الإجمالي' },
+    'ct-note':          { nl:'BTW inbegrepen · Op- &amp; afbouw inbegrepen', en:'VAT included · Setup &amp; breakdown included', ar:'تشمل ضريبة القيمة المضافة · التحضير والتنصيب ضمن السعر' },
+    'ct-quote':         { nl:'"Wij helpen u graag verder — of u nu een klein feestje plant of een groot evenement. Stuur uw aanvraag in en wij nemen persoonlijk contact met u op."', en:'"We are happy to help you further — whether you are planning a small party or a large event. Send your request and we will contact you personally."', ar:'"يسعدنا مساعدتك — سواء كنت تخطّط لحفلة صغيرة أو فعالية كبيرة. أرسل طلبك وسنتواصل معك شخصياً."' },
+    'ct-btn':           { nl:'Offerte Aanvragen →', en:'Request Quote →', ar:'اطلب عرض السعر ←' },
+    'ct-voorbehoud':    { nl:'Geheel vrijblijvend · Reactie binnen 24 uur · Wij spreken Nederlands, Arabisch &amp; Engels', en:'Completely free of obligation · Response within 24 hours · We speak Dutch, Arabic &amp; English', ar:'دون أي التزام · ردّ خلال ٢٤ ساعة · نتحدّث الهولندية والعربية والإنجليزية' },
 
     // Over Ons
-    'over-body1':       { nl:'Memories of Damascus is opgericht door <strong style="color:var(--parchment)">Mohamad Habanakeh</strong>, die opgroeide in Al Midan — een Damasceense wijk die wereldberoemd is om zijn restaurants, de Midan Souq, baklava en de beste Syrische shawarma. In 2015 vluchtte Mohamad vanwege de burgeroorlog uit Syrië.', en:'Memories of Damascus was founded by <strong style="color:var(--parchment)">Mohamad Habanakeh</strong>, who grew up in Al Midan — a Damascus neighbourhood world-famous for its restaurants, the Midan Souq, baklava and the finest Syrian shawarma. In 2015, Mohamad fled Syria due to the civil war.' },
-    'over-body2':       { nl:'In Nijmegen ontmoette hij <strong style="color:var(--parchment)">Anouk Willemsen</strong>, die Arabische taal &amp; cultuur studeerde aan de Radboud Universiteit. Mohamad woonde daar toen tijdelijk in een asielzoekerscentrum. Samen verhuisden ze naar Eindhoven. Eind 2020 startten ze vanuit de thuiskeuken met de verkoop van mezze. Vanwege de snelle groei verhuisde het bedrijf naar een professionele productiekeuken van meer dan 200 m² in Best.', en:'In Nijmegen he met <strong style="color:var(--parchment)">Anouk Willemsen</strong>, who studied Arabic language &amp; culture at Radboud University. Mohamad was temporarily living in an asylum seekers\' centre there. Together they moved to Eindhoven. In late 2020, they started selling mezze from their home kitchen. Due to rapid growth, the company moved to a professional production kitchen of over 200 m² in Best.' },
-    'over-body3':       { nl:'Tegenwoordig geven Anouk en Mohamad leiding aan een team van <strong style="color:var(--parchment)">20+ gemotiveerde medewerkers</strong> van diverse achtergronden en nationaliteiten. Memories of Damascus biedt bewust werkplekken aan statushouders, mensen in afwachting van een verblijfsvergunning, en medewerkers met een afstand tot de arbeidsmarkt — in samenwerking met verschillende gemeenten en organisaties.', en:'Today, Anouk and Mohamad lead a team of <strong style="color:var(--parchment)">20+ motivated staff</strong> from diverse backgrounds and nationalities. Memories of Damascus deliberately offers positions to permit holders, people awaiting a residence permit, and employees with distance to the labour market — in partnership with various municipalities and organisations.' },
-    'val-halal':        { nl:'<strong>100% Halal</strong> Alle catering en gerechten voldoen aan de strengste halal-normen', en:'<strong>100% Halal</strong> All catering and dishes meet the strictest halal standards' },
-    'val-vers':         { nl:'<strong>Vers Bereid</strong> Dagelijks vers in onze 200+ m² productiekeuken in Best', en:'<strong>Freshly Prepared</strong> Made fresh daily in our 200+ m² production kitchen in Best' },
-    'val-sociaal':      { nl:'<strong>Sociaal Ondernemen</strong> Werkplekken voor statushouders en kwetsbare groepen', en:'<strong>Social Enterprise</strong> Jobs for permit holders and vulnerable groups' },
-    'val-opgericht':    { nl:'<strong>Oprichting 2020</strong> Van thuiskeuken naar professioneel cateringbedrijf', en:'<strong>Founded 2020</strong> From home kitchen to professional catering company' },
-    'val-haccp':        { nl:'<strong>Checkpunt Voedselveiligheid</strong> Door de NVWA geaccepteerd certificaat — voldoet aan de hoogste HACCP-normen', en:'<strong>Food Safety Checkpoint</strong> NVWA-accepted certificate — meets the highest HACCP standards' },
+    'over-body1':       { nl:'Memories of Damascus is opgericht door <strong style="color:var(--parchment)">Mohamad Habanakeh</strong>, die opgroeide in Al Midan — een Damasceense wijk die wereldberoemd is om zijn restaurants, de Midan Souq, baklava en de beste Syrische shawarma. In 2015 vluchtte Mohamad vanwege de burgeroorlog uit Syrië.', en:'Memories of Damascus was founded by <strong style="color:var(--parchment)">Mohamad Habanakeh</strong>, who grew up in Al Midan — a Damascus neighbourhood world-famous for its restaurants, the Midan Souq, baklava and the finest Syrian shawarma. In 2015, Mohamad fled Syria due to the civil war.', ar:'أسّس Memories of Damascus <strong style="color:var(--parchment)">محمد حبانكة</strong>، الذي نشأ في حيّ الميدان الدمشقي — حيّ مشهور عالمياً بمطاعمه وسوق الميدان وبقلاوته وأفضل شاورما سوريّة. عام ٢٠١٥ غادر محمد سوريا بسبب الحرب.' },
+    'over-body2':       { nl:'In Nijmegen ontmoette hij <strong style="color:var(--parchment)">Anouk Willemsen</strong>, die Arabische taal &amp; cultuur studeerde aan de Radboud Universiteit. Mohamad woonde daar toen tijdelijk in een asielzoekerscentrum. Samen verhuisden ze naar Eindhoven. Eind 2020 startten ze vanuit de thuiskeuken met de verkoop van mezze. Vanwege de snelle groei verhuisde het bedrijf naar een professionele productiekeuken van meer dan 200 m² in Best.', en:'In Nijmegen he met <strong style="color:var(--parchment)">Anouk Willemsen</strong>, who studied Arabic language &amp; culture at Radboud University. Mohamad was temporarily living in an asylum seekers\' centre there. Together they moved to Eindhoven. In late 2020, they started selling mezze from their home kitchen. Due to rapid growth, the company moved to a professional production kitchen of over 200 m² in Best.', ar:'في نايميخن التقى <strong style="color:var(--parchment)">أنوك فيلمسن</strong>، التي درست اللغة والثقافة العربيّة في جامعة Radboud. كان محمد آنذاك مقيماً مؤقّتاً في مركز لجوء هناك. انتقلا معاً إلى آيندهوفن، وفي أواخر عام ٢٠٢٠ بدآ ببيع المازات من مطبخ المنزل. ومع النموّ السريع، انتقلت الشركة إلى مطبخ إنتاج احترافي تتجاوز مساحته ٢٠٠ متر مربّع في مدينة Best.' },
+    'over-body3':       { nl:'Tegenwoordig geven Anouk en Mohamad leiding aan een team van <strong style="color:var(--parchment)">20+ gemotiveerde medewerkers</strong> van diverse achtergronden en nationaliteiten. Memories of Damascus biedt bewust werkplekken aan statushouders, mensen in afwachting van een verblijfsvergunning, en medewerkers met een afstand tot de arbeidsmarkt — in samenwerking met verschillende gemeenten en organisaties.', en:'Today, Anouk and Mohamad lead a team of <strong style="color:var(--parchment)">20+ motivated staff</strong> from diverse backgrounds and nationalities. Memories of Damascus deliberately offers positions to permit holders, people awaiting a residence permit, and employees with distance to the labour market — in partnership with various municipalities and organisations.', ar:'اليوم يقود أنوك ومحمد فريقاً يضمّ <strong style="color:var(--parchment)">أكثر من ٢٠ موظفاً</strong> من خلفيات وجنسيات متنوّعة. تحرص Memories of Damascus على توفير فرص عمل لحاملي تصاريح الإقامة، والمنتظرين لإقاماتهم، والأشخاص البعيدين عن سوق العمل — بالتعاون مع عدد من البلديات والمنظّمات.' },
+    'val-halal':        { nl:'<strong>100% Halal</strong> Alle catering en gerechten voldoen aan de strengste halal-normen', en:'<strong>100% Halal</strong> All catering and dishes meet the strictest halal standards', ar:'<strong>حلال ١٠٠٪</strong> جميع خدمات التموين والأطباق تستوفي أعلى معايير الحلال' },
+    'val-vers':         { nl:'<strong>Vers Bereid</strong> Dagelijks vers in onze 200+ m² productiekeuken in Best', en:'<strong>Freshly Prepared</strong> Made fresh daily in our 200+ m² production kitchen in Best', ar:'<strong>طازج يومياً</strong> يُحضَّر يوميّاً في مطبخ الإنتاج لدينا (٢٠٠+ متر مربّع) في Best' },
+    'val-sociaal':      { nl:'<strong>Sociaal Ondernemen</strong> Werkplekken voor statushouders en kwetsbare groepen', en:'<strong>Social Enterprise</strong> Jobs for permit holders and vulnerable groups', ar:'<strong>مسؤولية اجتماعية</strong> فرص عمل لحاملي تصاريح الإقامة والفئات الهشّة' },
+    'val-opgericht':    { nl:'<strong>Oprichting 2020</strong> Van thuiskeuken naar professioneel cateringbedrijf', en:'<strong>Founded 2020</strong> From home kitchen to professional catering company', ar:'<strong>تأسّسنا عام ٢٠٢٠</strong> من مطبخ المنزل إلى شركة تموين احترافيّة' },
+    'val-haccp':        { nl:'<strong>Checkpunt Voedselveiligheid</strong> Door de NVWA geaccepteerd certificaat — voldoet aan de hoogste HACCP-normen', en:'<strong>Food Safety Checkpoint</strong> NVWA-accepted certificate — meets the highest HACCP standards', ar:'<strong>سلامة غذائيّة</strong> شهادة معتمدة من NVWA الهولنديّة — توافق أعلى معايير HACCP' },
 
     // Sociaal
-    'sociaal-label':    { nl:'Sociaal<br>Ondernemen', en:'Social<br>Enterprise' },
-    'sociaal-text':     { nl:'Bij Memories of Damascus geloven we dat werk meer is dan productie. Bewoners van AZC\'s en crisisnoodopvanglocaties worden actief betrokken bij onze productiekeuken als vrijwilliger of werknemer — dit bevordert de <strong>mentale gezondheid</strong> en stimuleert <strong>vroegtijdige arbeidsparticipatie</strong>.', en:'At Memories of Damascus we believe work is more than production. Residents of asylum centres and crisis shelters are actively involved in our production kitchen as volunteers or employees — this promotes <strong>mental health</strong> and stimulates <strong>early labour participation</strong>.' },
+    'sociaal-label':    { nl:'Sociaal<br>Ondernemen', en:'Social<br>Enterprise', ar:'مسؤولية<br>اجتماعيّة' },
+    'sociaal-text':     { nl:'Bij Memories of Damascus geloven we dat werk meer is dan productie. Bewoners van AZC\'s en crisisnoodopvanglocaties worden actief betrokken bij onze productiekeuken als vrijwilliger of werknemer — dit bevordert de <strong>mentale gezondheid</strong> en stimuleert <strong>vroegtijdige arbeidsparticipatie</strong>.', en:'At Memories of Damascus we believe work is more than production. Residents of asylum centres and crisis shelters are actively involved in our production kitchen as volunteers or employees — this promotes <strong>mental health</strong> and stimulates <strong>early labour participation</strong>.', ar:'في Memories of Damascus نؤمن أنّ العمل أبعد من مجرّد إنتاج. نُشرك مقيمي مراكز اللجوء ومرافق الإيواء الطارئ في مطبخنا الإنتاجي تطوّعاً أو بأجر — وهذا يعزّز <strong>صحّتهم النفسيّة</strong> ويُحفّز <strong>انخراطهم المبكّر في سوق العمل</strong>.' },
 
     // Menu
-    'menu-intro':       { nl:'Traditionele recepten, vers bereid met halal-ingrediënten van de hoogste kwaliteit', en:'Traditional recipes, freshly prepared with the highest quality halal ingredients' },
-    'mi-shawarma-origin':{ nl:'Damascus Klassiek', en:'Damascus Classic' },
-    'mi-shawarma-desc': { nl:'Langzaam gegrild halal-vlees, gemarineerd in authentieke Syrische specerijen', en:'Slowly grilled halal meat, marinated in authentic Syrian spices' },
-    'mi-kibbeh-origin': { nl:'Traditioneel Syrisch', en:'Traditional Syrian' },
-    'mi-kibbeh-desc':   { nl:'Gehaktballetjes van bulgur, lam en pijnboompitten — een erfgoed op uw bord', en:'Bulgur, lamb and pine nut meatballs — a heritage dish on your plate' },
-    'mi-mezze-name':    { nl:'Mezze-Buffet', en:'Mezze Buffet' },
-    'mi-mezze-origin':  { nl:'Levantijnse Traditie', en:'Levantine Tradition' },
-    'mi-mezze-desc':    { nl:'Hummus, fattoush, mutabal en diverse smeersels — een feest van kleine gerechtjes', en:'Hummus, fattoush, mutabal and various dips — a feast of small dishes' },
-    'mi-rijst-name':    { nl:'Rijst met Kip', en:'Rice with Chicken' },
-    'mi-rijst-origin':  { nl:'Arabisch Comfort', en:'Arabic Comfort Food' },
-    'mi-rijst-desc':    { nl:'Geurige rijst met halal kip, gekruid met Syrische specerijen en geroosterde noten', en:'Fragrant rice with halal chicken, seasoned with Syrian spices and roasted nuts' },
-    'mi-fattoush-origin':{ nl:'Verse Salades', en:'Fresh Salads' },
-    'mi-fattoush-desc': { nl:'Knapperige salade met geroosterd brood, granaatappelmelasse en verse kruiden', en:'Crispy salad with toasted bread, pomegranate molasses and fresh herbs' },
-    'mi-spinazie-name': { nl:'Spinazierolletjes', en:'Spinach Rolls' },
-    'mi-spinazie-origin':{ nl:'Barak — Syrisch', en:'Barak — Syrian' },
-    'mi-spinazie-desc': { nl:'Traditionele spinazierolletjes (barak/brk) — geliefd als mezze of bijgerecht', en:'Traditional spinach rolls (barak/brk) — beloved as a mezze or side dish' },
-    'mi-vegan-name':    { nl:'Veganistisch Menu', en:'Vegan Menu' },
-    'mi-vegan-origin':  { nl:'Authentiek Vegan', en:'Authentic Vegan' },
-    'mi-vegan-desc':    { nl:'"De Arabische keuken leent zich uitstekend voor vegan catering — geen vleesvervangers nodig"', en:'"Arabic cuisine lends itself perfectly to vegan catering — no meat substitutes needed"' },
-    'mi-maat-name':     { nl:'Menu op Maat', en:'Custom Menu' },
-    'mi-maat-origin':   { nl:'Uw Wensen', en:'Your Wishes' },
-    'mi-maat-desc':     { nl:'Volledig gepersonaliseerd menu afgestemd op uw evenement, wensen en dieetvereisten', en:'Fully personalised menu tailored to your event, wishes and dietary requirements' },
-    'menu-dl-btn':      { nl:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download onze catalogus', en:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download our catalogue' },
+    'menu-intro':       { nl:'Traditionele recepten, vers bereid met halal-ingrediënten van de hoogste kwaliteit', en:'Traditional recipes, freshly prepared with the highest quality halal ingredients', ar:'وصفات تقليدية تُحضَّر طازجة من مكوّنات حلال عالية الجودة' },
+    'mi-shawarma-origin':{ nl:'Damascus Klassiek', en:'Damascus Classic', ar:'كلاسيك دمشق' },
+    'mi-shawarma-desc': { nl:'Langzaam gegrild halal-vlees, gemarineerd in authentieke Syrische specerijen', en:'Slowly grilled halal meat, marinated in authentic Syrian spices', ar:'لحم حلال مشويّ على نار هادئة، متبّل بتوابل سوريّة أصيلة' },
+    'mi-kibbeh-origin': { nl:'Traditioneel Syrisch', en:'Traditional Syrian', ar:'تراث سوريّ' },
+    'mi-kibbeh-desc':   { nl:'Gehaktballetjes van bulgur, lam en pijnboompitten — een erfgoed op uw bord', en:'Bulgur, lamb and pine nut meatballs — a heritage dish on your plate', ar:'كرات كبّة من البرغل ولحم الغنم والصنوبر — تراث على مائدتك' },
+    'mi-mezze-name':    { nl:'Mezze-Buffet', en:'Mezze Buffet', ar:'بوفيه مازات' },
+    'mi-mezze-origin':  { nl:'Levantijnse Traditie', en:'Levantine Tradition', ar:'تقاليد بلاد الشام' },
+    'mi-mezze-desc':    { nl:'Hummus, fattoush, mutabal en diverse smeersels — een feest van kleine gerechtjes', en:'Hummus, fattoush, mutabal and various dips — a feast of small dishes', ar:'حمّص، فتّوش، متبّل، ومنقوعات متنوّعة — وليمة من الأطباق الصغيرة' },
+    'mi-rijst-name':    { nl:'Rijst met Kip', en:'Rice with Chicken', ar:'أرز مع الدجاج' },
+    'mi-rijst-origin':  { nl:'Arabisch Comfort', en:'Arabic Comfort Food', ar:'طبق عربي مُريح' },
+    'mi-rijst-desc':    { nl:'Geurige rijst met halal kip, gekruid met Syrische specerijen en geroosterde noten', en:'Fragrant rice with halal chicken, seasoned with Syrian spices and roasted nuts', ar:'أرز معطّر مع دجاج حلال، متبّل بتوابل سوريّة ومكسّرات محمّصة' },
+    'mi-fattoush-origin':{ nl:'Verse Salades', en:'Fresh Salads', ar:'سلطات طازجة' },
+    'mi-fattoush-desc': { nl:'Knapperige salade met geroosterd brood, granaatappelmelasse en verse kruiden', en:'Crispy salad with toasted bread, pomegranate molasses and fresh herbs', ar:'سلطة مقرمشة مع خبز محمّص ودبس الرمّان وأعشاب طازجة' },
+    'mi-spinazie-name': { nl:'Spinazierolletjes', en:'Spinach Rolls', ar:'فطائر السبانخ' },
+    'mi-spinazie-origin':{ nl:'Barak — Syrisch', en:'Barak — Syrian', ar:'بُراك — سوريّ' },
+    'mi-spinazie-desc': { nl:'Traditionele spinazierolletjes (barak/brk) — geliefd als mezze of bijgerecht', en:'Traditional spinach rolls (barak/brk) — beloved as a mezze or side dish', ar:'فطائر سبانخ تقليديّة (بُراك) — محبّبة كمازة أو طبق جانبيّ' },
+    'mi-vegan-name':    { nl:'Veganistisch Menu', en:'Vegan Menu', ar:'قائمة نباتيّة صرف' },
+    'mi-vegan-origin':  { nl:'Authentiek Vegan', en:'Authentic Vegan', ar:'نباتيّ أصيل' },
+    'mi-vegan-desc':    { nl:'"De Arabische keuken leent zich uitstekend voor vegan catering — geen vleesvervangers nodig"', en:'"Arabic cuisine lends itself perfectly to vegan catering — no meat substitutes needed"', ar:'"المطبخ العربيّ يلائم تماماً التموين النباتيّ الصرف — دون الحاجة إلى بدائل اللحم"' },
+    'mi-maat-name':     { nl:'Menu op Maat', en:'Custom Menu', ar:'قائمة مخصّصة' },
+    'mi-maat-origin':   { nl:'Uw Wensen', en:'Your Wishes', ar:'كما تريد' },
+    'mi-maat-desc':     { nl:'Volledig gepersonaliseerd menu afgestemd op uw evenement, wensen en dieetvereisten', en:'Fully personalised menu tailored to your event, wishes and dietary requirements', ar:'قائمة مخصّصة بالكامل تلائم مناسبتك ورغباتك واحتياجاتك الغذائيّة' },
+    'menu-dl-btn':      { nl:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download onze catalogus', en:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download our catalogue', ar:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> حمّل الكتالوج' },
 
     // AZC
-    'azc-body1':        { nl:'Memories of Damascus is een ervaren cateringpartner voor asielzoekerscentra en crisisnoodopvanglocaties door heel Nederland. Wij leveren dagelijks warme en koude maaltijden — van ontbijt tot avondeten — inclusief alle benodigde uitrusting op locatie.', en:'Memories of Damascus is an experienced catering partner for asylum seeker centres and crisis shelter locations throughout the Netherlands. We deliver daily hot and cold meals — from breakfast to dinner — including all required equipment on site.' },
-    'azc-body2':        { nl:'Onze productiekeuken in Best ligt strategisch nabij de A2 en A50, wat snelle en betrouwbare levering door heel Nederland mogelijk maakt.', en:'Our production kitchen in Best is strategically located near the A2 and A50 motorways, enabling fast and reliable delivery throughout the Netherlands.' },
-    'azc-quote':        { nl:'"Bewoners worden actief betrokken bij de productiekeuken als vrijwilliger of werknemer. Dit bevordert hun mentale gezondheid en stimuleert vroegtijdige arbeidsparticipatie."', en:'"Residents are actively involved in the production kitchen as volunteers or employees. This promotes their mental health and stimulates early labour participation."' },
-    'azc-partners-lbl': { nl:'Opdrachtgevers & Partners', en:'Clients & Partners' },
+    'azc-body1':        { nl:'Memories of Damascus is een ervaren cateringpartner voor asielzoekerscentra en crisisnoodopvanglocaties door heel Nederland. Wij leveren dagelijks warme en koude maaltijden — van ontbijt tot avondeten — inclusief alle benodigde uitrusting op locatie.', en:'Memories of Damascus is an experienced catering partner for asylum seeker centres and crisis shelter locations throughout the Netherlands. We deliver daily hot and cold meals — from breakfast to dinner — including all required equipment on site.', ar:'Memories of Damascus شريك تموين متمرّس لمراكز اللجوء ومرافق الإيواء الطارئ في جميع أنحاء هولندا. نوفّر يومياً وجبات ساخنة وباردة — من الفطور إلى العشاء — مع جميع التجهيزات اللازمة في الموقع.' },
+    'azc-body2':        { nl:'Onze productiekeuken in Best ligt strategisch nabij de A2 en A50, wat snelle en betrouwbare levering door heel Nederland mogelijk maakt.', en:'Our production kitchen in Best is strategically located near the A2 and A50 motorways, enabling fast and reliable delivery throughout the Netherlands.', ar:'يقع مطبخ الإنتاج لدينا في مدينة Best بموقع استراتيجي قرب طريقَي A2 و A50، ما يتيح توصيلاً سريعاً وموثوقاً في جميع أنحاء هولندا.' },
+    'azc-quote':        { nl:'"Bewoners worden actief betrokken bij de productiekeuken als vrijwilliger of werknemer. Dit bevordert hun mentale gezondheid en stimuleert vroegtijdige arbeidsparticipatie."', en:'"Residents are actively involved in the production kitchen as volunteers or employees. This promotes their mental health and stimulates early labour participation."', ar:'"يُشارك المقيمون فعليّاً في مطبخ الإنتاج تطوّعاً أو بأجر. هذا يدعم صحّتهم النفسيّة ويُحفّز انخراطهم المبكّر في سوق العمل."' },
+    'azc-partners-lbl': { nl:'Opdrachtgevers & Partners', en:'Clients & Partners', ar:'العملاء والشركاء' },
 
     // Baklava
-    'bak-body1':        { nl:'Onze handgemaakte baklava is een ware delicatesse — bereid met hoogwaardige pistache en ghee. Bestel eenvoudig via onze webshop en ontvang uw baklava binnen één week thuis.', en:'Our handmade baklava is a true delicacy — prepared with premium pistachios and ghee. Order easily via our webshop and receive your baklava within one week at home.' },
-    'bak-body2':        { nl:'Elk stuk is met de hand gemaakt, zonder compromissen op kwaliteit. Het perfecte cadeau of traktatie — voor uzelf of voor anderen.', en:'Every piece is handmade, without compromise on quality. The perfect gift or treat — for yourself or for others.' },
-    'bak-spec1-lbl':    { nl:'Levering', en:'Delivery' },
-    'bak-spec1-val':    { nl:'Binnen één week via pakketpost', en:'Within one week by parcel post' },
-    'bak-spec3-lbl':    { nl:'Houdbaarheid', en:'Shelf life' },
-    'bak-spec3-val':    { nl:'Minimaal 1 maand', en:'At least 1 month' },
-    'bak-spec4-lbl':    { nl:'Ingrediënten', en:'Ingredients' },
-    'bak-spec4-val':    { nl:'Pistache · Ghee · Dunne laagjes knapperig deeg', en:'Pistachio · Ghee · Thin layers of crispy pastry' },
-    'bak-btn':          { nl:'Baklava Bestellen', en:'Order Baklava' },
+    'bak-body1':        { nl:'Onze handgemaakte baklava is een ware delicatesse — bereid met hoogwaardige pistache en ghee. Bestel eenvoudig via onze webshop en ontvang uw baklava binnen één week thuis.', en:'Our handmade baklava is a true delicacy — prepared with premium pistachios and ghee. Order easily via our webshop and receive your baklava within one week at home.', ar:'بقلاوتنا اليدويّة طعم لا يُنسى — تُحضَّر بالفستق الفاخر والسمن العربي. اطلبها بسهولة من متجرنا الإلكتروني وتصلك إلى المنزل خلال أسبوع.' },
+    'bak-body2':        { nl:'Elk stuk is met de hand gemaakt, zonder compromissen op kwaliteit. Het perfecte cadeau of traktatie — voor uzelf of voor anderen.', en:'Every piece is handmade, without compromise on quality. The perfect gift or treat — for yourself or for others.', ar:'كلّ قطعة مصنوعة يدوياً دون تنازل عن الجودة. هديّة مثاليّة أو متعة لك ولمن تحبّ.' },
+    'bak-spec1-lbl':    { nl:'Levering', en:'Delivery', ar:'التوصيل' },
+    'bak-spec1-val':    { nl:'Binnen één week via pakketpost', en:'Within one week by parcel post', ar:'خلال أسبوع عبر البريد الطرديّ' },
+    'bak-spec3-lbl':    { nl:'Houdbaarheid', en:'Shelf life', ar:'مدّة الصلاحيّة' },
+    'bak-spec3-val':    { nl:'Minimaal 1 maand', en:'At least 1 month', ar:'شهر واحد على الأقلّ' },
+    'bak-spec4-lbl':    { nl:'Ingrediënten', en:'Ingredients', ar:'المكوّنات' },
+    'bak-spec4-val':    { nl:'Pistache · Ghee · Dunne laagjes knapperig deeg', en:'Pistachio · Ghee · Thin layers of crispy pastry', ar:'فستق · سمن عربي · طبقات رقيقة من العجين المقرمش' },
+    'bak-btn':          { nl:'Baklava Bestellen', en:'Order Baklava', ar:'اطلب البقلاوة' },
 
     // Restaurant
-    'rest-body':        { nl:'Bezoek ons restaurant op Strijp S in Eindhoven — onderdeel van de sfeervolle STR\'EAT Foodmarket, met 9 keukens, bars, een groot buitenterras en uitgebreide binnenruimte. Geen reservering nodig. Loop gewoon binnen en geniet van authentieke Syrisch-Libanese gerechten, direct bereid voor u.', en:'Visit our restaurant on Strijp S in Eindhoven — part of the vibrant STR\'EAT Foodmarket, with 9 kitchens, bars, a large outdoor terrace and extensive indoor space. No reservation needed. Just walk in and enjoy authentic Syrian-Lebanese dishes, prepared fresh for you.' },
+    'rest-body':        { nl:'Bezoek ons restaurant op Strijp S in Eindhoven — onderdeel van de sfeervolle STR\'EAT Foodmarket, met 9 keukens, bars, een groot buitenterras en uitgebreide binnenruimte. Geen reservering nodig. Loop gewoon binnen en geniet van authentieke Syrisch-Libanese gerechten, direct bereid voor u.', en:'Visit our restaurant on Strijp S in Eindhoven — part of the vibrant STR\'EAT Foodmarket, with 9 kitchens, bars, a large outdoor terrace and extensive indoor space. No reservation needed. Just walk in and enjoy authentic Syrian-Lebanese dishes, prepared fresh for you.', ar:'زرنا في مطعمنا في Strijp S بمدينة آيندهوفن — ضمن سوق الطعام النابض بالحياة STR\'EAT Foodmarket، مع ٩ مطابخ وبارات وشُرفة خارجيّة واسعة وقاعة داخليّة كبيرة. لا حاجة للحجز. تفضّلوا واستمتعوا بأطباق سوريّة لبنانيّة أصيلة تُحضَّر طازجة أمامكم.' },
 
     // Locaties
-    'loc-intro':        { nl:'Wij werken vanuit drie locaties. Let op: niet elke locatie is een bezoekadres.', en:'We operate from three locations. Note: not every location is open to visitors.' },
+    'loc-intro':        { nl:'Wij werken vanuit drie locaties. Let op: niet elke locatie is een bezoekadres.', en:'We operate from three locations. Note: not every location is open to visitors.', ar:'نعمل من ثلاثة مواقع. ملاحظة: ليست جميع المواقع مفتوحة للزيارة.' },
 
     // Configurator gerecht labels
-    'conf-hint-post':   { nl:'gekozen', en:'chosen' },
-    'conf-hoofd-lbl':   { nl:'Hoofdgerechten — kies', en:'Main courses — choose' },
-    'conf-salade-lbl':  { nl:'Salade — kies', en:'Salad — choose' },
-    'conf-mezze-lbl':   { nl:"Mezze's & Bijgerechten — kies", en:"Mezze's & Sides — choose" },
+    'conf-hint-post':   { nl:'gekozen', en:'chosen', ar:'مختار' },
+    'conf-hoofd-lbl':   { nl:'Hoofdgerechten — kies', en:'Main courses — choose', ar:'الأطباق الرئيسيّة — اختر' },
+    'conf-salade-lbl':  { nl:'Salade — kies', en:'Salad — choose', ar:'سلطة — اختر' },
+    'conf-mezze-lbl':   { nl:"Mezze's & Bijgerechten — kies", en:"Mezze's & Sides — choose", ar:'مازات وأطباق جانبيّة — اختر' },
 
     // Dish names
-    'dish-rijstkip':    { nl:'Rijst met Kip', en:'Rice with Chicken' },
-    'dish-stoofvlees':  { nl:'Stoofvlees', en:'Slow-cooked Meat' },
-    'dish-gegrildekip': { nl:'Gegrilde Kip', en:'Grilled Chicken' },
-    'dish-lamsragout':  { nl:'Lamsragout', en:'Lamb Ragout' },
-    'dish-gevuldbr':    { nl:'Gevuld Brood', en:'Stuffed Bread' },
-    'dish-spinazie':    { nl:'Spinazierolletjes', en:'Spinach Rolls' },
+    'dish-rijstkip':    { nl:'Rijst met Kip', en:'Rice with Chicken', ar:'أرز مع الدجاج' },
+    'dish-stoofvlees':  { nl:'Stoofvlees', en:'Slow-cooked Meat', ar:'لحم مطبوخ ببطء' },
+    'dish-gegrildekip': { nl:'Gegrilde Kip', en:'Grilled Chicken', ar:'دجاج مشوي' },
+    'dish-lamsragout':  { nl:'Lamsragout', en:'Lamb Ragout', ar:'يخنة لحم الغنم' },
+    'dish-gevuldbr':    { nl:'Gevuld Brood', en:'Stuffed Bread', ar:'فطائر محشوّة' },
+    'dish-spinazie':    { nl:'Spinazierolletjes', en:'Spinach Rolls', ar:'فطائر السبانخ' },
 
     // Over Ons frame
-    'over-frame-text':  { nl:'Opgericht vanuit passie, liefde en een vlucht naar een nieuw begin', en:'Founded from passion, love and a flight towards a new beginning' },
-    'over-founder-role':{ nl:'Oprichters · Best, Noord-Brabant', en:'Founders · Best, Noord-Brabant' },
+    'over-frame-text':  { nl:'Opgericht vanuit passie, liefde en een vlucht naar een nieuw begin', en:'Founded from passion, love and a flight towards a new beginning', ar:'تأسّسنا بالشغف والمحبّة وبداية جديدة بعد رحلة لجوء' },
+    'over-founder-role':{ nl:'Oprichters · Best, Noord-Brabant', en:'Founders · Best, Noord-Brabant', ar:'المؤسّسان · Best، شمال برابانت' },
 
     // Restaurant hours
-    'rest-sun-thu':     { nl:'Zondag – Donderdag', en:'Sunday – Thursday' },
-    'rest-fri-sat':     { nl:'Vrijdag & Zaterdag', en:'Friday & Saturday' },
-    'rest-reserv':      { nl:'Reservering', en:'Reservation' },
-    'rest-no-reserv':   { nl:'Alleen nodig vanaf 9 personen', en:'Only required for 9+ persons' },
-    'rest-whatsapp':    { nl:'Reserveren via WhatsApp — 06 20 77 76 24', en:'Reserve via WhatsApp — 06 20 77 76 24' },
-    'rest-order-btn':   { nl:'Bestel Online via STR\'EAT', en:'Order Online via STR\'EAT' },
-    'rest-body':        { nl:"Bezoek ons restaurant op Strijp S in Eindhoven — onderdeel van de sfeervolle STR'EAT Foodmarket, met 9 keukens, bars, een groot buitenterras en uitgebreide binnenruimte. Geen reservering nodig — loop gewoon binnen en geniet van authentieke Syrisch-Libanese gerechten, direct bereid voor u.", en:"Visit our restaurant at Strijp S in Eindhoven — part of the vibrant STR'EAT Foodmarket, with 9 kitchens, bars, a large outdoor terrace and spacious indoor area. No reservation needed — just walk in and enjoy authentic Syrian-Lebanese dishes, freshly prepared for you." },
+    'rest-sun-thu':     { nl:'Zondag – Donderdag', en:'Sunday – Thursday', ar:'الأحد – الخميس' },
+    'rest-fri-sat':     { nl:'Vrijdag & Zaterdag', en:'Friday & Saturday', ar:'الجمعة والسبت' },
+    'rest-reserv':      { nl:'Reservering', en:'Reservation', ar:'الحجز' },
+    'rest-no-reserv':   { nl:'Alleen nodig vanaf 9 personen', en:'Only required for 9+ persons', ar:'فقط للمجموعات من ٩ أشخاص فأكثر' },
+    'rest-whatsapp':    { nl:'Reserveren via WhatsApp — 06 20 77 76 24', en:'Reserve via WhatsApp — 06 20 77 76 24', ar:'احجز عبر واتساب — 06 20 77 76 24' },
+    'rest-order-btn':   { nl:'Bestel Online via STR\'EAT', en:'Order Online via STR\'EAT', ar:'اطلب أونلاين عبر STR\'EAT' },
+    'rest-body':        { nl:"Bezoek ons restaurant op Strijp S in Eindhoven — onderdeel van de sfeervolle STR'EAT Foodmarket, met 9 keukens, bars, een groot buitenterras en uitgebreide binnenruimte. Geen reservering nodig — loop gewoon binnen en geniet van authentieke Syrisch-Libanese gerechten, direct bereid voor u.", en:"Visit our restaurant at Strijp S in Eindhoven — part of the vibrant STR'EAT Foodmarket, with 9 kitchens, bars, a large outdoor terrace and spacious indoor area. No reservation needed — just walk in and enjoy authentic Syrian-Lebanese dishes, freshly prepared for you.", ar:'زرنا في مطعمنا في Strijp S بمدينة آيندهوفن — ضمن سوق الطعام النابض بالحياة STR\'EAT Foodmarket، مع ٩ مطابخ وبارات وشُرفة خارجيّة واسعة وقاعة داخليّة كبيرة. لا حاجة للحجز — تفضّلوا واستمتعوا بأطباق سوريّة لبنانيّة أصيلة تُحضَّر طازجة أمامكم.' },
 
     // Locaties cards
-    'loc-best-status':      { nl:'Productiekeuken — Geen bezoekadres', en:'Production kitchen — Not open to visitors' },
-    'loc-best-desc':        { nl:'Vanuit onze 200+ m² productiekeuken in Best bereiden wij dagelijks alle catering en zoetigheden. Dit is ons hoofdkantoor — strategisch nabij de <strong style="color:var(--parchment)">A2 en A50</strong> voor snelle levering door heel Nederland.', en:'From our 200+ m² production kitchen in Best we prepare all catering and sweets daily. This is our headquarters — strategically located near the <strong style="color:var(--parchment)">A2 and A50</strong> motorways for fast delivery throughout the Netherlands.' },
-    'loc-best-warning':     { nl:'<strong>Let op:</strong> Dit is uitsluitend onze productiekeuken. Wij ontvangen hier geen bezoekers en er is geen winkel of balie.', en:'<strong>Please note:</strong> This is exclusively our production kitchen. We do not receive visitors here and there is no shop or reception.' },
-    'loc-tag-bak-afhalen':  { nl:'Baklava afhalen', en:'Collect Baklava' },
-    'loc-tag-afspraak':     { nl:'Op afspraak', en:'By appointment' },
-    'loc-eindhoven-status': { nl:'Restaurant & Take-Away — Welkom zonder reservering', en:'Restaurant & Take-Away — Welcome without reservation' },
-    'loc-eindhoven-desc':   { nl:"Onze unit op de sfeervolle STR'EAT Foodmarket op Strijp S. Kom gezellig eten, haal take-away op of bestel online via Orderly. Geen reservering nodig — loop gewoon binnen.", en:"Our unit at the vibrant STR'EAT Foodmarket on Strijp S. Come and eat, pick up take-away or order online via Orderly. No reservation needed — just walk in." },
-    'loc-openingstijden':   { nl:'Openingstijden', en:'Opening hours' },
-    'loc-eindhoven-hours':  { nl:'Zo – Do: 12:00 – 21:00<br>Vr &amp; Za: 12:00 – 22:00', en:'Sun – Thu: 12:00 – 21:00<br>Fri &amp; Sat: 12:00 – 22:00' },
-    'loc-tag-no-reserv':    { nl:'Geen reservering', en:'No reservation' },
-    'loc-eindhoven-cta':    { nl:'Bestel Take-Away Online <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>', en:'Order Take-Away Online <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' },
-    'loc-rotterdam-status': { nl:'Koffiezaak & Catering — Rotterdam', en:'Coffee bar & Catering — Rotterdam' },
-    'loc-rotterdam-desc':   { nl:'Onze zusterlocatie in de Bibliotheek Rotterdam. <em style="color:rgba(201,148,42,.7);">Morgenland — by Memories of Damascus</em> — een koffiezaak met internationale maaltijden, Nederlandse broodjes en barista-espresso. Ook voor catering en kookworkshops in Rotterdam.', en:'Our sister location in Rotterdam Central Library. <em style="color:rgba(201,148,42,.7);">Morgenland — by Memories of Damascus</em> — a coffee bar with international meals, Dutch sandwiches and barista espresso. Also for catering and cooking workshops in Rotterdam.' },
-    'loc-tag-koffie':       { nl:'Koffiezaak', en:'Coffee bar' },
-    'loc-tag-kookw':        { nl:'Kookworkshops', en:'Cooking workshops' },
-    'loc-rotterdam-cta':    { nl:'Bezoek Morgenland <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>', en:'Visit Morgenland <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' },
+    'loc-best-status':      { nl:'Productiekeuken — Geen bezoekadres', en:'Production kitchen — Not open to visitors', ar:'مطبخ الإنتاج — غير مفتوح للزيارة' },
+    'loc-best-desc':        { nl:'Vanuit onze 200+ m² productiekeuken in Best bereiden wij dagelijks alle catering en zoetigheden. Dit is ons hoofdkantoor — strategisch nabij de <strong style="color:var(--parchment)">A2 en A50</strong> voor snelle levering door heel Nederland.', en:'From our 200+ m² production kitchen in Best we prepare all catering and sweets daily. This is our headquarters — strategically located near the <strong style="color:var(--parchment)">A2 and A50</strong> motorways for fast delivery throughout the Netherlands.', ar:'من مطبخنا الإنتاجي (٢٠٠+ متر مربّع) في مدينة Best نُحضّر يومياً كلّ خدمات التموين والحلويّات. هذا هو مقرّنا الرئيسي — يقع قرب طريقَي <strong style="color:var(--parchment)">A2 و A50</strong> لتوصيل سريع في جميع أنحاء هولندا.' },
+    'loc-best-warning':     { nl:'<strong>Let op:</strong> Dit is uitsluitend onze productiekeuken. Wij ontvangen hier geen bezoekers en er is geen winkel of balie.', en:'<strong>Please note:</strong> This is exclusively our production kitchen. We do not receive visitors here and there is no shop or reception.', ar:'<strong>يُرجى الانتباه:</strong> هذا الموقع هو مطبخ إنتاج فقط. لا نستقبل زوّاراً هنا، ولا يوجد متجر أو منصّة استقبال.' },
+    'loc-tag-bak-afhalen':  { nl:'Baklava afhalen', en:'Collect Baklava', ar:'استلام البقلاوة' },
+    'loc-tag-afspraak':     { nl:'Op afspraak', en:'By appointment', ar:'بموعد مسبق' },
+    'loc-eindhoven-status': { nl:'Restaurant & Take-Away — Welkom zonder reservering', en:'Restaurant & Take-Away — Welcome without reservation', ar:'مطعم وخدمة طعام للخارج — أهلاً بكم دون حجز' },
+    'loc-eindhoven-desc':   { nl:"Onze unit op de sfeervolle STR'EAT Foodmarket op Strijp S. Kom gezellig eten, haal take-away op of bestel online via Orderly. Geen reservering nodig — loop gewoon binnen.", en:"Our unit at the vibrant STR'EAT Foodmarket on Strijp S. Come and eat, pick up take-away or order online via Orderly. No reservation needed — just walk in.", ar:'وحدتنا في سوق الطعام النابض بالحياة STR\'EAT Foodmarket في Strijp S. تفضّلوا للأكل أو استلموا الطعام للخارج أو اطلبوا أونلاين عبر Orderly. لا حاجة للحجز — تفضّلوا.' },
+    'loc-openingstijden':   { nl:'Openingstijden', en:'Opening hours', ar:'ساعات العمل' },
+    'loc-eindhoven-hours':  { nl:'Zo – Do: 12:00 – 21:00<br>Vr &amp; Za: 12:00 – 22:00', en:'Sun – Thu: 12:00 – 21:00<br>Fri &amp; Sat: 12:00 – 22:00', ar:'الأحد – الخميس: 12:00 – 21:00<br>الجمعة والسبت: 12:00 – 22:00' },
+    'loc-tag-no-reserv':    { nl:'Geen reservering', en:'No reservation', ar:'بدون حجز' },
+    'loc-eindhoven-cta':    { nl:'Bestel Take-Away Online <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>', en:'Order Take-Away Online <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>', ar:'اطلب طعاماً للخارج أونلاين <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' },
+    'loc-rotterdam-status': { nl:'Koffiezaak & Catering — Rotterdam', en:'Coffee bar & Catering — Rotterdam', ar:'مقهى وخدمات تموين — روتردام' },
+    'loc-rotterdam-desc':   { nl:'Onze zusterlocatie in de Bibliotheek Rotterdam. <em style="color:rgba(201,148,42,.7);">Morgenland — by Memories of Damascus</em> — een koffiezaak met internationale maaltijden, Nederlandse broodjes en barista-espresso. Ook voor catering en kookworkshops in Rotterdam.', en:'Our sister location in Rotterdam Central Library. <em style="color:rgba(201,148,42,.7);">Morgenland — by Memories of Damascus</em> — a coffee bar with international meals, Dutch sandwiches and barista espresso. Also for catering and cooking workshops in Rotterdam.', ar:'موقعنا الشقيق في المكتبة المركزيّة بروتردام. <em style="color:rgba(201,148,42,.7);">Morgenland — by Memories of Damascus</em> — مقهى بوجبات عالميّة وسندويشات هولنديّة وقهوة إسبريسو. ولخدمات التموين وورش الطهي في روتردام أيضاً.' },
+    'loc-tag-koffie':       { nl:'Koffiezaak', en:'Coffee bar', ar:'مقهى' },
+    'loc-tag-kookw':        { nl:'Kookworkshops', en:'Cooking workshops', ar:'ورش طهي' },
+    'loc-rotterdam-cta':    { nl:'Bezoek Morgenland <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>', en:'Visit Morgenland <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>', ar:'زر Morgenland <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' },
 
     // Reviews
-    'reviews-score':    { nl:'104 reviews · Google Reviews', en:'104 reviews · Google Reviews' },
+    'reviews-score':    { nl:'104 reviews · Google Reviews', en:'104 reviews · Google Reviews', ar:'١٠٤ تقييمات · غوغل' },
 
     // Contact form
-    'form-naam':        { nl:'Naam *', en:'Name *' },
-    'form-email':       { nl:'E-mailadres *', en:'Email address *' },
-    'form-tel':         { nl:'Telefoonnummer *', en:'Phone number *' },
-    'form-type':        { nl:'Type evenement', en:'Event type' },
-    'form-type-select': { nl:'<option value="">Selecteer type...</option><option>Particulier — Bruiloft / Huwelijkscatering</option><option>Particulier — Eid / Ramadan-iftar</option><option>Particulier — Jubileum</option><option>Bedrijf — Lunch / Diner</option><option>Bedrijf — Borrel / Receptie</option><option>Bedrijf — Personeelsevent</option><option>Bedrijf — Dagelijks cateringcontract</option><option>Overheid — AZC / Noodopvang</option><option>Overheid — Gemeente / Zorginstelling</option><option>Baklava bestelling</option><option>Anders / Overig</option>', en:'<option value="">Select type...</option><option>Private — Wedding / Wedding catering</option><option>Private — Eid / Ramadan iftar</option><option>Private — Birthday / Anniversary</option><option>Business — Lunch / Dinner</option><option>Business — Reception / Drinks</option><option>Business — Staff event</option><option>Business — Daily catering contract</option><option>Government — Asylum centre / Emergency shelter</option><option>Government — Municipality / Care institution</option><option>Baklava order</option><option>Other</option>' },
-    'form-datum':       { nl:'Datum evenement', en:'Event date' },
-    'form-personen':    { nl:'Aantal personen', en:'Number of guests' },
-    'form-bericht':     { nl:'Uw bericht *', en:'Your message *' },
-    'form-type-label':  { nl:'Type evenement', en:'Event type' },
-    'form-pakket-label':{ nl:'Pakket', en:'Package' },
-    'modal-type-select':{ nl:'<option value="">Selecteer type...</option><option>Bruiloft / Huwelijkscatering</option><option>Eid / Ramadan-iftar</option><option>Jubileum</option><option>Bedrijfslunch / Diner</option><option>Borrel / Receptie</option><option>AZC / Noodopvang</option><option>Kookworkshop</option><option>Anders</option>', en:'<option value="">Select type...</option><option>Wedding / Wedding catering</option><option>Eid / Ramadan iftar</option><option>Anniversary</option><option>Business lunch / Dinner</option><option>Reception / Drinks</option><option>Asylum centre / Emergency shelter</option><option>Cooking workshop</option><option>Other</option>' },
-    'modal-pakket-select':{ nl:'<option value="">Nog niet gekozen</option><option value="Classic — €25 p.p.">Classic — €25 p.p.</option><option value="Luxe — €30 p.p.">Luxe — €30 p.p.</option><option value="À la Table — €32 p.p.">À la Table — €32 p.p.</option>', en:'<option value="">Not yet chosen</option><option value="Classic — €25 p.p.">Classic — €25 p.p.</option><option value="Luxe — €30 p.p.">Luxe — €30 p.p.</option><option value="À la Table — €32 p.p.">À la Table — €32 p.p.</option>' },
-    'form-adres-label': { nl:'Adres evenement', en:'Event address' },
-    'modal-adres-ph':   { nl:'Straat + huisnummer, stad', en:'Street + number, city' },
-    'form-tijdstip-label':{ nl:'Tijdstip', en:'Time' },
-    'ct-btn-betaal':    { nl:'Direct Afrekenen — Binnenkort beschikbaar', en:'Pay Now — Coming soon' },
-    'modal-title':      { nl:'Offerte <em>aanvragen</em>', en:'Request a <em>quote</em>' },
-    'modal-naam-lbl':   { nl:'Naam *', en:'Name *' },
-    'modal-naam-ph':    { nl:'Uw volledige naam', en:'Your full name' },
-    'modal-tel-lbl':    { nl:'Telefoonnummer *', en:'Phone number *' },
-    'modal-email-lbl':  { nl:'E-mailadres *', en:'Email address *' },
-    'modal-wensen-lbl': { nl:'Uw wensen / opmerkingen', en:'Your wishes / remarks' },
-    'modal-wensen-ph':  { nl:'Dieetvereisten, allergieën, speciale wensen...', en:'Dietary requirements, allergies, special wishes...' },
-    'modal-submit-btn': { nl:'Verstuur Aanvraag — Gratis &amp; Vrijblijvend', en:'Send Request — Free &amp; Non-binding' },
-    'modal-fineprint':  { nl:'Wij nemen binnen 24 uur contact met u op · Geen verplichtingen', en:'We will contact you within 24 hours · No obligations' },
-    'nav-menu-mob':     { nl:'Menu &amp; Pakketten', en:'Menu &amp; Packages' },
+    'form-naam':        { nl:'Naam *', en:'Name *', ar:'الاسم *' },
+    'form-email':       { nl:'E-mailadres *', en:'Email address *', ar:'البريد الإلكتروني *' },
+    'form-tel':         { nl:'Telefoonnummer *', en:'Phone number *', ar:'رقم الهاتف *' },
+    'form-type':        { nl:'Type evenement', en:'Event type', ar:'نوع المناسبة' },
+    'form-type-select': { nl:'<option value="">Selecteer type...</option><option>Particulier — Bruiloft / Huwelijkscatering</option><option>Particulier — Eid / Ramadan-iftar</option><option>Particulier — Jubileum</option><option>Bedrijf — Lunch / Diner</option><option>Bedrijf — Borrel / Receptie</option><option>Bedrijf — Personeelsevent</option><option>Bedrijf — Dagelijks cateringcontract</option><option>Overheid — AZC / Noodopvang</option><option>Overheid — Gemeente / Zorginstelling</option><option>Baklava bestelling</option><option>Anders / Overig</option>', en:'<option value="">Select type...</option><option>Private — Wedding / Wedding catering</option><option>Private — Eid / Ramadan iftar</option><option>Private — Birthday / Anniversary</option><option>Business — Lunch / Dinner</option><option>Business — Reception / Drinks</option><option>Business — Staff event</option><option>Business — Daily catering contract</option><option>Government — Asylum centre / Emergency shelter</option><option>Government — Municipality / Care institution</option><option>Baklava order</option><option>Other</option>', ar:'<option value="">اختر النوع...</option><option>أفراد — زفاف / تموين عرس</option><option>أفراد — عيد / إفطار رمضان</option><option>أفراد — ذكرى سنوية</option><option>شركات — غداء أو عشاء</option><option>شركات — استقبال / حفل توديع</option><option>شركات — فعاليّة موظفين</option><option>شركات — عقد تموين يومي</option><option>حكومي — مركز لجوء / إيواء طارئ</option><option>حكومي — بلديّة / مؤسّسة رعاية</option><option>طلب بقلاوة</option><option>أخرى</option>' },
+    'form-datum':       { nl:'Datum evenement', en:'Event date', ar:'تاريخ المناسبة' },
+    'form-personen':    { nl:'Aantal personen', en:'Number of guests', ar:'عدد الأشخاص' },
+    'form-bericht':     { nl:'Uw bericht *', en:'Your message *', ar:'رسالتك *' },
+    'form-type-label':  { nl:'Type evenement', en:'Event type', ar:'نوع المناسبة' },
+    'form-pakket-label':{ nl:'Pakket', en:'Package', ar:'الباقة' },
+    'modal-type-select':{ nl:'<option value="">Selecteer type...</option><option>Bruiloft / Huwelijkscatering</option><option>Eid / Ramadan-iftar</option><option>Jubileum</option><option>Bedrijfslunch / Diner</option><option>Borrel / Receptie</option><option>AZC / Noodopvang</option><option>Kookworkshop</option><option>Anders</option>', en:'<option value="">Select type...</option><option>Wedding / Wedding catering</option><option>Eid / Ramadan iftar</option><option>Anniversary</option><option>Business lunch / Dinner</option><option>Reception / Drinks</option><option>Asylum centre / Emergency shelter</option><option>Cooking workshop</option><option>Other</option>', ar:'<option value="">اختر النوع...</option><option>زفاف / تموين عرس</option><option>عيد / إفطار رمضان</option><option>ذكرى سنوية</option><option>غداء أو عشاء عمل</option><option>استقبال / حفل توديع</option><option>مركز لجوء / إيواء طارئ</option><option>ورشة طهي</option><option>أخرى</option>' },
+    'modal-pakket-select':{ nl:'<option value="">Nog niet gekozen</option><option value="Classic — €25 p.p.">Classic — €25 p.p.</option><option value="Luxe — €30 p.p.">Luxe — €30 p.p.</option><option value="À la Table — €32 p.p.">À la Table — €32 p.p.</option>', en:'<option value="">Not yet chosen</option><option value="Classic — €25 p.p.">Classic — €25 p.p.</option><option value="Luxe — €30 p.p.">Luxe — €30 p.p.</option><option value="À la Table — €32 p.p.">À la Table — €32 p.p.</option>', ar:'<option value="">لم أختر بعد</option><option value="Classic — €25 p.p.">كلاسيك — ٢٥€ للشخص</option><option value="Luxe — €30 p.p.">فاخر — ٣٠€ للشخص</option><option value="À la Table — €32 p.p.">على الطاولة — ٣٢€ للشخص</option>' },
+    'form-adres-label': { nl:'Adres evenement', en:'Event address', ar:'عنوان المناسبة' },
+    'modal-adres-ph':   { nl:'Straat + huisnummer, stad', en:'Street + number, city', ar:'الشارع ورقم المنزل، المدينة' },
+    'form-tijdstip-label':{ nl:'Tijdstip', en:'Time', ar:'الوقت' },
+    'ct-btn-betaal':    { nl:'Direct Afrekenen — Binnenkort beschikbaar', en:'Pay Now — Coming soon', ar:'ادفع مباشرةً — قريباً' },
+    'modal-title':      { nl:'Offerte <em>aanvragen</em>', en:'Request a <em>quote</em>', ar:'<em>اطلب</em> عرض سعر' },
+    'modal-naam-lbl':   { nl:'Naam *', en:'Name *', ar:'الاسم *' },
+    'modal-naam-ph':    { nl:'Uw volledige naam', en:'Your full name', ar:'اسمك الكامل' },
+    'modal-tel-lbl':    { nl:'Telefoonnummer *', en:'Phone number *', ar:'رقم الهاتف *' },
+    'modal-email-lbl':  { nl:'E-mailadres *', en:'Email address *', ar:'البريد الإلكتروني *' },
+    'modal-wensen-lbl': { nl:'Uw wensen / opmerkingen', en:'Your wishes / remarks', ar:'رغباتك أو ملاحظاتك' },
+    'modal-wensen-ph':  { nl:'Dieetvereisten, allergieën, speciale wensen...', en:'Dietary requirements, allergies, special wishes...', ar:'متطلّبات غذائيّة، حساسيّات، رغبات خاصّة...' },
+    'modal-submit-btn': { nl:'Verstuur Aanvraag — Gratis &amp; Vrijblijvend', en:'Send Request — Free &amp; Non-binding', ar:'أرسل الطلب — مجاني ودون التزام' },
+    'modal-fineprint':  { nl:'Wij nemen binnen 24 uur contact met u op · Geen verplichtingen', en:'We will contact you within 24 hours · No obligations', ar:'سنتواصل معك خلال ٢٤ ساعة · دون أي التزام' },
+    'nav-menu-mob':     { nl:'Menu &amp; Pakketten', en:'Menu &amp; Packages', ar:'القائمة والباقات' },
 
     // Contact details
-    'cd-tel-lbl':       { nl:'Telefoon & WhatsApp', en:'Phone & WhatsApp' },
-    'cd-tel-nl':        { nl:'(Nederlands en Engels)', en:'(Dutch and English)' },
-    'cd-tel-ar':        { nl:'(Arabisch)', en:'(Arabic)' },
-    'cd-email-lbl':     { nl:'E-mail', en:'E-mail' },
-    'cd-kitchen-lbl':   { nl:'Productiekeuken', en:'Production kitchen' },
-    'cd-kitchen-note':  { nl:'Nabij A2/A50 · ER IS GEEN BEL — bel bij aankomst', en:'Near A2/A50 · NO DOORBELL — call on arrival' },
-    'cd-hours-lbl':     { nl:'Bereikbaarheid', en:'Availability' },
-    'cd-hours-val':     { nl:'24/7 bereikbaar via WhatsApp en e-mail<br>Dagelijks 09:00 – 20:00 per telefoon', en:'24/7 available via WhatsApp and email<br>Daily 09:00 – 20:00 by phone' },
-    'halal-badge-txt':  { nl:'<strong>100% Halal Gecertificeerd</strong> Alle catering, gerechten en bereidingen zijn volledig halal', en:'<strong>100% Halal Certified</strong> All catering, dishes and preparations are fully halal' },
-    'werkgebied-lbl':   { nl:'Werkgebied', en:'Service area' },
+    'cd-tel-lbl':       { nl:'Telefoon & WhatsApp', en:'Phone & WhatsApp', ar:'الهاتف وواتساب' },
+    'cd-tel-nl':        { nl:'(Nederlands en Engels)', en:'(Dutch and English)', ar:'(الهولندية والإنجليزية)' },
+    'cd-tel-ar':        { nl:'(Arabisch)', en:'(Arabic)', ar:'(العربية)' },
+    'cd-email-lbl':     { nl:'E-mail', en:'E-mail', ar:'البريد الإلكتروني' },
+    'cd-kitchen-lbl':   { nl:'Productiekeuken', en:'Production kitchen', ar:'مطبخ الإنتاج' },
+    'cd-kitchen-note':  { nl:'Nabij A2/A50 · ER IS GEEN BEL — bel bij aankomst', en:'Near A2/A50 · NO DOORBELL — call on arrival', ar:'قرب A2/A50 · لا يوجد جرس — اتّصل عند الوصول' },
+    'cd-hours-lbl':     { nl:'Bereikbaarheid', en:'Availability', ar:'أوقات التواصل' },
+    'cd-hours-val':     { nl:'24/7 bereikbaar via WhatsApp en e-mail<br>Dagelijks 09:00 – 20:00 per telefoon', en:'24/7 available via WhatsApp and email<br>Daily 09:00 – 20:00 by phone', ar:'متاحون عبر واتساب والبريد الإلكتروني ٢٤/٧<br>هاتفياً يومياً من 09:00 إلى 20:00' },
+    'halal-badge-txt':  { nl:'<strong>100% Halal Gecertificeerd</strong> Alle catering, gerechten en bereidingen zijn volledig halal', en:'<strong>100% Halal Certified</strong> All catering, dishes and preparations are fully halal', ar:'<strong>حلال ١٠٠٪ معتمد</strong> جميع خدمات التموين والأطباق والتحضير حلال بالكامل' },
+    'werkgebied-lbl':   { nl:'Werkgebied', en:'Service area', ar:'نطاق العمل' },
 
     // Footer
-    'footer-tagline':   { nl:'"De ware smaken van Syrië en Libanon — authentieke Arabische catering en zoetigheden, liefdevol bereid voor elke gelegenheid."', en:'"The true flavours of Syria and Lebanon — authentic Arabic catering and sweets, lovingly prepared for every occasion."' },
+    'footer-tagline':   { nl:'"De ware smaken van Syrië en Libanon — authentieke Arabische catering en zoetigheden, liefdevol bereid voor elke gelegenheid."', en:'"The true flavours of Syria and Lebanon — authentic Arabic catering and sweets, lovingly prepared for every occasion."', ar:'"النكهات الأصيلة من سوريا ولبنان — تموين وحلويّات عربيّة أصيلة، تُحضَّر بمحبّة لكلّ مناسبة."' },
 
     // FAQ
-    'faq-label':        { nl:'Veelgestelde Vragen', en:'Frequently Asked Questions' },
-    'faq-title':        { nl:'Heeft u een <em>vraag</em>?', en:'Have a <em>question</em>?' },
-    'faq-q1':           { nl:'Is jullie catering volledig halal?', en:'Is your catering fully halal?' },
-    'faq-a1':           { nl:'Ja, al onze catering, gerechten en bereidingen zijn 100% halal gecertificeerd. Wij werken uitsluitend met halal-gecertificeerde leveranciers.', en:'Yes, all our catering, dishes and preparations are 100% halal certified. We work exclusively with halal-certified suppliers.' },
-    'faq-q2':           { nl:'Bieden jullie vegetarische of vegan opties aan?', en:'Do you offer vegetarian or vegan options?' },
-    'faq-a2':           { nl:'Absoluut! De Arabische keuken leent zich uitstekend voor vegetarische en vegan catering. Wij bieden volledig vegetarische en vegan menu\'s aan, en houden rekening met specifieke dieetwensen zoals lactosevrij, glutenvrij en notenvrij.', en:'Absolutely! Arabic cuisine lends itself perfectly to vegetarian and vegan catering. We offer fully vegetarian and vegan menus, and accommodate specific dietary needs such as lactose-free, gluten-free and nut-free.' },
-    'faq-q3':           { nl:'Hoe werkt de gratis proeverij?', en:'How does the free tasting work?' },
-    'faq-a3':           { nl:'Bij huwelijkscatering en andere grote feesten bieden wij een gratis proeverij aan, geheel vrijblijvend. Neem contact met ons op om een afspraak te maken.', en:'For wedding catering and other large celebrations we offer a free tasting, with no obligations. Contact us to make an appointment.' },
-    'faq-q4':           { nl:'In welke regio\'s zijn jullie actief?', en:'In which regions are you active?' },
-    'faq-a4':           { nl:'Wij verzorgen catering door heel Nederland, België en Duitsland. Levering in Eindhoven en Rotterdam is gratis. Voor andere regio\'s berekenen wij €0,50 per km retour vanaf onze dichtstbijzijnde locatie.', en:'We provide catering throughout the Netherlands, Belgium and Germany. Delivery in Eindhoven and Rotterdam is free. For other regions we charge €0.50 per km return from our nearest location.' },
-    'faq-q5':           { nl:'Wat is het minimum aantal personen?', en:'What is the minimum number of persons?' },
-    'faq-a5':           { nl:'Dit verschilt per pakket: Classic Buffet vanaf 10 personen, Luxe Buffet vanaf 15 personen, Mezze Selectie vanaf 15 personen, en À la Table en Levant BBQ vanaf 20 personen. Voor maatwerk is alles bespreekbaar.', en:'This varies per package: Classic Buffet from 10 persons, Luxe Buffet from 15 persons, Mezze Selection from 15 persons, and À la Table and Levant BBQ from 20 persons. For custom catering everything is negotiable.' },
-    'faq-q6':           { nl:'Hoe snel kan ik een offerte verwachten?', en:'How quickly can I expect a quote?' },
-    'faq-a6':           { nl:'Wij reageren binnen 24 uur op uw aanvraag. U kunt ons ook direct bereiken via WhatsApp op 06 20 77 76 24.', en:'We respond to your request within 24 hours. You can also reach us directly via WhatsApp on 06 20 77 76 24.' },
-    'footer-col1-h':    { nl:'Catering', en:'Catering' },
-    'footer-col1-list': { nl:'<li><a href="#diensten">Particulieren & Bruiloften</a></li><li><a href="#diensten">Bedrijfscatering</a></li><li><a href="#azc">AZC & Noodopvang</a></li><li><a href="#pakketten">Pakketten & Prijzen</a></li><li><a href="#menu">Onze Gerechten</a></li><li><a href="#baklava">Baklava per Post</a></li>', en:'<li><a href="#diensten">Private & Weddings</a></li><li><a href="#diensten">Corporate catering</a></li><li><a href="#azc">Asylum & Emergency shelter</a></li><li><a href="#pakketten">Packages & Pricing</a></li><li><a href="#menu">Our Dishes</a></li><li><a href="#baklava">Baklava by Post</a></li>' },
-    'footer-col2-h':    { nl:'Bedrijf', en:'Company' },
-    'footer-col2-list': { nl:'<li><a href="#over-ons">Over Ons</a></li><li><a href="#sociaal">Sociaal Ondernemen</a></li><li><a href="#restaurant">Restaurant Eindhoven</a></li><li><a href="#testimonials">Reviews</a></li><li><a href="mailto:bestellen@memoriesofdamascus.nl">Samenwerken?</a></li>', en:'<li><a href="#over-ons">About Us</a></li><li><a href="#sociaal">Social Enterprise</a></li><li><a href="#restaurant">Restaurant Eindhoven</a></li><li><a href="#testimonials">Reviews</a></li><li><a href="mailto:bestellen@memoriesofdamascus.nl">Partner with us?</a></li>' },
-    'footer-copy':      { nl:'© 2020 – 2026 Memories of Damascus — Arabische catering en zoetigheden · KVK 81201974', en:'© 2020 – 2026 Memories of Damascus — Arabic catering and sweets · KVK 81201974' },
-    'footer-halal':     { nl:'☪ 100% Halal Gecertificeerd', en:'☪ 100% Halal Certified' },
+    'faq-label':        { nl:'Veelgestelde Vragen', en:'Frequently Asked Questions', ar:'الأسئلة الشائعة' },
+    'faq-title':        { nl:'Heeft u een <em>vraag</em>?', en:'Have a <em>question</em>?', ar:'هل لديك <em>سؤال</em>؟' },
+    'faq-q1':           { nl:'Is jullie catering volledig halal?', en:'Is your catering fully halal?', ar:'هل خدمات التموين لديكم حلال بالكامل؟' },
+    'faq-a1':           { nl:'Ja, al onze catering, gerechten en bereidingen zijn 100% halal gecertificeerd. Wij werken uitsluitend met halal-gecertificeerde leveranciers.', en:'Yes, all our catering, dishes and preparations are 100% halal certified. We work exclusively with halal-certified suppliers.', ar:'نعم، كلّ خدمات التموين والأطباق والتحضير معتمدة كحلال ١٠٠٪. نتعامل حصرياً مع موردين معتمدين بشهادات حلال.' },
+    'faq-q2':           { nl:'Bieden jullie vegetarische of vegan opties aan?', en:'Do you offer vegetarian or vegan options?', ar:'هل تقدّمون خيارات نباتيّة أو نباتيّة صرف؟' },
+    'faq-a2':           { nl:'Absoluut! De Arabische keuken leent zich uitstekend voor vegetarische en vegan catering. Wij bieden volledig vegetarische en vegan menu\'s aan, en houden rekening met specifieke dieetwensen zoals lactosevrij, glutenvrij en notenvrij.', en:'Absolutely! Arabic cuisine lends itself perfectly to vegetarian and vegan catering. We offer fully vegetarian and vegan menus, and accommodate specific dietary needs such as lactose-free, gluten-free and nut-free.', ar:'بالتأكيد! المطبخ العربيّ يلائم تماماً التموين النباتيّ والنباتيّ الصرف. نقدّم قوائم نباتيّة ونباتيّة صرف بالكامل، ونراعي الاحتياجات الغذائيّة مثل الخالي من اللاكتوز أو الغلوتين أو المكسّرات.' },
+    'faq-q3':           { nl:'Hoe werkt de gratis proeverij?', en:'How does the free tasting work?', ar:'كيف تعمل جلسة التذوّق المجانيّة؟' },
+    'faq-a3':           { nl:'Bij huwelijkscatering en andere grote feesten bieden wij een gratis proeverij aan, geheel vrijblijvend. Neem contact met ons op om een afspraak te maken.', en:'For wedding catering and other large celebrations we offer a free tasting, with no obligations. Contact us to make an appointment.', ar:'لتموين الأعراس والمناسبات الكبرى نقدّم جلسة تذوّق مجانيّة دون أي التزام. تواصل معنا لتحديد موعد.' },
+    'faq-q4':           { nl:'In welke regio\'s zijn jullie actief?', en:'In which regions are you active?', ar:'في أيّ مناطق تعملون؟' },
+    'faq-a4':           { nl:'Wij verzorgen catering door heel Nederland, België en Duitsland. Levering in Eindhoven en Rotterdam is gratis. Voor andere regio\'s berekenen wij €0,50 per km retour vanaf onze dichtstbijzijnde locatie.', en:'We provide catering throughout the Netherlands, Belgium and Germany. Delivery in Eindhoven and Rotterdam is free. For other regions we charge €0.50 per km return from our nearest location.', ar:'نقدّم خدمات التموين في جميع أنحاء هولندا وبلجيكا وألمانيا. التوصيل في آيندهوفن وروتردام مجّاني. للمناطق الأخرى نحتسب ٠٫٥٠ يورو لكلّ كيلومتر ذهاباً وإياباً من أقرب موقع لنا.' },
+    'faq-q5':           { nl:'Wat is het minimum aantal personen?', en:'What is the minimum number of persons?', ar:'ما الحدّ الأدنى لعدد الأشخاص؟' },
+    'faq-a5':           { nl:'Dit verschilt per pakket: Classic Buffet vanaf 10 personen, Luxe Buffet vanaf 15 personen, Mezze Selectie vanaf 15 personen, en À la Table en Levant BBQ vanaf 20 personen. Voor maatwerk is alles bespreekbaar.', en:'This varies per package: Classic Buffet from 10 persons, Luxe Buffet from 15 persons, Mezze Selection from 15 persons, and À la Table and Levant BBQ from 20 persons. For custom catering everything is negotiable.', ar:'يختلف حسب الباقة: بوفيه كلاسيك من ١٠ أشخاص، بوفيه فاخر من ١٥ شخصاً، تشكيلة المازات من ١٥ شخصاً، وعلى الطاولة وشواء الشام من ٢٠ شخصاً. للقوائم المخصّصة كلّ شيء قابل للنقاش.' },
+    'faq-q6':           { nl:'Hoe snel kan ik een offerte verwachten?', en:'How quickly can I expect a quote?', ar:'كم تستغرق الإجابة على طلبي؟' },
+    'faq-a6':           { nl:'Wij reageren binnen 24 uur op uw aanvraag. U kunt ons ook direct bereiken via WhatsApp op 06 20 77 76 24.', en:'We respond to your request within 24 hours. You can also reach us directly via WhatsApp on 06 20 77 76 24.', ar:'نردّ على طلبك خلال ٢٤ ساعة. يمكنك أيضاً التواصل معنا مباشرةً عبر واتساب على 06 20 77 76 24.' },
+    'footer-col1-h':    { nl:'Catering', en:'Catering', ar:'التموين' },
+    'footer-col1-list': { nl:'<li><a href="#diensten">Particulieren & Bruiloften</a></li><li><a href="#diensten">Bedrijfscatering</a></li><li><a href="#azc">AZC & Noodopvang</a></li><li><a href="#pakketten">Pakketten & Prijzen</a></li><li><a href="#menu">Onze Gerechten</a></li><li><a href="#baklava">Baklava per Post</a></li>', en:'<li><a href="#diensten">Private & Weddings</a></li><li><a href="#diensten">Corporate catering</a></li><li><a href="#azc">Asylum & Emergency shelter</a></li><li><a href="#pakketten">Packages & Pricing</a></li><li><a href="#menu">Our Dishes</a></li><li><a href="#baklava">Baklava by Post</a></li>', ar:'<li><a href="#diensten">الأفراد والأعراس</a></li><li><a href="#diensten">تموين الشركات</a></li><li><a href="#azc">مراكز اللجوء والإيواء الطارئ</a></li><li><a href="#pakketten">الباقات والأسعار</a></li><li><a href="#menu">أطباقنا</a></li><li><a href="#baklava">بقلاوة عبر البريد</a></li>' },
+    'footer-col2-h':    { nl:'Bedrijf', en:'Company', ar:'الشركة' },
+    'footer-col2-list': { nl:'<li><a href="#over-ons">Over Ons</a></li><li><a href="#sociaal">Sociaal Ondernemen</a></li><li><a href="#restaurant">Restaurant Eindhoven</a></li><li><a href="#testimonials">Reviews</a></li><li><a href="mailto:bestellen@memoriesofdamascus.nl">Samenwerken?</a></li>', en:'<li><a href="#over-ons">About Us</a></li><li><a href="#sociaal">Social Enterprise</a></li><li><a href="#restaurant">Restaurant Eindhoven</a></li><li><a href="#testimonials">Reviews</a></li><li><a href="mailto:bestellen@memoriesofdamascus.nl">Partner with us?</a></li>', ar:'<li><a href="#over-ons">من نحن</a></li><li><a href="#sociaal">المسؤوليّة الاجتماعيّة</a></li><li><a href="#restaurant">مطعم آيندهوفن</a></li><li><a href="#testimonials">التقييمات</a></li><li><a href="mailto:bestellen@memoriesofdamascus.nl">هل تودّ التعاون معنا؟</a></li>' },
+    'footer-copy':      { nl:'© 2020 – 2026 Memories of Damascus — Arabische catering en zoetigheden · KVK 81201974', en:'© 2020 – 2026 Memories of Damascus — Arabic catering and sweets · KVK 81201974', ar:'© 2020 – 2026 Memories of Damascus — تموين وحلويّات عربيّة · KVK 81201974' },
+    'footer-halal':     { nl:'☪ 100% Halal Gecertificeerd', en:'☪ 100% Halal Certified', ar:'☪ حلال ١٠٠٪ معتمد' },
   };
 
-  function toggleLang() {
-    currentLang = currentLang === 'nl' ? 'en' : 'nl';
-    document.getElementById('langNL').classList.toggle('lang-active', currentLang === 'nl');
-    document.getElementById('langEN').classList.toggle('lang-active', currentLang === 'en');
-    var mln = document.getElementById('mobLangNL'), mle = document.getElementById('mobLangEN');
-    if (mln) mln.classList.toggle('active', currentLang === 'nl');
-    if (mle) mle.classList.toggle('active', currentLang === 'en');
-    document.documentElement.lang = currentLang;
+  function setLang(lang) {
+    if (!lang || !['nl','en','ar'].includes(lang)) lang = 'nl';
+    currentLang = lang;
+    try { localStorage.setItem('mod_lang', lang); } catch(e){}
+    var nl = document.getElementById('langNL'), en = document.getElementById('langEN'), ar = document.getElementById('langAR');
+    if (nl) nl.classList.toggle('lang-active', lang === 'nl');
+    if (en) en.classList.toggle('lang-active', lang === 'en');
+    if (ar) ar.classList.toggle('lang-active', lang === 'ar');
+    var mln = document.getElementById('mobLangNL'), mle = document.getElementById('mobLangEN'), mla = document.getElementById('mobLangAR');
+    if (mln) mln.classList.toggle('active', lang === 'nl');
+    if (mle) mle.classList.toggle('active', lang === 'en');
+    if (mla) mla.classList.toggle('active', lang === 'ar');
+    document.documentElement.lang = lang;
+    document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
     document.querySelectorAll('[data-i18n]').forEach(function(el) {
       var key = el.getAttribute('data-i18n');
-      if (i18n[key] && i18n[key][currentLang]) {
-        el.innerHTML = i18n[key][currentLang];
-      }
+      var dict = i18n[key];
+      if (dict && dict[lang]) el.innerHTML = dict[lang];
+      else if (dict && dict.nl) el.innerHTML = dict.nl; // fallback
     });
     document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
       var key = el.getAttribute('data-i18n-placeholder');
-      if (i18n[key] && i18n[key][currentLang]) {
-        el.placeholder = i18n[key][currentLang];
-      }
+      var dict = i18n[key];
+      if (dict && dict[lang]) el.placeholder = dict[lang];
+      else if (dict && dict.nl) el.placeholder = dict.nl;
     });
     // Re-render dynamic components
     renderCal();
     updateTotaal();
     applyContentBlokken();
   }
+  // Backwards compat
+  function toggleLang() { setLang(currentLang === 'nl' ? 'en' : (currentLang === 'en' ? 'ar' : 'nl')); }
 
   // ══ CONTENT BLOKKEN (live editbare teksten via dashboard) ══
   var contentBlokkenCache = null;
@@ -4518,6 +4589,8 @@
     });
   }
   loadContentBlokken();
+  // Apply stored language preference at startup
+  if (currentLang !== 'nl') setLang(currentLang);
 
   // ══ CONFIGURATOR ══
   var confState = {
@@ -4670,7 +4743,7 @@
     var totaal = subtotaal + addonTotal + confState.reiskosten + afstandExtra;
     var naam = pakketNamen[confState.pakket] || '—';
     document.getElementById('ct-pakket').textContent = confState.pakket ? naam + ' · €' + basePP + ' p.p.' : '—';
-    document.getElementById('ct-personen').textContent = pers + ' ' + (currentLang === 'nl' ? 'personen' : 'persons');
+    document.getElementById('ct-personen').textContent = pers + ' ' + (currentLang === 'ar' ? 'شخص' : (currentLang === 'nl' ? 'personen' : 'persons'));
     document.getElementById('ct-subtotaal').textContent = '€' + subtotaal.toLocaleString('nl') + ',-';
     // Extra's sectie
     var addonSection = document.getElementById('ct-addon-section');
@@ -4781,7 +4854,7 @@
     document.getElementById('reisStad').textContent = city;
     document.getElementById('reisLocatie').textContent = locNaam;
     document.getElementById('reisAfstand').textContent = currentLang === 'nl' ? retourKm + ' km retour (' + km + ' km enkel)' : retourKm + ' km return (' + km + ' km single)';
-    document.getElementById('reisKosten').textContent = kosten === 0 ? (currentLang === 'nl' ? 'Gratis — regio Eindhoven' : 'Free — Eindhoven region') : '€' + kosten + ',-';
+    document.getElementById('reisKosten').textContent = kosten === 0 ? (currentLang === 'ar' ? 'مجاناً — منطقة آيندهوفن' : (currentLang === 'nl' ? 'Gratis — regio Eindhoven' : 'Free — Eindhoven region')) : '€' + kosten + ',-';
     document.getElementById('reisResult').classList.add('reisvis');
     confState.reiskosten = kosten;
     confState.reisKm = km;
@@ -4791,14 +4864,14 @@
   function berekenReiskosten() {
     var raw = document.getElementById('postcodeInp').value.replace(/\s/g,'').trim();
     var num = parseInt(raw.substring(0,4), 10);
-    if (isNaN(num) || num < 1000 || num > 9999) { alert(currentLang === 'nl' ? 'Vul een geldige postcode in (bijv. 3851 of 3851 CD).' : 'Please enter a valid postcode (e.g. 3851 or 3851 CD).'); return; }
+    if (isNaN(num) || num < 1000 || num > 9999) { alert(currentLang === 'ar' ? 'يُرجى إدخال رمز بريديّ صحيح (مثل 3851 أو 3851 CD).' : (currentLang === 'nl' ? 'Vul een geldige postcode in (bijv. 3851 of 3851 CD).' : 'Please enter a valid postcode (e.g. 3851 or 3851 CD).')); return; }
     var btn = document.querySelector('.reis-calc-btn');
     var origLabel = btn ? btn.textContent : '';
-    if (btn) { btn.disabled = true; btn.textContent = currentLang === 'nl' ? 'Berekenen…' : 'Calculating…'; }
+    if (btn) { btn.disabled = true; btn.textContent = currentLang === 'ar' ? 'جارٍ الحساب…' : (currentLang === 'nl' ? 'Berekenen…' : 'Calculating…'); }
 
     var doFallback = function() {
       var range = findPcRange(num);
-      if (!range) { alert(currentLang === 'nl' ? 'Postcode niet gevonden in onze database.' : 'Postcode not found in our database.'); return null; }
+      if (!range) { alert(currentLang === 'ar' ? 'الرمز البريديّ غير موجود في قاعدة بياناتنا.' : (currentLang === 'nl' ? 'Postcode niet gevonden in onze database.' : 'Postcode not found in our database.')); return null; }
       return applyReiskosten(range[2], range[3], range[4]);
     };
 
@@ -4915,7 +4988,7 @@
     confState.selectedDate = ds; renderCal();
     var d = document.getElementById('selDateDisplay');
     var mn2 = currentLang === 'nl' ? maanden : maandenEN;
-    d.textContent = (currentLang === 'nl' ? '✓ Geselecteerd: ' : '✓ Selected: ') + day + ' ' + mn2[month] + ' ' + year;
+    d.textContent = (currentLang === 'ar' ? '✓ مختار: ' : (currentLang === 'nl' ? '✓ Geselecteerd: ' : '✓ Selected: ')) + day + ' ' + mn2[month] + ' ' + year;
     d.classList.add('sdvis');
   }
 
@@ -4942,7 +5015,7 @@
       confState.selectedDate = null; confState.datumOnbekend = true;
       confState.tijdstip = '';
       document.getElementById('confTijdstip').value = '';
-      document.getElementById('selDateDisplay').textContent = currentLang === 'nl' ? 'Datum nog niet bekend' : 'Date not yet known';
+      document.getElementById('selDateDisplay').textContent = currentLang === 'ar' ? 'التاريخ غير محدّد بعد' : (currentLang === 'nl' ? 'Datum nog niet bekend' : 'Date not yet known');
     } else {
       calEl.style.opacity = ''; calEl.style.pointerEvents = '';
       calNav.style.opacity = ''; calNav.style.pointerEvents = '';
@@ -5069,7 +5142,7 @@
       var pkName = pakketNamen[confState.pakket] || '';
       var pers = confState.personen;
       var price = confState.pricePerPerson;
-      var date = confState.datumOnbekend ? (currentLang === 'nl' ? 'Datum nog niet bekend' : 'Date not yet known') : (confState.selectedDate || '');
+      var date = confState.datumOnbekend ? (currentLang === 'ar' ? 'التاريخ غير محدّد بعد' : (currentLang === 'nl' ? 'Datum nog niet bekend' : 'Date not yet known')) : (confState.selectedDate || '');
 
       // Gerechten names
       var hoofdArr = Array.from(confState.gekozenHoofd);
@@ -5322,16 +5395,16 @@
 
   // Replace demoOfferte
   function validateConfigurator() {
-    if (!confState.pakket) return currentLang === 'nl' ? 'Kies eerst een pakket.' : 'Please choose a package first.';
-    if (confState.gekozenHoofd.size < confState.maxHoofd) return currentLang === 'nl' ? 'Kies ' + confState.maxHoofd + ' hoofdgerechten (nu ' + confState.gekozenHoofd.size + ' gekozen).' : 'Choose ' + confState.maxHoofd + ' main courses (' + confState.gekozenHoofd.size + ' chosen).';
-    if (!pakketVastMenu[confState.pakket] && confState.gekozenSalade.size < 1) return currentLang === 'nl' ? 'Kies een salade.' : 'Choose a salad.';
-    if (confState.gekozenMezze.size < confState.maxMezze) return currentLang === 'nl' ? 'Kies ' + confState.maxMezze + ' mezze\'s (nu ' + confState.gekozenMezze.size + ' gekozen).' : 'Choose ' + confState.maxMezze + ' mezze\'s (' + confState.gekozenMezze.size + ' chosen).';
-    if (!document.getElementById('reisResult').classList.contains('reisvis')) return currentLang === 'nl' ? 'Vul uw postcode in bij stap 5 om reiskosten te berekenen.' : 'Enter your postcode in step 5 to calculate travel costs.';
-    if (!document.getElementById('straatInp').value.trim()) return currentLang === 'nl' ? 'Vul straat + huisnummer in bij stap 5.' : 'Enter street + house number in step 5.';
-    if (!document.getElementById('plaatsInp').value.trim()) return currentLang === 'nl' ? 'Vul de plaats in bij stap 5.' : 'Enter the city in step 5.';
-    if (confState.reisKm >= 50 && !confState.afstandOptie) return currentLang === 'nl' ? 'Kies een optie bij Serviesgoed & opruiming (stap 5).' : 'Choose an option for Tableware & cleanup (step 5).';
-    if (!confState.selectedDate && !confState.datumOnbekend) return currentLang === 'nl' ? 'Kies een datum bij stap 6, of vink aan dat de datum nog niet bekend is.' : 'Choose a date in step 6, or indicate the date is not yet known.';
-    if (!confState.datumOnbekend && !confState.tijdstip) return currentLang === 'nl' ? 'Kies een tijdstip bij stap 6.' : 'Choose a time in step 6.';
+    if (!confState.pakket) return currentLang === 'ar' ? 'يُرجى اختيار باقة أولاً.' : (currentLang === 'nl' ? 'Kies eerst een pakket.' : 'Please choose a package first.');
+    if (confState.gekozenHoofd.size < confState.maxHoofd) return currentLang === 'ar' ? ('اختر ' + confState.maxHoofd + ' أطباق رئيسيّة (تمّ اختيار ' + confState.gekozenHoofd.size + ' الآن).') : (currentLang === 'nl' ? 'Kies ' + confState.maxHoofd + ' hoofdgerechten (nu ' + confState.gekozenHoofd.size + ' gekozen).' : 'Choose ' + confState.maxHoofd + ' main courses (' + confState.gekozenHoofd.size + ' chosen).');
+    if (!pakketVastMenu[confState.pakket] && confState.gekozenSalade.size < 1) return currentLang === 'ar' ? 'اختر سلطة.' : (currentLang === 'nl' ? 'Kies een salade.' : 'Choose a salad.');
+    if (confState.gekozenMezze.size < confState.maxMezze) return currentLang === 'ar' ? ('اختر ' + confState.maxMezze + ' من المازات (تمّ اختيار ' + confState.gekozenMezze.size + ' الآن).') : (currentLang === 'nl' ? 'Kies ' + confState.maxMezze + ' mezze\'s (nu ' + confState.gekozenMezze.size + ' gekozen).' : 'Choose ' + confState.maxMezze + ' mezze\'s (' + confState.gekozenMezze.size + ' chosen).');
+    if (!document.getElementById('reisResult').classList.contains('reisvis')) return currentLang === 'ar' ? 'أدخل رمزك البريديّ في الخطوة ٥ لحساب تكاليف التنقّل.' : (currentLang === 'nl' ? 'Vul uw postcode in bij stap 5 om reiskosten te berekenen.' : 'Enter your postcode in step 5 to calculate travel costs.');
+    if (!document.getElementById('straatInp').value.trim()) return currentLang === 'ar' ? 'أدخل الشارع ورقم المنزل في الخطوة ٥.' : (currentLang === 'nl' ? 'Vul straat + huisnummer in bij stap 5.' : 'Enter street + house number in step 5.');
+    if (!document.getElementById('plaatsInp').value.trim()) return currentLang === 'ar' ? 'أدخل اسم المدينة في الخطوة ٥.' : (currentLang === 'nl' ? 'Vul de plaats in bij stap 5.' : 'Enter the city in step 5.');
+    if (confState.reisKm >= 50 && !confState.afstandOptie) return currentLang === 'ar' ? 'اختر خياراً للأدوات والتنظيف (الخطوة ٥).' : (currentLang === 'nl' ? 'Kies een optie bij Serviesgoed & opruiming (stap 5).' : 'Choose an option for Tableware & cleanup (step 5).');
+    if (!confState.selectedDate && !confState.datumOnbekend) return currentLang === 'ar' ? 'اختر تاريخاً في الخطوة ٦، أو حدّد أنّ التاريخ غير معروف بعد.' : (currentLang === 'nl' ? 'Kies een datum bij stap 6, of vink aan dat de datum nog niet bekend is.' : 'Choose a date in step 6, or indicate the date is not yet known.');
+    if (!confState.datumOnbekend && !confState.tijdstip) return currentLang === 'ar' ? 'اختر وقتاً في الخطوة ٦.' : (currentLang === 'nl' ? 'Kies een tijdstip bij stap 6.' : 'Choose a time in step 6.');
     return null;
   }
 
