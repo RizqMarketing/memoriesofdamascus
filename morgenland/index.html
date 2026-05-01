@@ -21,7 +21,7 @@
   <!-- <script defer data-domain="morgenland.nu" src="https://plausible.io/js/script.js"></script> -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Cormorant+SC:wght@300;400;500;600&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Cormorant+SC:wght@300;400;500;600&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
     /* ─── TOKENS ─── */
@@ -785,6 +785,46 @@
       .modal-title { font-size: 1.5rem; }
       .modal-mob-summary.vis { display: block; margin-bottom: 1rem; padding: 1rem; background: rgba(201,148,42,.04); border: 1px solid rgba(201,148,42,.15); border-radius: 2px; }
     }
+
+    /* ═══ RTL / ARABIC ═══ */
+    html[dir="rtl"] body { font-family: 'Cairo', 'Crimson Pro', serif; }
+    html[dir="rtl"] h1, html[dir="rtl"] h2, html[dir="rtl"] h3, html[dir="rtl"] h4,
+    html[dir="rtl"] .section-title, html[dir="rtl"] .nav-logo,
+    html[dir="rtl"] .pakket-name, html[dir="rtl"] .dienst-name,
+    html[dir="rtl"] .menu-item-name, html[dir="rtl"] .pakket-price,
+    html[dir="rtl"] .stat-value, html[dir="rtl"] .review-author { font-family: 'Amiri', 'Cormorant Garamond', serif; }
+    html[dir="rtl"] .section-label, html[dir="rtl"] .pakket-per,
+    html[dir="rtl"] .nav-cta, html[dir="rtl"] .btn-primary,
+    html[dir="rtl"] .btn-secondary { font-family: 'Cairo', sans-serif; letter-spacing: 0; }
+    html[dir="rtl"] body { text-align: right; }
+    html[dir="rtl"] .nav-links { flex-direction: row-reverse; }
+    html[dir="rtl"] .pakketten-grid, html[dir="rtl"] .menu-grid,
+    html[dir="rtl"] .review-track, html[dir="rtl"] .conf-grid { direction: rtl; }
+    html[dir="rtl"] .conf-summary, html[dir="rtl"] .form-group,
+    html[dir="rtl"] .pakket-features, html[dir="rtl"] .footer-col,
+    html[dir="rtl"] .faq-q, html[dir="rtl"] .faq-a { text-align: right; }
+    html[dir="rtl"] .pakket-features li::before { margin-left: .6rem; margin-right: 0; }
+    html[dir="rtl"] .pakket-features li { padding-right: 1.4rem; padding-left: 0; }
+    html[dir="rtl"] .lang-toggle { flex-direction: row-reverse; }
+    html[dir="rtl"] .gerecht-grid, html[dir="rtl"] .addon-grid { direction: rtl; }
+    html[dir="rtl"] .gc-naam { text-align: center; }
+    html[dir="rtl"] .conf-step-num { margin-left: .8rem; margin-right: 0; }
+    html[dir="rtl"] .form-input, html[dir="rtl"] textarea { text-align: right; }
+    html[dir="rtl"] .footer-bottom, html[dir="rtl"] .cookie-banner,
+    html[dir="rtl"] .modal-body, html[dir="rtl"] .modal-header { text-align: right; }
+    html[dir="rtl"] .nav-cta, html[dir="rtl"] .btn-primary,
+    html[dir="rtl"] .btn-secondary { letter-spacing: 0 !important; }
+    html[dir="rtl"] .hero-eyebrow, html[dir="rtl"] .section-label { letter-spacing: 0; }
+    html[dir="rtl"] .review-track { direction: rtl; }
+    html[dir="rtl"] .review-card { text-align: right; }
+    html[dir="rtl"] .testimonial-text { font-family: 'Amiri', serif; }
+    html[dir="rtl"] #mobMenu { right: auto; left: 0; transform: translateX(-100%); }
+    html[dir="rtl"] #mobMenu.open { transform: translateX(0); }
+    html[dir="rtl"] .hamburger { margin-left: 0; margin-right: auto; }
+    html[dir="rtl"] .nav-logo { margin-right: 0; margin-left: auto; }
+    html[dir="rtl"] .pakket-price, html[dir="rtl"] .stat-value,
+    html[dir="rtl"] input[type="number"], html[dir="rtl"] input[type="email"],
+    html[dir="rtl"] input[type="tel"] { direction: ltr; text-align: right; unicode-bidi: embed; }
   </style>
 </head>
 <body>
@@ -826,9 +866,11 @@
   <div class="mob-menu-footer">
     <button class="mob-menu-cta" onclick="closeMobile();openOfferteModal('general')" data-i18n="nav-cta">Offerte Aanvragen</button>
     <div class="mob-menu-lang">
-      <button id="mobLangNL" class="active" onclick="if(currentLang!=='nl'){toggleLang();}">NL</button>
+      <button id="mobLangNL" class="active" onclick="setLang('nl')" type="button">NL</button>
       <span>&middot;</span>
-      <button id="mobLangEN" onclick="if(currentLang!=='en'){toggleLang();}">EN</button>
+      <button id="mobLangEN" onclick="setLang('en')" type="button">EN</button>
+      <span>&middot;</span>
+      <button id="mobLangAR" onclick="setLang('ar')" type="button">ع</button>
     </div>
   </div>
 </div>
@@ -846,11 +888,13 @@
     <li><a href="#contact" data-i18n="nav-contact">Contact</a></li>
   </ul>
   <a href="#" onclick="event.preventDefault();openOfferteModal('general')" class="nav-cta" data-i18n="nav-cta">Offerte Aanvragen</a>
-  <button class="lang-toggle" onclick="toggleLang()" aria-label="Taal wisselen">
-    <span class="lang-opt lang-active" id="langNL">NL</span>
+  <div class="lang-toggle" aria-label="Taal wisselen" role="group">
+    <button class="lang-opt lang-active" id="langNL" onclick="setLang('nl')" type="button">NL</button>
     <span class="lang-sep">&middot;</span>
-    <span class="lang-opt" id="langEN">EN</span>
-  </button>
+    <button class="lang-opt" id="langEN" onclick="setLang('en')" type="button">EN</button>
+    <span class="lang-sep">&middot;</span>
+    <button class="lang-opt" id="langAR" onclick="setLang('ar')" type="button">ع</button>
+  </div>
   <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
 </nav>
 
@@ -2057,108 +2101,108 @@ function handleSubmit(e) {
 }
 
 // ══ TAAL TOGGLE ══
-var currentLang = 'nl';
+var currentLang = (function(){ try { var s = localStorage.getItem('morgenland_lang'); return (s === 'en' || s === 'ar') ? s : 'nl'; } catch(e){ return 'nl'; } })();
 var i18n = {
   // Nav
-  'nav-over':         { nl:'Over Ons', en:'About Us' },
-  'nav-menu':         { nl:'Menu', en:'Menu' },
-  'nav-bestellen':    { nl:'Bestellen', en:'Order' },
-  'nav-catering':     { nl:'Catering', en:'Catering' },
-  'nav-workshops':    { nl:'Kookworkshops', en:'Cooking Workshops' },
-  'nav-ruimte':       { nl:'Ruimte Huren', en:'Venue Hire' },
-  'nav-contact':      { nl:'Contact', en:'Contact' },
-  'nav-cta':          { nl:'Offerte Aanvragen', en:'Request Quote' },
+  'nav-over':         { nl:'Over Ons', en:'About Us', ar:'\u0645\u0646 \u0646\u062d\u0646' },
+  'nav-menu':         { nl:'Menu', en:'Menu', ar:'\u0627\u0644\u0642\u0627\u0626\u0645\u0629' },
+  'nav-bestellen':    { nl:'Bestellen', en:'Order', ar:'\u0627\u0637\u0644\u0628' },
+  'nav-catering':     { nl:'Catering', en:'Catering', ar:'\u0627\u0644\u062a\u0645\u0648\u064a\u0646' },
+  'nav-workshops':    { nl:'Kookworkshops', en:'Cooking Workshops', ar:'\u0648\u0631\u0634 \u0627\u0644\u0637\u0647\u064a' },
+  'nav-ruimte':       { nl:'Ruimte Huren', en:'Venue Hire', ar:'\u062a\u0623\u062c\u064a\u0631 \u0627\u0644\u0642\u0627\u0639\u0627\u062a' },
+  'nav-contact':      { nl:'Contact', en:'Contact', ar:'\u062a\u0648\u0627\u0635\u0644 \u0645\u0639\u0646\u0627' },
+  'nav-cta':          { nl:'Offerte Aanvragen', en:'Request Quote', ar:'\u0627\u0637\u0644\u0628 \u0639\u0631\u0636 \u0633\u0639\u0631' },
 
   // Hero
-  'hero-eyebrow':     { nl:'Internationale Keuken \u00b7 100% Halal \u00b7 Rotterdam', en:'International Cuisine \u00b7 100% Halal \u00b7 Rotterdam' },
-  'hero-subtitle':    { nl:'Wereldse smaken, Rotterdams karakter', en:'Global flavours, Rotterdam character' },
-  'hero-scroll':      { nl:'Ontdek meer', en:'Discover more' },
-  'hero-btn1':        { nl:'Bestel Online', en:'Order Online' },
-  'hero-btn2':        { nl:'Bekijk Menu', en:'View Menu' },
-  'hero-calligraphy': { nl:'Wereldse smaken,<br>Rotterdams karakter', en:'Global flavours,<br>Rotterdam character' },
-  'hero-desc':        { nl:'Morgenland is een koffiezaak en restaurant op de 2e verdieping van de Centrale Bibliotheek Rotterdam. Internationale gerechten, Nederlandse broodjes en barista-espresso &mdash; alles <strong style="color:var(--parchment)">100% halal</strong>, met liefde bereid door het team van Memories of Damascus.', en:'Morgenland is a coffee bar and restaurant on the 2nd floor of Rotterdam Central Library. International dishes, Dutch sandwiches and barista espresso &mdash; all <strong style="color:var(--parchment)">100% halal</strong>, lovingly prepared by the team of Memories of Damascus.' },
+  'hero-eyebrow':     { nl:'Internationale Keuken \u00b7 100% Halal \u00b7 Rotterdam', en:'International Cuisine \u00b7 100% Halal \u00b7 Rotterdam', ar:'\u0645\u0637\u0628\u062e \u0639\u0627\u0644\u0645\u064a \u00b7 \u062d\u0644\u0627\u0644 \u0661\u0660\u0660\u066a \u00b7 \u0631\u0648\u062a\u0631\u062f\u0627\u0645' },
+  'hero-subtitle':    { nl:'Wereldse smaken, Rotterdams karakter', en:'Global flavours, Rotterdam character', ar:'\u0646\u0643\u0647\u0627\u062a \u0639\u0627\u0644\u0645\u064a\u0651\u0629 \u0628\u0637\u0627\u0628\u0639 \u0631\u0648\u062a\u0631\u062f\u0627\u0645' },
+  'hero-scroll':      { nl:'Ontdek meer', en:'Discover more', ar:'\u0627\u0643\u062a\u0634\u0641 \u0627\u0644\u0645\u0632\u064a\u062f' },
+  'hero-btn1':        { nl:'Bestel Online', en:'Order Online', ar:'\u0627\u0637\u0644\u0628 \u0623\u0648\u0646\u0644\u0627\u064a\u0646' },
+  'hero-btn2':        { nl:'Bekijk Menu', en:'View Menu', ar:'\u062a\u0635\u0641\u0651\u062d \u0627\u0644\u0642\u0627\u0626\u0645\u0629' },
+  'hero-calligraphy': { nl:'Wereldse smaken,<br>Rotterdams karakter', en:'Global flavours,<br>Rotterdam character', ar:'\u0646\u0643\u0647\u0627\u062a \u0639\u0627\u0644\u0645\u064a\u0651\u0629<br>\u0628\u0637\u0627\u0628\u0639 \u0631\u0648\u062a\u0631\u062f\u0627\u0645' },
+  'hero-desc':        { nl:'Morgenland is een koffiezaak en restaurant op de 2e verdieping van de Centrale Bibliotheek Rotterdam. Internationale gerechten, Nederlandse broodjes en barista-espresso &mdash; alles <strong style="color:var(--parchment)">100% halal</strong>, met liefde bereid door het team van Memories of Damascus.', en:'Morgenland is a coffee bar and restaurant on the 2nd floor of Rotterdam Central Library. International dishes, Dutch sandwiches and barista espresso &mdash; all <strong style="color:var(--parchment)">100% halal</strong>, lovingly prepared by the team of Memories of Damascus.', ar:'Morgenland \u0645\u0642\u0647\u0649 \u0648\u0645\u0637\u0639\u0645 \u0641\u064a \u0627\u0644\u0637\u0627\u0628\u0642 \u0627\u0644\u062b\u0627\u0646\u064a \u0645\u0646 \u0627\u0644\u0645\u0643\u062a\u0628\u0629 \u0627\u0644\u0645\u0631\u0643\u0632\u064a\u0651\u0629 \u0628\u0631\u0648\u062a\u0631\u062f\u0627\u0645. \u0623\u0637\u0628\u0627\u0642 \u0639\u0627\u0644\u0645\u064a\u0651\u0629\u060c \u0633\u0646\u062f\u0648\u064a\u0634\u0627\u062a \u0647\u0648\u0644\u0646\u062f\u064a\u0651\u0629\u060c \u0648\u0642\u0647\u0648\u0629 \u0625\u0633\u0628\u0631\u064a\u0633\u0648 \u0645\u0646 \u0627\u0644\u0628\u0627\u0631\u064a\u0633\u062a\u0627 \u2014 \u0643\u0644\u0651\u0647\u0627 <strong style="color:var(--parchment)">\u062d\u0644\u0627\u0644 \u0661\u0660\u0660\u066a</strong>\u060c \u062a\u064f\u062d\u0636\u064e\u0651\u0631 \u0628\u0645\u062d\u0628\u0651\u0629 \u0639\u0644\u0649 \u064a\u062f \u0641\u0631\u064a\u0642 Memories of Damascus.' },
 
   // USPs
-  'usp1-title':       { nl:'100% Halal', en:'100% Halal' },
-  'usp1-desc':        { nl:'Alle gerechten zijn volledig halal', en:'All dishes are fully halal' },
-  'usp2-title':       { nl:'Centrale Bibliotheek', en:'Central Library' },
-  'usp2-desc':        { nl:'2e verdieping, Librijesteeg 4 Rotterdam', en:'2nd floor, Librijesteeg 4 Rotterdam' },
-  'usp3-title':       { nl:'Sinds 2020', en:'Since 2020' },
-  'usp3-desc':        { nl:'Opgericht door Mohamad &amp; Anouk', en:'Founded by Mohamad &amp; Anouk' },
-  'usp4-title':       { nl:'Barista Espresso', en:'Barista Espresso' },
-  'usp4-desc':        { nl:'Echte espressokwaliteit koffie', en:'True espresso-quality coffee' },
+  'usp1-title':       { nl:'100% Halal', en:'100% Halal', ar:'\u062d\u0644\u0627\u0644 \u0661\u0660\u0660\u066a' },
+  'usp1-desc':        { nl:'Alle gerechten zijn volledig halal', en:'All dishes are fully halal', ar:'\u062c\u0645\u064a\u0639 \u0627\u0644\u0623\u0637\u0628\u0627\u0642 \u062d\u0644\u0627\u0644 \u0628\u0627\u0644\u0643\u0627\u0645\u0644' },
+  'usp2-title':       { nl:'Centrale Bibliotheek', en:'Central Library', ar:'\u0627\u0644\u0645\u0643\u062a\u0628\u0629 \u0627\u0644\u0645\u0631\u0643\u0632\u064a\u0651\u0629' },
+  'usp2-desc':        { nl:'2e verdieping, Librijesteeg 4 Rotterdam', en:'2nd floor, Librijesteeg 4 Rotterdam', ar:'\u0627\u0644\u0637\u0627\u0628\u0642 \u0627\u0644\u062b\u0627\u0646\u064a\u060c Librijesteeg 4 \u0631\u0648\u062a\u0631\u062f\u0627\u0645' },
+  'usp3-title':       { nl:'Sinds 2020', en:'Since 2020', ar:'\u0645\u0646\u0630 \u0662\u0660\u0662\u0660' },
+  'usp3-desc':        { nl:'Opgericht door Mohamad &amp; Anouk', en:'Founded by Mohamad &amp; Anouk', ar:'\u0623\u0633\u0651\u0633\u0647 \u0645\u062d\u0645\u062f \u0648\u0623\u0646\u0648\u0643' },
+  'usp4-title':       { nl:'Barista Espresso', en:'Barista Espresso', ar:'\u0625\u0633\u0628\u0631\u064a\u0633\u0648 \u0627\u0644\u0628\u0627\u0631\u064a\u0633\u062a\u0627' },
+  'usp4-desc':        { nl:'Echte espressokwaliteit koffie', en:'True espresso-quality coffee', ar:'\u0642\u0647\u0648\u0629 \u0625\u0633\u0628\u0631\u064a\u0633\u0648 \u0628\u062c\u0648\u062f\u0629 \u0627\u062d\u062a\u0631\u0627\u0641\u064a\u0651\u0629' },
 
   // Over Ons
-  'over-label':       { nl:'Ons Verhaal', en:'Our Story' },
-  'over-title':       { nl:'Een ontmoetingsplek<br>in het hart van <em>Rotterdam</em>', en:'A meeting place<br>in the heart of <em>Rotterdam</em>' },
-  'over-body1':       { nl:'Morgenland is een koffiezaak op de 2e verdieping van de Centrale Bibliotheek Rotterdam, geopend in 2020 door <strong style="color:var(--parchment)">Mohamad Habanakeh</strong> en <strong style="color:var(--parchment)">Anouk Willemsen</strong>. Wij serveren internationale gerechten, Nederlandse broodjes en barista-espresso &mdash; alles 100% halal.', en:'Morgenland is a coffee bar on the 2nd floor of Rotterdam Central Library, opened in 2020 by <strong style="color:var(--parchment)">Mohamad Habanakeh</strong> and <strong style="color:var(--parchment)">Anouk Willemsen</strong>. We serve international dishes, Dutch sandwiches and barista espresso &mdash; all 100% halal.' },
-  'over-body2':       { nl:'Morgenland is onderdeel van de Memories of Damascus familie &mdash; dezelfde zorg, dezelfde kwaliteit, dezelfde halal-standaard, maar dan op een plek waar lezers, studenten en bezoekers van de bibliotheek even tot rust komen. Of u nu langskomt voor een cappuccino, een warme maaltijd of een vers broodje: bij Morgenland bent u thuis.', en:'Morgenland is part of the Memories of Damascus family &mdash; the same care, the same quality, the same halal standard, but in a place where readers, students and library visitors come to unwind. Whether you drop by for a cappuccino, a warm meal or a fresh sandwich: at Morgenland you are home.' },
-  'over-founder-role':{ nl:'Oprichters &middot; Rotterdam', en:'Founders &middot; Rotterdam' },
-  'val-halal':        { nl:'<strong>100% Halal</strong>Alle gerechten zijn volledig halal', en:'<strong>100% Halal</strong>All dishes are fully halal' },
-  'val-vers':         { nl:'<strong>Vers Bereid</strong>Dagelijks vers bereid in onze keuken', en:'<strong>Freshly Prepared</strong>Made fresh daily in our kitchen' },
-  'val-locatie':      { nl:'<strong>Centrale Ligging</strong>Centrale Bibliotheek Rotterdam, 2e verdieping', en:'<strong>Central Location</strong>Rotterdam Central Library, 2nd floor' },
-  'val-internationaal':{ nl:'<strong>Internationale Keuken</strong>Van Syrisch-Libanees tot Nederlandse broodjes', en:'<strong>International Cuisine</strong>From Syrian-Lebanese to Dutch sandwiches' },
+  'over-label':       { nl:'Ons Verhaal', en:'Our Story', ar:'\u0642\u0635\u0651\u062a\u0646\u0627' },
+  'over-title':       { nl:'Een ontmoetingsplek<br>in het hart van <em>Rotterdam</em>', en:'A meeting place<br>in the heart of <em>Rotterdam</em>', ar:'\u0645\u0643\u0627\u0646 \u0644\u0644\u0642\u0627\u0621<br>\u0641\u064a \u0642\u0644\u0628 <em>\u0631\u0648\u062a\u0631\u062f\u0627\u0645</em>' },
+  'over-body1':       { nl:'Morgenland is een koffiezaak op de 2e verdieping van de Centrale Bibliotheek Rotterdam, geopend in 2020 door <strong style="color:var(--parchment)">Mohamad Habanakeh</strong> en <strong style="color:var(--parchment)">Anouk Willemsen</strong>. Wij serveren internationale gerechten, Nederlandse broodjes en barista-espresso &mdash; alles 100% halal.', en:'Morgenland is a coffee bar on the 2nd floor of Rotterdam Central Library, opened in 2020 by <strong style="color:var(--parchment)">Mohamad Habanakeh</strong> and <strong style="color:var(--parchment)">Anouk Willemsen</strong>. We serve international dishes, Dutch sandwiches and barista espresso &mdash; all 100% halal.', ar:'Morgenland \u0645\u0642\u0647\u0649 \u0641\u064a \u0627\u0644\u0637\u0627\u0628\u0642 \u0627\u0644\u062b\u0627\u0646\u064a \u0645\u0646 \u0627\u0644\u0645\u0643\u062a\u0628\u0629 \u0627\u0644\u0645\u0631\u0643\u0632\u064a\u0651\u0629 \u0628\u0631\u0648\u062a\u0631\u062f\u0627\u0645\u060c \u0627\u0641\u062a\u064f\u062a\u062d \u0639\u0627\u0645 \u0662\u0660\u0662\u0660 \u0639\u0644\u0649 \u064a\u062f <strong style="color:var(--parchment)">\u0645\u062d\u0645\u062f \u062d\u0628\u0627\u0646\u0643\u0629</strong> \u0648<strong style="color:var(--parchment)">\u0623\u0646\u0648\u0643 \u0641\u064a\u0644\u0645\u0633\u0646</strong>. \u0646\u0642\u062f\u0651\u0645 \u0623\u0637\u0628\u0627\u0642\u0627\u064b \u0639\u0627\u0644\u0645\u064a\u0651\u0629 \u0648\u0633\u0646\u062f\u0648\u064a\u0634\u0627\u062a \u0647\u0648\u0644\u0646\u062f\u064a\u0651\u0629 \u0648\u0642\u0647\u0648\u0629 \u0625\u0633\u0628\u0631\u064a\u0633\u0648 \u0645\u0646 \u0627\u0644\u0628\u0627\u0631\u064a\u0633\u062a\u0627 \u2014 \u0643\u0644\u0651\u0647\u0627 \u062d\u0644\u0627\u0644 \u0661\u0660\u0660\u066a.' },
+  'over-body2':       { nl:'Morgenland is onderdeel van de Memories of Damascus familie &mdash; dezelfde zorg, dezelfde kwaliteit, dezelfde halal-standaard, maar dan op een plek waar lezers, studenten en bezoekers van de bibliotheek even tot rust komen. Of u nu langskomt voor een cappuccino, een warme maaltijd of een vers broodje: bij Morgenland bent u thuis.', en:'Morgenland is part of the Memories of Damascus family &mdash; the same care, the same quality, the same halal standard, but in a place where readers, students and library visitors come to unwind. Whether you drop by for a cappuccino, a warm meal or a fresh sandwich: at Morgenland you are home.', ar:'Morgenland \u062c\u0632\u0621 \u0645\u0646 \u0639\u0627\u0626\u0644\u0629 Memories of Damascus \u2014 \u0627\u0644\u0627\u0647\u062a\u0645\u0627\u0645 \u0646\u0641\u0633\u0647\u060c \u0627\u0644\u062c\u0648\u062f\u0629 \u0646\u0641\u0633\u0647\u0627\u060c \u0645\u0639\u064a\u0627\u0631 \u0627\u0644\u062d\u0644\u0627\u0644 \u0646\u0641\u0633\u0647\u060c \u0644\u0643\u0646 \u0641\u064a \u0645\u0643\u0627\u0646 \u064a\u0623\u062a\u064a \u0625\u0644\u064a\u0647 \u0627\u0644\u0642\u0631\u0651\u0627\u0621 \u0648\u0627\u0644\u0637\u0644\u0651\u0627\u0628 \u0648\u0632\u0648\u0651\u0627\u0631 \u0627\u0644\u0645\u0643\u062a\u0628\u0629 \u0644\u0644\u0627\u0633\u062a\u0631\u0627\u062d\u0629. \u0633\u0648\u0627\u0621 \u062c\u0626\u062a \u0644\u0643\u0648\u0628 \u0643\u0627\u0628\u062a\u0634\u064a\u0646\u0648 \u0623\u0648 \u0648\u062c\u0628\u0629 \u0633\u0627\u062e\u0646\u0629 \u0623\u0648 \u0633\u0646\u062f\u0648\u064a\u0634 \u0637\u0627\u0632\u062c: \u0623\u0646\u062a \u0641\u064a \u0628\u064a\u062a\u0643 \u0641\u064a Morgenland.' },
+  'over-founder-role':{ nl:'Oprichters &middot; Rotterdam', en:'Founders &middot; Rotterdam', ar:'\u0627\u0644\u0645\u0624\u0633\u0651\u0633\u0627\u0646 \u00b7 \u0631\u0648\u062a\u0631\u062f\u0627\u0645' },
+  'val-halal':        { nl:'<strong>100% Halal</strong>Alle gerechten zijn volledig halal', en:'<strong>100% Halal</strong>All dishes are fully halal', ar:'<strong>\u062d\u0644\u0627\u0644 \u0661\u0660\u0660\u066a</strong>\u062c\u0645\u064a\u0639 \u0627\u0644\u0623\u0637\u0628\u0627\u0642 \u062d\u0644\u0627\u0644 \u0628\u0627\u0644\u0643\u0627\u0645\u0644' },
+  'val-vers':         { nl:'<strong>Vers Bereid</strong>Dagelijks vers bereid in onze keuken', en:'<strong>Freshly Prepared</strong>Made fresh daily in our kitchen', ar:'<strong>\u0637\u0627\u0632\u062c \u064a\u0648\u0645\u064a\u0627\u064b</strong>\u064a\u064f\u062d\u0636\u064e\u0651\u0631 \u064a\u0648\u0645\u064a\u0627\u064b \u0641\u064a \u0645\u0637\u0628\u062e\u0646\u0627' },
+  'val-locatie':      { nl:'<strong>Centrale Ligging</strong>Centrale Bibliotheek Rotterdam, 2e verdieping', en:'<strong>Central Location</strong>Rotterdam Central Library, 2nd floor', ar:'<strong>\u0645\u0648\u0642\u0639 \u0645\u0631\u0643\u0632\u064a</strong>\u0627\u0644\u0645\u0643\u062a\u0628\u0629 \u0627\u0644\u0645\u0631\u0643\u0632\u064a\u0651\u0629 \u0628\u0631\u0648\u062a\u0631\u062f\u0627\u0645\u060c \u0627\u0644\u0637\u0627\u0628\u0642 \u0627\u0644\u062b\u0627\u0646\u064a' },
+  'val-internationaal':{ nl:'<strong>Internationale Keuken</strong>Van Syrisch-Libanees tot Nederlandse broodjes', en:'<strong>International Cuisine</strong>From Syrian-Lebanese to Dutch sandwiches', ar:'<strong>\u0645\u0637\u0628\u062e \u0639\u0627\u0644\u0645\u064a</strong>\u0645\u0646 \u0627\u0644\u0633\u0648\u0631\u064a\u0651 \u0627\u0644\u0644\u0628\u0646\u0627\u0646\u064a\u0651 \u0625\u0644\u0649 \u0627\u0644\u0633\u0646\u062f\u0648\u064a\u0634 \u0627\u0644\u0647\u0648\u0644\u0646\u062f\u064a\u0651' },
 
   // Menu
-  'menu-label':       { nl:'Ons Aanbod', en:'Our Menu' },
-  'menu-title':       { nl:'Van ontbijt tot <em>avondeten</em>', en:'From breakfast to <em>dinner</em>' },
-  'menu-intro':       { nl:'Van verse broodjes en wraps tot warme internationale maaltijden, barista-espresso en huisgemaakte baklava.', en:'From fresh sandwiches and wraps to warm international meals, barista espresso and homemade baklava.' },
-  'menu-cat-ontbijt': { nl:'Ontbijt &amp; Broodjes', en:'Breakfast &amp; Sandwiches' },
-  'menu-cat-lunch':   { nl:'Lunch &amp; Warme Maaltijden', en:'Lunch &amp; Warm Meals' },
-  'menu-cat-koffie':  { nl:'Koffie &amp; Dranken', en:'Coffee &amp; Drinks' },
-  'menu-cat-zoet':    { nl:'Zoet', en:'Sweet' },
-  'menu-dl-btn':      { nl:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download onze catalogus', en:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download our catalogue' },
-  'mi-broodjes-name': { nl:'Verse Broodjes', en:'Fresh Sandwiches' },
-  'mi-broodjes-origin':{ nl:'Dagelijks Vers', en:'Daily Fresh' },
-  'mi-broodjes-desc': { nl:'Diverse belegde broodjes, vegetarisch of met kip/falafel', en:'Various filled sandwiches, vegetarian or with chicken/falafel' },
-  'mi-wraps-name':    { nl:'Wraps', en:'Wraps' },
-  'mi-wraps-origin':  { nl:'Internationaal', en:'International' },
-  'mi-wraps-desc':    { nl:'Gevulde wraps met hummus, gegrilde groenten of kip', en:'Filled wraps with hummus, grilled vegetables or chicken' },
-  'mi-warme-name':    { nl:'Warme Maaltijd', en:'Warm Meal' },
-  'mi-warme-origin':  { nl:'Dagelijks Wisselend', en:'Daily Changing' },
-  'mi-warme-desc':    { nl:'Dagelijks wisselend internationaal gerecht', en:'Daily changing international dish' },
-  'mi-falafel-name':  { nl:'Falafel Bowl', en:'Falafel Bowl' },
-  'mi-falafel-origin':{ nl:'Levantijns', en:'Levantine' },
-  'mi-falafel-desc':  { nl:'Knapperige falafel met hummus, salade en tahini', en:'Crispy falafel with hummus, salad and tahini' },
-  'mi-espresso-name': { nl:'Barista Espresso', en:'Barista Espresso' },
-  'mi-espresso-origin':{ nl:'Specialty Coffee', en:'Specialty Coffee' },
-  'mi-espresso-desc': { nl:'Verse espresso, cappuccino, latte en meer', en:'Fresh espresso, cappuccino, latte and more' },
-  'mi-thee-name':     { nl:'Verse Thee &amp; Sappen', en:'Fresh Tea &amp; Juices' },
-  'mi-thee-origin':   { nl:'Huisgemaakt', en:'Homemade' },
-  'mi-thee-desc':     { nl:"Muntthee, verse jus d'orange, smoothies", en:'Mint tea, fresh orange juice, smoothies' },
-  'mi-baklava-name':  { nl:'Huisgemaakte Baklava', en:'Homemade Baklava' },
-  'mi-baklava-origin':{ nl:'Syrische Traditie', en:'Syrian Tradition' },
-  'mi-baklava-desc':  { nl:'Handgemaakte baklava met pistache en ghee', en:'Handmade baklava with pistachio and ghee' },
-  'mi-gebak-name':    { nl:'Gebak &amp; Brownies', en:'Cakes &amp; Brownies' },
-  'mi-gebak-origin':  { nl:'Dagelijks Vers', en:'Daily Fresh' },
-  'mi-gebak-desc':    { nl:'Dagelijks vers gebak en huisgemaakte brownies', en:'Daily fresh cakes and homemade brownies' },
+  'menu-label':       { nl:'Ons Aanbod', en:'Our Menu', ar:'قائمتنا' },
+  'menu-title':       { nl:'Van ontbijt tot <em>avondeten</em>', en:'From breakfast to <em>dinner</em>', ar:'من الفطور إلى <em>العشاء</em>' },
+  'menu-intro':       { nl:'Van verse broodjes en wraps tot warme internationale maaltijden, barista-espresso en huisgemaakte baklava.', en:'From fresh sandwiches and wraps to warm international meals, barista espresso and homemade baklava.', ar:'من السندويشات الطازجة واللفائف إلى الوجبات العالميّة الساخنة وقهوة الباريستا والبقلاوة المصنوعة بأيدينا.' },
+  'menu-cat-ontbijt': { nl:'Ontbijt &amp; Broodjes', en:'Breakfast &amp; Sandwiches', ar:'الفطور والسندويشات' },
+  'menu-cat-lunch':   { nl:'Lunch &amp; Warme Maaltijden', en:'Lunch &amp; Warm Meals', ar:'الغداء والوجبات الساخنة' },
+  'menu-cat-koffie':  { nl:'Koffie &amp; Dranken', en:'Coffee &amp; Drinks', ar:'القهوة والمشروبات' },
+  'menu-cat-zoet':    { nl:'Zoet', en:'Sweet', ar:'الحلويات' },
+  'menu-dl-btn':      { nl:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download onze catalogus', en:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download our catalogue', ar:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> حمّل الكتالوج' },
+  'mi-broodjes-name': { nl:'Verse Broodjes', en:'Fresh Sandwiches', ar:'سندويشات طازجة' },
+  'mi-broodjes-origin':{ nl:'Dagelijks Vers', en:'Daily Fresh', ar:'طازج يومياً' },
+  'mi-broodjes-desc': { nl:'Diverse belegde broodjes, vegetarisch of met kip/falafel', en:'Various filled sandwiches, vegetarian or with chicken/falafel', ar:'سندويشات متنوّعة، نباتيّة أو مع الدجاج أو الفلافل' },
+  'mi-wraps-name':    { nl:'Wraps', en:'Wraps', ar:'لفائف' },
+  'mi-wraps-origin':  { nl:'Internationaal', en:'International', ar:'عالميّ' },
+  'mi-wraps-desc':    { nl:'Gevulde wraps met hummus, gegrilde groenten of kip', en:'Filled wraps with hummus, grilled vegetables or chicken', ar:'لفائف بالحمّص أو الخضار المشويّة أو الدجاج' },
+  'mi-warme-name':    { nl:'Warme Maaltijd', en:'Warm Meal', ar:'وجبة ساخنة' },
+  'mi-warme-origin':  { nl:'Dagelijks Wisselend', en:'Daily Changing', ar:'تتغيّر يوميّاً' },
+  'mi-warme-desc':    { nl:'Dagelijks wisselend internationaal gerecht', en:'Daily changing international dish', ar:'طبق عالميّ يتغيّر كلّ يوم' },
+  'mi-falafel-name':  { nl:'Falafel Bowl', en:'Falafel Bowl', ar:'طبق فلافل' },
+  'mi-falafel-origin':{ nl:'Levantijns', en:'Levantine', ar:'شاميّ' },
+  'mi-falafel-desc':  { nl:'Knapperige falafel met hummus, salade en tahini', en:'Crispy falafel with hummus, salad and tahini', ar:'فلافل مقرمشة مع الحمّص والسلطة والطحينة' },
+  'mi-espresso-name': { nl:'Barista Espresso', en:'Barista Espresso', ar:'إسبريسو الباريستا' },
+  'mi-espresso-origin':{ nl:'Specialty Coffee', en:'Specialty Coffee', ar:'قهوة مختصّة' },
+  'mi-espresso-desc': { nl:'Verse espresso, cappuccino, latte en meer', en:'Fresh espresso, cappuccino, latte and more', ar:'إسبريسو طازج، كابتشينو، لاتيه، وأكثر' },
+  'mi-thee-name':     { nl:'Verse Thee &amp; Sappen', en:'Fresh Tea &amp; Juices', ar:'شاي وعصائر طازجة' },
+  'mi-thee-origin':   { nl:'Huisgemaakt', en:'Homemade', ar:'صنع البيت' },
+  'mi-thee-desc':     { nl:"Muntthee, verse jus d'orange, smoothies", en:'Mint tea, fresh orange juice, smoothies', ar:'شاي بالنعناع، عصير برتقال طازج، سموذي' },
+  'mi-baklava-name':  { nl:'Huisgemaakte Baklava', en:'Homemade Baklava', ar:'بقلاوة صنع البيت' },
+  'mi-baklava-origin':{ nl:'Syrische Traditie', en:'Syrian Tradition', ar:'تراث سوريّ' },
+  'mi-baklava-desc':  { nl:'Handgemaakte baklava met pistache en ghee', en:'Handmade baklava with pistachio and ghee', ar:'بقلاوة يدويّة بالفستق والسمن العربيّ' },
+  'mi-gebak-name':    { nl:'Gebak &amp; Brownies', en:'Cakes &amp; Brownies', ar:'كعك وبراوني' },
+  'mi-gebak-origin':  { nl:'Dagelijks Vers', en:'Daily Fresh', ar:'طازج يومياً' },
+  'mi-gebak-desc':    { nl:'Dagelijks vers gebak en huisgemaakte brownies', en:'Daily fresh cakes and homemade brownies', ar:'كعك طازج وبراوني صنع البيت كلّ يوم' },
 
   // Bestellen
-  'bestellen-label':  { nl:'Bestel<br>Online', en:'Order<br>Online' },
-  'bestellen-text':   { nl:'Bestel eenvoudig via <strong>Lightspeed Order Anywhere</strong> en haal uw bestelling op bij Morgenland in de Centrale Bibliotheek Rotterdam. Ideaal voor take-away tijdens uw lunchpauze of een snelle maaltijd.', en:'Order easily via <strong>Lightspeed Order Anywhere</strong> and pick up your order at Morgenland in Rotterdam Central Library. Ideal for take-away during your lunch break or a quick meal.' },
-  'bestellen-btn':    { nl:'Bestel Nu &mdash; Take-Away', en:'Order Now &mdash; Take-Away' },
-  'bestellen-address':{ nl:'Librijesteeg 4, 2e verdieping &middot; 3011 EB Rotterdam', en:'Librijesteeg 4, 2nd floor &middot; 3011 EB Rotterdam' },
-  'hours-sun-thu':    { nl:'Zondag &ndash; Donderdag', en:'Sunday &ndash; Thursday' },
-  'hours-fri-sat':    { nl:'Vrijdag &amp; Zaterdag', en:'Friday &amp; Saturday' },
+  'bestellen-label':  { nl:'Bestel<br>Online', en:'Order<br>Online', ar:'اطلب<br>أونلاين' },
+  'bestellen-text':   { nl:'Bestel eenvoudig via <strong>Lightspeed Order Anywhere</strong> en haal uw bestelling op bij Morgenland in de Centrale Bibliotheek Rotterdam. Ideaal voor take-away tijdens uw lunchpauze of een snelle maaltijd.', en:'Order easily via <strong>Lightspeed Order Anywhere</strong> and pick up your order at Morgenland in Rotterdam Central Library. Ideal for take-away during your lunch break or a quick meal.', ar:'اطلب بسهولة عبر <strong>Lightspeed Order Anywhere</strong> واستلم طلبك من Morgenland في المكتبة المركزيّة بروتردام. مثاليّ للطلب الخارجيّ في استراحة الغداء أو لوجبة سريعة.' },
+  'bestellen-btn':    { nl:'Bestel Nu &mdash; Take-Away', en:'Order Now &mdash; Take-Away', ar:'اطلب الآن — للخارج' },
+  'bestellen-address':{ nl:'Librijesteeg 4, 2e verdieping &middot; 3011 EB Rotterdam', en:'Librijesteeg 4, 2nd floor &middot; 3011 EB Rotterdam', ar:'Librijesteeg 4، الطابق الثاني · 3011 EB روتردام' },
+  'hours-sun-thu':    { nl:'Zondag &ndash; Donderdag', en:'Sunday &ndash; Thursday', ar:'الأحد – الخميس' },
+  'hours-fri-sat':    { nl:'Vrijdag &amp; Zaterdag', en:'Friday &amp; Saturday', ar:'الجمعة والسبت' },
 
   // Catering
-  'cat-label':        { nl:'Catering', en:'Catering' },
-  'cat-title':        { nl:'Catering voor <em>elke gelegenheid</em>', en:'Catering for <em>every occasion</em>' },
-  'cat-intro':        { nl:'Dezelfde authentieke Syrisch-Libanese catering als Memories of Damascus &mdash; nu ook vanuit Rotterdam.', en:'The same authentic Syrian-Lebanese catering as Memories of Damascus &mdash; now also from Rotterdam.' },
-  'd1-name':          { nl:'Feesten &amp; Bruiloften', en:'Celebrations &amp; Weddings' },
-  'd1-desc':          { nl:'Maak uw feest onvergetelijk met authentieke Syrisch-Libanese gerechten. Gratis proeverij bij huwelijkscatering en andere grote feesten &mdash; geheel vrijblijvend.', en:'Make your celebration unforgettable with authentic Syrian-Lebanese dishes. Free tasting for wedding catering and other large celebrations &mdash; no obligations.' },
-  'd1-list':          { nl:'<li>Voor particulieren en bedrijven</li><li>Huwelijkscatering &mdash; gratis proeverij</li><li>Hapjescatering (mezze/tapas)</li><li>Uitgebreide buffetcatering met bediening</li><li>Volledig vegetarisch of vegan mogelijk</li><li>Dieetwensen: lactosevrij, glutenvrij, notenvrij e.a.</li><li>Toetjesbuffetten &amp; losse maaltijden</li>', en:'<li>For private clients and businesses</li><li>Wedding catering &mdash; free tasting</li><li>Starter catering (mezze/tapas)</li><li>Extensive buffet catering with service</li><li>Fully vegetarian or vegan options available</li><li>Dietary needs: lactose-free, gluten-free, nut-free etc.</li><li>Dessert buffets &amp; individual meals</li>' },
-  'd2-name':          { nl:'Bedrijfscatering', en:'Corporate Catering' },
-  'd2-desc':          { nl:'Professionele bedrijfscatering vanuit Rotterdam. Wij verzorgen alles inclusief op- en afbouw, zodat u zich volledig op uw gasten kunt richten.', en:'Professional corporate catering from Rotterdam. We handle everything including setup and breakdown, so you can focus entirely on your guests.' },
-  'd2-list':          { nl:'<li>Bedrijfslunches &amp; -diners</li><li>Vergaderingen &amp; productlanceringen</li><li>Personeelsevents &amp; teambuilding</li><li>Vaste dagelijkse cateringcontracten</li><li>Inclusieve menuopties (halal, vegan, vegetarisch)</li><li>Dieetwensen: lactosevrij, glutenvrij, notenvrij e.a.</li>', en:'<li>Business lunches &amp; dinners</li><li>Meetings &amp; product launches</li><li>Staff events &amp; team building</li><li>Fixed daily catering contracts</li><li>Inclusive menu options (halal, vegan, vegetarian)</li><li>Dietary needs: lactose-free, gluten-free, nut-free etc.</li>' },
-  'd3-name':          { nl:'AZC &amp; Overheidsinstanties', en:'Asylum Centres &amp; Government' },
-  'd3-desc':          { nl:"Betrouwbare, complete catering voor AZC's en crisisnoodopvang. Van ontbijt tot avondeten, inclusief koelingen, buffetten en koffie-/theevoorzieningen.", en:'Reliable, complete catering for asylum centres and crisis shelters. From breakfast to dinner, including cooling units, buffets and coffee/tea provisions.' },
-  'd3-list':          { nl:'<li>Asielzoekerscentra (AZC) &mdash; dagelijkse maaltijden</li><li>Crisisnoodopvanglocaties</li><li>Gemeenten &amp; zorginstellingen</li><li>Volledige uitrusting geleverd</li><li>Schaalbaar voor honderden personen</li><li>Voorkeur voor aanstelling statushouders</li>', en:'<li>Asylum seeker centres (AZC) &mdash; daily meals</li><li>Crisis emergency shelter locations</li><li>Municipalities &amp; care institutions</li><li>Full equipment supplied on site</li><li>Scalable for hundreds of people</li><li>Priority hiring of permit holders</li>' },
+  'cat-label':        { nl:'Catering', en:'Catering', ar:'التموين' },
+  'cat-title':        { nl:'Catering voor <em>elke gelegenheid</em>', en:'Catering for <em>every occasion</em>', ar:'تموين <em>لكلّ مناسبة</em>' },
+  'cat-intro':        { nl:'Dezelfde authentieke Syrisch-Libanese catering als Memories of Damascus &mdash; nu ook vanuit Rotterdam.', en:'The same authentic Syrian-Lebanese catering as Memories of Damascus &mdash; now also from Rotterdam.', ar:'نفس التموين السوريّ اللبنانيّ الأصيل لـ Memories of Damascus — الآن من روتردام أيضاً.' },
+  'd1-name':          { nl:'Feesten &amp; Bruiloften', en:'Celebrations &amp; Weddings', ar:'الحفلات والأعراس' },
+  'd1-desc':          { nl:'Maak uw feest onvergetelijk met authentieke Syrisch-Libanese gerechten. Gratis proeverij bij huwelijkscatering en andere grote feesten &mdash; geheel vrijblijvend.', en:'Make your celebration unforgettable with authentic Syrian-Lebanese dishes. Free tasting for wedding catering and other large celebrations &mdash; no obligations.', ar:'اجعل مناسبتك لا تُنسى مع أطباق سوريّة لبنانيّة أصيلة. جلسة تذوّق مجانيّة لحفلات الأعراس والمناسبات الكبرى — دون أي التزام.' },
+  'd1-list':          { nl:'<li>Voor particulieren en bedrijven</li><li>Huwelijkscatering &mdash; gratis proeverij</li><li>Hapjescatering (mezze/tapas)</li><li>Uitgebreide buffetcatering met bediening</li><li>Volledig vegetarisch of vegan mogelijk</li><li>Dieetwensen: lactosevrij, glutenvrij, notenvrij e.a.</li><li>Toetjesbuffetten &amp; losse maaltijden</li>', en:'<li>For private clients and businesses</li><li>Wedding catering &mdash; free tasting</li><li>Starter catering (mezze/tapas)</li><li>Extensive buffet catering with service</li><li>Fully vegetarian or vegan options available</li><li>Dietary needs: lactose-free, gluten-free, nut-free etc.</li><li>Dessert buffets &amp; individual meals</li>', ar:'<li>للأفراد والشركات</li><li>تموين الأعراس — جلسة تذوّق مجانيّة</li><li>تموين المازات والمقبّلات</li><li>بوفيه واسع مع خدمة الضيافة</li><li>خيارات نباتيّة ونباتيّة صرف بالكامل</li><li>احتياجات غذائيّة: خالٍ من اللاكتوز والغلوتين والمكسّرات وغيرها</li><li>بوفيه حلويّات ووجبات منفردة</li>' },
+  'd2-name':          { nl:'Bedrijfscatering', en:'Corporate Catering', ar:'تموين الشركات' },
+  'd2-desc':          { nl:'Professionele bedrijfscatering vanuit Rotterdam. Wij verzorgen alles inclusief op- en afbouw, zodat u zich volledig op uw gasten kunt richten.', en:'Professional corporate catering from Rotterdam. We handle everything including setup and breakdown, so you can focus entirely on your guests.', ar:'تموين احترافيّ للشركات انطلاقاً من روتردام. نهتمّ بكلّ شيء — التحضير والتنصيب والتنظيف — لتتفرّغ لضيوفك تماماً.' },
+  'd2-list':          { nl:'<li>Bedrijfslunches &amp; -diners</li><li>Vergaderingen &amp; productlanceringen</li><li>Personeelsevents &amp; teambuilding</li><li>Vaste dagelijkse cateringcontracten</li><li>Inclusieve menuopties (halal, vegan, vegetarisch)</li><li>Dieetwensen: lactosevrij, glutenvrij, notenvrij e.a.</li>', en:'<li>Business lunches &amp; dinners</li><li>Meetings &amp; product launches</li><li>Staff events &amp; team building</li><li>Fixed daily catering contracts</li><li>Inclusive menu options (halal, vegan, vegetarian)</li><li>Dietary needs: lactose-free, gluten-free, nut-free etc.</li>', ar:'<li>غداء وعشاء الشركات</li><li>اجتماعات وإطلاق منتجات</li><li>فعاليات الموظفين وبناء الفريق</li><li>عقود تموين يومي ثابتة</li><li>قوائم شاملة (حلال، نباتي، نباتي صرف)</li><li>احتياجات غذائيّة: خالٍ من اللاكتوز والغلوتين والمكسّرات وغيرها</li>' },
+  'd3-name':          { nl:'AZC &amp; Overheidsinstanties', en:'Asylum Centres &amp; Government', ar:'مراكز اللجوء والمؤسّسات الحكوميّة' },
+  'd3-desc':          { nl:"Betrouwbare, complete catering voor AZC's en crisisnoodopvang. Van ontbijt tot avondeten, inclusief koelingen, buffetten en koffie-/theevoorzieningen.", en:'Reliable, complete catering for asylum centres and crisis shelters. From breakfast to dinner, including cooling units, buffets and coffee/tea provisions.', ar:'تموين موثوق ومتكامل لمراكز اللجوء ومرافق الإيواء الطارئ. من الفطور إلى العشاء، مع تجهيزات التبريد والبوفيهات وخدمات القهوة والشاي.' },
+  'd3-list':          { nl:'<li>Asielzoekerscentra (AZC) &mdash; dagelijkse maaltijden</li><li>Crisisnoodopvanglocaties</li><li>Gemeenten &amp; zorginstellingen</li><li>Volledige uitrusting geleverd</li><li>Schaalbaar voor honderden personen</li><li>Voorkeur voor aanstelling statushouders</li>', en:'<li>Asylum seeker centres (AZC) &mdash; daily meals</li><li>Crisis emergency shelter locations</li><li>Municipalities &amp; care institutions</li><li>Full equipment supplied on site</li><li>Scalable for hundreds of people</li><li>Priority hiring of permit holders</li>', ar:'<li>مراكز اللجوء — وجبات يوميّة</li><li>مرافق الإيواء الطارئ</li><li>البلديّات ومؤسّسات الرعاية</li><li>توفير كامل التجهيزات في الموقع</li><li>قابل للتوسّع لمئات الأشخاص</li><li>أولويّة التوظيف لحاملي تصاريح الإقامة</li>' },
 
   // Pakketten
-  'pak-label':        { nl:'Transparante Prijzen', en:'Transparent Pricing' },
-  'pak-title':        { nl:'Onze catering <em>pakketten</em>', en:'Our catering <em>packages</em>' },
-  'pak-intro':        { nl:'BTW inbegrepen. Opbouw, afbouw en afwas inbegrepen. Gratis levering in Rotterdam.', en:'VAT included. Setup, breakdown and washing up included. Free delivery in Rotterdam.' },
+  'pak-label':        { nl:'Transparante Prijzen', en:'Transparent Pricing', ar:'أسعار شفّافة' },
+  'pak-title':        { nl:'Onze catering <em>pakketten</em>', en:'Our catering <em>packages</em>', ar:'<em>باقات</em> التموين لدينا' },
+  'pak-intro':        { nl:'BTW inbegrepen. Opbouw, afbouw en afwas inbegrepen. Gratis levering in Rotterdam.', en:'VAT included. Setup, breakdown and washing up included. Free delivery in Rotterdam.', ar:'تشمل ضريبة القيمة المضافة. التحضير والتنصيب والتنظيف ضمن السعر. توصيل مجاني في روتردام.' },
   'pak-classic-per':  { nl:'per persoon &middot; min. 10 personen', en:'per person &middot; min. 10 persons' },
   'pak-luxe-per':     { nl:'per persoon &middot; min. 15 personen', en:'per person &middot; min. 15 persons' },
   'pak-table-per':    { nl:'per persoon &middot; min. 20 personen', en:'per person &middot; min. 20 persons' },
@@ -2417,25 +2461,36 @@ var i18n = {
   'mob-price-btn':    { nl:'Offerte &rarr;', en:'Quote &rarr;' }
 };
 
-function toggleLang() {
-  currentLang = currentLang === 'nl' ? 'en' : 'nl';
-  document.getElementById('langNL').classList.toggle('lang-active', currentLang === 'nl');
-  document.getElementById('langEN').classList.toggle('lang-active', currentLang === 'en');
-  var mln = document.getElementById('mobLangNL'), mle = document.getElementById('mobLangEN');
-  if (mln) mln.classList.toggle('active', currentLang === 'nl');
-  if (mle) mle.classList.toggle('active', currentLang === 'en');
-  document.documentElement.lang = currentLang;
+function setLang(lang) {
+  if (!lang || !['nl','en','ar'].includes(lang)) lang = 'nl';
+  currentLang = lang;
+  try { localStorage.setItem('morgenland_lang', lang); } catch(e){}
+  var nl = document.getElementById('langNL'), en = document.getElementById('langEN'), ar = document.getElementById('langAR');
+  if (nl) nl.classList.toggle('lang-active', lang === 'nl');
+  if (en) en.classList.toggle('lang-active', lang === 'en');
+  if (ar) ar.classList.toggle('lang-active', lang === 'ar');
+  var mln = document.getElementById('mobLangNL'), mle = document.getElementById('mobLangEN'), mla = document.getElementById('mobLangAR');
+  if (mln) mln.classList.toggle('active', lang === 'nl');
+  if (mle) mle.classList.toggle('active', lang === 'en');
+  if (mla) mla.classList.toggle('active', lang === 'ar');
+  document.documentElement.lang = lang;
+  document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
   document.querySelectorAll('[data-i18n]').forEach(function(el) {
     var key = el.getAttribute('data-i18n');
-    if (i18n[key] && i18n[key][currentLang]) el.innerHTML = i18n[key][currentLang];
+    var dict = i18n[key];
+    if (dict && dict[lang]) el.innerHTML = dict[lang];
+    else if (dict && dict.nl) el.innerHTML = dict.nl;
   });
   document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
     var key = el.getAttribute('data-i18n-placeholder');
-    if (i18n[key] && i18n[key][currentLang]) el.placeholder = i18n[key][currentLang];
+    var dict = i18n[key];
+    if (dict && dict[lang]) el.placeholder = dict[lang];
+    else if (dict && dict.nl) el.placeholder = dict.nl;
   });
-  renderCal();
-  updateTotaal();
+  if (typeof renderCal === 'function') renderCal();
+  if (typeof updateTotaal === 'function') updateTotaal();
 }
+function toggleLang() { setLang(currentLang === 'nl' ? 'en' : (currentLang === 'en' ? 'ar' : 'nl')); }
 
 // ══ CONFIGURATOR ══
 var confState = {
