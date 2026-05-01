@@ -2214,7 +2214,7 @@
 
   <div class="diensten-grid">
     <!-- Particulieren & Bruiloften -->
-    <div class="dienst-card">
+    <div class="dienst-card" data-content-blok="diensten.feesten">
       <div class="dienst-number">01</div>
       <svg class="dienst-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
         <path d="M24 8c-3.3 0-6 2.7-6 6s2.7 6 6 6 6-2.7 6-6-2.7-6-6-6z"/>
@@ -2223,9 +2223,9 @@
         <path d="M40 28c3.3 0 6 2.7 6 8M8 14c0-2.2-1.8-4-4-4S0 11.8 0 14s1.8 4 4 4"/>
         <path d="M8 28C4.7 28 2 30.7 2 36"/>
       </svg>
-      <h3 class="dienst-name" data-i18n="d1-name">Feesten & Bruiloften</h3>
-      <p class="dienst-desc" data-i18n="d1-desc">Maak uw feest onvergetelijk met authentieke Syrisch-Libanese gerechten. Gratis proeverij bij huwelijkscatering en andere grote feesten — geheel vrijblijvend.</p>
-      <ul class="dienst-list" data-i18n="d1-list">
+      <h3 class="dienst-name" data-i18n="d1-name" data-content-titel>Feesten & Bruiloften</h3>
+      <p class="dienst-desc" data-i18n="d1-desc" data-content-intro>Maak uw feest onvergetelijk met authentieke Syrisch-Libanese gerechten. Gratis proeverij bij huwelijkscatering en andere grote feesten — geheel vrijblijvend.</p>
+      <ul class="dienst-list" data-i18n="d1-list" data-content-bullets>
         <li>Voor particulieren en bedrijven</li>
         <li>Huwelijkscatering — gratis proeverij</li>
         <li>Hapjescatering (mezze/tapas)</li>
@@ -2237,7 +2237,7 @@
     </div>
 
     <!-- Bedrijven -->
-    <div class="dienst-card">
+    <div class="dienst-card" data-content-blok="diensten.bedrijven">
       <div class="dienst-number">02</div>
       <svg class="dienst-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
         <rect x="4" y="20" width="40" height="24" rx="1"/>
@@ -2245,9 +2245,9 @@
         <line x1="24" y1="28" x2="24" y2="36"/>
         <line x1="16" y1="32" x2="32" y2="32"/>
       </svg>
-      <h3 class="dienst-name" data-i18n="d2-name">Bedrijven</h3>
-      <p class="dienst-desc" data-i18n="d2-desc">Professionele bedrijfscatering in Eindhoven en omgeving. Wij verzorgen alles inclusief op- en afbouw, zodat u zich volledig op uw gasten kunt richten.</p>
-      <ul class="dienst-list" data-i18n="d2-list">
+      <h3 class="dienst-name" data-i18n="d2-name" data-content-titel>Bedrijven</h3>
+      <p class="dienst-desc" data-i18n="d2-desc" data-content-intro>Professionele bedrijfscatering in Eindhoven en omgeving. Wij verzorgen alles inclusief op- en afbouw, zodat u zich volledig op uw gasten kunt richten.</p>
+      <ul class="dienst-list" data-i18n="d2-list" data-content-bullets>
         <li>Bedrijfslunches & -diners</li>
         <li>Vergaderingen & productlanceringen</li>
         <li>Personeelsevents & teambuilding</li>
@@ -2258,7 +2258,7 @@
     </div>
 
     <!-- AZC & Overheid -->
-    <div class="dienst-card">
+    <div class="dienst-card" data-content-blok="diensten.azc">
       <div class="dienst-number">03</div>
       <svg class="dienst-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
         <path d="M4 44h40M6 44V22L24 6l18 16v22"/>
@@ -2266,9 +2266,9 @@
         <path d="M10 22h4v4h-4zM34 22h4v4h-4z"/>
         <path d="M10 32h4v4h-4zM34 32h4v4h-4z"/>
       </svg>
-      <h3 class="dienst-name" data-i18n="d3-name">AZC & Overheidsinstanties</h3>
-      <p class="dienst-desc" data-i18n="d3-desc">Betrouwbare, complete catering voor AZC's en crisisnoodopvang. Van ontbijt tot avondeten, inclusief koelingen, buffetten en koffie-/theevoorzieningen.</p>
-      <ul class="dienst-list" data-i18n="d3-list">
+      <h3 class="dienst-name" data-i18n="d3-name" data-content-titel>AZC & Overheidsinstanties</h3>
+      <p class="dienst-desc" data-i18n="d3-desc" data-content-intro>Betrouwbare, complete catering voor AZC's en crisisnoodopvang. Van ontbijt tot avondeten, inclusief koelingen, buffetten en koffie-/theevoorzieningen.</p>
+      <ul class="dienst-list" data-i18n="d3-list" data-content-bullets>
         <li>Asielzoekerscentra (AZC) — dagelijkse maaltijden</li>
         <li>Crisisnoodopvanglocaties</li>
         <li>Gemeenten & zorginstellingen</li>
@@ -4482,7 +4482,42 @@
     // Re-render dynamic components
     renderCal();
     updateTotaal();
+    applyContentBlokken();
   }
+
+  // ══ CONTENT BLOKKEN (live editbare teksten via dashboard) ══
+  var contentBlokkenCache = null;
+  function loadContentBlokken() {
+    fetch(SUPABASE_URL + '/rest/v1/content_blokken?site=eq.mod&select=sleutel,titel,intro,bullets', {
+      headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY }
+    }).then(function(r) { return r.ok ? r.json() : null; })
+      .then(function(rows) {
+        if (!rows) return;
+        contentBlokkenCache = rows;
+        applyContentBlokken();
+      }).catch(function(e) { console.warn('content blokken laden mislukt', e); });
+  }
+  function applyContentBlokken() {
+    if (!contentBlokkenCache || currentLang !== 'nl') return;
+    contentBlokkenCache.forEach(function(blok) {
+      var card = document.querySelector('[data-content-blok="' + blok.sleutel + '"]');
+      if (!card) return;
+      var t = card.querySelector('[data-content-titel]');
+      var i = card.querySelector('[data-content-intro]');
+      var b = card.querySelector('[data-content-bullets]');
+      if (t && blok.titel) t.textContent = blok.titel;
+      if (i && blok.intro) i.textContent = blok.intro;
+      if (b && Array.isArray(blok.bullets)) {
+        b.innerHTML = '';
+        blok.bullets.forEach(function(text) {
+          var li = document.createElement('li');
+          li.textContent = String(text);
+          b.appendChild(li);
+        });
+      }
+    });
+  }
+  loadContentBlokken();
 
   // ══ CONFIGURATOR ══
   var confState = {

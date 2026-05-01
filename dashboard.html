@@ -164,6 +164,25 @@
   .quick-action:hover { border-color: var(--gold); color: var(--gold-lt); background: rgba(201,148,42,.06); }
   .quick-action.disabled { opacity: .35; pointer-events: none; }
 
+  /* Content editor */
+  .content-blok {
+    border: 1px solid var(--divider); border-radius: 4px;
+    padding: 1.2rem 1.4rem; background: rgba(0,0,0,.15);
+  }
+  .content-blok-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+  .content-blok-id {
+    font-size: .65rem; color: rgba(201,148,42,.7);
+    letter-spacing: .14em; text-transform: uppercase;
+    font-family: monospace;
+  }
+  .bullets-list { display: flex; flex-direction: column; gap: .4rem; }
+  .bullet-row { display: flex; gap: .4rem; align-items: stretch; }
+  .bullet-row .form-input { flex: 1; }
+  .bullet-row .btn-sm.danger {
+    flex-shrink: 0; padding: 0 .8rem; min-width: 36px;
+    font-size: 1rem; line-height: 1;
+  }
+
   /* Kalender site-tabs */
   .cal-site-tab {
     background: none; border: 1px solid var(--divider); color: rgba(245,237,214,.6);
@@ -481,6 +500,9 @@
     <div class="nav-item" onclick="showPanel('kalender', this)">
       <span class="nav-item-icon">◻</span> Kalender
     </div>
+    <div class="nav-item" onclick="showPanel('content', this)">
+      <span class="nav-item-icon">✎</span> Website teksten
+    </div>
     <div class="nav-item" onclick="showPanel('menu', this)">
       <span class="nav-item-icon">◈</span> Menu & Gerechten
     </div>
@@ -763,6 +785,32 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- ══ CONTENT (Website teksten) ══ -->
+    <div class="panel" id="panel-content">
+      <div class="page-header">
+        <h2>Website teksten</h2>
+        <p>Pas titels, beschrijvingen en bulletpoints aan op je sites. Wijzigingen zijn binnen seconden live.</p>
+      </div>
+
+      <div class="dash-card" style="margin-bottom:1.5rem;background:rgba(201,148,42,.04);border-color:rgba(201,148,42,.25)">
+        <div class="dash-card-body" style="padding:1rem 1.4rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+          <div>
+            <div style="font-size:.7rem;color:rgba(201,148,42,.7);letter-spacing:.14em;text-transform:uppercase;margin-bottom:.25rem">Site</div>
+            <div style="font-family:var(--font-display);font-size:1.05rem;color:var(--cream);letter-spacing:.04em" id="contentActiveSiteName">Memories of Damascus</div>
+          </div>
+          <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+            <button class="cal-site-tab active" data-content-site="mod" onclick="setContentSite('mod')">MoD</button>
+            <button class="cal-site-tab" data-content-site="morgenland" onclick="setContentSite('morgenland')">Morgenland</button>
+            <button class="cal-site-tab" data-content-site="kookworkshops" onclick="setContentSite('kookworkshops')">Kookworkshops</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="contentList">
+        <div style="color:rgba(245,237,214,.4);font-size:.85rem;padding:2rem;text-align:center">Teksten worden geladen…</div>
       </div>
     </div>
 
@@ -1381,6 +1429,162 @@
   }
   window.openDetail = openDetail;
 
+  // ══ CONTENT (Website teksten) ══
+  var currentContentSite = 'mod';
+  var contentBlokken = [];
+
+  function setContentSite(site) {
+    currentContentSite = site;
+    document.querySelectorAll('.cal-site-tab[data-content-site]').forEach(function(t) {
+      t.classList.toggle('active', t.dataset.contentSite === site);
+    });
+    var n = document.getElementById('contentActiveSiteName');
+    if (n) n.textContent = KAL_SITE_NAAM[site] || site;
+    loadContent();
+  }
+  window.setContentSite = setContentSite;
+
+  function loadContent() {
+    var list = document.getElementById('contentList');
+    if (!list) return;
+    list.innerHTML = '<div style="color:rgba(245,237,214,.4);font-size:.85rem;padding:2rem;text-align:center">Teksten worden geladen…</div>';
+    fetch(SUPABASE_URL + '/rest/v1/content_blokken?site=eq.' + currentContentSite + '&order=sleutel.asc', {
+      headers: authHeaders()
+    }).then(function(r) {
+      if (r.status === 401) { logout(); return null; }
+      return r.ok ? r.json() : [];
+    }).then(function(rows) {
+      if (!rows) return;
+      contentBlokken = rows;
+      renderContent();
+    }).catch(function(e) { console.error('content laden', e); });
+  }
+  window.loadContent = loadContent;
+
+  function blokGroupLabel(sleutel) {
+    var groep = sleutel.split('.')[0];
+    var labels = { diensten: 'Diensten', pakketten: 'Pakketten', hero: 'Hero', usp: 'USPs', azc: 'AZC & Overheid', over: 'Over ons' };
+    return labels[groep] || groep.charAt(0).toUpperCase() + groep.slice(1);
+  }
+
+  function renderContent() {
+    var list = document.getElementById('contentList');
+    if (!list) return;
+    if (!contentBlokken.length) {
+      list.innerHTML = '<div class="dash-card"><div class="dash-card-body" style="padding:2rem;text-align:center;color:rgba(245,237,214,.5)">Nog geen bewerkbare teksten voor deze site. Neem contact op met Mazin om secties beschikbaar te maken voor zelfbeheer.</div></div>';
+      return;
+    }
+    // Groep blokken op de eerste deel van de sleutel (diensten.X, pakketten.X, etc.)
+    var groepen = {};
+    contentBlokken.forEach(function(b) {
+      var g = b.sleutel.split('.')[0];
+      (groepen[g] = groepen[g] || []).push(b);
+    });
+
+    list.innerHTML = Object.keys(groepen).map(function(g) {
+      var groepHtml = groepen[g].map(function(b) {
+        var bullets = Array.isArray(b.bullets) ? b.bullets : [];
+        return ''
+          + '<div class="content-blok" data-sleutel="' + esc(b.sleutel) + '">'
+          + '  <div class="content-blok-head"><span class="content-blok-id">' + esc(b.sleutel) + '</span></div>'
+          + '  <div class="form-group"><label class="form-label">Titel</label><input class="form-input" data-veld="titel" value="' + esc(b.titel || '') + '"></div>'
+          + '  <div class="form-group"><label class="form-label">Beschrijving</label><textarea class="form-input" data-veld="intro" rows="3">' + esc(b.intro || '') + '</textarea></div>'
+          + '  <div class="form-group"><label class="form-label">Bullets</label>'
+          + '    <div class="bullets-list" data-bullets-for="' + esc(b.sleutel) + '">'
+          +        bullets.map(function(t, idx) { return bulletRowHtml(b.sleutel, idx, t); }).join('')
+          + '    </div>'
+          + '    <button class="btn-sm" onclick="addBullet(\'' + esc(b.sleutel) + '\')" style="margin-top:.5rem">+ Nieuwe bullet</button>'
+          + '  </div>'
+          + '  <div style="display:flex;gap:.5rem;align-items:center;margin-top:.6rem">'
+          + '    <button class="btn-primary-sm" onclick="saveContentBlok(\'' + esc(b.sleutel) + '\', this)">Opslaan</button>'
+          + '    <span class="content-blok-status" style="font-size:.78rem;color:rgba(245,237,214,.4)"></span>'
+          + '  </div>'
+          + '</div>';
+      }).join('');
+      return ''
+        + '<div class="dash-card" style="margin-bottom:1.5rem">'
+        + '  <div class="dash-card-header"><div class="dash-card-title">' + esc(blokGroupLabel(g + '.x')) + '</div></div>'
+        + '  <div class="dash-card-body" style="display:flex;flex-direction:column;gap:1.4rem">'
+        +      groepHtml
+        + '  </div>'
+        + '</div>';
+    }).join('');
+  }
+
+  function bulletRowHtml(sleutel, idx, text) {
+    return ''
+      + '<div class="bullet-row">'
+      + '  <input class="form-input" data-bullet-idx="' + idx + '" value="' + esc(text) + '">'
+      + '  <button class="btn-sm danger" onclick="removeBullet(\'' + esc(sleutel) + '\', ' + idx + ')">×</button>'
+      + '</div>';
+  }
+
+  function readBlokFromDOM(sleutel) {
+    var el = document.querySelector('.content-blok[data-sleutel="' + sleutel + '"]');
+    if (!el) return null;
+    var titel = el.querySelector('[data-veld="titel"]').value;
+    var intro = el.querySelector('[data-veld="intro"]').value;
+    var bullets = Array.prototype.slice.call(el.querySelectorAll('.bullets-list .form-input'))
+      .map(function(i) { return i.value; })
+      .filter(function(v) { return v.trim().length > 0; });
+    return { titel: titel, intro: intro, bullets: bullets };
+  }
+
+  function addBullet(sleutel) {
+    var current = readBlokFromDOM(sleutel);
+    if (!current) return;
+    current.bullets.push('');
+    var blok = contentBlokken.find(function(b) { return b.sleutel === sleutel; });
+    if (blok) { blok.titel = current.titel; blok.intro = current.intro; blok.bullets = current.bullets; }
+    renderContent();
+    // focus de nieuwe input
+    setTimeout(function() {
+      var el = document.querySelector('.content-blok[data-sleutel="' + sleutel + '"]');
+      if (!el) return;
+      var inputs = el.querySelectorAll('.bullets-list .form-input');
+      var last = inputs[inputs.length - 1];
+      if (last) last.focus();
+    }, 0);
+  }
+  window.addBullet = addBullet;
+
+  function removeBullet(sleutel, idx) {
+    var current = readBlokFromDOM(sleutel);
+    if (!current) return;
+    current.bullets.splice(idx, 1);
+    var blok = contentBlokken.find(function(b) { return b.sleutel === sleutel; });
+    if (blok) { blok.titel = current.titel; blok.intro = current.intro; blok.bullets = current.bullets; }
+    renderContent();
+  }
+  window.removeBullet = removeBullet;
+
+  function saveContentBlok(sleutel, btn) {
+    var data = readBlokFromDOM(sleutel);
+    if (!data) return;
+    if (btn) { btn.disabled = true; btn.textContent = 'Opslaan…'; }
+    var status = btn && btn.parentNode.querySelector('.content-blok-status');
+    if (status) status.textContent = '';
+    fetch(SUPABASE_URL + '/rest/v1/content_blokken?site=eq.' + currentContentSite + '&sleutel=eq.' + encodeURIComponent(sleutel), {
+      method: 'PATCH',
+      headers: Object.assign({}, authHeaders(), { 'Content-Type': 'application/json', 'Prefer': 'return=minimal' }),
+      body: JSON.stringify({ titel: data.titel, intro: data.intro, bullets: data.bullets })
+    }).then(function(r) {
+      if (!r.ok) throw new Error('PATCH ' + r.status);
+      if (btn) { btn.disabled = false; btn.textContent = 'Opslaan'; }
+      if (status) status.textContent = '✓ Opgeslagen — live op de site';
+      toast('Tekst opgeslagen');
+      // Update lokale cache
+      var blok = contentBlokken.find(function(b) { return b.sleutel === sleutel; });
+      if (blok) { blok.titel = data.titel; blok.intro = data.intro; blok.bullets = data.bullets; }
+    }).catch(function(e) {
+      console.error(e);
+      if (btn) { btn.disabled = false; btn.textContent = 'Opslaan'; }
+      if (status) { status.textContent = 'Opslaan mislukt'; status.style.color = '#e74c3c'; }
+      toast('Opslaan mislukt');
+    });
+  }
+  window.saveContentBlok = saveContentBlok;
+
   function saveNotitie(id, btn) {
     var t = document.getElementById('modalNotitie');
     if (!t) return;
@@ -1434,9 +1638,11 @@
       offertes: 'Offertes & Aanvragen',
       baklava: 'Baklava Bestellingen',
       kalender: 'Kalender',
+      content: 'Website teksten',
       menu: 'Menu & Gerechten',
       instellingen: 'Instellingen'
     };
+    if (name === 'content') loadContent();
     document.getElementById('topbarTitle').textContent = titles[name] || name;
     // Always close sidebar on mobile after navigation
     if (window.innerWidth <= 900) closeSidebar();
