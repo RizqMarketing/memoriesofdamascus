@@ -98,6 +98,30 @@
     display: inline-flex; align-items: center; gap: .4rem;
   }
   .topbar-site-btn:hover { background: rgba(201,148,42,.1); border-color: var(--gold); }
+  .site-switcher { position: relative; }
+  .site-switcher-trigger {
+    font-size: .72rem; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--gold); border: 1px solid rgba(201,148,42,.3);
+    padding: .4rem .9rem; border-radius: 2px; cursor: pointer;
+    background: none; transition: all .2s;
+    display: inline-flex; align-items: center; gap: .4rem;
+  }
+  .site-switcher-trigger:hover { background: rgba(201,148,42,.1); border-color: var(--gold); }
+  .site-switcher-menu {
+    position: absolute; top: calc(100% + .4rem); right: 0;
+    background: var(--panel); border: 1px solid var(--divider);
+    min-width: 200px; padding: .3rem; border-radius: 4px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.4);
+    display: none; z-index: 20;
+  }
+  .site-switcher.open .site-switcher-menu { display: block; }
+  .site-switcher-menu a {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: .6rem .8rem; font-size: .78rem; color: var(--cream);
+    text-decoration: none; border-radius: 3px; transition: background .15s;
+  }
+  .site-switcher-menu a:hover { background: rgba(201,148,42,.08); color: var(--gold-lt); }
+  .site-switcher-menu a span:last-child { color: rgba(201,148,42,.6); font-size: .7rem; }
   .topbar-avatar {
     width: 32px; height: 32px; border-radius: 50%;
     background: var(--wine); border: 1px solid var(--gold);
@@ -106,6 +130,61 @@
   }
 
   .content { padding: 2rem; }
+
+  /* Per-site tiles op overview */
+  .site-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+  .site-tile {
+    display: block; text-decoration: none; padding: 1.4rem 1.5rem;
+    border-right: 1px solid var(--divider); transition: background .2s;
+  }
+  .site-tile:last-child { border-right: 0; }
+  .site-tile:hover { background: rgba(201,148,42,.05); }
+  .site-tile-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 1rem; gap: .5rem; }
+  .site-tile-name { font-family: var(--font-display); font-size: 1rem; color: var(--cream); letter-spacing: .04em; }
+  .site-tile-tag { font-size: .65rem; color: rgba(201,148,42,.55); letter-spacing: .14em; text-transform: uppercase; }
+  .site-tile-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; }
+  .site-tile-num { font-family: var(--font-heading, serif); font-size: 1.4rem; color: var(--gold-lt); margin-bottom: .15rem; }
+  .site-tile-num[data-attention="true"] { color: #f0b656; }
+  .site-tile-lbl { font-size: .68rem; color: rgba(245,237,214,.45); letter-spacing: .08em; text-transform: uppercase; }
+  @media (max-width: 900px) {
+    .site-tiles { grid-template-columns: 1fr; }
+    .site-tile { border-right: 0; border-bottom: 1px solid var(--divider); }
+    .site-tile:last-child { border-bottom: 0; }
+  }
+
+  /* Quick-action buttons in detail-modal */
+  .quick-actions { display: flex; flex-wrap: wrap; gap: .5rem; margin: .8rem 0 1.4rem; }
+  .quick-action {
+    flex: 1; min-width: 90px; padding: .7rem .9rem; text-align: center;
+    border: 1px solid var(--divider); border-radius: 4px; text-decoration: none;
+    font-size: .78rem; color: var(--cream); letter-spacing: .04em;
+    background: var(--panel); transition: all .15s; cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center; gap: .4rem;
+  }
+  .quick-action:hover { border-color: var(--gold); color: var(--gold-lt); background: rgba(201,148,42,.06); }
+  .quick-action.disabled { opacity: .35; pointer-events: none; }
+
+  /* Kalender site-tabs */
+  .cal-site-tab {
+    background: none; border: 1px solid var(--divider); color: rgba(245,237,214,.6);
+    font-size: .75rem; letter-spacing: .08em; text-transform: uppercase;
+    padding: .45rem .9rem; border-radius: 3px; cursor: pointer; transition: all .15s;
+    font-family: inherit;
+  }
+  .cal-site-tab:hover { color: var(--gold-lt); border-color: rgba(201,148,42,.5); }
+  .cal-site-tab.active {
+    background: rgba(201,148,42,.15); color: var(--gold-lt);
+    border-color: var(--gold);
+  }
+
+  /* Kalender visual upgrades */
+  .cal-day.cal-blocked { background: rgba(192,57,43,.55) !important; color: #fff !important; }
+  .cal-day.cal-has-aanvraag::after {
+    content: ''; position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%);
+    width: 5px; height: 5px; border-radius: 50%; background: var(--gold);
+  }
+  .cal-day { position: relative; }
+  .cal-day[title]:hover { z-index: 2; }
 
   /* ── PANELS ── */
   .panel { display: none; }
@@ -380,8 +459,8 @@
 <aside class="sidebar" id="sidebar">
   <button class="sidebar-close" onclick="closeSidebar()">✕</button>
   <div class="sidebar-brand">
-    <div class="sidebar-brand-name">Memories of Damascus</div>
-    <div class="sidebar-brand-sub">Beheer dashboard</div>
+    <div class="sidebar-brand-name">Anouks dashboard</div>
+    <div class="sidebar-brand-sub">3 businesses, 1 overzicht</div>
   </div>
   <nav class="sidebar-nav">
     <div class="nav-section-label">Overzicht</div>
@@ -392,11 +471,10 @@
     <div class="nav-section-label">Bestellingen</div>
     <div class="nav-item" onclick="showPanel('offertes', this)">
       <span class="nav-item-icon">✦</span> Offertes & Aanvragen
-      <span class="nav-badge">3</span>
+      <span class="nav-badge" id="navBadgeOffertes" style="display:none">0</span>
     </div>
     <div class="nav-item" onclick="showPanel('baklava', this)">
       <span class="nav-item-icon">◇</span> Baklava Bestellingen
-      <span class="nav-badge">2</span>
     </div>
 
     <div class="nav-section-label">Beheer</div>
@@ -412,8 +490,10 @@
       <span class="nav-item-icon">◦</span> Instellingen
     </div>
   </nav>
-  <div class="sidebar-footer">
-    <a href="index.html" target="_blank">↗ Bekijk website</a>
+  <div class="sidebar-footer" style="display:flex;flex-direction:column;gap:.4rem">
+    <a href="https://memoriesofdamascus.netlify.app" target="_blank" rel="noopener">↗ Memories of Damascus</a>
+    <a href="https://morgenland-mod.netlify.app" target="_blank" rel="noopener">↗ Morgenland</a>
+    <a href="https://morgenlandkookt.netlify.app" target="_blank" rel="noopener">↗ Morgenland Kookt</a>
   </div>
 </aside>
 
@@ -427,7 +507,14 @@
       <div class="topbar-title" id="topbarTitle">Dashboard</div>
     </div>
     <div class="topbar-right">
-      <a href="index.html" target="_blank" class="topbar-site-btn">↗ Website</a>
+      <div class="site-switcher" id="siteSwitcher">
+        <button class="site-switcher-trigger" onclick="toggleSiteSwitcher(event)">↗ Bekijk site ▾</button>
+        <div class="site-switcher-menu">
+          <a href="https://memoriesofdamascus.netlify.app" target="_blank" rel="noopener"><span>Memories of Damascus</span><span>↗</span></a>
+          <a href="https://morgenland-mod.netlify.app" target="_blank" rel="noopener"><span>Morgenland</span><span>↗</span></a>
+          <a href="https://morgenlandkookt.netlify.app" target="_blank" rel="noopener"><span>Morgenland Kookt</span><span>↗</span></a>
+        </div>
+      </div>
       <div class="topbar-avatar">ن</div>
     </div>
   </div>
@@ -437,8 +524,8 @@
     <!-- ══ OVERVIEW ══ -->
     <div class="panel active" id="panel-overview">
       <div class="page-header">
-        <h2>Goedemiddag ✦</h2>
-        <p>Hier is een overzicht van vandaag — maandag 7 april 2026</p>
+        <h2 id="overviewGreet">Welkom ✦</h2>
+        <p id="overviewSub">—</p>
       </div>
 
       <div class="stats-grid" id="statBlocks">
@@ -464,6 +551,29 @@
         </div>
       </div>
 
+      <!-- Per-site overzicht -->
+      <div class="dash-card" style="margin-bottom:1.5rem">
+        <div class="dash-card-header">
+          <div class="dash-card-title">Per business</div>
+        </div>
+        <div class="dash-card-body" style="padding:0">
+          <div class="site-tiles">
+            <a href="#" onclick="filterAndShow('mod');return false" class="site-tile" data-site="mod">
+              <div class="site-tile-head"><div class="site-tile-name">Memories of Damascus</div><div class="site-tile-tag">Catering</div></div>
+              <div class="site-tile-stats"><div><div class="site-tile-num" data-site-stat="mod-nieuw">—</div><div class="site-tile-lbl">Nieuw</div></div><div><div class="site-tile-num" data-site-stat="mod-open">—</div><div class="site-tile-lbl">In behandeling</div></div><div><div class="site-tile-num" data-site-stat="mod-totaal">—</div><div class="site-tile-lbl">Totaal</div></div></div>
+            </a>
+            <a href="#" onclick="filterAndShow('morgenland');return false" class="site-tile" data-site="morgenland">
+              <div class="site-tile-head"><div class="site-tile-name">Morgenland</div><div class="site-tile-tag">Restaurant + catering</div></div>
+              <div class="site-tile-stats"><div><div class="site-tile-num" data-site-stat="morgenland-nieuw">—</div><div class="site-tile-lbl">Nieuw</div></div><div><div class="site-tile-num" data-site-stat="morgenland-open">—</div><div class="site-tile-lbl">In behandeling</div></div><div><div class="site-tile-num" data-site-stat="morgenland-totaal">—</div><div class="site-tile-lbl">Totaal</div></div></div>
+            </a>
+            <a href="#" onclick="filterAndShow('kookworkshops');return false" class="site-tile" data-site="kookworkshops">
+              <div class="site-tile-head"><div class="site-tile-name">Morgenland Kookt</div><div class="site-tile-tag">Workshops</div></div>
+              <div class="site-tile-stats"><div><div class="site-tile-num" data-site-stat="kookworkshops-nieuw">—</div><div class="site-tile-lbl">Nieuw</div></div><div><div class="site-tile-num" data-site-stat="kookworkshops-open">—</div><div class="site-tile-lbl">In behandeling</div></div><div><div class="site-tile-num" data-site-stat="kookworkshops-totaal">—</div><div class="site-tile-lbl">Totaal</div></div></div>
+            </a>
+          </div>
+        </div>
+      </div>
+
       <div class="grid-3-1">
         <!-- Recente aanvragen -->
         <div class="dash-card">
@@ -483,38 +593,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td><strong style="color:var(--cream)">Familie Al-Rashidi</strong><br><span style="font-size:.72rem;color:rgba(245,237,214,.3)">06 apr · Bruiloft · 14 jun</span></td>
-                <td class="col-hide-sm">Bruiloft</td>
-                <td class="col-hide-sm">14 jun 2026</td>
-                <td class="col-hide-sm">120 pers.</td>
-                <td><span class="badge badge-new">Nieuw</span></td>
-                <td><button class="btn-sm">Open</button></td>
-              </tr>
-              <tr>
-                <td><strong style="color:var(--cream)">TechCorp B.V.</strong><br><span style="font-size:.72rem;color:rgba(245,237,214,.3)">04 apr · Bedrijfslunch · 22 apr</span></td>
-                <td class="col-hide-sm">Bedrijfslunch</td>
-                <td class="col-hide-sm">22 apr 2026</td>
-                <td class="col-hide-sm">30 pers.</td>
-                <td><span class="badge badge-pending">In behandeling</span></td>
-                <td><button class="btn-sm">Open</button></td>
-              </tr>
-              <tr>
-                <td><strong style="color:var(--cream)">Gemeente Eindhoven</strong><br><span style="font-size:.72rem;color:rgba(245,237,214,.3)">01 apr · AZC catering · Doorlopend</span></td>
-                <td class="col-hide-sm">AZC catering</td>
-                <td class="col-hide-sm">Doorlopend</td>
-                <td class="col-hide-sm">80 pers./dag</td>
-                <td><span class="badge badge-done">Bevestigd</span></td>
-                <td><button class="btn-sm">Open</button></td>
-              </tr>
-              <tr>
-                <td><strong style="color:var(--cream)">Familie Bakker</strong><br><span style="font-size:.72rem;color:rgba(245,237,214,.3)">29 mrt · Jubileum · 18 apr</span></td>
-                <td class="col-hide-sm">Jubileum</td>
-                <td class="col-hide-sm">18 apr 2026</td>
-                <td class="col-hide-sm">60 pers.</td>
-                <td><span class="badge badge-done">Bevestigd</span></td>
-                <td><button class="btn-sm">Open</button></td>
-              </tr>
+              <tr><td colspan="6" style="text-align:center;padding:2rem;color:rgba(245,237,214,.4)">Aanvragen worden geladen…</td></tr>
             </tbody>
           </table></div>
         </div>
@@ -524,42 +603,8 @@
           <div class="dash-card-header">
             <div class="dash-card-title">Activiteit</div>
           </div>
-          <div class="dash-card-body">
-            <div class="activity-item">
-              <div class="activity-dot activity-dot-green"></div>
-              <div>
-                <div class="activity-text">Nieuwe offerte ontvangen van <strong style="color:var(--parchment)">Familie Al-Rashidi</strong> — bruiloft 120 pers.</div>
-                <div class="activity-time">Vandaag, 09:14</div>
-              </div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-dot activity-dot-gold"></div>
-              <div>
-                <div class="activity-text">Baklava bestelling <strong style="color:var(--parchment)">#BK-009</strong> verstuurd naar Mariam Yilmaz</div>
-                <div class="activity-time">Gisteren, 15:30</div>
-              </div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-dot activity-dot-green"></div>
-              <div>
-                <div class="activity-text">Datum <strong style="color:var(--parchment)">27 april</strong> geblokkeerd in kalender</div>
-                <div class="activity-time">Gisteren, 12:00</div>
-              </div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-dot activity-dot-gold"></div>
-              <div>
-                <div class="activity-text">Offerte verstuurd naar <strong style="color:var(--parchment)">TechCorp B.V.</strong> — €780</div>
-                <div class="activity-time">4 apr, 11:45</div>
-              </div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-dot activity-dot-red"></div>
-              <div>
-                <div class="activity-text">Aanvraag van <strong style="color:var(--parchment)">Onbekend</strong> geannuleerd — geen reactie</div>
-                <div class="activity-time">2 apr, 09:00</div>
-              </div>
-            </div>
+          <div class="dash-card-body" id="activityFeed">
+            <div style="color:rgba(245,237,214,.4);font-size:.85rem;padding:.5rem 0">Activiteit wordt geladen…</div>
           </div>
         </div>
       </div>
@@ -608,61 +653,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td class="col-hide-sm" style="color:rgba(245,237,214,.3);font-size:.72rem">CAT-041</td>
-              <td><strong style="color:var(--cream)">Familie Al-Rashidi</strong><br><span style="font-size:.7rem;color:rgba(245,237,214,.3)">+31 6 12345678 · Bruiloft · 14 jun</span></td>
-              <td class="col-hide-sm">Bruiloft</td>
-              <td class="col-hide-sm">14 jun 2026</td>
-              <td class="col-hide-sm">120</td>
-              <td class="col-hide-sm">Luxe (€30)</td>
-              <td style="color:var(--gold-lt);font-family:var(--font-heading)">€3.600</td>
-              <td><span class="badge badge-new">Nieuw</span></td>
-              <td><button class="btn-sm" onclick="toast('Offerte geopend')">Open</button></td>
-            </tr>
-            <tr>
-              <td class="col-hide-sm" style="color:rgba(245,237,214,.3);font-size:.72rem">CAT-039</td>
-              <td><strong style="color:var(--cream)">TechCorp B.V.</strong><br><span style="font-size:.7rem;color:rgba(245,237,214,.3)">events@techcorp.nl · Bedrijfslunch · 22 apr</span></td>
-              <td class="col-hide-sm">Bedrijfslunch</td>
-              <td class="col-hide-sm">22 apr 2026</td>
-              <td class="col-hide-sm">30</td>
-              <td class="col-hide-sm">Klassiek (€25)</td>
-              <td style="color:var(--gold-lt);font-family:var(--font-heading)">€780</td>
-              <td><span class="badge badge-pending">In behandeling</span></td>
-              <td><button class="btn-sm" onclick="toast('Offerte geopend')">Open</button></td>
-            </tr>
-            <tr>
-              <td class="col-hide-sm" style="color:rgba(245,237,214,.3);font-size:.72rem">CAT-038</td>
-              <td><strong style="color:var(--cream)">Gemeente Eindhoven</strong><br><span style="font-size:.7rem;color:rgba(245,237,214,.3)">inkoop@eindhoven.nl · AZC · Doorlopend</span></td>
-              <td class="col-hide-sm">AZC Catering</td>
-              <td class="col-hide-sm">Doorlopend</td>
-              <td class="col-hide-sm">80/dag</td>
-              <td class="col-hide-sm">Maatwerk</td>
-              <td style="color:var(--gold-lt);font-family:var(--font-heading)">€8.400/mnd</td>
-              <td><span class="badge badge-done">Bevestigd</span></td>
-              <td><button class="btn-sm" onclick="toast('Contract bekeken')">Open</button></td>
-            </tr>
-            <tr>
-              <td class="col-hide-sm" style="color:rgba(245,237,214,.3);font-size:.72rem">CAT-037</td>
-              <td><strong style="color:var(--cream)">Familie Bakker</strong><br><span style="font-size:.7rem;color:rgba(245,237,214,.3)">+31 6 87654321 · Jubileum · 18 apr</span></td>
-              <td class="col-hide-sm">Jubileum</td>
-              <td class="col-hide-sm">18 apr 2026</td>
-              <td class="col-hide-sm">60</td>
-              <td class="col-hide-sm">Luxe (€30)</td>
-              <td style="color:var(--gold-lt);font-family:var(--font-heading)">€1.920</td>
-              <td><span class="badge badge-done">Bevestigd</span></td>
-              <td><button class="btn-sm" onclick="toast('Offerte geopend')">Open</button></td>
-            </tr>
-            <tr>
-              <td class="col-hide-sm" style="color:rgba(245,237,214,.3);font-size:.72rem">CAT-036</td>
-              <td><strong style="color:var(--cream)">Hassan Al-Nouri</strong><br><span style="font-size:.7rem;color:rgba(245,237,214,.3)">hassan@email.nl · Ramadan iftar · 28 mrt</span></td>
-              <td class="col-hide-sm">Ramadan iftar</td>
-              <td class="col-hide-sm">28 mrt 2026</td>
-              <td class="col-hide-sm">200</td>
-              <td class="col-hide-sm">Luxe (€30)</td>
-              <td style="color:var(--gold-lt);font-family:var(--font-heading)">€6.000</td>
-              <td><span class="badge badge-done">Bevestigd</span></td>
-              <td><button class="btn-sm" onclick="toast('Offerte geopend')">Open</button></td>
-            </tr>
+            <tr><td colspan="9" style="text-align:center;padding:2rem;color:rgba(245,237,214,.4)">Aanvragen worden geladen…</td></tr>
           </tbody>
         </table></div>
       </div>
@@ -671,86 +662,33 @@
     <!-- ══ BAKLAVA ══ -->
     <div class="panel" id="panel-baklava">
       <div class="page-header">
-        <h2>Baklava Bestellingen</h2>
-        <p>Online bestellingen via post</p>
+        <h2>Baklava bestellingen</h2>
+        <p>Hoe baklava-bestellingen binnenkomen en verwerkt worden</p>
       </div>
-      <div class="stats-grid stats-grid-3">
-        <div class="stat-card">
-          <div class="stat-label">Te verzenden</div>
-          <div class="stat-value">2</div>
-          <div class="stat-sub warn">Wachten op verzending</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Verzonden deze maand</div>
-          <div class="stat-value">8</div>
-          <div class="stat-sub up">↑ Goed bezig</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Omzet baklava</div>
-          <div class="stat-value">€420</div>
-          <div class="stat-sub">April 2026</div>
+      <div class="dash-card" style="margin-bottom:1.5rem;border-color:rgba(201,148,42,.4);background:rgba(201,148,42,.05)">
+        <div class="dash-card-body" style="padding:1.6rem">
+          <div style="display:flex;align-items:flex-start;gap:1rem">
+            <div style="font-size:1.6rem;line-height:1;color:var(--gold)">✦</div>
+            <div style="flex:1">
+              <div style="font-family:var(--font-display);font-size:1.05rem;color:var(--cream);margin-bottom:.4rem;letter-spacing:.04em">Baklava-bestellingen komen binnen via email</div>
+              <div style="font-size:.88rem;color:rgba(245,237,214,.7);line-height:1.7;margin-bottom:1rem">
+                Klanten klikken op de knop "Baklava Bestellen" op de website en sturen een email naar <strong style="color:var(--gold-lt)">bestellen@memoriesofdamascus.nl</strong>. Vanuit die mailbox handel je de bestelling af: bevestig de bestelling, vraag het verzendadres + aantal dozen op, stuur een Tikkie of factuur, en verstuur via PostNL zodra betaald.
+              </div>
+              <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+                <a href="mailto:bestellen@memoriesofdamascus.nl" class="btn-primary-sm" style="text-decoration:none">Open mailbox</a>
+                <a href="https://memoriesofdamascus.netlify.app/#baklava" target="_blank" rel="noopener" class="btn-sm" style="text-decoration:none;display:inline-flex;align-items:center;padding:.45rem .9rem">Bekijk baklava op site ↗</a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="dash-card">
-        <div class="dash-card-header">
-          <div class="dash-card-title">Alle bestellingen</div>
+        <div class="dash-card-body" style="padding:1.4rem">
+          <div style="font-family:var(--font-display);font-size:.85rem;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.8rem">Wil je in de toekomst direct online afrekenen?</div>
+          <div style="font-size:.85rem;color:rgba(245,237,214,.6);line-height:1.7">
+            App Mazin als je een echte baklava-webshop wilt — klant kiest aantal dozen, vult adres in, betaalt via iDEAL en de bestelling verschijnt automatisch hier. Voor nu blijven we bij de email-flow omdat dat overzichtelijk werkt voor het volume.
+          </div>
         </div>
-        <div class="table-wrap"><table class="data-table">
-          <thead>
-            <tr>
-              <th class="col-hide-sm">#</th>
-              <th>Naam</th>
-              <th class="col-hide-sm">Adres</th>
-              <th class="col-hide-sm">Besteld</th>
-              <th class="col-hide-sm">Dozen</th>
-              <th>Bedrag incl. verzending</th>
-              <th>Status</th>
-              <th>Actie</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="col-hide-sm" style="color:rgba(245,237,214,.3);font-size:.72rem">BK-011</td>
-              <td><strong style="color:var(--cream)">Nadia El-Sayed</strong><br><span style="font-size:.7rem;color:rgba(245,237,214,.3)" class="col-show-sm">Amsterdam · 2 dozen · Vandaag</span></td>
-              <td class="col-hide-sm" style="font-size:.75rem;color:rgba(245,237,214,.5)">Koninginneweg 12, Amsterdam</td>
-              <td class="col-hide-sm" style="font-size:.75rem">Vandaag, 10:22</td>
-              <td class="col-hide-sm">2 dozen</td>
-              <td style="color:var(--gold-lt);font-family:var(--font-heading)">€52,50</td>
-              <td><span class="badge badge-new">Nieuw</span></td>
-              <td><button class="btn-primary-sm" onclick="toast('Bestelling gemarkeerd als verzonden')">Verzonden ✓</button></td>
-            </tr>
-            <tr>
-              <td class="col-hide-sm" style="color:rgba(245,237,214,.3);font-size:.72rem">BK-010</td>
-              <td><strong style="color:var(--cream)">Ibrahim Khalil</strong><br><span style="font-size:.7rem;color:rgba(245,237,214,.3)" class="col-show-sm">Utrecht · 3 dozen · Gisteren</span></td>
-              <td class="col-hide-sm" style="font-size:.75rem;color:rgba(245,237,214,.5)">Bergstraat 4, Utrecht</td>
-              <td class="col-hide-sm" style="font-size:.75rem">Gisteren, 18:05</td>
-              <td class="col-hide-sm">3 dozen</td>
-              <td style="color:var(--gold-lt);font-family:var(--font-heading)">€74,25</td>
-              <td><span class="badge badge-pending">Te verzenden</span></td>
-              <td><button class="btn-primary-sm" onclick="toast('Bestelling gemarkeerd als verzonden')">Verzonden ✓</button></td>
-            </tr>
-            <tr>
-              <td class="col-hide-sm" style="color:rgba(245,237,214,.3);font-size:.72rem">BK-009</td>
-              <td><strong style="color:var(--cream)">Mariam Yilmaz</strong><br><span style="font-size:.7rem;color:rgba(245,237,214,.3)" class="col-show-sm">Rotterdam · 1 doos · 5 apr</span></td>
-              <td class="col-hide-sm" style="font-size:.75rem;color:rgba(245,237,214,.5)">Tulpstraat 88, Rotterdam</td>
-              <td class="col-hide-sm" style="font-size:.75rem">5 apr, 14:30</td>
-              <td class="col-hide-sm">1 doos</td>
-              <td style="color:var(--gold-lt);font-family:var(--font-heading)">€30,75</td>
-              <td><span class="badge badge-shipped">Verzonden</span></td>
-              <td><button class="btn-sm" onclick="toast('Track & trace bekeken')">Track</button></td>
-            </tr>
-            <tr>
-              <td class="col-hide-sm" style="color:rgba(245,237,214,.3);font-size:.72rem">BK-008</td>
-              <td><strong style="color:var(--cream)">Yasmine De Vries</strong><br><span style="font-size:.7rem;color:rgba(245,237,214,.3)" class="col-show-sm">Den Haag · 4 dozen · 3 apr</span></td>
-              <td class="col-hide-sm" style="font-size:.75rem;color:rgba(245,237,214,.5)">Parkweg 33, Den Haag</td>
-              <td class="col-hide-sm" style="font-size:.75rem">3 apr, 09:15</td>
-              <td class="col-hide-sm">4 dozen</td>
-              <td style="color:var(--gold-lt);font-family:var(--font-heading)">€97,00</td>
-              <td><span class="badge badge-shipped">Verzonden</span></td>
-              <td><button class="btn-sm" onclick="toast('Track & trace bekeken')">Track</button></td>
-            </tr>
-          </tbody>
-        </table></div>
       </div>
     </div>
 
@@ -758,17 +696,29 @@
     <div class="panel" id="panel-kalender">
       <div class="page-header">
         <h2>Kalender</h2>
-        <p>Klik op een datum om te blokkeren of vrij te geven</p>
+        <p>Beheer beschikbare data per business. Klik op een datum om te blokkeren of vrij te geven.</p>
       </div>
+
+      <!-- Eén centrale site-keuze, geldt voor het hele paneel -->
+      <div class="dash-card" style="margin-bottom:1.5rem;background:rgba(201,148,42,.04);border-color:rgba(201,148,42,.25)">
+        <div class="dash-card-body" style="padding:1rem 1.4rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+          <div>
+            <div style="font-size:.7rem;color:rgba(201,148,42,.7);letter-spacing:.14em;text-transform:uppercase;margin-bottom:.25rem">Kalender voor</div>
+            <div style="font-family:var(--font-display);font-size:1.1rem;color:var(--cream);letter-spacing:.04em" id="calActiveSiteName">Memories of Damascus</div>
+          </div>
+          <div role="tablist" style="display:flex;gap:.4rem;flex-wrap:wrap">
+            <button class="cal-site-tab active" data-site="mod" onclick="setKalenderSite('mod')">MoD</button>
+            <button class="cal-site-tab" data-site="morgenland" onclick="setKalenderSite('morgenland')">Morgenland</button>
+            <button class="cal-site-tab" data-site="kookworkshops" onclick="setKalenderSite('kookworkshops')">Kookworkshops</button>
+          </div>
+        </div>
+      </div>
+
       <div class="grid-2" style="align-items:start">
         <div class="dash-card" style="max-width:460px">
           <div class="dash-card-header">
             <div class="dash-card-title" id="calMonthTitle">—</div>
             <div style="display:flex;gap:.5rem;align-items:center">
-              <select id="calSiteFilter" onchange="loadKalenderDash()" style="background:var(--panel);border:1px solid var(--divider);color:var(--cream);padding:.35rem .6rem;font-size:.75rem;border-radius:4px">
-                <option value="mod">MoD</option>
-                <option value="morgenland">Morgenland</option>
-              </select>
               <button class="cal-nav-btn" onclick="calNavDash(-1)">‹</button>
               <button class="cal-nav-btn" onclick="calNavDash(1)">›</button>
             </div>
@@ -776,9 +726,11 @@
           <div class="dash-card-body">
             <div class="cal-grid" id="calGridDash"></div>
             <div class="cal-legend">
-              <div class="cal-legend-item"><div class="cal-legend-dot" style="background:rgba(192,57,43,.5)"></div> Geblokkeerd</div>
+              <div class="cal-legend-item"><div class="cal-legend-dot" style="background:rgba(192,57,43,.55)"></div> Geblokkeerd</div>
+              <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--gold)"></div> Aanvraag op deze dag</div>
               <div class="cal-legend-item"><div class="cal-legend-dot" style="background:rgba(201,148,42,.5);border:1px solid var(--gold)"></div> Vandaag</div>
             </div>
+            <div style="font-size:.72rem;color:rgba(245,237,214,.4);margin-top:.8rem;line-height:1.5">Klik op een datum om te blokkeren — klik nog eens om weer vrij te geven. Hover voor reden of aanvragen.</div>
           </div>
         </div>
 
@@ -794,23 +746,16 @@
 
           <div class="dash-card">
             <div class="dash-card-header">
-              <div class="dash-card-title">Datum blokkeren</div>
+              <div class="dash-card-title">Snel blokkeren met reden</div>
             </div>
             <div class="dash-card-body">
-              <div class="form-group">
-                <label class="form-label">Site</label>
-                <select id="blokSite" class="form-input">
-                  <option value="mod">MoD</option>
-                  <option value="morgenland">Morgenland</option>
-                </select>
-              </div>
               <div class="form-group">
                 <label class="form-label">Datum</label>
                 <input id="blokDatum" type="date" class="form-input">
               </div>
               <div class="form-group">
                 <label class="form-label">Reden (optioneel)</label>
-                <input id="blokReden" type="text" class="form-input" placeholder="bv. Volzet, onderhoud…">
+                <input id="blokReden" type="text" class="form-input" placeholder="bv. Vakantie, ander event, onderhoud…">
               </div>
               <div class="form-group" style="margin-bottom:0">
                 <button class="btn-primary-sm" style="width:100%" onclick="blokeerDatumViaForm()">Blokkeer datum</button>
@@ -825,135 +770,51 @@
     <div class="panel" id="panel-menu">
       <div class="page-header">
         <h2>Menu & Gerechten</h2>
-        <p>Beheer de gerechten die klanten kunnen kiezen in de configurator</p>
+        <p>Overzicht van het catering-menu — wijzigingen lopen via Mazin</p>
+      </div>
+      <div class="dash-card" style="margin-bottom:1.5rem;border-color:rgba(201,148,42,.4);background:rgba(201,148,42,.05)">
+        <div class="dash-card-body" style="padding:1.4rem">
+          <div style="display:flex;align-items:flex-start;gap:1rem">
+            <div style="font-size:1.6rem;line-height:1;color:var(--gold)">✦</div>
+            <div style="flex:1">
+              <div style="font-family:var(--font-display);font-size:1.05rem;color:var(--cream);margin-bottom:.4rem;letter-spacing:.04em">Gerechten toevoegen of wijzigen?</div>
+              <div style="font-size:.88rem;color:rgba(245,237,214,.7);line-height:1.6;margin-bottom:.8rem">
+                Stuur Mazin een berichtje via WhatsApp met wat er moet veranderen — naam van het gerecht, beschrijving, allergenen, prijs of of het aan/uit moet. Hij past het direct aan op alle relevante sites.
+              </div>
+              <!-- TODO: vervang nummer met Mazin's WhatsApp -->
+              <a href="https://wa.me/31000000000" target="_blank" rel="noopener" class="btn-primary-sm" style="display:inline-block;text-decoration:none">App Mazin via WhatsApp</a>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="grid-2">
         <div class="dash-card">
           <div class="dash-card-header">
-            <div class="dash-card-title">Hoofdgerechten</div>
-            <button class="dash-card-action" onclick="toast('Gerecht toegevoegd')">+ Toevoegen</button>
+            <div class="dash-card-title">Catering-menu's per site</div>
           </div>
           <div class="dash-card-body">
-            <div class="menu-row">
-              <div class="menu-row-emoji">🥩</div>
-              <div class="menu-row-info">
-                <div class="menu-row-name">Shawarma</div>
-                <div class="menu-row-meta">Zichtbaar · Populair</div>
-              </div>
-              <div class="menu-row-actions">
-                <button class="btn-sm" onclick="toast('Gerecht bewerkt')">Bewerk</button>
-                <button class="btn-sm danger" onclick="toast('Gerecht verborgen')">Verberg</button>
-              </div>
-            </div>
-            <div class="menu-row">
-              <div class="menu-row-emoji">🍲</div>
-              <div class="menu-row-info">
-                <div class="menu-row-name">Kibbeh</div>
-                <div class="menu-row-meta">Zichtbaar</div>
-              </div>
-              <div class="menu-row-actions">
-                <button class="btn-sm" onclick="toast('Gerecht bewerkt')">Bewerk</button>
-                <button class="btn-sm danger" onclick="toast('Gerecht verborgen')">Verberg</button>
-              </div>
-            </div>
-            <div class="menu-row">
-              <div class="menu-row-emoji">🍗</div>
-              <div class="menu-row-info">
-                <div class="menu-row-name">Rijst met Kip</div>
-                <div class="menu-row-meta">Zichtbaar</div>
-              </div>
-              <div class="menu-row-actions">
-                <button class="btn-sm" onclick="toast('Gerecht bewerkt')">Bewerk</button>
-                <button class="btn-sm danger" onclick="toast('Gerecht verborgen')">Verberg</button>
-              </div>
-            </div>
-            <div class="menu-row">
-              <div class="menu-row-emoji">🫕</div>
-              <div class="menu-row-info">
-                <div class="menu-row-name">Kofta</div>
-                <div class="menu-row-meta">Zichtbaar</div>
-              </div>
-              <div class="menu-row-actions">
-                <button class="btn-sm" onclick="toast('Gerecht bewerkt')">Bewerk</button>
-                <button class="btn-sm danger" onclick="toast('Gerecht verborgen')">Verberg</button>
-              </div>
-            </div>
-            <div class="menu-row">
-              <div class="menu-row-emoji">🍖</div>
-              <div class="menu-row-info">
-                <div class="menu-row-name">Stoofvlees</div>
-                <div class="menu-row-meta">Zichtbaar</div>
-              </div>
-              <div class="menu-row-actions">
-                <button class="btn-sm" onclick="toast('Gerecht bewerkt')">Bewerk</button>
-                <button class="btn-sm danger" onclick="toast('Gerecht verborgen')">Verberg</button>
-              </div>
-            </div>
-            <div class="menu-row">
-              <div class="menu-row-emoji">🔥</div>
-              <div class="menu-row-info">
-                <div class="menu-row-name">Gegrilde Kip</div>
-                <div class="menu-row-meta">Zichtbaar</div>
-              </div>
-              <div class="menu-row-actions">
-                <button class="btn-sm" onclick="toast('Gerecht bewerkt')">Bewerk</button>
-                <button class="btn-sm danger" onclick="toast('Gerecht verborgen')">Verberg</button>
-              </div>
+            <div style="font-size:.85rem;color:rgba(245,237,214,.6);line-height:1.7;margin-bottom:1rem">Bekijk het actuele menu zoals klanten het zien op elke site.</div>
+            <div style="display:flex;flex-direction:column;gap:.5rem">
+              <a href="https://memoriesofdamascus.netlify.app/#configurator" target="_blank" rel="noopener" class="btn-sm" style="text-decoration:none;text-align:left;padding:.6rem .9rem">↗ Memories of Damascus — catering-menu</a>
+              <a href="https://morgenland-mod.netlify.app/#configurator" target="_blank" rel="noopener" class="btn-sm" style="text-decoration:none;text-align:left;padding:.6rem .9rem">↗ Morgenland — catering-menu</a>
+              <a href="https://morgenlandkookt.netlify.app/#workshops" target="_blank" rel="noopener" class="btn-sm" style="text-decoration:none;text-align:left;padding:.6rem .9rem">↗ Morgenland Kookt — workshops</a>
             </div>
           </div>
         </div>
 
-        <div style="display:flex;flex-direction:column;gap:1.5rem">
-          <div class="dash-card">
-            <div class="dash-card-header">
-              <div class="dash-card-title">Mezze's & Bijgerechten</div>
-              <button class="dash-card-action" onclick="toast('Gerecht toegevoegd')">+ Toevoegen</button>
-            </div>
-            <div class="dash-card-body">
-              <div class="menu-row">
-                <div class="menu-row-emoji">🫘</div>
-                <div class="menu-row-info"><div class="menu-row-name">Hummus</div><div class="menu-row-meta">Zichtbaar · Populair</div></div>
-                <div class="menu-row-actions"><button class="btn-sm" onclick="toast('Bewerkt')">Bewerk</button></div>
-              </div>
-              <div class="menu-row">
-                <div class="menu-row-emoji">🍆</div>
-                <div class="menu-row-info"><div class="menu-row-name">Mutabal</div><div class="menu-row-meta">Zichtbaar</div></div>
-                <div class="menu-row-actions"><button class="btn-sm" onclick="toast('Bewerkt')">Bewerk</button></div>
-              </div>
-              <div class="menu-row">
-                <div class="menu-row-emoji">🥛</div>
-                <div class="menu-row-info"><div class="menu-row-name">Labneh</div><div class="menu-row-meta">Zichtbaar</div></div>
-                <div class="menu-row-actions"><button class="btn-sm" onclick="toast('Bewerkt')">Bewerk</button></div>
-              </div>
-              <div class="menu-row">
-                <div class="menu-row-emoji">🌿</div>
-                <div class="menu-row-info"><div class="menu-row-name">Spinazierolletjes</div><div class="menu-row-meta">Zichtbaar</div></div>
-                <div class="menu-row-actions"><button class="btn-sm" onclick="toast('Bewerkt')">Bewerk</button></div>
-              </div>
-              <div class="menu-row">
-                <div class="menu-row-emoji">🥗</div>
-                <div class="menu-row-info"><div class="menu-row-name">Fattoush</div><div class="menu-row-meta">Zichtbaar</div></div>
-                <div class="menu-row-actions"><button class="btn-sm" onclick="toast('Bewerkt')">Bewerk</button></div>
-              </div>
-            </div>
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <div class="dash-card-title">Wat kan Mazin voor je aanpassen?</div>
           </div>
-
-          <div class="dash-card">
-            <div class="dash-card-header">
-              <div class="dash-card-title">Pakketten & Prijzen</div>
-            </div>
-            <div class="dash-card-body">
-              <div class="form-group">
-                <label class="form-label">Pakket Klassiek — prijs p.p.</label>
-                <input type="number" class="form-input" value="25">
-                <div class="form-hint">Inclusief 3 hoofdgerechten + 3 mezze's + salade</div>
-              </div>
-              <div class="form-group">
-                <label class="form-label">Pakket Luxe — prijs p.p.</label>
-                <input type="number" class="form-input" value="30">
-                <div class="form-hint">Inclusief 4 hoofdgerechten + 4 mezze's + salade</div>
-              </div>
-              <button class="btn-primary-sm" onclick="toast('Prijzen opgeslagen')">Sla prijzen op</button>
+          <div class="dash-card-body">
+            <div style="font-size:.85rem;color:rgba(245,237,214,.65);line-height:1.8">
+              <ul style="padding-left:1.2rem;margin:0">
+                <li>Nieuw gerecht toevoegen of bestaand uitschakelen</li>
+                <li>Naam, beschrijving of allergenen aanpassen</li>
+                <li>Prijzen van pakketten of add-ons</li>
+                <li>Foto's bij gerechten plaatsen</li>
+                <li>Workshop-info (datum, prijs, beschrijving)</li>
+              </ul>
             </div>
           </div>
         </div>
@@ -964,7 +825,7 @@
     <div class="panel" id="panel-instellingen">
       <div class="page-header">
         <h2>Instellingen</h2>
-        <p>Reiskosten, beschikbaarheid en meldingen</p>
+        <p>Huidige instellingen op je sites — wijzigen via Mazin</p>
       </div>
 
       <div class="grid-2">
@@ -973,55 +834,45 @@
             <div class="dash-card-title">Reiskosten</div>
           </div>
           <div class="dash-card-body">
-            <div class="form-group">
-              <label class="form-label">Tarief per kilometer (retour)</label>
-              <input type="number" class="form-input" value="0.50" step="0.05">
-              <div class="form-hint">Huidig: €0,50/km retour vanaf dichtstbijzijnde locatie</div>
+            <div style="display:flex;flex-direction:column;gap:.8rem">
+              <div style="display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid var(--divider)"><span style="color:rgba(245,237,214,.6);font-size:.85rem">Tarief per km (retour)</span><span style="color:var(--gold-lt);font-family:var(--font-heading,serif)">€ 0,50</span></div>
+              <div style="display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid var(--divider)"><span style="color:rgba(245,237,214,.6);font-size:.85rem">Vrijgestelde afstand</span><span style="color:var(--gold-lt);font-family:var(--font-heading,serif)">10 km</span></div>
+              <div style="display:flex;justify-content:space-between;padding:.5rem 0"><span style="color:rgba(245,237,214,.6);font-size:.85rem">Reiskosten vanaf</span><span style="color:var(--gold-lt);font-family:var(--font-heading,serif)">Best of Rotterdam</span></div>
             </div>
-            <div class="form-group">
-              <label class="form-label">Vrijgestelde afstand (km)</label>
-              <input type="number" class="form-input" value="10">
-              <div class="form-hint">Reiskosten worden pas berekend boven dit aantal km</div>
-            </div>
-            <div class="form-group" style="margin-bottom:0">
-              <button class="btn-primary-sm" onclick="toast('Reiskosten opgeslagen')">Opslaan</button>
+            <div style="font-size:.78rem;color:rgba(245,237,214,.4);margin-top:1rem;line-height:1.6">Tarief wijzigen? App Mazin — past het direct aan op alle sites.</div>
+          </div>
+        </div>
+
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <div class="dash-card-title">Pakketten & prijzen (Memories of Damascus)</div>
+          </div>
+          <div class="dash-card-body">
+            <div style="display:flex;flex-direction:column;gap:.8rem">
+              <div style="display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid var(--divider)"><span style="color:rgba(245,237,214,.6);font-size:.85rem">Klassiek (3 hoofd + 3 mezze)</span><span style="color:var(--gold-lt);font-family:var(--font-heading,serif)">€ 25 p.p.</span></div>
+              <div style="display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid var(--divider)"><span style="color:rgba(245,237,214,.6);font-size:.85rem">Luxe (4 hoofd + 4 mezze)</span><span style="color:var(--gold-lt);font-family:var(--font-heading,serif)">€ 30 p.p.</span></div>
+              <div style="display:flex;justify-content:space-between;padding:.5rem 0"><span style="color:rgba(245,237,214,.6);font-size:.85rem">Aan tafel (2 hoofd + 3 mezze)</span><span style="color:var(--gold-lt);font-family:var(--font-heading,serif)">Maatwerk</span></div>
             </div>
           </div>
         </div>
 
         <div class="dash-card">
           <div class="dash-card-header">
-            <div class="dash-card-title">Beschikbaarheid & Meldingen</div>
+            <div class="dash-card-title">Notificaties</div>
           </div>
           <div class="dash-card-body">
-            <div class="setting-row">
-              <div>
-                <div class="setting-label">Nieuwe aanvragen per e-mail</div>
-                <div class="setting-desc">Ontvang een melding bij elke nieuwe offerte</div>
-              </div>
-              <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
+            <div style="font-size:.85rem;color:rgba(245,237,214,.7);line-height:1.7">
+              Bij elke nieuwe aanvraag krijg je een email op <strong style="color:var(--gold-lt)">bestellen@memoriesofdamascus.nl</strong>. De klant ontvangt automatisch een bevestiging.
             </div>
-            <div class="setting-row">
-              <div>
-                <div class="setting-label">Minimum aanvraagtermijn</div>
-                <div class="setting-desc">Minimaal 48 uur van tevoren boeken</div>
-              </div>
-              <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
-            </div>
-            <div class="setting-row">
-              <div>
-                <div class="setting-label">Online bestellen actief</div>
-                <div class="setting-desc">Configurator zichtbaar op website</div>
-              </div>
-              <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
-            </div>
-            <div class="setting-row">
-              <div>
-                <div class="setting-label">Baklava bestellen actief</div>
-                <div class="setting-desc">Baklava sectie zichtbaar op website</div>
-              </div>
-              <label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label>
-            </div>
+          </div>
+        </div>
+
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <div class="dash-card-title">Account</div>
+          </div>
+          <div class="dash-card-body">
+            <button class="btn-sm" onclick="logout()">Uitloggen</button>
           </div>
         </div>
       </div>
@@ -1119,6 +970,9 @@
       applyFilters();
       renderStats(rows);
       renderRecentOnOverview(rows);
+      renderActivity(rows);
+      // herlaad kalender om aanvragen-dots up-to-date te houden voor huidige site
+      if (typeof currentKalSite !== 'undefined') loadKalenderDash();
     }).catch(function(e) { console.error('loadOffertes', e); });
   }
 
@@ -1214,12 +1068,84 @@
       omzet: rows.filter(function(r) { return r.status === 'bevestigd'; }).reduce(function(s, r) { return s + (parseFloat(r.totaal_bedrag) || 0); }, 0)
     };
     var sb = document.getElementById('statBlocks');
-    if (sb) sb.dataset.totaal = stats.totaal; // hook voor later
+    if (sb) sb.dataset.totaal = stats.totaal;
     var card1 = document.querySelector('[data-stat="aanvragen"]'); if (card1) card1.textContent = stats.totaal;
     var card2 = document.querySelector('[data-stat="nieuw"]');     if (card2) card2.textContent = stats.nieuw;
     var card3 = document.querySelector('[data-stat="bevestigd"]'); if (card3) card3.textContent = stats.bevestigd;
     var card4 = document.querySelector('[data-stat="omzet"]');     if (card4) card4.textContent = fmtBedrag(stats.omzet);
+
+    // Nav-badge "Nieuw" count
+    var nb = document.getElementById('navBadgeOffertes');
+    if (nb) {
+      if (stats.nieuw > 0) { nb.textContent = stats.nieuw; nb.style.display = ''; }
+      else nb.style.display = 'none';
+    }
+
+    // Per-site teaser tegels
+    ['mod','morgenland','kookworkshops'].forEach(function(site) {
+      var siteRows = rows.filter(function(r) { return r.site === site; });
+      var nieuw = siteRows.filter(function(r) { return r.status === 'nieuw'; }).length;
+      var open = siteRows.filter(function(r) { return r.status === 'in_behandeling' || r.status === 'verstuurd'; }).length;
+      var nNieuw = document.querySelector('[data-site-stat="' + site + '-nieuw"]');
+      var nOpen = document.querySelector('[data-site-stat="' + site + '-open"]');
+      var nTot = document.querySelector('[data-site-stat="' + site + '-totaal"]');
+      if (nNieuw) { nNieuw.textContent = nieuw; nNieuw.dataset.attention = nieuw > 0 ? 'true' : 'false'; }
+      if (nOpen) nOpen.textContent = open;
+      if (nTot) nTot.textContent = siteRows.length;
+    });
   }
+
+  function renderActivity(rows) {
+    var feed = document.getElementById('activityFeed');
+    if (!feed) return;
+    var recent = rows.slice(0, 8);
+    if (!recent.length) {
+      feed.innerHTML = '<div style="color:rgba(245,237,214,.4);font-size:.85rem;padding:.5rem 0">Nog geen activiteit.</div>';
+      return;
+    }
+    feed.innerHTML = recent.map(function(r) {
+      var dotClass = r.status === 'bevestigd' ? 'activity-dot-green' : (r.status === 'geannuleerd' ? 'activity-dot-red' : 'activity-dot-gold');
+      var when = relativeTime(r.created_at);
+      var what = (r.formulier === 'configurator' ? 'Catering-aanvraag' : (r.formulier === 'workshop-aanvraag' ? 'Workshop-aanvraag' : (r.formulier === 'offerte-modal' ? 'Offerte-aanvraag' : 'Bericht'))) + ' van ';
+      var detail = r.personen ? ' — ' + r.personen + ' pers.' : '';
+      var bedrag = r.totaal_bedrag ? ' · ' + fmtBedrag(r.totaal_bedrag) : '';
+      return '<div class="activity-item">'
+        + '<div class="activity-dot ' + dotClass + '"></div>'
+        + '<div><div class="activity-text">' + esc(what) + '<strong style="color:var(--parchment)">' + esc(r.naam) + '</strong> <span style="color:rgba(245,237,214,.4);font-size:.78rem">(' + esc(SITE_LABEL[r.site] || r.site) + ')</span>' + esc(detail) + esc(bedrag) + '</div>'
+        + '<div class="activity-time">' + when + '</div></div>'
+      + '</div>';
+    }).join('');
+  }
+
+  function relativeTime(iso) {
+    if (!iso) return '';
+    var then = new Date(iso); var now = new Date();
+    var diff = (now - then) / 1000;
+    if (diff < 60) return 'Zojuist';
+    if (diff < 3600) return Math.floor(diff/60) + ' min geleden';
+    if (diff < 86400) return Math.floor(diff/3600) + ' uur geleden';
+    if (diff < 86400*7) return Math.floor(diff/86400) + ' dagen geleden';
+    return then.toLocaleDateString('nl-NL', { day:'numeric', month:'short' });
+  }
+
+  function setWelkomst() {
+    var u = document.getElementById('overviewGreet');
+    var s = document.getElementById('overviewSub');
+    if (!u || !s) return;
+    var h = new Date().getHours();
+    var groet = h < 6 ? 'Goedenacht' : h < 12 ? 'Goedemorgen' : h < 18 ? 'Goedemiddag' : 'Goedenavond';
+    u.textContent = groet + ' ✦';
+    var datum = new Date().toLocaleDateString('nl-NL', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+    s.textContent = 'Hier is je overzicht van ' + datum.charAt(0).toLowerCase() + datum.slice(1);
+  }
+
+  function filterAndShow(site) {
+    var sel = document.getElementById('filterSite');
+    if (sel) sel.value = site;
+    showPanel('offertes', document.querySelector('.nav-item[onclick*="offertes"]'));
+    applyFilters();
+  }
+  window.filterAndShow = filterAndShow;
 
   // ── kalender ──
   var calDashYear, calDashMonth;
@@ -1233,8 +1159,28 @@
     renderCalDash();
   }
 
+  var currentKalSite = 'mod';
+  var calAanvragen = {}; // {datum: [aanvraag,...]}
+  var KAL_SITE_NAAM = { mod: 'Memories of Damascus', morgenland: 'Morgenland', kookworkshops: 'Morgenland Kookt' };
+
+  function setKalenderSite(site) {
+    currentKalSite = site;
+    document.querySelectorAll('.cal-site-tab').forEach(function(t) {
+      t.classList.toggle('active', t.dataset.site === site);
+    });
+    var n = document.getElementById('calActiveSiteName');
+    if (n) n.textContent = KAL_SITE_NAAM[site] || site;
+    loadKalenderDash();
+  }
+  window.setKalenderSite = setKalenderSite;
+
   function loadKalenderDash() {
-    var site = document.getElementById('calSiteFilter').value;
+    var site = currentKalSite;
+    // aanvragen voor deze site indexen op datum (voor dots in kalender)
+    calAanvragen = {};
+    allOffertes.filter(function(r) { return r.site === site && r.datum; }).forEach(function(r) {
+      (calAanvragen[r.datum] = calAanvragen[r.datum] || []).push(r);
+    });
     fetch(SUPABASE_URL + '/rest/v1/kalender_blokkering?site=eq.' + site + '&order=datum.asc', {
       headers: authHeaders()
     }).then(function(r) { return r.ok ? r.json() : []; })
@@ -1276,7 +1222,20 @@
       el.textContent = day;
       if (d < today) el.classList.add('cal-past');
       else if (d.getTime() === today.getTime()) el.classList.add('cal-today');
-      if (calBlokSet[ds]) el.classList.add('cal-blocked');
+      var blok = calBlokSet[ds];
+      if (blok) {
+        el.classList.add('cal-blocked');
+        el.title = blok.reden ? 'Geblokkeerd — ' + blok.reden : 'Geblokkeerd';
+      }
+      var aanvr = calAanvragen[ds];
+      if (aanvr && aanvr.length) {
+        el.classList.add('cal-has-aanvraag');
+        var tipParts = aanvr.map(function(a) {
+          return (a.naam || '?') + (a.personen ? ' · ' + a.personen + ' pers.' : '') + (a.type_evenement ? ' · ' + a.type_evenement : '');
+        });
+        var bestaande = el.title ? el.title + '\n' : '';
+        el.title = bestaande + 'Aanvraag (' + aanvr.length + ')\n' + tipParts.join('\n');
+      }
       el.dataset.date = ds;
       el.onclick = function() { toggleBlokDatum(this); };
       grid.appendChild(el);
@@ -1302,12 +1261,11 @@
   function toggleBlokDatum(el) {
     if (el.classList.contains('cal-past')) return;
     var ds = el.dataset.date;
-    var site = document.getElementById('calSiteFilter').value;
     var existing = calBlokSet[ds];
     if (existing) {
       vrijgevenDatum(existing.id);
     } else {
-      blokeerDatum(site, ds, '');
+      blokeerDatum(currentKalSite, ds, '');
     }
   }
   window.toggleBlokDatum = toggleBlokDatum;
@@ -1337,11 +1295,10 @@
   window.vrijgevenDatum = vrijgevenDatum;
 
   function blokeerDatumViaForm() {
-    var site = document.getElementById('blokSite').value;
     var datum = document.getElementById('blokDatum').value;
     var reden = document.getElementById('blokReden').value;
     if (!datum) { toast('Kies eerst een datum'); return; }
-    blokeerDatum(site, datum, reden);
+    blokeerDatum(currentKalSite, datum, reden);
     document.getElementById('blokDatum').value = '';
     document.getElementById('blokReden').value = '';
   }
@@ -1366,6 +1323,25 @@
       .then(function(r) { return r.json(); })
       .then(function(rows) {
         var r = rows[0]; if (!r) return;
+
+        // Telefoon normaliseren voor wa.me / tel: (alleen cijfers, +31 voor NL)
+        var telDigits = (r.telefoon || '').replace(/\D/g, '');
+        var telWa = telDigits;
+        if (telWa.indexOf('0') === 0) telWa = '31' + telWa.slice(1); // 06... -> 316...
+        var hasTel = telDigits.length >= 6;
+        var hasMail = r.email && r.email.indexOf('@') > 0;
+
+        var subject = encodeURIComponent('Je aanvraag bij ' + (KAL_SITE_NAAM[r.site] || ''));
+        var qaWhats = hasTel
+          ? '<a class="quick-action" href="https://wa.me/' + telWa + '" target="_blank" rel="noopener">💬 WhatsApp</a>'
+          : '<span class="quick-action disabled">💬 WhatsApp</span>';
+        var qaTel = hasTel
+          ? '<a class="quick-action" href="tel:+' + telWa + '">📞 Bellen</a>'
+          : '<span class="quick-action disabled">📞 Bellen</span>';
+        var qaMail = hasMail
+          ? '<a class="quick-action" href="mailto:' + esc(r.email) + '?subject=' + subject + '">✉ Mail</a>'
+          : '<span class="quick-action disabled">✉ Mail</span>';
+
         var lines = [
           ['Site', SITE_LABEL[r.site] || r.site],
           ['Formulier', r.formulier],
@@ -1383,21 +1359,51 @@
           ['Bericht', r.bericht || '—'],
           ['Aangemaakt', fmtDate(r.created_at)]
         ];
+
+        var notitie = esc(r.notitie_intern || '');
+
         var html = '<div style="position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:10000;padding:2rem" onclick="if(event.target===this)this.remove()">'
-          + '<div style="background:var(--card);border:1px solid var(--divider);border-radius:8px;padding:2rem;max-width:600px;width:100%;max-height:90vh;overflow-y:auto">'
-          + '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem"><div style="font-family:var(--font-heading,serif);color:var(--cream);font-size:1.3rem">Aanvraag</div><button onclick="this.closest(\'[style*=fixed]\').remove()" style="background:none;border:0;color:var(--cream);font-size:1.4rem;cursor:pointer">×</button></div>'
+          + '<div style="background:var(--card);border:1px solid var(--divider);border-radius:8px;padding:2rem;max-width:640px;width:100%;max-height:90vh;overflow-y:auto">'
+          + '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem"><div><div style="font-family:var(--font-heading,serif);color:var(--cream);font-size:1.3rem">' + esc(r.naam) + '</div><div style="font-size:.78rem;color:rgba(245,237,214,.4);margin-top:.2rem">' + esc(SITE_LABEL[r.site] || r.site) + ' · ' + esc(STATUS_LABEL[r.status] || r.status) + '</div></div><button onclick="this.closest(\'[style*=fixed]\').remove()" style="background:none;border:0;color:var(--cream);font-size:1.4rem;cursor:pointer">×</button></div>'
+          + '<div class="quick-actions">' + qaWhats + qaTel + qaMail + '</div>'
           + '<table style="width:100%;font-size:.85rem;color:var(--cream)"><tbody>'
           + lines.map(function(l) { return '<tr><td style="padding:.4rem .8rem .4rem 0;color:var(--muted);width:30%;vertical-align:top">' + l[0] + '</td><td style="padding:.4rem 0">' + esc(l[1]) + '</td></tr>'; }).join('')
           + (r.configurator ? '<tr><td style="padding:.4rem .8rem .4rem 0;color:var(--muted);vertical-align:top">Configurator</td><td style="padding:.4rem 0"><pre style="background:var(--panel);padding:.8rem;border-radius:4px;font-size:.72rem;overflow-x:auto;color:var(--cream);white-space:pre-wrap">' + esc(JSON.stringify(r.configurator, null, 2)) + '</pre></td></tr>' : '')
           + '</tbody></table>'
+          + '<div style="margin-top:1.4rem;padding-top:1.2rem;border-top:1px solid var(--divider)">'
+          + '<label style="font-size:.7rem;color:rgba(201,148,42,.7);letter-spacing:.14em;text-transform:uppercase;display:block;margin-bottom:.5rem">Interne notitie</label>'
+          + '<textarea id="modalNotitie" placeholder="Notities voor jezelf — bv. afspraak gemaakt, prijs aangepast, allergie…" style="width:100%;min-height:80px;background:var(--panel);border:1px solid var(--divider);color:var(--cream);padding:.7rem;font-size:.85rem;font-family:inherit;border-radius:4px;resize:vertical">' + notitie + '</textarea>'
+          + '<button class="btn-primary-sm" style="margin-top:.6rem" onclick="saveNotitie(\'' + r.id + '\', this)">Notitie opslaan</button>'
+          + '</div>'
           + '</div></div>';
         document.body.insertAdjacentHTML('beforeend', html);
       });
   }
   window.openDetail = openDetail;
 
+  function saveNotitie(id, btn) {
+    var t = document.getElementById('modalNotitie');
+    if (!t) return;
+    if (btn) { btn.disabled = true; btn.textContent = 'Opslaan…'; }
+    fetch(SUPABASE_URL + '/rest/v1/offerteverzoeken?id=eq.' + encodeURIComponent(id), {
+      method: 'PATCH',
+      headers: Object.assign({}, authHeaders(), { 'Content-Type': 'application/json', 'Prefer': 'return=minimal' }),
+      body: JSON.stringify({ notitie_intern: t.value })
+    }).then(function(r) {
+      if (!r.ok) throw new Error('PATCH ' + r.status);
+      toast('Notitie opgeslagen');
+      if (btn) { btn.disabled = false; btn.textContent = 'Notitie opgeslagen ✓'; setTimeout(function(){ btn.textContent = 'Notitie opslaan'; }, 1500); }
+    }).catch(function(e) {
+      console.error(e);
+      toast('Opslaan mislukt');
+      if (btn) { btn.disabled = false; btn.textContent = 'Notitie opslaan'; }
+    });
+  }
+  window.saveNotitie = saveNotitie;
+
   // ── init ──
   window.addEventListener('DOMContentLoaded', function() {
+    setWelkomst();
     session = loadStoredSession();
     if (session) {
       hideLogin();
@@ -1406,6 +1412,16 @@
     } else {
       showLogin();
     }
+  });
+
+  function toggleSiteSwitcher(e) {
+    e.stopPropagation();
+    document.getElementById('siteSwitcher').classList.toggle('open');
+  }
+  window.toggleSiteSwitcher = toggleSiteSwitcher;
+  document.addEventListener('click', function(e) {
+    var sw = document.getElementById('siteSwitcher');
+    if (sw && !sw.contains(e.target)) sw.classList.remove('open');
   });
 
   function showPanel(name, el) {
