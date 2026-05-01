@@ -22,7 +22,7 @@
   <link rel="canonical" href="https://morgenlandkookt.nl/" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Cormorant+SC:wght@300;400;500;600&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Cormorant+SC:wght@300;400;500;600&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
   <script type="application/ld+json">
   {
@@ -682,6 +682,32 @@
     .reveal { opacity: 0; transform: translateY(30px); transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), transform 1s cubic-bezier(0.22, 1, 0.36, 1); }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
+    /* ─── LANG TOGGLE ─── */
+    .lang-toggle { display: inline-flex; align-items: center; gap: .35rem; margin-left: 1rem; }
+    .lang-toggle .lang-opt { background: none; border: 0; color: rgba(245,237,214,.45); font-size: .78rem; cursor: pointer; padding: .15rem .35rem; transition: color .2s; font-family: inherit; }
+    .lang-toggle .lang-opt:hover { color: var(--gold-lt); }
+    .lang-toggle .lang-opt.lang-active { color: var(--gold); }
+    .lang-toggle .lang-sep { color: rgba(245,237,214,.2); font-size: .7rem; }
+    .mob-lang { display: flex; gap: .5rem; align-items: center; margin-top: 2rem; justify-content: center; }
+    .mob-lang button { background: none; border: 0; color: rgba(245,237,214,.5); font-size: .9rem; cursor: pointer; padding: .3rem .5rem; font-family: inherit; }
+    .mob-lang button.active { color: var(--gold); }
+    @media (max-width: 880px) { .lang-toggle { display: none; } }
+
+    /* ═══ RTL / ARABIC ═══ */
+    html[dir="rtl"] body { font-family: 'Cairo', 'Crimson Pro', serif; }
+    html[dir="rtl"] h1, html[dir="rtl"] h2, html[dir="rtl"] h3,
+    html[dir="rtl"] .hero-title, html[dir="rtl"] .nav-brand,
+    html[dir="rtl"] .workshop-name { font-family: 'Amiri', 'Cormorant Garamond', serif; }
+    html[dir="rtl"] body { text-align: right; }
+    html[dir="rtl"] .nav-links { flex-direction: row-reverse; }
+    html[dir="rtl"] .lang-toggle { flex-direction: row-reverse; }
+    html[dir="rtl"] .form-group, html[dir="rtl"] .faq-q,
+    html[dir="rtl"] .faq-a, html[dir="rtl"] .footer-col { text-align: right; }
+    html[dir="rtl"] input, html[dir="rtl"] textarea,
+    html[dir="rtl"] select { text-align: right; }
+    html[dir="rtl"] .mobile-menu { left: 0; right: auto; }
+    html[dir="rtl"] input[type="number"], html[dir="rtl"] input[type="email"],
+    html[dir="rtl"] input[type="tel"] { direction: ltr; text-align: right; unicode-bidi: embed; }
   </style>
 </head>
 <body>
@@ -701,14 +727,21 @@
 
 <!-- ═══ NAV ═══ -->
 <nav id="navbar">
-  <a href="#" class="nav-brand">Morgenland Kookt <em>by Memories of Damascus</em></a>
+  <a href="#" class="nav-brand" data-i18n="nav-brand">Morgenland Kookt <em>by Memories of Damascus</em></a>
   <div class="nav-links">
-    <a href="#workshops">Workshops</a>
-    <a href="#verhaal">Het verhaal</a>
-    <a href="#locaties">Locaties</a>
-    <a href="#open">Open data</a>
-    <a href="#faq">FAQ</a>
-    <a href="#contact" class="nav-cta">Plan je workshop</a>
+    <a href="#workshops" data-i18n="nav-workshops">Workshops</a>
+    <a href="#verhaal" data-i18n="nav-verhaal">Het verhaal</a>
+    <a href="#locaties" data-i18n="nav-locaties">Locaties</a>
+    <a href="#open" data-i18n="nav-open">Open data</a>
+    <a href="#faq" data-i18n="nav-faq">FAQ</a>
+    <a href="#contact" class="nav-cta" data-i18n="nav-cta">Plan je workshop</a>
+  </div>
+  <div class="lang-toggle" role="group" aria-label="Taal wisselen">
+    <button class="lang-opt lang-active" id="langNL" onclick="setLang('nl')" type="button">NL</button>
+    <span class="lang-sep">·</span>
+    <button class="lang-opt" id="langEN" onclick="setLang('en')" type="button">EN</button>
+    <span class="lang-sep">·</span>
+    <button class="lang-opt" id="langAR" onclick="setLang('ar')" type="button">ع</button>
   </div>
   <div class="hamburger" onclick="document.getElementById('mobileMenu').classList.add('open')">
     <span></span><span></span><span></span>
@@ -716,12 +749,19 @@
 </nav>
 <div class="mobile-menu" id="mobileMenu">
   <button class="mobile-menu-close" onclick="document.getElementById('mobileMenu').classList.remove('open')">✕</button>
-  <a href="#workshops" onclick="closeMobMenu()">Workshops</a>
-  <a href="#verhaal" onclick="closeMobMenu()">Het verhaal</a>
-  <a href="#locaties" onclick="closeMobMenu()">Locaties</a>
-  <a href="#open" onclick="closeMobMenu()">Open data</a>
-  <a href="#faq" onclick="closeMobMenu()">FAQ</a>
-  <a href="#contact" onclick="closeMobMenu()">Plan je workshop</a>
+  <a href="#workshops" onclick="closeMobMenu()" data-i18n="nav-workshops">Workshops</a>
+  <a href="#verhaal" onclick="closeMobMenu()" data-i18n="nav-verhaal">Het verhaal</a>
+  <a href="#locaties" onclick="closeMobMenu()" data-i18n="nav-locaties">Locaties</a>
+  <a href="#open" onclick="closeMobMenu()" data-i18n="nav-open">Open data</a>
+  <a href="#faq" onclick="closeMobMenu()" data-i18n="nav-faq">FAQ</a>
+  <a href="#contact" onclick="closeMobMenu()" data-i18n="nav-cta">Plan je workshop</a>
+  <div class="mob-lang">
+    <button id="mobLangNL" class="active" onclick="setLang('nl')" type="button">NL</button>
+    <span>·</span>
+    <button id="mobLangEN" onclick="setLang('en')" type="button">EN</button>
+    <span>·</span>
+    <button id="mobLangAR" onclick="setLang('ar')" type="button">ع</button>
+  </div>
 </div>
 
 <!-- ═══ HERO ═══ -->
@@ -729,14 +769,14 @@
   <div class="wrap">
     <div class="hero-grid">
       <div>
-        <div class="eyebrow">Arabische Kookworkshops · Rotterdam · Best</div>
-        <h1 class="hero-title">Een moment in <em>Damascus</em>, aan jouw tafel.</h1>
-        <p class="hero-lead">
+        <div class="eyebrow" data-i18n="hero-eyebrow">Arabische Kookworkshops · Rotterdam · Best</div>
+        <h1 class="hero-title" data-i18n="hero-title">Een moment in <em>Damascus</em>, aan jouw tafel.</h1>
+        <p class="hero-lead" data-i18n="hero-lead">
           Samen koken en eten — ochtend, middag of avond. We maken een Syrisch menu in een kleine groep — rustig, met uitleg onderweg, en altijd halal. Rotterdam of Best, of op jullie eigen locatie. Je gaat naar huis met recepten die je zelf ook kan maken.
         </p>
         <div class="hero-ctas">
-          <a href="#workshops" class="btn-primary">Bekijk workshops →</a>
-          <button type="button" class="btn-ghost" onclick="openOfferteModal('algemeen')">Offerte aanvragen</button>
+          <a href="#workshops" class="btn-primary" data-i18n="hero-btn1">Bekijk workshops →</a>
+          <button type="button" class="btn-ghost" onclick="openOfferteModal('algemeen')" data-i18n="hero-btn2">Offerte aanvragen</button>
         </div>
       </div>
       <div class="hero-side">
@@ -754,9 +794,9 @@
 <div class="usp">
   <div class="wrap">
     <div class="usp-grid">
-      <div class="usp-item"><div class="usp-mark">١</div><div class="usp-text"><strong>100% Halal</strong> · authentieke Syrische keuken</div></div>
-      <div class="usp-item"><div class="usp-mark">٢</div><div class="usp-text"><strong>Rotterdam & Best</strong> · ook op locatie</div></div>
-      <div class="usp-item"><div class="usp-mark">٣</div><div class="usp-text"><strong>12 — 20 pers.</strong> · persoonlijke aandacht</div></div>
+      <div class="usp-item"><div class="usp-mark">١</div><div class="usp-text" data-i18n="usp1"><strong>100% Halal</strong> · authentieke Syrische keuken</div></div>
+      <div class="usp-item"><div class="usp-mark">٢</div><div class="usp-text" data-i18n="usp2"><strong>Rotterdam & Best</strong> · ook op locatie</div></div>
+      <div class="usp-item"><div class="usp-mark">٣</div><div class="usp-text" data-i18n="usp3"><strong>12 — 20 pers.</strong> · persoonlijke aandacht</div></div>
     </div>
   </div>
 </div>
@@ -767,15 +807,15 @@
     <div class="verhaal-grid">
       <div class="verhaal-visual reveal"></div>
       <div class="verhaal-text reveal">
-        <div class="eyebrow">Het verhaal achter Morgenland Kookt</div>
-        <h2 class="section-title">Méér dan een <em>recept</em></h2>
-        <p>
+        <div class="eyebrow" data-i18n="verhaal-eyebrow">Het verhaal achter Morgenland Kookt</div>
+        <h2 class="section-title" data-i18n="verhaal-title">Méér dan een <em>recept</em></h2>
+        <p data-i18n="verhaal-p1">
           Een Morgenland-workshop is samen koken in een kleine groep — ochtend, middag of avond. We maken samen een Syrisch menu — rustig aan, met tijd om te proeven, vragen te stellen, en gewoon bij te kletsen. Geen strak schema, wel goed eten aan het einde.
         </p>
-        <p>
+        <p data-i18n="verhaal-p2">
           Je leert niet alleen hoe een gerecht in elkaar zit, maar ook waar het vandaan komt: bij welk feest het hoort, hoe het thuis gemaakt wordt, en waarom sommige stappen écht niet overgeslagen mogen worden.
         </p>
-        <p>
+        <p data-i18n="verhaal-p3">
           Aan het einde eten we samen aan tafel met wat we zelf hebben gemaakt. Je neemt de recepten mee naar huis — en hopelijk ook het gevoel dat je het daar zelf kan maken.
         </p>
       </div>
@@ -787,9 +827,9 @@
 <section id="workshops" class="sec-divider">
   <div class="wrap">
     <div style="max-width:720px;" class="reveal">
-      <div class="eyebrow">Drie Workshops</div>
-      <h2 class="section-title">Kies je <em>workshop</em></h2>
-      <p class="section-intro">Elke workshop heeft zijn eigen karakter. Kleiner en intiem, of juist een hele groep. Eén moment of een reeks van vier — ochtend, middag of avond, waarin je écht leert koken zoals thuis.</p>
+      <div class="eyebrow" data-i18n="ws-eyebrow">Drie Workshops</div>
+      <h2 class="section-title" data-i18n="ws-title">Kies je <em>workshop</em></h2>
+      <p class="section-intro" data-i18n="ws-intro">Elke workshop heeft zijn eigen karakter. Kleiner en intiem, of juist een hele groep. Eén moment of een reeks van vier — ochtend, middag of avond, waarin je écht leert koken zoals thuis.</p>
     </div>
 
     <div class="workshops-grid">
@@ -1508,6 +1548,74 @@
     var b = document.getElementById('cookieBanner');
     if (b) b.style.display = 'none';
   }
+</script>
+
+<!-- ═══ I18N (NL/EN/AR) ═══ -->
+<script>
+(function() {
+  var i18n = {
+    'nav-brand':     { nl:'Morgenland Kookt <em>by Memories of Damascus</em>', en:'Morgenland Cooks <em>by Memories of Damascus</em>', ar:'Morgenland Kookt <em>من Memories of Damascus</em>' },
+    'nav-workshops': { nl:'Workshops', en:'Workshops', ar:'الورش' },
+    'nav-verhaal':   { nl:'Het verhaal', en:'The story', ar:'القصّة' },
+    'nav-locaties':  { nl:'Locaties', en:'Locations', ar:'المواقع' },
+    'nav-open':      { nl:'Open data', en:'Open dates', ar:'المواعيد المفتوحة' },
+    'nav-faq':       { nl:'FAQ', en:'FAQ', ar:'الأسئلة الشائعة' },
+    'nav-cta':       { nl:'Plan je workshop', en:'Plan your workshop', ar:'احجز ورشتك' },
+
+    'hero-eyebrow':  { nl:'Arabische Kookworkshops · Rotterdam · Best', en:'Arabic Cooking Workshops · Rotterdam · Best', ar:'ورش طهي عربيّة · روتردام · بيست' },
+    'hero-title':    { nl:'Een moment in <em>Damascus</em>, aan jouw tafel.', en:'A moment in <em>Damascus</em>, at your table.', ar:'لحظة من <em>دمشق</em> على مائدتك.' },
+    'hero-lead':     { nl:'Samen koken en eten — ochtend, middag of avond. We maken een Syrisch menu in een kleine groep — rustig, met uitleg onderweg, en altijd halal. Rotterdam of Best, of op jullie eigen locatie. Je gaat naar huis met recepten die je zelf ook kan maken.', en:'Cook and eat together — morning, afternoon or evening. We prepare a Syrian menu in a small group — relaxed, with explanations along the way, and always halal. Rotterdam or Best, or at your own location. You go home with recipes you can make yourself.', ar:'نطبخ ونأكل معاً — صباحاً أو ظهراً أو مساءً. نُعدّ قائمة سوريّة في مجموعة صغيرة — على مهلٍ، مع شرح خطوة بخطوة، وحلال دائماً. في روتردام أو بيست أو في مكانكم. تعود إلى البيت ومعك وصفات تستطيع إعدادها بنفسك.' },
+    'hero-btn1':     { nl:'Bekijk workshops →', en:'View workshops →', ar:'تصفّح الورش ←' },
+    'hero-btn2':     { nl:'Offerte aanvragen', en:'Request quote', ar:'اطلب عرض سعر' },
+
+    'usp1':          { nl:'<strong>100% Halal</strong> · authentieke Syrische keuken', en:'<strong>100% Halal</strong> · authentic Syrian cuisine', ar:'<strong>حلال ١٠٠٪</strong> · مطبخ سوريّ أصيل' },
+    'usp2':          { nl:'<strong>Rotterdam & Best</strong> · ook op locatie', en:'<strong>Rotterdam & Best</strong> · also at your location', ar:'<strong>روتردام وبيست</strong> · أو في موقعكم' },
+    'usp3':          { nl:'<strong>12 — 20 pers.</strong> · persoonlijke aandacht', en:'<strong>12 — 20 people</strong> · personal attention', ar:'<strong>١٢ — ٢٠ شخصاً</strong> · اهتمام شخصيّ' },
+
+    'verhaal-eyebrow':{ nl:'Het verhaal achter Morgenland Kookt', en:'The story behind Morgenland Kookt', ar:'القصّة وراء Morgenland Kookt' },
+    'verhaal-title': { nl:'Méér dan een <em>recept</em>', en:'More than a <em>recipe</em>', ar:'أكثر من <em>وصفة</em>' },
+    'verhaal-p1':    { nl:'Een Morgenland-workshop is samen koken in een kleine groep — ochtend, middag of avond. We maken samen een Syrisch menu — rustig aan, met tijd om te proeven, vragen te stellen, en gewoon bij te kletsen. Geen strak schema, wel goed eten aan het einde.', en:'A Morgenland workshop is cooking together in a small group — morning, afternoon or evening. We prepare a Syrian menu together — at a calm pace, with time to taste, ask questions and chat. No strict schedule, just good food at the end.', ar:'ورشة Morgenland هي طهي مشترك في مجموعة صغيرة — صباحاً أو ظهراً أو مساءً. نُعدّ قائمة سوريّة معاً — على مهل، مع وقت للتذوّق وطرح الأسئلة والحديث. لا جدول صارم، فقط طعام جيّد في النهاية.' },
+    'verhaal-p2':    { nl:'Je leert niet alleen hoe een gerecht in elkaar zit, maar ook waar het vandaan komt: bij welk feest het hoort, hoe het thuis gemaakt wordt, en waarom sommige stappen écht niet overgeslagen mogen worden.', en:'You will not just learn how a dish is composed, but also where it comes from: which celebration it belongs to, how it is prepared at home, and why some steps really cannot be skipped.', ar:'لن تتعلّم كيف يُصنع الطبق فحسب، بل من أين أتى أيضاً: في أي مناسبة يُقدَّم، وكيف يُحضَّر في البيوت، ولماذا لا يمكن تخطّي بعض الخطوات.' },
+    'verhaal-p3':    { nl:'Aan het einde eten we samen aan tafel met wat we zelf hebben gemaakt. Je neemt de recepten mee naar huis — en hopelijk ook het gevoel dat je het daar zelf kan maken.', en:'At the end we eat together at the table with what we made ourselves. You take the recipes home — and hopefully also the confidence that you can make them yourself.', ar:'في النهاية نأكل معاً على المائدة ممّا أعددناه. تأخذ الوصفات معك إلى البيت — وآمل أن تأخذ معك أيضاً الثقة بأنّك قادر على إعدادها بنفسك.' },
+
+    'ws-eyebrow':    { nl:'Drie Workshops', en:'Three Workshops', ar:'ثلاث ورش' },
+    'ws-title':      { nl:'Kies je <em>workshop</em>', en:'Choose your <em>workshop</em>', ar:'اختر <em>ورشتك</em>' },
+    'ws-intro':      { nl:'Elke workshop heeft zijn eigen karakter. Kleiner en intiem, of juist een hele groep. Eén moment of een reeks van vier — ochtend, middag of avond, waarin je écht leert koken zoals thuis.', en:'Each workshop has its own character. Small and intimate, or a larger group. A single session or a series of four — morning, afternoon or evening, where you really learn to cook like at home.', ar:'كلّ ورشة لها طابعها الخاصّ. صغيرة وحميمة، أو لمجموعة أكبر. جلسة واحدة أو سلسلة من أربع — صباحاً أو ظهراً أو مساءً، تتعلّم فيها الطهي كما في البيت.' }
+  };
+
+  var currentLang = (function(){ try { var s = localStorage.getItem('mk_lang'); return (s === 'en' || s === 'ar') ? s : 'nl'; } catch(e){ return 'nl'; } })();
+
+  window.setLang = function(lang) {
+    if (!lang || ['nl','en','ar'].indexOf(lang) === -1) lang = 'nl';
+    currentLang = lang;
+    try { localStorage.setItem('mk_lang', lang); } catch(e){}
+    var nl = document.getElementById('langNL'), en = document.getElementById('langEN'), ar = document.getElementById('langAR');
+    if (nl) nl.classList.toggle('lang-active', lang === 'nl');
+    if (en) en.classList.toggle('lang-active', lang === 'en');
+    if (ar) ar.classList.toggle('lang-active', lang === 'ar');
+    var mln = document.getElementById('mobLangNL'), mle = document.getElementById('mobLangEN'), mla = document.getElementById('mobLangAR');
+    if (mln) mln.classList.toggle('active', lang === 'nl');
+    if (mle) mle.classList.toggle('active', lang === 'en');
+    if (mla) mla.classList.toggle('active', lang === 'ar');
+    document.documentElement.lang = lang;
+    document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+      var key = el.getAttribute('data-i18n');
+      var dict = i18n[key];
+      if (dict && dict[lang]) el.innerHTML = dict[lang];
+      else if (dict && dict.nl) el.innerHTML = dict.nl;
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
+      var key = el.getAttribute('data-i18n-placeholder');
+      var dict = i18n[key];
+      if (dict && dict[lang]) el.placeholder = dict[lang];
+      else if (dict && dict.nl) el.placeholder = dict.nl;
+    });
+  };
+
+  // Apply on load
+  if (currentLang !== 'nl') setLang(currentLang);
+})();
 </script>
 
 </body>
