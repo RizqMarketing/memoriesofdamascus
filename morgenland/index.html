@@ -840,16 +840,10 @@
     html[dir="rtl"] a[href*="wa.me"] { direction: ltr; unicode-bidi: embed; }
     html[dir="rtl"] .footer-bottom { flex-direction: row-reverse; }
 
-    /* RTL — offerte modal */
-    html[dir="rtl"] .modal { grid-template-columns: 1fr 360px; }
+    /* RTL — offerte modal: only what direction:rtl inheritance doesn't auto-handle */
     html[dir="rtl"] .modal-left { border-right: 0; border-left: 1px solid var(--divider); }
-    html[dir="rtl"] .modal-left-eyebrow { flex-direction: row-reverse; }
-    html[dir="rtl"] .modal-left-eyebrow::before { margin-left: 0; }
-    html[dir="rtl"] .modal-header { flex-direction: row-reverse; }
     html[dir="rtl"] .modal-close { margin-left: 0; margin-right: 1rem; }
     html[dir="rtl"] .modal-form select { background-position: left .9rem center; padding-right: 1rem; padding-left: 2.2rem; }
-    html[dir="rtl"] .modal-summary-row { flex-direction: row-reverse; }
-    @media (max-width: 760px) { html[dir="rtl"] .modal { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -1903,9 +1897,9 @@
         <input type="hidden" name="conf_adres" id="modalAdres">
         <div class="form-row">
           <div class="form-group"><label data-i18n="modal-naam-lbl">Naam *</label><input type="text" name="naam" placeholder="Uw volledige naam" data-i18n-placeholder="modal-naam-ph" required autocomplete="name"></div>
-          <div class="form-group"><label data-i18n="modal-tel-lbl">Telefoonnummer *</label><input type="tel" name="telefoon" placeholder="+31 6 00 00 00 00" required autocomplete="tel"></div>
+          <div class="form-group"><label data-i18n="modal-tel-lbl">Telefoonnummer *</label><input type="tel" name="telefoon" placeholder="+31 6 00 00 00 00" required autocomplete="tel" data-i18n-placeholder="modal-tel-ph"></div>
         </div>
-        <div class="form-group"><label data-i18n="modal-email-lbl">E-mailadres *</label><input type="email" name="email" placeholder="uw@email.nl" required autocomplete="email"></div>
+        <div class="form-group"><label data-i18n="modal-email-lbl">E-mailadres *</label><input type="email" name="email" placeholder="uw@email.nl" required autocomplete="email" data-i18n-placeholder="modal-email-ph"></div>
         <div class="form-group"><label data-i18n="modal-wensen-lbl">Uw wensen / opmerkingen</label><textarea name="bericht" placeholder="Dieetvereisten, allergieën, speciale wensen..." data-i18n-placeholder="modal-wensen-ph"></textarea></div>
         <button type="submit" class="modal-submit" data-i18n="modal-submit-btn">Verstuur Aanvraag &mdash; Gratis &amp; Vrijblijvend</button>
         <div class="modal-fine-print" data-i18n="modal-fineprint">Wij nemen binnen 24 uur contact met u op &middot; Geen verplichtingen</div>
@@ -1915,9 +1909,9 @@
         <div class="modal-success-title" data-i18n="modal-success-title">Aanvraag <em>ontvangen</em></div>
         <div class="modal-success-text" data-i18n="modal-success-text">Dank u wel. Wij nemen binnen 24 uur persoonlijk contact met u op met een offerte op maat.</div>
         <div id="mollieBtnWrap" style="display:none;margin:1.4rem 0 .5rem;padding:1.2rem;background:rgba(201,148,42,.08);border:1px solid rgba(201,148,42,.25);border-radius:4px;max-width:32rem">
-          <div style="font-size:.78rem;color:rgba(245,237,214,.6);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem">Liever direct vooraf betalen?</div>
-          <div style="font-size:.9rem;color:rgba(245,237,214,.85);margin-bottom:.9rem">U kunt nu meteen veilig afrekenen — sneller, geen factuur achteraf.</div>
-          <button class="btn-primary" style="width:100%" onclick="startMolliePayment(this.parentNode.dataset.offerteId, this)">Direct afrekenen <span id="mollieBedrag"></span> &rarr;</button>
+          <div style="font-size:.78rem;color:rgba(245,237,214,.6);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem" data-i18n="mollie-prompt-eyebrow">Liever direct vooraf betalen?</div>
+          <div style="font-size:.9rem;color:rgba(245,237,214,.85);margin-bottom:.9rem" data-i18n="mollie-prompt-text">U kunt nu meteen veilig afrekenen — sneller, geen factuur achteraf.</div>
+          <button class="btn-primary" style="width:100%" onclick="startMolliePayment(this.parentNode.dataset.offerteId, this)"><span data-i18n="mollie-pay-btn">Direct afrekenen</span> <span id="mollieBedrag"></span> &rarr;</button>
         </div>
         <button class="btn-primary modal-success-close" onclick="closeOfferteModal()" data-i18n="modal-close-btn">Sluiten</button>
       </div>
@@ -2468,7 +2462,12 @@ var i18n = {
   'modal-naam-lbl':   { nl:'Naam *', en:'Name *', ar:'الاسم *' },
   'modal-naam-ph':    { nl:'Uw volledige naam', en:'Your full name', ar:'اسمكم الكامل' },
   'modal-tel-lbl':    { nl:'Telefoonnummer *', en:'Phone number *', ar:'رقم الهاتف *' },
+  'modal-tel-ph':     { nl:'+31 6 00 00 00 00', en:'+31 6 00 00 00 00', ar:'+31 6 00 00 00 00' },
   'modal-email-lbl':  { nl:'E-mailadres *', en:'Email address *', ar:'البريد الإلكترونيّ *' },
+  'modal-email-ph':   { nl:'uw@email.nl', en:'your@email.com', ar:'your@email.com' },
+  'mollie-prompt-eyebrow':{ nl:'Liever direct vooraf betalen?', en:'Prefer to pay directly upfront?', ar:'تفضّل الدفع المباشر مسبقاً؟' },
+  'mollie-prompt-text':   { nl:'U kunt nu meteen veilig afrekenen — sneller, geen factuur achteraf.', en:'You can pay securely right now — faster, no invoice afterwards.', ar:'يمكنك الدفع الآن بأمان — أسرع، دون فاتورة لاحقة.' },
+  'mollie-pay-btn':       { nl:'Direct afrekenen', en:'Pay directly', ar:'الدفع المباشر' },
   'modal-wensen-lbl': { nl:'Uw wensen / opmerkingen', en:'Your wishes / remarks', ar:'رغباتكم / ملاحظاتكم' },
   'modal-wensen-ph':  { nl:'Dieetvereisten, allergieën, speciale wensen...', en:'Dietary requirements, allergies, special wishes...', ar:'متطلّبات غذائيّة، حساسيّات، رغبات خاصّة...' },
   'form-sec1':        { nl:'Over u', en:'About you', ar:'عنكم' },

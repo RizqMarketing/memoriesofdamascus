@@ -2093,15 +2093,10 @@
     html[dir="rtl"] a[href*="wa.me"] { direction: ltr; unicode-bidi: embed; }
     html[dir="rtl"] .footer-bottom { flex-direction: row-reverse; }
 
-    /* RTL — offerte modal */
-    html[dir="rtl"] .modal { grid-template-columns: 1fr 360px; }
+    /* RTL — offerte modal: only what direction:rtl inheritance doesn't auto-handle */
     html[dir="rtl"] .modal-left { border-right: 0; border-left: 1px solid var(--divider); }
-    html[dir="rtl"] .modal-left-eyebrow { flex-direction: row-reverse; }
-    html[dir="rtl"] .modal-header { flex-direction: row-reverse; }
     html[dir="rtl"] .modal-close { margin-left: 0; margin-right: 1rem; }
     html[dir="rtl"] .modal-form select { background-position: left .9rem center; padding-right: 1rem; padding-left: 2.2rem; }
-    html[dir="rtl"] .modal-summary-row { flex-direction: row-reverse; }
-    @media (max-width: 760px) { html[dir="rtl"] .modal { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -4497,14 +4492,26 @@
     'form-tijdstip-label':{ nl:'Tijdstip', en:'Time', ar:'الوقت' },
     'ct-btn-betaal':    { nl:'Direct Afrekenen — Binnenkort beschikbaar', en:'Pay Now — Coming soon', ar:'ادفع مباشرةً — قريباً' },
     'modal-title':      { nl:'Offerte <em>aanvragen</em>', en:'Request a <em>quote</em>', ar:'<em>اطلب</em> عرض سعر' },
+    'modal-eyebrow':    { nl:'Uw aanvraag', en:'Your request', ar:'طلبكم' },
+    'modal-tagline':    { nl:'Authentieke Syrisch-Libanese catering', en:'Authentic Syrian-Lebanese catering', ar:'تموين سوري لبناني أصيل' },
+    'modal-summary-lbl':{ nl:'Uw configuratie', en:'Your configuration', ar:'تفاصيل اختياركم' },
     'modal-naam-lbl':   { nl:'Naam *', en:'Name *', ar:'الاسم *' },
     'modal-naam-ph':    { nl:'Uw volledige naam', en:'Your full name', ar:'اسمك الكامل' },
     'modal-tel-lbl':    { nl:'Telefoonnummer *', en:'Phone number *', ar:'رقم الهاتف *' },
+    'modal-tel-ph':     { nl:'+31 6 00 00 00 00', en:'+31 6 00 00 00 00', ar:'+31 6 00 00 00 00' },
     'modal-email-lbl':  { nl:'E-mailadres *', en:'Email address *', ar:'البريد الإلكتروني *' },
+    'modal-email-ph':   { nl:'uw@email.nl', en:'your@email.com', ar:'your@email.com' },
     'modal-wensen-lbl': { nl:'Uw wensen / opmerkingen', en:'Your wishes / remarks', ar:'رغباتك أو ملاحظاتك' },
     'modal-wensen-ph':  { nl:'Dieetvereisten, allergieën, speciale wensen...', en:'Dietary requirements, allergies, special wishes...', ar:'متطلّبات غذائيّة، حساسيّات، رغبات خاصّة...' },
     'modal-submit-btn': { nl:'Verstuur Aanvraag — Gratis &amp; Vrijblijvend', en:'Send Request — Free &amp; Non-binding', ar:'أرسل الطلب — مجاني ودون التزام' },
     'modal-fineprint':  { nl:'Wij nemen binnen 24 uur contact met u op · Geen verplichtingen', en:'We will contact you within 24 hours · No obligations', ar:'سنتواصل معك خلال ٢٤ ساعة · دون أي التزام' },
+    'modal-success-title':{ nl:'Aanvraag <em>ontvangen</em>', en:'Request <em>received</em>', ar:'تمّ <em>استلام الطلب</em>' },
+    'modal-success-text': { nl:'Dank u wel. Wij nemen binnen 24 uur persoonlijk contact met u op met een offerte op maat.', en:'Thank you. We will personally contact you within 24 hours with a custom quote.', ar:'شكراً لكم. سنتواصل معكم شخصيّاً خلال ٢٤ ساعة مع عرض سعر مخصّص.' },
+    'modal-close-btn':  { nl:'Sluiten', en:'Close', ar:'إغلاق' },
+    'mollie-prompt-eyebrow':{ nl:'Liever direct vooraf betalen?', en:'Prefer to pay directly upfront?', ar:'تفضّل الدفع المباشر مسبقاً؟' },
+    'mollie-prompt-text':   { nl:'U kunt nu meteen veilig afrekenen — sneller, geen factuur achteraf.', en:'You can pay securely right now — faster, no invoice afterwards.', ar:'يمكنك الدفع الآن بأمان — أسرع، دون فاتورة لاحقة.' },
+    'mollie-pay-btn':       { nl:'Direct afrekenen', en:'Pay directly', ar:'الدفع المباشر' },
+    'modal-explore-btn':    { nl:'Ontdek ons verhaal →', en:'Discover our story →', ar:'اكتشف قصّتنا ←' },
     'nav-menu-mob':     { nl:'Menu &amp; Pakketten', en:'Menu &amp; Packages', ar:'القائمة والباقات' },
 
     // Contact details
@@ -5445,11 +5452,11 @@
     <!-- Left: summary -->
     <div class="modal-left">
       <div class="modal-left-scroll">
-        <div class="modal-left-eyebrow">Uw aanvraag</div>
+        <div class="modal-left-eyebrow" data-i18n="modal-eyebrow">Uw aanvraag</div>
         <div class="modal-brand">Memories<br>of <em>Damascus</em></div>
-        <div class="modal-tagline">Authentieke Syrisch-Libanese catering</div>
+        <div class="modal-tagline" data-i18n="modal-tagline">Authentieke Syrisch-Libanese catering</div>
         <div class="modal-divider"></div>
-        <div class="modal-summary-label">Uw configuratie</div>
+        <div class="modal-summary-label" data-i18n="modal-summary-lbl">Uw configuratie</div>
         <div id="modalSummary"></div>
       </div>
       <div class="modal-left-footer" id="modalLeftFooter" style="display:none;">
@@ -5488,12 +5495,12 @@
           </div>
           <div class="form-group">
             <label data-i18n="modal-tel-lbl">Telefoonnummer *</label>
-            <input type="tel" name="telefoon" placeholder="+31 6 00 00 00 00" required autocomplete="tel">
+            <input type="tel" name="telefoon" placeholder="+31 6 00 00 00 00" required autocomplete="tel" data-i18n-placeholder="modal-tel-ph">
           </div>
         </div>
         <div class="form-group">
           <label data-i18n="modal-email-lbl">E-mailadres *</label>
-          <input type="email" name="email" placeholder="uw@email.nl" required autocomplete="email">
+          <input type="email" name="email" placeholder="uw@email.nl" required autocomplete="email" data-i18n-placeholder="modal-email-ph">
         </div>
         <input type="hidden" name="conf_adres" id="modalAdres">
         <div class="form-group">
@@ -5507,14 +5514,14 @@
       <!-- Success state -->
       <div class="modal-success" id="offerteSuccess">
         <div class="modal-success-icon">✧ ✦ ✧</div>
-        <div class="modal-success-title">Aanvraag <em>ontvangen</em></div>
-        <div class="modal-success-text">Dank u wel. Wij nemen binnen 24 uur persoonlijk contact met u op met een offerte op maat.</div>
+        <div class="modal-success-title" data-i18n="modal-success-title">Aanvraag <em>ontvangen</em></div>
+        <div class="modal-success-text" data-i18n="modal-success-text">Dank u wel. Wij nemen binnen 24 uur persoonlijk contact met u op met een offerte op maat.</div>
         <div id="mollieBtnWrap" style="display:none;margin:1.4rem 0 .5rem;padding:1.2rem;background:rgba(201,148,42,.08);border:1px solid rgba(201,148,42,.25);border-radius:4px">
-          <div style="font-size:.78rem;color:rgba(245,237,214,.6);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem">Liever direct vooraf betalen?</div>
-          <div style="font-size:.9rem;color:rgba(245,237,214,.85);margin-bottom:.9rem">U kunt nu meteen veilig afrekenen — sneller, geen factuur achteraf.</div>
-          <button class="btn-primary" style="width:100%" onclick="startMolliePayment(this.parentNode.dataset.offerteId, this)">Direct afrekenen <span id="mollieBedrag"></span> →</button>
+          <div style="font-size:.78rem;color:rgba(245,237,214,.6);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem" data-i18n="mollie-prompt-eyebrow">Liever direct vooraf betalen?</div>
+          <div style="font-size:.9rem;color:rgba(245,237,214,.85);margin-bottom:.9rem" data-i18n="mollie-prompt-text">U kunt nu meteen veilig afrekenen — sneller, geen factuur achteraf.</div>
+          <button class="btn-primary" style="width:100%" onclick="startMolliePayment(this.parentNode.dataset.offerteId, this)"><span data-i18n="mollie-pay-btn">Direct afrekenen</span> <span id="mollieBedrag"></span> →</button>
         </div>
-        <button class="btn-primary modal-success-close" onclick="closeOfferteModal()">Sluiten</button>
+        <button class="btn-primary modal-success-close" onclick="closeOfferteModal()" data-i18n="modal-close-btn">Sluiten</button>
         <button class="modal-explore-btn" onclick="closeOfferteModal();setTimeout(function(){document.getElementById('over-ons').scrollIntoView({behavior:'smooth',block:'start'})},300)" data-i18n="modal-explore-btn">Ontdek ons verhaal →</button>
       </div>
     </div>

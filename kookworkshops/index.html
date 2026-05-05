@@ -723,14 +723,12 @@
     html[dir="rtl"] .loc-venue,
     html[dir="rtl"] .foot-list li { unicode-bidi: plaintext; }
 
-    /* RTL — offerte modal: mirror close button, align form fields */
+    /* RTL — offerte modal: only what direction:rtl inheritance doesn't auto-handle */
     html[dir="rtl"] .offerte-modal-close { right: auto; left: 12px; }
     html[dir="rtl"] .offerte-modal .form-group { text-align: right; }
-    html[dir="rtl"] .offerte-modal .form-section-hd { flex-direction: row-reverse; }
     html[dir="rtl"] .offerte-modal .om-header,
     html[dir="rtl"] .offerte-modal .om-title,
     html[dir="rtl"] .offerte-modal .om-lead { text-align: center; }
-    html[dir="rtl"] .form-section-hd { flex-direction: row-reverse; }
   </style>
 </head>
 <body>
