@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="nl" translate="no">
 <head>
   <meta charset="UTF-8" />
+  <meta name="google" content="notranslate" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Morgenland Kookt — Arabische Kookworkshops Rotterdam & Eindhoven</title>
   <meta name="description" content="Authentieke Arabische & Syrische kookworkshops in Rotterdam en Best/Eindhoven. Voor bedrijven, teamuitjes en privé-groepen. Kook mee met het verhaal achter elk gerecht." />
@@ -708,6 +709,28 @@
     html[dir="rtl"] .mobile-menu { left: 0; right: auto; }
     html[dir="rtl"] input[type="number"], html[dir="rtl"] input[type="email"],
     html[dir="rtl"] input[type="tel"] { direction: ltr; text-align: right; unicode-bidi: embed; }
+
+    /* RTL — keep phone numbers, emails, postal codes, KvK/BTW etc. as Latin LTR */
+    html[dir="rtl"] .contact-detail-value,
+    html[dir="rtl"] .foot-bottom,
+    html[dir="rtl"] a[href^="tel:"],
+    html[dir="rtl"] a[href^="mailto:"],
+    html[dir="rtl"] a[href*="wa.me"] { direction: ltr; unicode-bidi: embed; }
+    html[dir="rtl"] .foot-bottom { text-align: right; justify-content: flex-end; }
+
+    /* RTL — addresses with mixed Arabic + Latin (street names stay Latin per-line) */
+    html[dir="rtl"] .loc-addr,
+    html[dir="rtl"] .loc-venue,
+    html[dir="rtl"] .foot-list li { unicode-bidi: plaintext; }
+
+    /* RTL — offerte modal: mirror close button, align form fields */
+    html[dir="rtl"] .offerte-modal-close { right: auto; left: 12px; }
+    html[dir="rtl"] .offerte-modal .form-group { text-align: right; }
+    html[dir="rtl"] .offerte-modal .form-section-hd { flex-direction: row-reverse; }
+    html[dir="rtl"] .offerte-modal .om-header,
+    html[dir="rtl"] .offerte-modal .om-title,
+    html[dir="rtl"] .offerte-modal .om-lead { text-align: center; }
+    html[dir="rtl"] .form-section-hd { flex-direction: row-reverse; }
   </style>
 </head>
 <body>
@@ -835,65 +858,65 @@
     <div class="workshops-grid">
       <!-- Workshop 1: Teamuitje -->
       <div class="ws-card featured reveal">
-        <div class="ws-num">Workshop 01</div>
-        <h3 class="ws-title"><em>Team</em>uitje</h3>
-        <div class="ws-tag">Voor bedrijven, afdelingen, teams</div>
+        <div class="ws-num" data-i18n="ws1-num">Workshop 01</div>
+        <h3 class="ws-title" data-i18n="ws1-title"><em>Team</em>uitje</h3>
+        <div class="ws-tag" data-i18n="ws1-tag">Voor bedrijven, afdelingen, teams</div>
         <div class="ws-divider"></div>
         <div class="ws-meta">
-          <div class="ws-meta-row"><span class="ws-meta-lbl">Duur</span><span class="ws-meta-val">3 uur</span></div>
-          <div class="ws-meta-row"><span class="ws-meta-lbl">Groep</span><span class="ws-meta-val">8 — 20 pers.</span></div>
-          <div class="ws-meta-row"><span class="ws-meta-lbl">Locatie</span><span class="ws-meta-val">Rotterdam / Best / op uw eigen locatie</span></div>
+          <div class="ws-meta-row"><span class="ws-meta-lbl" data-i18n="ws-meta-duur">Duur</span><span class="ws-meta-val" data-i18n="ws1-duur">3 uur</span></div>
+          <div class="ws-meta-row"><span class="ws-meta-lbl" data-i18n="ws-meta-groep">Groep</span><span class="ws-meta-val" data-i18n="ws1-groep">8 — 20 pers.</span></div>
+          <div class="ws-meta-row"><span class="ws-meta-lbl" data-i18n="ws-meta-locatie">Locatie</span><span class="ws-meta-val" data-i18n="ws1-locatie">Rotterdam / Best / op uw eigen locatie</span></div>
         </div>
-        <p class="ws-desc">
+        <p class="ws-desc" data-i18n="ws1-desc">
           Een volledig ochtend-, middag- of avondprogramma voor teams. Een uitgebreide mezzeschaal, gezamenlijk hoofdgerecht, en een zoet einde. Inclusief materiaal, drankjes en ontspannen begeleiding. Betaling op factuur mogelijk. Op onze locatie in Rotterdam is dit teamuitje te combineren met het reserveren van een vergaderzaal in de centrale bibliotheek van Rotterdam, bijvoorbeeld voor een hei-dag (reservering van de vergaderzaal verloopt via de bibliotheek).
         </p>
         <div class="ws-price-wrap">
-          <div class="ws-price"><sup>€</sup>80<small>p.p.</small></div>
-          <div class="ws-price-note">€66,- excl. 21% btw · *prijs indicatief — op aanvraag bevestigd<br>Voor groepen &lt; 8 pers. vaste prijs €640,-</div>
+          <div class="ws-price"><sup>€</sup>80<small data-i18n="ws-pp">p.p.</small></div>
+          <div class="ws-price-note" data-i18n="ws1-price-note">€66,- excl. 21% btw · *prijs indicatief — op aanvraag bevestigd<br>Voor groepen &lt; 8 pers. vaste prijs €640,-</div>
         </div>
-        <button type="button" class="ws-cta" onclick="openOfferteModal('team')">Offerte aanvragen</button>
+        <button type="button" class="ws-cta" onclick="openOfferteModal('team')" data-i18n="ws-cta-offerte">Offerte aanvragen</button>
       </div>
 
       <!-- Workshop 2: Privé-workshop -->
       <div class="ws-card reveal">
-        <div class="ws-num">Workshop 02</div>
-        <h3 class="ws-title"><em>Privé</em>-workshop</h3>
-        <div class="ws-tag">Voor vrienden, familie en kleinere groepen</div>
+        <div class="ws-num" data-i18n="ws2-num">Workshop 02</div>
+        <h3 class="ws-title" data-i18n="ws2-title"><em>Privé</em>-workshop</h3>
+        <div class="ws-tag" data-i18n="ws2-tag">Voor vrienden, familie en kleinere groepen</div>
         <div class="ws-divider"></div>
         <div class="ws-meta">
-          <div class="ws-meta-row"><span class="ws-meta-lbl">Duur</span><span class="ws-meta-val">2,5 uur</span></div>
-          <div class="ws-meta-row"><span class="ws-meta-lbl">Groep</span><span class="ws-meta-val">6 — 15 pers.</span></div>
-          <div class="ws-meta-row"><span class="ws-meta-lbl">Locatie</span><span class="ws-meta-val">Rotterdam / Best / op uw eigen locatie</span></div>
+          <div class="ws-meta-row"><span class="ws-meta-lbl" data-i18n="ws-meta-duur">Duur</span><span class="ws-meta-val" data-i18n="ws2-duur">2,5 uur</span></div>
+          <div class="ws-meta-row"><span class="ws-meta-lbl" data-i18n="ws-meta-groep">Groep</span><span class="ws-meta-val" data-i18n="ws2-groep">6 — 15 pers.</span></div>
+          <div class="ws-meta-row"><span class="ws-meta-lbl" data-i18n="ws-meta-locatie">Locatie</span><span class="ws-meta-val" data-i18n="ws2-locatie">Rotterdam / Best / op uw eigen locatie</span></div>
         </div>
-        <p class="ws-desc">
+        <p class="ws-desc" data-i18n="ws2-desc">
           Je maakt samen een klassiek Syrisch 3-gangen menu. Heerlijke mezzes om te beginnen, vervolgens een hoofdgerecht zoals maqluba of kabsa, en knafeh als afsluiter. Daarna eten we alles samen op, en wat overblijft mag je natuurlijk mee naar huis nemen. De invulling van de workshop is indicatief — gezamenlijk en op basis van het seizoen bepalen we het menu.
         </p>
         <div class="ws-price-wrap">
-          <div class="ws-price"><sup>€</sup>75<small>p.p.</small></div>
-          <div class="ws-price-note">incl. btw · *prijs indicatief — op aanvraag bevestigd<br>Voor groepen &lt; 6 pers. vaste prijs €450,-</div>
+          <div class="ws-price"><sup>€</sup>75<small data-i18n="ws-pp">p.p.</small></div>
+          <div class="ws-price-note" data-i18n="ws2-price-note">incl. btw · *prijs indicatief — op aanvraag bevestigd<br>Voor groepen &lt; 6 pers. vaste prijs €450,-</div>
         </div>
-        <button type="button" class="ws-cta" onclick="openOfferteModal('prive')">Offerte aanvragen</button>
+        <button type="button" class="ws-cta" onclick="openOfferteModal('prive')" data-i18n="ws-cta-offerte">Offerte aanvragen</button>
       </div>
 
       <!-- Workshop 3: Reeks -->
       <div class="ws-card reveal">
-        <div class="ws-num">Workshop 03</div>
-        <h3 class="ws-title"><em>Reeks</em> — 4 workshops</h3>
-        <div class="ws-tag">Voor individuen die écht willen leren</div>
+        <div class="ws-num" data-i18n="ws3-num">Workshop 03</div>
+        <h3 class="ws-title" data-i18n="ws3-title"><em>Reeks</em> — 4 workshops</h3>
+        <div class="ws-tag" data-i18n="ws3-tag">Voor individuen die écht willen leren</div>
         <div class="ws-divider"></div>
         <div class="ws-meta">
-          <div class="ws-meta-row"><span class="ws-meta-lbl">Duur</span><span class="ws-meta-val">4 × 2,5 uur</span></div>
-          <div class="ws-meta-row"><span class="ws-meta-lbl">Groep</span><span class="ws-meta-val">per sessie 8 pers.</span></div>
-          <div class="ws-meta-row"><span class="ws-meta-lbl">Locatie</span><span class="ws-meta-val">Rotterdam</span></div>
+          <div class="ws-meta-row"><span class="ws-meta-lbl" data-i18n="ws-meta-duur">Duur</span><span class="ws-meta-val" data-i18n="ws3-duur">4 × 2,5 uur</span></div>
+          <div class="ws-meta-row"><span class="ws-meta-lbl" data-i18n="ws-meta-groep">Groep</span><span class="ws-meta-val" data-i18n="ws3-groep">per sessie 8 pers.</span></div>
+          <div class="ws-meta-row"><span class="ws-meta-lbl" data-i18n="ws-meta-locatie">Locatie</span><span class="ws-meta-val" data-i18n="ws3-locatie">Rotterdam</span></div>
         </div>
-        <p class="ws-desc">
+        <p class="ws-desc" data-i18n="ws3-desc">
           Vier aaneensluitende workshops — ochtend, middag of avond — waarin je de basis van de Syrische keuken écht onder de knie krijgt: mezze, rijstgerechten, vlees & vis, en desserts. Je gaat naar huis met een eigen verzameling recepten.
         </p>
         <div class="ws-price-wrap">
-          <div class="ws-price"><sup>€</sup>295<small>totaal</small></div>
-          <div class="ws-price-note">*prijs indicatief — alle 4 sessies</div>
+          <div class="ws-price"><sup>€</sup>295<small data-i18n="ws-totaal">totaal</small></div>
+          <div class="ws-price-note" data-i18n="ws3-price-note">*prijs indicatief — alle 4 sessies</div>
         </div>
-        <button type="button" class="ws-cta" onclick="openOfferteModal('reeks')">Offerte aanvragen</button>
+        <button type="button" class="ws-cta" onclick="openOfferteModal('reeks')" data-i18n="ws-cta-offerte">Offerte aanvragen</button>
       </div>
     </div>
   </div>
@@ -903,33 +926,33 @@
 <section class="stappen sec-divider">
   <div class="wrap">
     <div style="max-width:720px;" class="reveal">
-      <div class="eyebrow">Hoe het werkt</div>
-      <h2 class="section-title">Van aanvraag tot <em>workshop</em></h2>
+      <div class="eyebrow" data-i18n="stappen-eyebrow">Hoe het werkt</div>
+      <h2 class="section-title" data-i18n="stappen-title">Van aanvraag tot <em>workshop</em></h2>
     </div>
     <div class="stappen-grid">
       <div class="stap reveal">
         <div class="stap-num-group"><div class="stap-num">01</div><div class="stap-num-ar">١</div></div>
         <div class="stap-accent"></div>
-        <h3 class="stap-title">Aanvraag</h3>
-        <p class="stap-desc">Vul het formulier in of stuur een bericht via WhatsApp. Vertel welke workshop, wanneer en met hoeveel personen.</p>
+        <h3 class="stap-title" data-i18n="stap1-title">Aanvraag</h3>
+        <p class="stap-desc" data-i18n="stap1-desc">Vul het formulier in of stuur een bericht via WhatsApp. Vertel welke workshop, wanneer en met hoeveel personen.</p>
       </div>
       <div class="stap reveal">
         <div class="stap-num-group"><div class="stap-num">02</div><div class="stap-num-ar">٢</div></div>
         <div class="stap-accent"></div>
-        <h3 class="stap-title">Afstemmen</h3>
-        <p class="stap-desc">Binnen 24 uur reactie. We bespreken dieetwensen, gerechten en eventuele wensen over locatie of tijdstip.</p>
+        <h3 class="stap-title" data-i18n="stap2-title">Afstemmen</h3>
+        <p class="stap-desc" data-i18n="stap2-desc">Binnen 24 uur reactie. We bespreken dieetwensen, gerechten en eventuele wensen over locatie of tijdstip.</p>
       </div>
       <div class="stap reveal">
         <div class="stap-num-group"><div class="stap-num">03</div><div class="stap-num-ar">٣</div></div>
         <div class="stap-accent"></div>
-        <h3 class="stap-title">Bevestiging</h3>
-        <p class="stap-desc">Je krijgt een definitieve offerte met gerechten, tijden en prijs. Bij akkoord wordt de datum vastgelegd.</p>
+        <h3 class="stap-title" data-i18n="stap3-title">Bevestiging</h3>
+        <p class="stap-desc" data-i18n="stap3-desc">Je krijgt een definitieve offerte met gerechten, tijden en prijs. Bij akkoord wordt de datum vastgelegd.</p>
       </div>
       <div class="stap reveal">
         <div class="stap-num-group"><div class="stap-num">04</div><div class="stap-num-ar">٤</div></div>
         <div class="stap-accent"></div>
-        <h3 class="stap-title">De workshop</h3>
-        <p class="stap-desc">Jij komt. Wij hebben alles klaar. Samen koken we, samen eten we. Je gaat naar huis met recepten en een moment om niet snel te vergeten.</p>
+        <h3 class="stap-title" data-i18n="stap4-title">De workshop</h3>
+        <p class="stap-desc" data-i18n="stap4-desc">Jij komt. Wij hebben alles klaar. Samen koken we, samen eten we. Je gaat naar huis met recepten en een moment om niet snel te vergeten.</p>
       </div>
     </div>
   </div>
@@ -939,24 +962,24 @@
 <section id="locaties" class="sec-warm sec-divider">
   <div class="wrap">
     <div style="max-width:720px;" class="reveal">
-      <div class="eyebrow">Twee Locaties</div>
-      <h2 class="section-title">Waar je <em>meekookt</em></h2>
-      <p class="section-intro">Twee open keukens, één werkwijze. Kies wat het beste past bij jouw groep of gelegenheid.</p>
+      <div class="eyebrow" data-i18n="loc-eyebrow">Twee Locaties</div>
+      <h2 class="section-title" data-i18n="loc-title">Waar je <em>meekookt</em></h2>
+      <p class="section-intro" data-i18n="loc-intro">Twee open keukens, één werkwijze. Kies wat het beste past bij jouw groep of gelegenheid.</p>
     </div>
     <div class="loc-grid">
       <div class="loc-card reveal">
-        <div class="loc-eyebrow">Locatie 01</div>
-        <h3 class="loc-city">Rotterdam</h3>
-        <div class="loc-venue">Morgenland — Centrale Bibliotheek</div>
-        <div class="loc-addr">Librijesteeg 4, 2e verdieping<br>3011 EB Rotterdam</div>
-        <div class="loc-detail">In het hart van Rotterdam. OV op loopafstand (Blaak), fietsparkeren voor de deur.</div>
+        <div class="loc-eyebrow" data-i18n="loc1-eyebrow">Locatie 01</div>
+        <h3 class="loc-city" data-i18n="loc1-city">Rotterdam</h3>
+        <div class="loc-venue" data-i18n="loc1-venue">Morgenland — Centrale Bibliotheek</div>
+        <div class="loc-addr" data-i18n="loc1-addr">Librijesteeg 4, 2e verdieping<br>3011 EB Rotterdam</div>
+        <div class="loc-detail" data-i18n="loc1-detail">In het hart van Rotterdam. OV op loopafstand (Blaak), fietsparkeren voor de deur.</div>
       </div>
       <div class="loc-card reveal">
-        <div class="loc-eyebrow">Locatie 02</div>
-        <h3 class="loc-city">Best / Eindhoven</h3>
-        <div class="loc-venue">Productiekeuken — De Run</div>
-        <div class="loc-addr">De Run 21<br>5684 PW Best</div>
-        <div class="loc-detail">Rustige locatie net buiten Eindhoven. Ruime parkeergelegenheid. Ideaal voor teamuitjes uit de Brainport regio.</div>
+        <div class="loc-eyebrow" data-i18n="loc2-eyebrow">Locatie 02</div>
+        <h3 class="loc-city" data-i18n="loc2-city">Best / Eindhoven</h3>
+        <div class="loc-venue" data-i18n="loc2-venue">Productiekeuken — De Run</div>
+        <div class="loc-addr" data-i18n="loc2-addr">De Run 21<br>5684 PW Best</div>
+        <div class="loc-detail" data-i18n="loc2-detail">Rustige locatie net buiten Eindhoven. Ruime parkeergelegenheid. Ideaal voor teamuitjes uit de Brainport regio.</div>
       </div>
     </div>
   </div>
@@ -966,9 +989,9 @@
 <section class="open sec-divider" id="open">
   <div class="wrap">
     <div class="open-head reveal">
-      <div class="eyebrow">Open inschrijvingen</div>
-      <h2 class="open-title">Geen groep? <em>Sluit aan</em>.</h2>
-      <p class="open-text">Op vaste data plannen we open workshops. Kom alleen, met een partner of met een vriend(in) — de andere stoelen vullen zich vanzelf.</p>
+      <div class="eyebrow" data-i18n="open-eyebrow">Open inschrijvingen</div>
+      <h2 class="open-title" data-i18n="open-title">Geen groep? <em>Sluit aan</em>.</h2>
+      <p class="open-text" data-i18n="open-text">Op vaste data plannen we open workshops. Kom alleen, met een partner of met een vriend(in) — de andere stoelen vullen zich vanzelf.</p>
     </div>
 
     <!-- VERVANG: Anouk beheert open workshops vanuit het dashboard. Onderstaand is visueel voorbeeld. -->
@@ -978,25 +1001,25 @@
         <div class="open-card-top">
           <div class="open-date-block">
             <div class="open-date-day">17</div>
-            <div class="open-date-mon">mei</div>
-            <div class="open-date-dow">zaterdag</div>
+            <div class="open-date-mon" data-i18n="month-mei">mei</div>
+            <div class="open-date-dow" data-i18n="dow-zaterdag">zaterdag</div>
           </div>
           <div class="open-head-right">
             <div class="open-time">18:00 — 21:00</div>
-            <div class="open-dish">Maqluba &amp; Fattoush</div>
-            <div class="open-loc">Rotterdam — Morgenland</div>
+            <div class="open-dish" data-i18n="open1-dish">Maqluba &amp; Fattoush</div>
+            <div class="open-loc" data-i18n="open1-loc">Rotterdam — Morgenland</div>
           </div>
         </div>
         <div class="open-body">
           <div class="open-price-line">
-            <div class="open-price"><sup>€</sup>55<small>p.p.</small></div>
+            <div class="open-price"><sup>€</sup>55<small data-i18n="ws-pp">p.p.</small></div>
             <div class="open-seats-info">
-              <div class="open-seats-count"><strong>6</strong> / 10 vrij</div>
-              <div class="open-seats-lbl">Plekken</div>
+              <div class="open-seats-count" data-i18n="open1-seats"><strong>6</strong> / 10 vrij</div>
+              <div class="open-seats-lbl" data-i18n="open-seats-lbl">Plekken</div>
             </div>
           </div>
           <div class="open-progress"><div class="open-progress-fill" style="width:40%;"></div></div>
-          <a href="#contact" class="open-card-cta">Meld je aan</a>
+          <a href="#contact" class="open-card-cta" data-i18n="open-cta">Meld je aan</a>
         </div>
       </div>
 
@@ -1004,39 +1027,39 @@
         <div class="open-card-top">
           <div class="open-date-block">
             <div class="open-date-day">30</div>
-            <div class="open-date-mon">mei</div>
-            <div class="open-date-dow">vrijdag</div>
+            <div class="open-date-mon" data-i18n="month-mei">mei</div>
+            <div class="open-date-dow" data-i18n="dow-vrijdag">vrijdag</div>
           </div>
           <div class="open-head-right">
             <div class="open-time">18:30 — 21:30</div>
-            <div class="open-dish">Mezze Workshop</div>
-            <div class="open-loc">Best — Productiekeuken</div>
+            <div class="open-dish" data-i18n="open2-dish">Mezze Workshop</div>
+            <div class="open-loc" data-i18n="open2-loc">Best — Productiekeuken</div>
           </div>
         </div>
         <div class="open-body">
           <div class="open-price-line">
-            <div class="open-price"><sup>€</sup>55<small>p.p.</small></div>
+            <div class="open-price"><sup>€</sup>55<small data-i18n="ws-pp">p.p.</small></div>
             <div class="open-seats-info">
-              <div class="open-seats-count"><strong>3</strong> / 10 vrij</div>
-              <div class="open-seats-lbl">Plekken</div>
+              <div class="open-seats-count" data-i18n="open2-seats"><strong>3</strong> / 10 vrij</div>
+              <div class="open-seats-lbl" data-i18n="open-seats-lbl">Plekken</div>
             </div>
           </div>
           <div class="open-progress almost"><div class="open-progress-fill" style="width:70%;"></div></div>
-          <a href="#contact" class="open-card-cta">Meld je aan</a>
+          <a href="#contact" class="open-card-cta" data-i18n="open-cta">Meld je aan</a>
         </div>
       </div>
 
       <div class="open-card-placeholder reveal">
         <div class="open-card-placeholder-diamond"></div>
-        <div class="open-card-placeholder-title">Meer data volgen</div>
-        <div class="open-card-placeholder-text">Meld je aan voor updates en mis geen nieuwe workshop. We plannen maandelijks nieuwe open workshops.</div>
+        <div class="open-card-placeholder-title" data-i18n="open-meer-title">Meer data volgen</div>
+        <div class="open-card-placeholder-text" data-i18n="open-meer-text">Meld je aan voor updates en mis geen nieuwe workshop. We plannen maandelijks nieuwe open workshops.</div>
       </div>
 
     </div>
 
     <div class="open-foot reveal">
-      <a href="#contact" class="btn-primary">Plan je workshop →</a>
-      <div class="open-foot-note">Of stuur ons een WhatsApp — we reageren persoonlijk binnen 24 uur.</div>
+      <a href="#contact" class="btn-primary" data-i18n="open-foot-btn">Plan je workshop →</a>
+      <div class="open-foot-note" data-i18n="open-foot-note">Of stuur ons een WhatsApp — we reageren persoonlijk binnen 24 uur.</div>
     </div>
   </div>
 </section>
@@ -1045,33 +1068,33 @@
 <section id="faq" class="sec-divider">
   <div class="wrap">
     <div style="max-width:720px;margin:0 auto;text-align:center;" class="reveal">
-      <div class="eyebrow">Veelgestelde vragen</div>
-      <h2 class="section-title">Vooraf <em>duidelijkheid</em></h2>
+      <div class="eyebrow" data-i18n="faq-eyebrow">Veelgestelde vragen</div>
+      <h2 class="section-title" data-i18n="faq-title">Vooraf <em>duidelijkheid</em></h2>
     </div>
     <div class="faq-wrap reveal">
       <div class="faq-item" onclick="this.classList.toggle('open')">
-        <div class="faq-q"><span>Is alles halal?</span><span class="faq-toggle">+</span></div>
-        <div class="faq-a"><p>Ja. Alle gerechten zijn 100% halal. Vlees is halal-gecertificeerd, er komt geen alcohol of onrein vlees in de keuken — nergens in het proces.</p></div>
+        <div class="faq-q"><span data-i18n="faq-q1">Is alles halal?</span><span class="faq-toggle">+</span></div>
+        <div class="faq-a"><p data-i18n="faq-a1">Ja. Alle gerechten zijn 100% halal. Vlees is halal-gecertificeerd, er komt geen alcohol of onrein vlees in de keuken — nergens in het proces.</p></div>
       </div>
       <div class="faq-item" onclick="this.classList.toggle('open')">
-        <div class="faq-q"><span>Kan ik rekening houden met dieetwensen?</span><span class="faq-toggle">+</span></div>
-        <div class="faq-a"><p>Vegetarische varianten zijn standaard mogelijk. Allergieën en glutenvrij in overleg — geef het door bij je aanvraag, dan stemmen we het menu af.</p></div>
+        <div class="faq-q"><span data-i18n="faq-q2">Kan ik rekening houden met dieetwensen?</span><span class="faq-toggle">+</span></div>
+        <div class="faq-a"><p data-i18n="faq-a2">Vegetarische varianten zijn standaard mogelijk. Allergieën en glutenvrij in overleg — geef het door bij je aanvraag, dan stemmen we het menu af.</p></div>
       </div>
       <div class="faq-item" onclick="this.classList.toggle('open')">
-        <div class="faq-q"><span>Wat moet ik meenemen?</span><span class="faq-toggle">+</span></div>
-        <div class="faq-a"><p>Alleen jezelf. Ingrediënten, schorten, koksmessen, receptenkaart en een goed humeur — dat regelen wij.</p></div>
+        <div class="faq-q"><span data-i18n="faq-q3">Wat moet ik meenemen?</span><span class="faq-toggle">+</span></div>
+        <div class="faq-a"><p data-i18n="faq-a3">Alleen jezelf. Ingrediënten, schorten, koksmessen, receptenkaart en een goed humeur — dat regelen wij.</p></div>
       </div>
       <div class="faq-item" onclick="this.classList.toggle('open')">
-        <div class="faq-q"><span>Kan de workshop op onze kantoorlocatie?</span><span class="faq-toggle">+</span></div>
-        <div class="faq-a"><p>Bij teamuitjes is dat in overleg mogelijk, mits er een geschikte keuken of kookruimte is. Reiskosten worden dan vanaf onze dichtstbijzijnde locatie berekend.</p></div>
+        <div class="faq-q"><span data-i18n="faq-q4">Kan de workshop op onze kantoorlocatie?</span><span class="faq-toggle">+</span></div>
+        <div class="faq-a"><p data-i18n="faq-a4">Bij teamuitjes is dat in overleg mogelijk, mits er een geschikte keuken of kookruimte is. Reiskosten worden dan vanaf onze dichtstbijzijnde locatie berekend.</p></div>
       </div>
       <div class="faq-item" onclick="this.classList.toggle('open')">
-        <div class="faq-q"><span>Wat als we moeten annuleren?</span><span class="faq-toggle">+</span></div>
-        <div class="faq-a"><p>Tot 14 dagen voor de datum: kosteloos verplaatsen of annuleren. Binnen 14 dagen: verplaatsen mogelijk, annuleren alleen bij uitzondering. Exacte voorwaarden staan in de offerte.</p></div>
+        <div class="faq-q"><span data-i18n="faq-q5">Wat als we moeten annuleren?</span><span class="faq-toggle">+</span></div>
+        <div class="faq-a"><p data-i18n="faq-a5">Tot 14 dagen voor de datum: kosteloos verplaatsen of annuleren. Binnen 14 dagen: verplaatsen mogelijk, annuleren alleen bij uitzondering. Exacte voorwaarden staan in de offerte.</p></div>
       </div>
       <div class="faq-item" onclick="this.classList.toggle('open')">
-        <div class="faq-q"><span>Krijg ik een factuur voor mijn bedrijf?</span><span class="faq-toggle">+</span></div>
-        <div class="faq-a"><p>Ja, BTW-conform. Geef je factuurgegevens door bij de aanvraag, dan ontvang je de factuur per mail.</p></div>
+        <div class="faq-q"><span data-i18n="faq-q6">Krijg ik een factuur voor mijn bedrijf?</span><span class="faq-toggle">+</span></div>
+        <div class="faq-a"><p data-i18n="faq-a6">Ja, BTW-conform. Geef je factuurgegevens door bij de aanvraag, dan ontvang je de factuur per mail.</p></div>
       </div>
     </div>
   </div>
@@ -1082,14 +1105,14 @@
   <div class="wrap">
     <div class="contact-grid">
       <div class="contact-info reveal">
-        <div class="eyebrow">Boek een workshop</div>
+        <div class="eyebrow" data-i18n="contact-eyebrow">Boek een workshop</div>
         <div class="contact-info-ornament">
           <span class="contact-info-ornament-line"></span>
           <span class="contact-info-ornament-diamond"></span>
           <span class="contact-info-ornament-ar">تواصل معنا</span>
         </div>
-        <h2><em>Contact</em>formulier</h2>
-        <p>Vul het formulier in of stuur direct een bericht via WhatsApp. Je krijgt binnen 24 uur persoonlijk reactie.</p>
+        <h2 data-i18n="contact-title"><em>Contact</em>formulier</h2>
+        <p data-i18n="contact-text">Vul het formulier in of stuur direct een bericht via WhatsApp. Je krijgt binnen 24 uur persoonlijk reactie.</p>
 
         <div class="contact-details-box">
 
@@ -1098,7 +1121,7 @@
             <svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>
           </div>
           <div>
-            <div class="contact-detail-label">Telefoon &amp; WhatsApp</div>
+            <div class="contact-detail-label" data-i18n="cd-tel-lbl">Telefoon &amp; WhatsApp</div>
             <div class="contact-detail-value">06 20 77 76 24</div>
           </div>
         </div>
@@ -1107,8 +1130,8 @@
             <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
           </div>
           <div>
-            <div class="contact-detail-label">Reactietijd</div>
-            <div class="contact-detail-value">Binnen 24 uur — persoonlijk</div>
+            <div class="contact-detail-label" data-i18n="cd-tijd-lbl">Reactietijd</div>
+            <div class="contact-detail-value" data-i18n="cd-tijd-val">Binnen 24 uur — persoonlijk</div>
           </div>
         </div>
         <div class="contact-detail">
@@ -1116,8 +1139,8 @@
             <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3 7l9 6 9-6"/></svg>
           </div>
           <div>
-            <div class="contact-detail-label">E-mail</div>
-            <div class="contact-detail-value">via het formulier hiernaast</div>
+            <div class="contact-detail-label" data-i18n="cd-email-lbl">E-mail</div>
+            <div class="contact-detail-value" data-i18n="cd-email-val">via het formulier hiernaast</div>
           </div>
         </div>
 
@@ -1125,7 +1148,7 @@
 
         <a href="https://wa.me/31620777624?text=Hallo%20Anouk%2C%20ik%20wil%20graag%20meer%20weten%20over%20Morgenland%20Kookt." class="wa-btn" target="_blank" rel="noopener">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm0 18.15c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31c-.82-1.31-1.26-2.83-1.26-4.38 0-4.54 3.7-8.24 8.24-8.24s8.24 3.7 8.24 8.24-3.69 8.24-8.23 8.24zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.42-.14-.01-.31-.01-.48-.01-.17 0-.43.06-.66.31-.23.25-.87.85-.87 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.66 4.23 3.73.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29z"/></svg>
-          WhatsApp direct
+          <span data-i18n="wa-btn">WhatsApp direct</span>
         </a>
       </div>
 
@@ -1142,33 +1165,33 @@
         <div class="form-section">
           <div class="form-section-hd">
             <span class="form-section-num-ar">١</span>
-            <span class="form-section-lbl">Over jou</span>
+            <span class="form-section-lbl" data-i18n="form-sec1">Over jou</span>
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label>Naam</label>
-              <input name="naam" type="text" required placeholder="Je naam">
+              <label data-i18n="form-naam-lbl">Naam</label>
+              <input name="naam" type="text" required placeholder="Je naam" data-i18n-placeholder="form-naam-ph">
             </div>
             <div class="form-group">
-              <label>E-mail</label>
-              <input name="email" type="email" required placeholder="jouw@email.nl">
+              <label data-i18n="form-email-lbl">E-mail</label>
+              <input name="email" type="email" required placeholder="jouw@email.nl" data-i18n-placeholder="form-email-ph">
             </div>
           </div>
           <div class="form-group">
-            <label>Telefoon</label>
-            <input name="telefoon" type="tel" placeholder="06 ...">
+            <label data-i18n="form-tel-lbl">Telefoon</label>
+            <input name="telefoon" type="tel" placeholder="06 ..." data-i18n-placeholder="form-tel-ph">
           </div>
         </div>
 
         <div class="form-section">
           <div class="form-section-hd">
             <span class="form-section-num-ar">٢</span>
-            <span class="form-section-lbl">Over de workshop</span>
+            <span class="form-section-lbl" data-i18n="form-sec2">Over de workshop</span>
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label>Welke workshop</label>
-              <select name="workshop" id="formWorkshop" required>
+              <label data-i18n="form-ws-lbl">Welke workshop</label>
+              <select name="workshop" id="formWorkshop" required data-i18n="form-ws-options">
                 <option value="">Maak een keuze</option>
                 <option value="team">Teamuitje (€80 p.p.)</option>
                 <option value="prive">Privé-workshop (€75 p.p.)</option>
@@ -1178,14 +1201,14 @@
               </select>
             </div>
             <div class="form-group">
-              <label>Aantal personen</label>
-              <input name="personen" type="number" min="1" max="40" placeholder="bv. 12">
+              <label data-i18n="form-personen-lbl">Aantal personen</label>
+              <input name="personen" type="number" min="1" max="40" placeholder="bv. 12" data-i18n-placeholder="form-personen-ph">
             </div>
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label>Locatie voorkeur</label>
-              <select name="locatie">
+              <label data-i18n="form-loc-lbl">Locatie voorkeur</label>
+              <select name="locatie" data-i18n="form-loc-options">
                 <option value="">Maak een keuze</option>
                 <option value="rotterdam">Rotterdam</option>
                 <option value="best">Best / Eindhoven</option>
@@ -1194,8 +1217,8 @@
               </select>
             </div>
             <div class="form-group">
-              <label>Gewenste datum</label>
-              <input name="datum" type="text" placeholder="bv. za 17 mei">
+              <label data-i18n="form-datum-lbl">Gewenste datum</label>
+              <input name="datum" type="text" placeholder="bv. za 17 mei" data-i18n-placeholder="form-datum-ph">
             </div>
           </div>
         </div>
@@ -1203,16 +1226,16 @@
         <div class="form-section">
           <div class="form-section-hd">
             <span class="form-section-num-ar">٣</span>
-            <span class="form-section-lbl">Jouw bericht</span>
+            <span class="form-section-lbl" data-i18n="form-sec3">Jouw bericht</span>
           </div>
           <div class="form-group">
-            <label>Bericht &amp; eventuele dieetwensen</label>
-            <textarea name="bericht" placeholder="Vertel kort over jouw wensen, gelegenheid, eventuele allergieën..."></textarea>
+            <label data-i18n="form-bericht-lbl">Bericht &amp; eventuele dieetwensen</label>
+            <textarea name="bericht" placeholder="Vertel kort over jouw wensen, gelegenheid, eventuele allergieën..." data-i18n-placeholder="form-bericht-ph"></textarea>
           </div>
         </div>
 
-        <button type="submit" class="form-submit">Verstuur aanvraag</button>
-        <div class="form-success" id="formSuccess">Je aanvraag is verstuurd. Je krijgt binnen 24 uur persoonlijk reactie, in sha Allah.</div>
+        <button type="submit" class="form-submit" data-i18n="form-submit-btn">Verstuur aanvraag</button>
+        <div class="form-success" id="formSuccess" data-i18n="form-success-msg">Je aanvraag is verstuurd. Je krijgt binnen 24 uur persoonlijk reactie, in sha Allah.</div>
       </form>
     </div>
   </div>
@@ -1230,8 +1253,8 @@
         <span class="contact-info-ornament-diamond"></span>
         <span class="contact-info-ornament-ar">طلب عرض</span>
       </div>
-      <h3 class="om-title" id="omTitle">Offerte voor <em><span id="omWorkshopName">een workshop</span></em></h3>
-      <p class="om-lead">Vul je gegevens in — je krijgt binnen 24 uur een persoonlijke offerte op maat.</p>
+      <h3 class="om-title" id="omTitle" data-i18n="om-title">Offerte voor <em><span id="omWorkshopName">een workshop</span></em></h3>
+      <p class="om-lead" data-i18n="om-lead">Vul je gegevens in — je krijgt binnen 24 uur een persoonlijke offerte op maat.</p>
     </div>
 
     <form class="form" name="offerte-aanvraag" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" onsubmit="handleOfferteSubmit(event)">
@@ -1247,27 +1270,27 @@
       <div class="form-section">
         <div class="form-section-hd">
           <span class="form-section-num-ar">١</span>
-          <span class="form-section-lbl">Over jou</span>
+          <span class="form-section-lbl" data-i18n="form-sec1">Over jou</span>
         </div>
         <div class="form-row">
-          <div class="form-group"><label>Naam</label><input name="naam" type="text" required placeholder="Je naam"></div>
-          <div class="form-group"><label>E-mail</label><input name="email" type="email" required placeholder="jouw@email.nl"></div>
+          <div class="form-group"><label data-i18n="form-naam-lbl">Naam</label><input name="naam" type="text" required placeholder="Je naam" data-i18n-placeholder="form-naam-ph"></div>
+          <div class="form-group"><label data-i18n="form-email-lbl">E-mail</label><input name="email" type="email" required placeholder="jouw@email.nl" data-i18n-placeholder="form-email-ph"></div>
         </div>
-        <div class="form-group"><label>Telefoon</label><input name="telefoon" type="tel" placeholder="06 ..."></div>
+        <div class="form-group"><label data-i18n="form-tel-lbl">Telefoon</label><input name="telefoon" type="tel" placeholder="06 ..." data-i18n-placeholder="form-tel-ph"></div>
       </div>
 
       <div class="form-section">
         <div class="form-section-hd">
           <span class="form-section-num-ar">٢</span>
-          <span class="form-section-lbl">Over de workshop</span>
+          <span class="form-section-lbl" data-i18n="form-sec2">Over de workshop</span>
         </div>
         <div class="form-row">
-          <div class="form-group"><label>Aantal personen</label><input name="personen" type="number" min="1" max="40" placeholder="bv. 12"></div>
-          <div class="form-group"><label>Gewenste datum</label><input name="datum" type="text" placeholder="bv. za 17 mei"></div>
+          <div class="form-group"><label data-i18n="form-personen-lbl">Aantal personen</label><input name="personen" type="number" min="1" max="40" placeholder="bv. 12" data-i18n-placeholder="form-personen-ph"></div>
+          <div class="form-group"><label data-i18n="form-datum-lbl">Gewenste datum</label><input name="datum" type="text" placeholder="bv. za 17 mei" data-i18n-placeholder="form-datum-ph"></div>
         </div>
         <div class="form-group">
-          <label>Locatie voorkeur</label>
-          <select name="locatie">
+          <label data-i18n="form-loc-lbl">Locatie voorkeur</label>
+          <select name="locatie" data-i18n="form-loc-options">
             <option value="">Maak een keuze</option>
             <option value="rotterdam">Rotterdam</option>
             <option value="best">Best / Eindhoven</option>
@@ -1280,13 +1303,13 @@
       <div class="form-section">
         <div class="form-section-hd">
           <span class="form-section-num-ar">٣</span>
-          <span class="form-section-lbl">Jouw bericht</span>
+          <span class="form-section-lbl" data-i18n="form-sec3">Jouw bericht</span>
         </div>
-        <div class="form-group"><textarea name="bericht" placeholder="Vertel kort over jouw wensen, gelegenheid, eventuele allergieën..."></textarea></div>
+        <div class="form-group"><textarea name="bericht" placeholder="Vertel kort over jouw wensen, gelegenheid, eventuele allergieën..." data-i18n-placeholder="form-bericht-ph"></textarea></div>
       </div>
 
-      <button type="submit" class="form-submit">Verstuur offerte-aanvraag</button>
-      <div class="form-success" id="omSuccess">Je offerte-aanvraag is verstuurd. Je krijgt binnen 24 uur een persoonlijke offerte, in sha Allah.</div>
+      <button type="submit" class="form-submit" data-i18n="om-submit-btn">Verstuur offerte-aanvraag</button>
+      <div class="form-success" id="omSuccess" data-i18n="om-success-msg">Je offerte-aanvraag is verstuurd. Je krijgt binnen 24 uur een persoonlijke offerte, in sha Allah.</div>
     </form>
   </div>
 </div>
@@ -1296,43 +1319,43 @@
   <div class="wrap">
     <div class="foot-grid">
       <div>
-        <div class="foot-brand">Morgenland Kookt</div>
-        <div class="foot-tag">Arabische & Syrische kookworkshops. Onderdeel van Memories of Damascus. Een moment in Damascus, aan jouw tafel.</div>
+        <div class="foot-brand" data-i18n="foot-brand">Morgenland Kookt</div>
+        <div class="foot-tag" data-i18n="foot-tag">Arabische & Syrische kookworkshops. Onderdeel van Memories of Damascus. Een moment in Damascus, aan jouw tafel.</div>
       </div>
       <div>
-        <div class="foot-heading">Workshops</div>
+        <div class="foot-heading" data-i18n="foot-h-workshops">Workshops</div>
         <ul class="foot-list">
-          <li><a href="#workshops">Teamuitje</a></li>
-          <li><a href="#workshops">Privé-workshop</a></li>
-          <li><a href="#workshops">Reeks (4 workshops)</a></li>
-          <li><a href="#open">Open data</a></li>
+          <li><a href="#workshops" data-i18n="foot-ws1">Teamuitje</a></li>
+          <li><a href="#workshops" data-i18n="foot-ws2">Privé-workshop</a></li>
+          <li><a href="#workshops" data-i18n="foot-ws3">Reeks (4 workshops)</a></li>
+          <li><a href="#open" data-i18n="foot-ws-open">Open data</a></li>
         </ul>
       </div>
       <div>
-        <div class="foot-heading">Locaties</div>
+        <div class="foot-heading" data-i18n="foot-h-locaties">Locaties</div>
         <ul class="foot-list">
-          <li>Rotterdam — Librijesteeg 4</li>
-          <li>Best — De Run 21</li>
-          <li>Op locatie (in overleg)</li>
+          <li data-i18n="foot-loc1">Rotterdam — Librijesteeg 4</li>
+          <li data-i18n="foot-loc2">Best — De Run 21</li>
+          <li data-i18n="foot-loc3">Op locatie (in overleg)</li>
         </ul>
       </div>
       <div>
-        <div class="foot-heading">Binnen 24u reactie</div>
+        <div class="foot-heading" data-i18n="foot-h-reactie">Binnen 24u reactie</div>
         <ul class="foot-list">
           <li>06 20 77 76 24</li>
           <li><a href="https://wa.me/31620777624" target="_blank" rel="noopener">WhatsApp</a></li>
-          <li><a href="#contact" onclick="event.preventDefault();openOfferteModal('algemeen')">Offerte aanvragen</a></li>
+          <li><a href="#contact" onclick="event.preventDefault();openOfferteModal('algemeen')" data-i18n="foot-offerte">Offerte aanvragen</a></li>
         </ul>
       </div>
     </div>
     <div class="foot-bottom">
-      <div>
+      <div data-i18n="foot-copyright">
         © 2026 Morgenland Kookt · onderdeel van Memories of Damascus<br>
         KvK: 81201974 · BTW: NL861985370B01 · De Run 21, 5684 PW Best
       </div>
       <div style="display:flex;gap:1.5rem;flex-wrap:wrap">
-        <a href="privacy.html" style="color:inherit;text-decoration:none">Privacy</a>
-        <a href="voorwaarden.html" style="color:inherit;text-decoration:none">Algemene voorwaarden</a>
+        <a href="privacy.html" style="color:inherit;text-decoration:none" data-i18n="foot-privacy">Privacy</a>
+        <a href="voorwaarden.html" style="color:inherit;text-decoration:none" data-i18n="foot-terms">Algemene voorwaarden</a>
       </div>
     </div>
   </div>
@@ -1457,20 +1480,26 @@
     }).catch(function(err) {
       console.error('Form submit failed:', err);
       if (btn) btn.disabled = false;
-      alert('Er ging iets mis — probeer het opnieuw of stuur ons een WhatsApp.');
+      var _l = (function(){ try { var s = localStorage.getItem('mk_lang'); return (s === 'en' || s === 'ar') ? s : 'nl'; } catch(e){ return 'nl'; } })();
+      alert(_l === 'ar' ? 'حدث خطأ ما — حاول مجدّداً أو راسلنا عبر واتساب.' : (_l === 'nl' ? 'Er ging iets mis — probeer het opnieuw of stuur ons een WhatsApp.' : 'Something went wrong — please try again or send us a WhatsApp.'));
     });
   }
 
   // ── Offerte modal
+  function getCurLang() {
+    try { var s = localStorage.getItem('mk_lang'); return (s === 'en' || s === 'ar') ? s : 'nl'; } catch(e) { return 'nl'; }
+  }
   var OFFERTE_NAMES = {
-    prive: 'een Priv\u00e9-workshop',
-    team: 'een Teamuitje',
-    reeks: 'de Reeks (4 workshops)',
-    algemeen: 'een workshop'
+    prive:    { nl:'een Priv\u00e9-workshop',  en:'a Private workshop',          ar:'\u0648\u0631\u0634\u0629 \u062e\u0627\u0635\u0651\u0629' },
+    team:     { nl:'een Teamuitje',            en:'a Team outing',               ar:'\u0631\u062d\u0644\u0629 \u0641\u0631\u064a\u0642' },
+    reeks:    { nl:'de Reeks (4 workshops)',   en:'the Series (4 workshops)',    ar:'\u0627\u0644\u0633\u0644\u0633\u0644\u0629 (\u0664 \u0648\u0631\u0634)' },
+    algemeen: { nl:'een workshop',             en:'a workshop',                  ar:'\u0648\u0631\u0634\u0629' }
   };
   function openOfferteModal(type) {
     var modal = document.getElementById('offerteModal');
-    var label = OFFERTE_NAMES[type] || OFFERTE_NAMES.algemeen;
+    var lang = getCurLang();
+    var entry = OFFERTE_NAMES[type] || OFFERTE_NAMES.algemeen;
+    var label = entry[lang] || entry.nl;
     document.getElementById('omWorkshopName').textContent = label;
     document.getElementById('omWorkshopField').value = type || 'algemeen';
     modal.classList.add('open');
@@ -1523,17 +1552,18 @@
     }).catch(function(err) {
       console.error('Offerte submit failed:', err);
       if (btn) btn.disabled = false;
-      alert('Er ging iets mis — probeer het opnieuw of stuur ons een WhatsApp.');
+      var _l = (function(){ try { var s = localStorage.getItem('mk_lang'); return (s === 'en' || s === 'ar') ? s : 'nl'; } catch(e){ return 'nl'; } })();
+      alert(_l === 'ar' ? 'حدث خطأ ما — حاول مجدّداً أو راسلنا عبر واتساب.' : (_l === 'nl' ? 'Er ging iets mis — probeer het opnieuw of stuur ons een WhatsApp.' : 'Something went wrong — please try again or send us a WhatsApp.'));
     });
   }
 </script>
 
 <div id="cookieBanner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9998;background:rgba(22,8,8,.97);backdrop-filter:blur(8px);border-top:1px solid rgba(201,148,42,.3);padding:1.2rem 1.5rem;font-family:system-ui,-apple-system,sans-serif;color:#f5edd6;box-shadow:0 -4px 20px rgba(0,0,0,.5)">
   <div style="max-width:980px;margin:0 auto;display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap">
-    <div style="flex:1;min-width:240px;font-size:.85rem;line-height:1.55;color:rgba(245,237,214,.85)">
+    <div style="flex:1;min-width:240px;font-size:.85rem;line-height:1.55;color:rgba(245,237,214,.85)" data-i18n="cookie-text">
       Wij respecteren uw privacy. Deze website gebruikt alleen functionele cookies (geen tracking, geen advertenties). Lees meer in onze <a href="privacy.html" style="color:#e8c46a;text-decoration:underline">privacyverklaring</a>.
     </div>
-    <button onclick="acceptCookies()" style="background:#c9942a;color:#160808;border:0;padding:.7rem 1.5rem;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;cursor:pointer;border-radius:3px;flex-shrink:0">Begrepen</button>
+    <button onclick="acceptCookies()" style="background:#c9942a;color:#160808;border:0;padding:.7rem 1.5rem;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;cursor:pointer;border-radius:3px;flex-shrink:0" data-i18n="cookie-btn">Begrepen</button>
   </div>
 </div>
 <script>
@@ -1580,7 +1610,170 @@
 
     'ws-eyebrow':    { nl:'Drie Workshops', en:'Three Workshops', ar:'ثلاث ورش' },
     'ws-title':      { nl:'Kies je <em>workshop</em>', en:'Choose your <em>workshop</em>', ar:'اختر <em>ورشتك</em>' },
-    'ws-intro':      { nl:'Elke workshop heeft zijn eigen karakter. Kleiner en intiem, of juist een hele groep. Eén moment of een reeks van vier — ochtend, middag of avond, waarin je écht leert koken zoals thuis.', en:'Each workshop has its own character. Small and intimate, or a larger group. A single session or a series of four — morning, afternoon or evening, where you really learn to cook like at home.', ar:'كلّ ورشة لها طابعها الخاصّ. صغيرة وحميمة، أو لمجموعة أكبر. جلسة واحدة أو سلسلة من أربع — صباحاً أو ظهراً أو مساءً، تتعلّم فيها الطهي كما في البيت.' }
+    'ws-intro':      { nl:'Elke workshop heeft zijn eigen karakter. Kleiner en intiem, of juist een hele groep. Eén moment of een reeks van vier — ochtend, middag of avond, waarin je écht leert koken zoals thuis.', en:'Each workshop has its own character. Small and intimate, or a larger group. A single session or a series of four — morning, afternoon or evening, where you really learn to cook like at home.', ar:'كلّ ورشة لها طابعها الخاصّ. صغيرة وحميمة، أو لمجموعة أكبر. جلسة واحدة أو سلسلة من أربع — صباحاً أو ظهراً أو مساءً، تتعلّم فيها الطهي كما في البيت.' },
+
+    // Workshop cards — shared
+    'ws-meta-duur':    { nl:'Duur', en:'Duration', ar:'المدّة' },
+    'ws-meta-groep':   { nl:'Groep', en:'Group', ar:'المجموعة' },
+    'ws-meta-locatie': { nl:'Locatie', en:'Location', ar:'الموقع' },
+    'ws-pp':           { nl:'p.p.', en:'p.p.', ar:'للشخص' },
+    'ws-totaal':       { nl:'totaal', en:'total', ar:'إجماليّ' },
+    'ws-cta-offerte':  { nl:'Offerte aanvragen', en:'Request quote', ar:'اطلب عرض سعر' },
+
+    // Workshop 01 — Teamuitje
+    'ws1-num':         { nl:'Workshop 01', en:'Workshop 01', ar:'الورشة ٠١' },
+    'ws1-title':       { nl:'<em>Team</em>uitje', en:'<em>Team</em> outing', ar:'<em>رحلة</em> الفريق' },
+    'ws1-tag':         { nl:'Voor bedrijven, afdelingen, teams', en:'For companies, departments, teams', ar:'للشركات والأقسام والفِرَق' },
+    'ws1-duur':        { nl:'3 uur', en:'3 hours', ar:'٣ ساعات' },
+    'ws1-groep':       { nl:'8 — 20 pers.', en:'8 — 20 people', ar:'٨ — ٢٠ شخصاً' },
+    'ws1-locatie':     { nl:'Rotterdam / Best / op uw eigen locatie', en:'Rotterdam / Best / at your own location', ar:'روتردام / بيست / في موقعكم الخاصّ' },
+    'ws1-desc':        { nl:'Een volledig ochtend-, middag- of avondprogramma voor teams. Een uitgebreide mezzeschaal, gezamenlijk hoofdgerecht, en een zoet einde. Inclusief materiaal, drankjes en ontspannen begeleiding. Betaling op factuur mogelijk. Op onze locatie in Rotterdam is dit teamuitje te combineren met het reserveren van een vergaderzaal in de centrale bibliotheek van Rotterdam, bijvoorbeeld voor een hei-dag (reservering van de vergaderzaal verloopt via de bibliotheek).', en:'A full morning, afternoon or evening programme for teams. An extensive mezze platter, a shared main course, and a sweet finish. Including materials, drinks and relaxed guidance. Payment by invoice possible. At our Rotterdam location, this team outing can be combined with booking a meeting room in Rotterdam Central Library, for example for an off-site day (room booking goes via the library).', ar:'برنامج كامل صباحيّ أو ظهريّ أو مسائيّ للفِرَق. تشكيلة واسعة من المازات، طبق رئيسيّ مشترك، ونهاية حلوة. تشمل المعدّات والمشروبات وإشرافاً مريحاً. الدفع بالفاتورة ممكن. في موقعنا بروتردام يمكن دمج هذه الرحلة مع حجز قاعة اجتماعات في المكتبة المركزيّة بروتردام، مثلاً ليوم عمل خارجيّ (حجز القاعة يتمّ عبر المكتبة).' },
+    'ws1-price-note':  { nl:'€66,- excl. 21% btw · *prijs indicatief — op aanvraag bevestigd<br>Voor groepen &lt; 8 pers. vaste prijs €640,-', en:'€66,- excl. 21% VAT · *indicative price — confirmed on request<br>For groups &lt; 8 persons fixed price €640,-', ar:'€٦٦ بدون ضريبة القيمة المضافة ٢١٪ · *سعر إرشاديّ — يُؤكَّد عند الطلب<br>للمجموعات الأقلّ من ٨ أشخاص سعر ثابت €٦٤٠' },
+
+    // Workshop 02 — Privé
+    'ws2-num':         { nl:'Workshop 02', en:'Workshop 02', ar:'الورشة ٠٢' },
+    'ws2-title':       { nl:'<em>Privé</em>-workshop', en:'<em>Private</em> workshop', ar:'ورشة <em>خاصّة</em>' },
+    'ws2-tag':         { nl:'Voor vrienden, familie en kleinere groepen', en:'For friends, family and smaller groups', ar:'للأصدقاء والعائلة والمجموعات الصغيرة' },
+    'ws2-duur':        { nl:'2,5 uur', en:'2.5 hours', ar:'٢٫٥ ساعة' },
+    'ws2-groep':       { nl:'6 — 15 pers.', en:'6 — 15 people', ar:'٦ — ١٥ شخصاً' },
+    'ws2-locatie':     { nl:'Rotterdam / Best / op uw eigen locatie', en:'Rotterdam / Best / at your own location', ar:'روتردام / بيست / في موقعكم الخاصّ' },
+    'ws2-desc':        { nl:'Je maakt samen een klassiek Syrisch 3-gangen menu. Heerlijke mezzes om te beginnen, vervolgens een hoofdgerecht zoals maqluba of kabsa, en knafeh als afsluiter. Daarna eten we alles samen op, en wat overblijft mag je natuurlijk mee naar huis nemen. De invulling van de workshop is indicatief — gezamenlijk en op basis van het seizoen bepalen we het menu.', en:'Together you prepare a classic Syrian three-course menu. Delicious mezzes to start, then a main course such as maqluba or kabsa, and knafeh to finish. Afterwards we eat it all together, and you can take leftovers home. The workshop content is indicative — we decide the menu together and based on the season.', ar:'تُحضّرون معاً قائمة سوريّة كلاسيكيّة من ثلاث وجبات. مازات لذيذة في البداية، ثمّ طبق رئيسيّ كالمقلوبة أو الكبسة، والكنافة في الختام. ثمّ نأكل كلّ شيء معاً، وما يفيض تأخذونه إلى البيت. محتوى الورشة إرشاديّ — نحدّد القائمة معاً وحسب الموسم.' },
+    'ws2-price-note':  { nl:'incl. btw · *prijs indicatief — op aanvraag bevestigd<br>Voor groepen &lt; 6 pers. vaste prijs €450,-', en:'VAT incl. · *indicative price — confirmed on request<br>For groups &lt; 6 persons fixed price €450,-', ar:'شاملاً ضريبة القيمة المضافة · *سعر إرشاديّ — يُؤكَّد عند الطلب<br>للمجموعات الأقلّ من ٦ أشخاص سعر ثابت €٤٥٠' },
+
+    // Workshop 03 — Reeks
+    'ws3-num':         { nl:'Workshop 03', en:'Workshop 03', ar:'الورشة ٠٣' },
+    'ws3-title':       { nl:'<em>Reeks</em> — 4 workshops', en:'<em>Series</em> — 4 workshops', ar:'<em>سلسلة</em> — ٤ ورش' },
+    'ws3-tag':         { nl:'Voor individuen die écht willen leren', en:'For individuals who really want to learn', ar:'للأفراد الراغبين فعلاً في التعلّم' },
+    'ws3-duur':        { nl:'4 × 2,5 uur', en:'4 × 2.5 hours', ar:'٤ × ٢٫٥ ساعة' },
+    'ws3-groep':       { nl:'per sessie 8 pers.', en:'8 persons per session', ar:'٨ أشخاص لكلّ جلسة' },
+    'ws3-locatie':     { nl:'Rotterdam', en:'Rotterdam', ar:'روتردام' },
+    'ws3-desc':        { nl:'Vier aaneensluitende workshops — ochtend, middag of avond — waarin je de basis van de Syrische keuken écht onder de knie krijgt: mezze, rijstgerechten, vlees & vis, en desserts. Je gaat naar huis met een eigen verzameling recepten.', en:'Four consecutive workshops — morning, afternoon or evening — in which you really master the basics of Syrian cuisine: mezze, rice dishes, meat & fish, and desserts. You go home with your own collection of recipes.', ar:'أربع ورش متتالية — صباحاً أو ظهراً أو مساءً — تُتقن فيها أساسيّات المطبخ السوريّ فعلاً: المازات، أطباق الأرز، اللحوم والأسماك، والحلويات. تعود إلى البيت ومعك مجموعتك الخاصّة من الوصفات.' },
+    'ws3-price-note':  { nl:'*prijs indicatief — alle 4 sessies', en:'*indicative price — all 4 sessions', ar:'*سعر إرشاديّ — للجلسات الأربع' },
+
+    // Stappen
+    'stappen-eyebrow': { nl:'Hoe het werkt', en:'How it works', ar:'كيف تسير الأمور' },
+    'stappen-title':   { nl:'Van aanvraag tot <em>workshop</em>', en:'From request to <em>workshop</em>', ar:'من الطلب إلى <em>الورشة</em>' },
+    'stap1-title':     { nl:'Aanvraag', en:'Request', ar:'الطلب' },
+    'stap1-desc':      { nl:'Vul het formulier in of stuur een bericht via WhatsApp. Vertel welke workshop, wanneer en met hoeveel personen.', en:'Fill in the form or send a message via WhatsApp. Tell us which workshop, when, and for how many people.', ar:'املأ النموذج أو أرسل رسالة عبر واتساب. أخبرنا أيّ ورشة، ومتى، ولكم شخصاً.' },
+    'stap2-title':     { nl:'Afstemmen', en:'Aligning', ar:'التنسيق' },
+    'stap2-desc':      { nl:'Binnen 24 uur reactie. We bespreken dieetwensen, gerechten en eventuele wensen over locatie of tijdstip.', en:'Response within 24 hours. We discuss dietary needs, dishes and any wishes regarding location or timing.', ar:'الردّ خلال ٢٤ ساعة. نناقش المتطلّبات الغذائيّة والأطباق وأيّ رغبات تتعلّق بالموقع أو التوقيت.' },
+    'stap3-title':     { nl:'Bevestiging', en:'Confirmation', ar:'التأكيد' },
+    'stap3-desc':      { nl:'Je krijgt een definitieve offerte met gerechten, tijden en prijs. Bij akkoord wordt de datum vastgelegd.', en:'You receive a final quote with dishes, times and price. On agreement the date is locked in.', ar:'تتلقّى عرض سعر نهائيّاً يتضمّن الأطباق والتوقيت والسعر. عند الموافقة يُثبَّت التاريخ.' },
+    'stap4-title':     { nl:'De workshop', en:'The workshop', ar:'الورشة' },
+    'stap4-desc':      { nl:'Jij komt. Wij hebben alles klaar. Samen koken we, samen eten we. Je gaat naar huis met recepten en een moment om niet snel te vergeten.', en:'You arrive. We have everything ready. We cook together, we eat together. You go home with recipes and a moment you will not soon forget.', ar:'تأتي. نحن نُجهّز كلّ شيء. نطبخ معاً، ونأكل معاً. تعود إلى البيت ومعك الوصفات ولحظة لن تنساها بسهولة.' },
+
+    // Locaties
+    'loc-eyebrow':     { nl:'Twee Locaties', en:'Two Locations', ar:'موقعان' },
+    'loc-title':       { nl:'Waar je <em>meekookt</em>', en:'Where you <em>cook with us</em>', ar:'حيث <em>تطبخ معنا</em>' },
+    'loc-intro':       { nl:'Twee open keukens, één werkwijze. Kies wat het beste past bij jouw groep of gelegenheid.', en:'Two open kitchens, one approach. Choose what best suits your group or occasion.', ar:'مطبخان مفتوحان، أسلوب واحد. اختر ما يناسب مجموعتك أو مناسبتك.' },
+    'loc1-eyebrow':    { nl:'Locatie 01', en:'Location 01', ar:'الموقع ٠١' },
+    'loc1-city':       { nl:'Rotterdam', en:'Rotterdam', ar:'روتردام' },
+    'loc1-venue':      { nl:'Morgenland — Centrale Bibliotheek', en:'Morgenland — Central Library', ar:'Morgenland — المكتبة المركزيّة' },
+    'loc1-addr':       { nl:'Librijesteeg 4, 2e verdieping<br>3011 EB Rotterdam', en:'Librijesteeg 4, 2nd floor<br>3011 EB Rotterdam', ar:'Librijesteeg 4، الطابق الثاني<br>3011 EB روتردام' },
+    'loc1-detail':     { nl:'In het hart van Rotterdam. OV op loopafstand (Blaak), fietsparkeren voor de deur.', en:'In the heart of Rotterdam. Public transport within walking distance (Blaak), bike parking at the door.', ar:'في قلب روتردام. وسائل النقل العامّ على مسافة قصيرة سيراً (Blaak)، مواقف للدرّاجات أمام الباب.' },
+    'loc2-eyebrow':    { nl:'Locatie 02', en:'Location 02', ar:'الموقع ٠٢' },
+    'loc2-city':       { nl:'Best / Eindhoven', en:'Best / Eindhoven', ar:'بيست / آيندهوفن' },
+    'loc2-venue':      { nl:'Productiekeuken — De Run', en:'Production kitchen — De Run', ar:'مطبخ الإنتاج — De Run' },
+    'loc2-addr':       { nl:'De Run 21<br>5684 PW Best', en:'De Run 21<br>5684 PW Best', ar:'De Run 21<br>5684 PW بيست' },
+    'loc2-detail':     { nl:'Rustige locatie net buiten Eindhoven. Ruime parkeergelegenheid. Ideaal voor teamuitjes uit de Brainport regio.', en:'Quiet location just outside Eindhoven. Plenty of parking. Ideal for team outings from the Brainport region.', ar:'موقع هادئ خارج آيندهوفن مباشرة. مواقف سيّارات واسعة. مثاليّ لرحلات الفِرَق من منطقة Brainport.' },
+
+    // Open inschrijvingen
+    'open-eyebrow':    { nl:'Open inschrijvingen', en:'Open registration', ar:'تسجيل مفتوح' },
+    'open-title':      { nl:'Geen groep? <em>Sluit aan</em>.', en:'No group? <em>Join in</em>.', ar:'لا مجموعة لديك؟ <em>انضمّ إلينا</em>.' },
+    'open-text':       { nl:'Op vaste data plannen we open workshops. Kom alleen, met een partner of met een vriend(in) — de andere stoelen vullen zich vanzelf.', en:'On set dates we plan open workshops. Come alone, with a partner or with a friend — the other seats fill up by themselves.', ar:'في تواريخ ثابتة ننظّم ورشاً مفتوحة. تعالَ بمفردك أو مع شريك أو مع صديق — تمتلئ بقيّة المقاعد من تلقاء نفسها.' },
+    'month-mei':       { nl:'mei', en:'May', ar:'أيّار' },
+    'dow-zaterdag':    { nl:'zaterdag', en:'Saturday', ar:'السبت' },
+    'dow-vrijdag':     { nl:'vrijdag', en:'Friday', ar:'الجمعة' },
+    'open1-dish':      { nl:'Maqluba &amp; Fattoush', en:'Maqluba &amp; Fattoush', ar:'مقلوبة وفتّوش' },
+    'open1-loc':       { nl:'Rotterdam — Morgenland', en:'Rotterdam — Morgenland', ar:'روتردام — Morgenland' },
+    'open1-seats':     { nl:'<strong>6</strong> / 10 vrij', en:'<strong>6</strong> / 10 free', ar:'<strong>٦</strong> / ١٠ متاح' },
+    'open2-dish':      { nl:'Mezze Workshop', en:'Mezze Workshop', ar:'ورشة المازات' },
+    'open2-loc':       { nl:'Best — Productiekeuken', en:'Best — Production kitchen', ar:'بيست — مطبخ الإنتاج' },
+    'open2-seats':     { nl:'<strong>3</strong> / 10 vrij', en:'<strong>3</strong> / 10 free', ar:'<strong>٣</strong> / ١٠ متاح' },
+    'open-seats-lbl':  { nl:'Plekken', en:'Seats', ar:'المقاعد' },
+    'open-cta':        { nl:'Meld je aan', en:'Sign up', ar:'سجّل الآن' },
+    'open-meer-title': { nl:'Meer data volgen', en:'More dates coming', ar:'مواعيد إضافيّة قريباً' },
+    'open-meer-text':  { nl:'Meld je aan voor updates en mis geen nieuwe workshop. We plannen maandelijks nieuwe open workshops.', en:'Sign up for updates and miss no new workshop. We plan new open workshops every month.', ar:'سجّل لتلقّي التحديثات ولا تفوّت أيّ ورشة جديدة. ننظّم ورشاً مفتوحة جديدة شهريّاً.' },
+    'open-foot-btn':   { nl:'Plan je workshop →', en:'Plan your workshop →', ar:'احجز ورشتك ←' },
+    'open-foot-note':  { nl:'Of stuur ons een WhatsApp — we reageren persoonlijk binnen 24 uur.', en:'Or send us a WhatsApp — we respond personally within 24 hours.', ar:'أو راسلنا عبر واتساب — نردّ شخصيّاً خلال ٢٤ ساعة.' },
+
+    // FAQ
+    'faq-eyebrow':     { nl:'Veelgestelde vragen', en:'Frequently asked questions', ar:'الأسئلة الشائعة' },
+    'faq-title':       { nl:'Vooraf <em>duidelijkheid</em>', en:'<em>Clarity</em> upfront', ar:'<em>وضوح</em> منذ البداية' },
+    'faq-q1':          { nl:'Is alles halal?', en:'Is everything halal?', ar:'هل كلّ شيء حلال؟' },
+    'faq-a1':          { nl:'Ja. Alle gerechten zijn 100% halal. Vlees is halal-gecertificeerd, er komt geen alcohol of onrein vlees in de keuken — nergens in het proces.', en:'Yes. All dishes are 100% halal. Meat is halal-certified, no alcohol or non-halal meat enters the kitchen — at any stage.', ar:'نعم. جميع الأطباق حلال ١٠٠٪. اللحم حاصل على شهادة الحلال، ولا يدخل المطبخ كحول أو لحم غير حلال — في أيّ مرحلة من العمليّة.' },
+    'faq-q2':          { nl:'Kan ik rekening houden met dieetwensen?', en:'Can dietary needs be accommodated?', ar:'هل يمكن مراعاة المتطلّبات الغذائيّة؟' },
+    'faq-a2':          { nl:'Vegetarische varianten zijn standaard mogelijk. Allergieën en glutenvrij in overleg — geef het door bij je aanvraag, dan stemmen we het menu af.', en:'Vegetarian options are available as standard. Allergies and gluten-free by arrangement — let us know with your request and we will adjust the menu.', ar:'الخيارات النباتيّة متوفّرة بشكل أساسيّ. الحساسيّات والخالي من الغلوتين بالاتّفاق — أخبرنا عند الطلب ونُكيّف القائمة.' },
+    'faq-q3':          { nl:'Wat moet ik meenemen?', en:'What do I need to bring?', ar:'ماذا عليّ أن أُحضر؟' },
+    'faq-a3':          { nl:'Alleen jezelf. Ingrediënten, schorten, koksmessen, receptenkaart en een goed humeur — dat regelen wij.', en:'Just yourself. Ingredients, aprons, chef knives, recipe cards and good spirits — we take care of all of that.', ar:'نفسك فقط. المكوّنات والمآزر والسكاكين وبطاقات الوصفات والجوّ الجيّد — نحن نتكفّل بها.' },
+    'faq-q4':          { nl:'Kan de workshop op onze kantoorlocatie?', en:'Can the workshop be held at our office?', ar:'هل يمكن إقامة الورشة في مكتبنا؟' },
+    'faq-a4':          { nl:'Bij teamuitjes is dat in overleg mogelijk, mits er een geschikte keuken of kookruimte is. Reiskosten worden dan vanaf onze dichtstbijzijnde locatie berekend.', en:'For team outings this is possible by arrangement, provided there is a suitable kitchen or cooking space. Travel costs are then calculated from our nearest location.', ar:'في رحلات الفِرَق هذا ممكن بالاتّفاق، شرط وجود مطبخ أو فضاء طهي مناسب. تُحسب تكاليف التنقّل عندئذٍ انطلاقاً من أقرب موقع لنا.' },
+    'faq-q5':          { nl:'Wat als we moeten annuleren?', en:'What if we need to cancel?', ar:'ماذا لو احتجنا للإلغاء؟' },
+    'faq-a5':          { nl:'Tot 14 dagen voor de datum: kosteloos verplaatsen of annuleren. Binnen 14 dagen: verplaatsen mogelijk, annuleren alleen bij uitzondering. Exacte voorwaarden staan in de offerte.', en:'Up to 14 days before the date: reschedule or cancel free of charge. Within 14 days: rescheduling possible, cancellation only in exceptional cases. Exact terms are in the quote.', ar:'حتّى ١٤ يوماً قبل التاريخ: تأجيل أو إلغاء مجّاناً. خلال ١٤ يوماً: التأجيل ممكن، الإلغاء استثنائيّ فقط. الشروط الكاملة في عرض السعر.' },
+    'faq-q6':          { nl:'Krijg ik een factuur voor mijn bedrijf?', en:'Will I get an invoice for my company?', ar:'هل أحصل على فاتورة لشركتي؟' },
+    'faq-a6':          { nl:'Ja, BTW-conform. Geef je factuurgegevens door bij de aanvraag, dan ontvang je de factuur per mail.', en:'Yes, VAT-compliant. Provide your billing details with the request and you will receive the invoice by email.', ar:'نعم، مطابقة لضريبة القيمة المضافة. أرسل بيانات الفاتورة مع الطلب وستصلك الفاتورة عبر البريد الإلكترونيّ.' },
+
+    // Contact
+    'contact-eyebrow': { nl:'Boek een workshop', en:'Book a workshop', ar:'احجز ورشة' },
+    'contact-title':   { nl:'<em>Contact</em>formulier', en:'<em>Contact</em> form', ar:'نموذج <em>الاتّصال</em>' },
+    'contact-text':    { nl:'Vul het formulier in of stuur direct een bericht via WhatsApp. Je krijgt binnen 24 uur persoonlijk reactie.', en:'Fill in the form or send a message via WhatsApp directly. You will receive a personal response within 24 hours.', ar:'املأ النموذج أو أرسل رسالة مباشرة عبر واتساب. ستحصل على ردّ شخصيّ خلال ٢٤ ساعة.' },
+    'cd-tel-lbl':      { nl:'Telefoon &amp; WhatsApp', en:'Phone &amp; WhatsApp', ar:'الهاتف وواتساب' },
+    'cd-tijd-lbl':     { nl:'Reactietijd', en:'Response time', ar:'وقت الردّ' },
+    'cd-tijd-val':     { nl:'Binnen 24 uur — persoonlijk', en:'Within 24 hours — personal', ar:'خلال ٢٤ ساعة — شخصيّاً' },
+    'cd-email-lbl':    { nl:'E-mail', en:'Email', ar:'البريد الإلكترونيّ' },
+    'cd-email-val':    { nl:'via het formulier hiernaast', en:'via the form alongside', ar:'عبر النموذج المجاور' },
+    'wa-btn':          { nl:'WhatsApp direct', en:'WhatsApp directly', ar:'واتساب مباشر' },
+
+    // Form
+    'form-sec1':       { nl:'Over jou', en:'About you', ar:'عنك' },
+    'form-sec2':       { nl:'Over de workshop', en:'About the workshop', ar:'عن الورشة' },
+    'form-sec3':       { nl:'Jouw bericht', en:'Your message', ar:'رسالتك' },
+    'form-naam-lbl':   { nl:'Naam', en:'Name', ar:'الاسم' },
+    'form-naam-ph':    { nl:'Je naam', en:'Your name', ar:'اسمك' },
+    'form-email-lbl':  { nl:'E-mail', en:'Email', ar:'البريد الإلكترونيّ' },
+    'form-email-ph':   { nl:'jouw@email.nl', en:'your@email.com', ar:'your@email.com' },
+    'form-tel-lbl':    { nl:'Telefoon', en:'Phone', ar:'الهاتف' },
+    'form-tel-ph':     { nl:'06 ...', en:'06 ...', ar:'06 ...' },
+    'form-ws-lbl':     { nl:'Welke workshop', en:'Which workshop', ar:'أيّ ورشة' },
+    'form-ws-options': { nl:'<option value="">Maak een keuze</option><option value="team">Teamuitje (€80 p.p.)</option><option value="prive">Privé-workshop (€75 p.p.)</option><option value="reeks">Reeks — 4 workshops (€295)</option><option value="open">Open inschrijving</option><option value="onbekend">Weet ik nog niet</option>', en:'<option value="">Make a choice</option><option value="team">Team outing (€80 p.p.)</option><option value="prive">Private workshop (€75 p.p.)</option><option value="reeks">Series — 4 workshops (€295)</option><option value="open">Open registration</option><option value="onbekend">Not sure yet</option>', ar:'<option value="">اختر</option><option value="team">رحلة فريق (€٨٠ للشخص)</option><option value="prive">ورشة خاصّة (€٧٥ للشخص)</option><option value="reeks">سلسلة — ٤ ورش (€٢٩٥)</option><option value="open">تسجيل مفتوح</option><option value="onbekend">لست متأكّداً بعد</option>' },
+    'form-personen-lbl':{ nl:'Aantal personen', en:'Number of people', ar:'عدد الأشخاص' },
+    'form-personen-ph':{ nl:'bv. 12', en:'e.g. 12', ar:'مثلاً ١٢' },
+    'form-loc-lbl':    { nl:'Locatie voorkeur', en:'Location preference', ar:'الموقع المفضّل' },
+    'form-loc-options':{ nl:'<option value="">Maak een keuze</option><option value="rotterdam">Rotterdam</option><option value="best">Best / Eindhoven</option><option value="op-locatie">Bij ons op locatie</option><option value="geen-voorkeur">Geen voorkeur</option>', en:'<option value="">Make a choice</option><option value="rotterdam">Rotterdam</option><option value="best">Best / Eindhoven</option><option value="op-locatie">At your location</option><option value="geen-voorkeur">No preference</option>', ar:'<option value="">اختر</option><option value="rotterdam">روتردام</option><option value="best">بيست / آيندهوفن</option><option value="op-locatie">في موقعكم</option><option value="geen-voorkeur">دون تفضيل</option>' },
+    'form-datum-lbl':  { nl:'Gewenste datum', en:'Preferred date', ar:'التاريخ المفضّل' },
+    'form-datum-ph':   { nl:'bv. za 17 mei', en:'e.g. Sat 17 May', ar:'مثلاً السبت ١٧ أيّار' },
+    'form-bericht-lbl':{ nl:'Bericht &amp; eventuele dieetwensen', en:'Message &amp; any dietary needs', ar:'رسالة وأيّ متطلّبات غذائيّة' },
+    'form-bericht-ph': { nl:'Vertel kort over jouw wensen, gelegenheid, eventuele allergieën...', en:'Briefly tell us about your wishes, occasion, any allergies...', ar:'أخبرنا باختصار عن رغباتك ومناسبتك وأيّ حساسيّات...' },
+    'form-submit-btn': { nl:'Verstuur aanvraag', en:'Send request', ar:'أرسل الطلب' },
+    'form-success-msg':{ nl:'Je aanvraag is verstuurd. Je krijgt binnen 24 uur persoonlijk reactie, in sha Allah.', en:'Your request has been sent. You will receive a personal response within 24 hours, in sha Allah.', ar:'تمّ إرسال طلبك. ستتلقّى ردّاً شخصيّاً خلال ٢٤ ساعة، إن شاء الله.' },
+
+    // Offerte modal
+    'om-title':        { nl:'Offerte voor <em><span id="omWorkshopName">een workshop</span></em>', en:'Quote for <em><span id="omWorkshopName">a workshop</span></em>', ar:'عرض سعر لـ <em><span id="omWorkshopName">ورشة</span></em>' },
+    'om-lead':         { nl:'Vul je gegevens in — je krijgt binnen 24 uur een persoonlijke offerte op maat.', en:'Fill in your details — you will receive a custom quote within 24 hours.', ar:'املأ بياناتك — ستحصل على عرض سعر مخصّص خلال ٢٤ ساعة.' },
+    'om-submit-btn':   { nl:'Verstuur offerte-aanvraag', en:'Send quote request', ar:'أرسل طلب عرض السعر' },
+    'om-success-msg':  { nl:'Je offerte-aanvraag is verstuurd. Je krijgt binnen 24 uur een persoonlijke offerte, in sha Allah.', en:'Your quote request has been sent. You will receive a personal quote within 24 hours, in sha Allah.', ar:'تمّ إرسال طلب عرض السعر. ستتلقّى عرضاً شخصيّاً خلال ٢٤ ساعة، إن شاء الله.' },
+
+    // Footer
+    'foot-brand':      { nl:'Morgenland Kookt', en:'Morgenland Kookt', ar:'Morgenland Kookt' },
+    'foot-tag':        { nl:'Arabische & Syrische kookworkshops. Onderdeel van Memories of Damascus. Een moment in Damascus, aan jouw tafel.', en:'Arabic & Syrian cooking workshops. Part of Memories of Damascus. A moment in Damascus, at your table.', ar:'ورش طهي عربيّة وسوريّة. جزء من Memories of Damascus. لحظة من دمشق على مائدتك.' },
+    'foot-h-workshops':{ nl:'Workshops', en:'Workshops', ar:'الورش' },
+    'foot-ws1':        { nl:'Teamuitje', en:'Team outing', ar:'رحلة فريق' },
+    'foot-ws2':        { nl:'Privé-workshop', en:'Private workshop', ar:'ورشة خاصّة' },
+    'foot-ws3':        { nl:'Reeks (4 workshops)', en:'Series (4 workshops)', ar:'سلسلة (٤ ورش)' },
+    'foot-ws-open':    { nl:'Open data', en:'Open dates', ar:'مواعيد مفتوحة' },
+    'foot-h-locaties': { nl:'Locaties', en:'Locations', ar:'المواقع' },
+    'foot-loc1':       { nl:'Rotterdam — Librijesteeg 4', en:'Rotterdam — Librijesteeg 4', ar:'روتردام — Librijesteeg 4' },
+    'foot-loc2':       { nl:'Best — De Run 21', en:'Best — De Run 21', ar:'بيست — De Run 21' },
+    'foot-loc3':       { nl:'Op locatie (in overleg)', en:'On location (by arrangement)', ar:'في موقعكم (بالاتّفاق)' },
+    'foot-h-reactie':  { nl:'Binnen 24u reactie', en:'Reply within 24h', ar:'الردّ خلال ٢٤ ساعة' },
+    'foot-offerte':    { nl:'Offerte aanvragen', en:'Request quote', ar:'اطلب عرض سعر' },
+    'foot-copyright':  { nl:'© 2026 Morgenland Kookt · onderdeel van Memories of Damascus<br>KvK: 81201974 · BTW: NL861985370B01 · De Run 21, 5684 PW Best', en:'© 2026 Morgenland Kookt · part of Memories of Damascus<br>KvK: 81201974 · VAT: NL861985370B01 · De Run 21, 5684 PW Best', ar:'© ٢٠٢٦ Morgenland Kookt · جزء من Memories of Damascus<br>KvK: 81201974 · ضريبة القيمة المضافة: NL861985370B01 · De Run 21, 5684 PW بيست' },
+    'foot-privacy':    { nl:'Privacy', en:'Privacy', ar:'الخصوصيّة' },
+    'foot-terms':      { nl:'Algemene voorwaarden', en:'Terms &amp; conditions', ar:'الشروط والأحكام' },
+
+    // Cookie banner
+    'cookie-text':     { nl:'Wij respecteren uw privacy. Deze website gebruikt alleen functionele cookies (geen tracking, geen advertenties). Lees meer in onze <a href="privacy.html" style="color:#e8c46a;text-decoration:underline">privacyverklaring</a>.', en:'We respect your privacy. This website uses only functional cookies (no tracking, no ads). Read more in our <a href="privacy.html" style="color:#e8c46a;text-decoration:underline">privacy statement</a>.', ar:'نحترم خصوصيّتكم. يستخدم هذا الموقع ملفّات تعريف الارتباط الوظيفيّة فقط (دون تتبّع ودون إعلانات). اقرأ المزيد في <a href="privacy.html" style="color:#e8c46a;text-decoration:underline">بيان الخصوصيّة</a>.' },
+    'cookie-btn':      { nl:'Begrepen', en:'Got it', ar:'فهمت' }
   };
 
   var currentLang = (function(){ try { var s = localStorage.getItem('mk_lang'); return (s === 'en' || s === 'ar') ? s : 'nl'; } catch(e){ return 'nl'; } })();

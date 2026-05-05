@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="nl" translate="no">
 <head>
   <meta charset="UTF-8" />
+  <meta name="google" content="notranslate" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Morgenland — by Memories of Damascus | Internationale Keuken Rotterdam | 100% Halal</title>
   <meta name="description" content="Morgenland by Memories of Damascus. Koffiezaak en internationale keuken in de Centrale Bibliotheek Rotterdam. 100% Halal. Catering, kookworkshops en ruimte huren." />
@@ -406,7 +407,8 @@
     /* ─── TAAL TOGGLE ─── */
     .lang-toggle { background: none; border: 1px solid rgba(201,148,42,.25); border-radius: 2px; padding: .28rem .65rem; cursor: pointer; display: inline-flex; align-items: center; gap: .35rem; transition: border-color .2s; margin-left: .5rem; }
     .lang-toggle:hover { border-color: var(--gold); }
-    .lang-opt { font-family: var(--font-display); font-size: .62rem; letter-spacing: .16em; color: rgba(245,237,214,.3); transition: color .2s; }
+    .lang-opt { background: none; border: 0; padding: 0; cursor: pointer; font-family: var(--font-display); font-size: .62rem; letter-spacing: .16em; color: rgba(245,237,214,.3); transition: color .2s; }
+    .lang-opt:hover { color: rgba(245,237,214,.7); }
     .lang-sep { color: rgba(201,148,42,.25); font-size: .65rem; }
     .lang-opt.lang-active { color: var(--gold); }
 
@@ -825,6 +827,29 @@
     html[dir="rtl"] .pakket-price, html[dir="rtl"] .stat-value,
     html[dir="rtl"] input[type="number"], html[dir="rtl"] input[type="email"],
     html[dir="rtl"] input[type="tel"] { direction: ltr; text-align: right; unicode-bidi: embed; }
+
+    /* RTL — phone numbers / emails / postal codes / mixed AR+Latin addresses kept correctly oriented */
+    html[dir="rtl"] .contact-detail-value,
+    html[dir="rtl"] .footer-address,
+    html[dir="rtl"] .footer-copy,
+    html[dir="rtl"] .modal-summary-row,
+    html[dir="rtl"] .foot-list li,
+    html[dir="rtl"] address { unicode-bidi: plaintext; text-align: right; }
+    html[dir="rtl"] a[href^="tel:"],
+    html[dir="rtl"] a[href^="mailto:"],
+    html[dir="rtl"] a[href*="wa.me"] { direction: ltr; unicode-bidi: embed; }
+    html[dir="rtl"] .footer-bottom { flex-direction: row-reverse; }
+
+    /* RTL — offerte modal */
+    html[dir="rtl"] .modal { grid-template-columns: 1fr 360px; }
+    html[dir="rtl"] .modal-left { border-right: 0; border-left: 1px solid var(--divider); }
+    html[dir="rtl"] .modal-left-eyebrow { flex-direction: row-reverse; }
+    html[dir="rtl"] .modal-left-eyebrow::before { margin-left: 0; }
+    html[dir="rtl"] .modal-header { flex-direction: row-reverse; }
+    html[dir="rtl"] .modal-close { margin-left: 0; margin-right: 1rem; }
+    html[dir="rtl"] .modal-form select { background-position: left .9rem center; padding-right: 1rem; padding-left: 2.2rem; }
+    html[dir="rtl"] .modal-summary-row { flex-direction: row-reverse; }
+    @media (max-width: 760px) { html[dir="rtl"] .modal { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -1936,7 +1961,7 @@ function postOfferte(payload) {
 }
 
 function startMolliePayment(offerteId, btn) {
-  if (btn) { btn.disabled = true; btn.textContent = 'Betaling voorbereiden…'; }
+  if (btn) { btn.disabled = true; btn.textContent = currentLang === 'ar' ? 'جارٍ تجهيز الدفع…' : (currentLang === 'nl' ? 'Betaling voorbereiden…' : 'Preparing payment…'); }
   fetch('/.netlify/functions/mollie-create-payment', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -1947,8 +1972,8 @@ function startMolliePayment(offerteId, btn) {
       window.location.href = res.data.checkoutUrl;
     }).catch(function(e) {
       console.error('Mollie create failed:', e);
-      if (btn) { btn.disabled = false; btn.textContent = 'Direct afrekenen'; }
-      alert('Betaling kon niet worden opgestart. Probeer opnieuw of neem contact op.');
+      if (btn) { btn.disabled = false; btn.textContent = currentLang === 'ar' ? 'الدفع المباشر' : (currentLang === 'nl' ? 'Direct afrekenen' : 'Pay directly'); }
+      alert(currentLang === 'ar' ? 'تعذّر بدء عمليّة الدفع. حاول مجدّداً أو تواصل معنا.' : (currentLang === 'nl' ? 'Betaling kon niet worden opgestart. Probeer opnieuw of neem contact op.' : 'Could not start payment. Please try again or contact us.'));
     });
 }
 window.startMolliePayment = startMolliePayment;
@@ -2080,16 +2105,16 @@ function handleSubmit(e) {
 
   var originalText = btn.textContent;
   btn.disabled = true;
-  btn.textContent = currentLang === 'nl' ? 'Versturen\u2026' : 'Sending\u2026';
+  btn.textContent = currentLang === 'ar' ? '\u062c\u0627\u0631\u064d \u0627\u0644\u0625\u0631\u0633\u0627\u0644\u2026' : (currentLang === 'nl' ? 'Versturen\u2026' : 'Sending\u2026');
 
   postOfferte(payload).then(function() {
-    btn.textContent = currentLang === 'nl' ? '\u2713 Ontvangen! Wij nemen binnen 24 uur contact op.' : '\u2713 Received! We will contact you within 24 hours.';
+    btn.textContent = currentLang === 'ar' ? '\u2713 \u062a\u0645\u0651 \u0627\u0644\u0627\u0633\u062a\u0644\u0627\u0645! \u0633\u0646\u062a\u0648\u0627\u0635\u0644 \u0645\u0639\u0643 \u062e\u0644\u0627\u0644 \u0662\u0664 \u0633\u0627\u0639\u0629.' : (currentLang === 'nl' ? '\u2713 Ontvangen! Wij nemen binnen 24 uur contact op.' : '\u2713 Received! We will contact you within 24 hours.');
     btn.style.background = 'rgba(45,106,45,.8)';
     btn.style.color = 'var(--parchment)';
   }).catch(function(err) {
     console.error('Form submit failed:', err);
     btn.disabled = false;
-    btn.textContent = currentLang === 'nl' ? 'Er ging iets mis. Probeer opnieuw of bel ons.' : 'Something went wrong. Please try again or call us.';
+    btn.textContent = currentLang === 'ar' ? '\u062d\u062f\u062b \u062e\u0637\u0623 \u0645\u0627. \u062d\u0627\u0648\u0644 \u0645\u062c\u062f\u0651\u062f\u0627\u064b \u0623\u0648 \u0627\u062a\u0651\u0635\u0644 \u0628\u0646\u0627.' : (currentLang === 'nl' ? 'Er ging iets mis. Probeer opnieuw of bel ons.' : 'Something went wrong. Please try again or call us.');
     btn.style.background = 'rgba(180,40,40,.8)';
     btn.style.color = 'var(--parchment)';
     setTimeout(function() {
@@ -2203,262 +2228,266 @@ var i18n = {
   'pak-label':        { nl:'Transparante Prijzen', en:'Transparent Pricing', ar:'أسعار شفّافة' },
   'pak-title':        { nl:'Onze catering <em>pakketten</em>', en:'Our catering <em>packages</em>', ar:'<em>باقات</em> التموين لدينا' },
   'pak-intro':        { nl:'BTW inbegrepen. Opbouw, afbouw en afwas inbegrepen. Gratis levering in Rotterdam.', en:'VAT included. Setup, breakdown and washing up included. Free delivery in Rotterdam.', ar:'تشمل ضريبة القيمة المضافة. التحضير والتنصيب والتنظيف ضمن السعر. توصيل مجاني في روتردام.' },
-  'pak-classic-per':  { nl:'per persoon &middot; min. 10 personen', en:'per person &middot; min. 10 persons' },
-  'pak-luxe-per':     { nl:'per persoon &middot; min. 15 personen', en:'per person &middot; min. 15 persons' },
-  'pak-table-per':    { nl:'per persoon &middot; min. 20 personen', en:'per person &middot; min. 20 persons' },
-  'pak-bbq-per':      { nl:'per persoon &middot; min. 20 personen', en:'per person &middot; min. 20 persons' },
-  'pak-classic-list': { nl:'<li><strong>3 hoofdgerechten</strong> naar keuze</li><li><strong>3 mezze\'s</strong> (smeersels &amp; hapjes)</li><li><strong>1 salade</strong></li><li>Presentatie op mooie schalen + chafing dishes</li><li>In buffetvorm opgesteld</li><li>Op- en afbouw inbegrepen</li><li>Afwas inbegrepen</li><li>Gratis levering in Rotterdam</li>', en:'<li><strong>3 main courses</strong> of your choice</li><li><strong>3 mezze\'s</strong> (dips &amp; starters)</li><li><strong>1 salad</strong></li><li>Presentation on beautiful platters + chafing dishes</li><li>Presented in buffet style</li><li>Setup &amp; breakdown included</li><li>Washing up included</li><li>Free delivery in Rotterdam</li>' },
-  'pak-luxe-list':    { nl:'<li><strong>4 hoofdgerechten</strong> naar keuze</li><li><strong>4 mezze\'s</strong> (smeersels &amp; hapjes)</li><li><strong>1 salade</strong></li><li>Presentatie op mooie schalen + chafing dishes</li><li>In buffetvorm opgesteld</li><li>Op- en afbouw inbegrepen</li><li>Afwas inbegrepen</li><li>Gratis levering in Rotterdam</li>', en:'<li><strong>4 main courses</strong> of your choice</li><li><strong>4 mezze\'s</strong> (dips &amp; starters)</li><li><strong>1 salad</strong></li><li>Presentation on beautiful platters + chafing dishes</li><li>Presented in buffet style</li><li>Setup &amp; breakdown included</li><li>Washing up included</li><li>Free delivery in Rotterdam</li>' },
-  'pak-table-list':   { nl:'<li><strong>2 hoofdgerechten</strong> naar keuze</li><li><strong>3 mezze\'s</strong> naar keuze</li><li><strong>1 salade</strong> naar keuze</li><li>Warm uitgeserveerd op schalen per tafel</li><li>Inclusief bedienend personeel</li><li>Op- en afbouw inbegrepen</li><li>Afwas inbegrepen</li><li>Gratis levering in Rotterdam</li>', en:'<li><strong>2 main courses</strong> of your choice</li><li><strong>3 mezze\'s</strong> of your choice</li><li><strong>1 salad</strong> of your choice</li><li>Served warm on platters per table</li><li>Service staff included</li><li>Setup &amp; breakdown included</li><li>Washing up included</li><li>Free delivery in Rotterdam</li>' },
-  'pak-bbq-list':     { nl:'<li><strong>1 grote shish kebab</strong> (lams-rundergehakt spies) p.p.</li><li><strong>1 grote shish tavuk</strong> (kipspies) p.p.</li><li>Kippenvleugeltjes</li><li>Diverse gegrilde groenten van de BBQ</li><li>Hummus dip &amp; muhammara (paprika-walnoten) dip</li><li>Salade &amp; diverse sauzen</li><li>Inclusief BBQ &amp; alle benodigdheden</li><li>Inclusief personeel dat de BBQ bedient</li><li>Op- en afbouw inbegrepen</li><li>Afwas inbegrepen</li><li>Gratis levering in Rotterdam</li>', en:'<li><strong>1 large shish kebab</strong> (lamb-beef mince skewer) p.p.</li><li><strong>1 large shish tavuk</strong> (chicken skewer) p.p.</li><li>Chicken wings</li><li>Assorted grilled vegetables from the BBQ</li><li>Hummus dip &amp; muhammara (pepper-walnut) dip</li><li>Salad &amp; assorted sauces</li><li>Including BBQ &amp; all supplies</li><li>Including staff to operate the BBQ</li><li>Setup &amp; breakdown included</li><li>Washing up included</li><li>Free delivery in Rotterdam</li>' },
-  'pak-classic-note': { nl:'Borden &amp; bestek: +&euro;1,- p.p. optioneel', en:'Plates &amp; cutlery: +&euro;1,- p.p. optional' },
-  'pak-luxe-note':    { nl:'Borden &amp; bestek: +&euro;1,- p.p. optioneel. Bedienend personeel op aanvraag.', en:'Plates &amp; cutlery: +&euro;1,- p.p. optional. Service staff on request.' },
-  'pak-table-note':   { nl:'Geen buffet &mdash; gerechten worden warm aan tafel geserveerd door ons personeel.', en:'No buffet &mdash; dishes are served warm at your table by our staff.' },
-  'pak-bbq-note':     { nl:'Extra soorten vlees of vega opties op aanvraag', en:'Additional meat varieties or vegan options on request' },
-  'pak-hapjes-name':  { nl:'Mezze Selectie', en:'Mezze Selection' },
-  'pak-hapjes-per':   { nl:'per persoon &middot; min. 15 personen<br><span style="font-size:.75rem;color:rgba(245,237,214,.4);">Mix van 5 hapjes per persoon</span>', en:'per person &middot; min. 15 persons<br><span style="font-size:.75rem;color:rgba(245,237,214,.4);">Mix of 5 bites per person</span>' },
-  'pak-hapjes-list':  { nl:'<li><strong>3 soorten b&ouml;rek</strong> (spinazie, kaas, gehakt)</li><li><strong>3 soorten luxe toastjes</strong> (hummus, muhammara, labneh)</li><li>Gevulde gehaktballen (kibbeh)</li><li>Gevulde druivenbladeren (yalanci)</li><li>Andere hapjes of volledig vegetarisch op aanvraag</li><li>Zonder personeel (bedienend personeel op aanvraag)</li><li>Koud geleverd in disposable schalen</li>', en:'<li><strong>3 types of b&ouml;rek</strong> (spinach, cheese, mince)</li><li><strong>3 types of luxury toasts</strong> (hummus, muhammara, labneh)</li><li>Stuffed meatballs (kibbeh)</li><li>Stuffed grape leaves (yalanci)</li><li>Other bites or fully vegetarian on request</li><li>Without service staff (available on request)</li><li>Delivered cold in disposable trays</li>' },
-  'pak-hapjes-note':  { nl:'Extra hapjes op aanvraag &middot; Alternatieve presentatie in overleg', en:'Additional bites on request &middot; Alternative presentation by arrangement' },
-  'pak-maat-name':    { nl:'Catering op Maat', en:'Custom Catering' },
-  'pak-maat-per':     { nl:'Prijs op maat &middot; geheel vrijblijvend', en:'Custom pricing &middot; no obligations' },
-  'pak-maat-list':    { nl:'<li>Niet zeker welk pakket past?</li><li>Wij maken een <strong>menu op maat</strong></li><li>Persoonlijk adviesgesprek</li><li>Afgestemd op uw wensen en budget</li><li>Pakketten combineren mogelijk</li><li>Vegetarisch, vegan of dieetwensen</li>', en:'<li>Not sure which package suits you?</li><li>We create a <strong>custom menu</strong> for you</li><li>Personal consultation</li><li>Tailored to your wishes and budget</li><li>Package combinations possible</li><li>Vegetarian, vegan or dietary needs</li>' },
-  'pak-maat-btn':     { nl:'Neem Contact Op', en:'Get in Touch' },
-  'pak-ex1-label':    { nl:'Bezorgkosten buiten regio', en:'Delivery outside region' },
-  'pak-ex1-val':      { nl:'&euro;0,50 per km (retour) vanaf Rotterdam', en:'&euro;0.50 per km (return) from Rotterdam' },
-  'pak-ex2-label':    { nl:'Servicebereik', en:'Service area' },
-  'pak-ex2-val':      { nl:'Nederland &middot; België &middot; Duitsland', en:'Netherlands &middot; Belgium &middot; Germany' },
-  'pak-ex3-label':    { nl:'Vrijblijvende proeverij', en:'Free tasting session' },
-  'pak-ex3-val':      { nl:'Gratis bij huwelijkscatering en andere grote feesten', en:'Free for wedding catering and other large celebrations' },
+  'pak-classic-per':  { nl:'per persoon &middot; min. 10 personen', en:'per person &middot; min. 10 persons', ar:'للشخص الواحد &middot; ١٠ أشخاص كحدّ أدنى' },
+  'pak-luxe-per':     { nl:'per persoon &middot; min. 15 personen', en:'per person &middot; min. 15 persons', ar:'للشخص الواحد &middot; ١٥ شخصاً كحدّ أدنى' },
+  'pak-table-per':    { nl:'per persoon &middot; min. 20 personen', en:'per person &middot; min. 20 persons', ar:'للشخص الواحد &middot; ٢٠ شخصاً كحدّ أدنى' },
+  'pak-bbq-per':      { nl:'per persoon &middot; min. 20 personen', en:'per person &middot; min. 20 persons', ar:'للشخص الواحد &middot; ٢٠ شخصاً كحدّ أدنى' },
+  'pak-classic-list': { nl:'<li><strong>3 hoofdgerechten</strong> naar keuze</li><li><strong>3 mezze\'s</strong> (smeersels &amp; hapjes)</li><li><strong>1 salade</strong></li><li>Presentatie op mooie schalen + chafing dishes</li><li>In buffetvorm opgesteld</li><li>Op- en afbouw inbegrepen</li><li>Afwas inbegrepen</li><li>Gratis levering in Rotterdam</li>', en:'<li><strong>3 main courses</strong> of your choice</li><li><strong>3 mezze\'s</strong> (dips &amp; starters)</li><li><strong>1 salad</strong></li><li>Presentation on beautiful platters + chafing dishes</li><li>Presented in buffet style</li><li>Setup &amp; breakdown included</li><li>Washing up included</li><li>Free delivery in Rotterdam</li>', ar:'<li><strong>٣ أطباق رئيسيّة</strong> حسب اختياركم</li><li><strong>٣ مازات</strong> (غموسات ومقبّلات)</li><li><strong>سلطة واحدة</strong></li><li>تقديم على صحون أنيقة مع طاولات تسخين</li><li>عرض على شكل بوفيه</li><li>التحضير والتنصيب ضمن السعر</li><li>غسيل الصحون ضمن السعر</li><li>توصيل مجاني في روتردام</li>' },
+  'pak-luxe-list':    { nl:'<li><strong>4 hoofdgerechten</strong> naar keuze</li><li><strong>4 mezze\'s</strong> (smeersels &amp; hapjes)</li><li><strong>1 salade</strong></li><li>Presentatie op mooie schalen + chafing dishes</li><li>In buffetvorm opgesteld</li><li>Op- en afbouw inbegrepen</li><li>Afwas inbegrepen</li><li>Gratis levering in Rotterdam</li>', en:'<li><strong>4 main courses</strong> of your choice</li><li><strong>4 mezze\'s</strong> (dips &amp; starters)</li><li><strong>1 salad</strong></li><li>Presentation on beautiful platters + chafing dishes</li><li>Presented in buffet style</li><li>Setup &amp; breakdown included</li><li>Washing up included</li><li>Free delivery in Rotterdam</li>', ar:'<li><strong>٤ أطباق رئيسيّة</strong> حسب اختياركم</li><li><strong>٤ مازات</strong> (غموسات ومقبّلات)</li><li><strong>سلطة واحدة</strong></li><li>تقديم على صحون أنيقة مع طاولات تسخين</li><li>عرض على شكل بوفيه</li><li>التحضير والتنصيب ضمن السعر</li><li>غسيل الصحون ضمن السعر</li><li>توصيل مجاني في روتردام</li>' },
+  'pak-table-list':   { nl:'<li><strong>2 hoofdgerechten</strong> naar keuze</li><li><strong>3 mezze\'s</strong> naar keuze</li><li><strong>1 salade</strong> naar keuze</li><li>Warm uitgeserveerd op schalen per tafel</li><li>Inclusief bedienend personeel</li><li>Op- en afbouw inbegrepen</li><li>Afwas inbegrepen</li><li>Gratis levering in Rotterdam</li>', en:'<li><strong>2 main courses</strong> of your choice</li><li><strong>3 mezze\'s</strong> of your choice</li><li><strong>1 salad</strong> of your choice</li><li>Served warm on platters per table</li><li>Service staff included</li><li>Setup &amp; breakdown included</li><li>Washing up included</li><li>Free delivery in Rotterdam</li>', ar:'<li><strong>طبقان رئيسيّان</strong> حسب اختياركم</li><li><strong>٣ مازات</strong> حسب اختياركم</li><li><strong>سلطة واحدة</strong> حسب اختياركم</li><li>تُقدَّم ساخنة على صحون لكلّ طاولة</li><li>طاقم خدمة ضمن السعر</li><li>التحضير والتنصيب ضمن السعر</li><li>غسيل الصحون ضمن السعر</li><li>توصيل مجاني في روتردام</li>' },
+  'pak-bbq-list':     { nl:'<li><strong>1 grote shish kebab</strong> (lams-rundergehakt spies) p.p.</li><li><strong>1 grote shish tavuk</strong> (kipspies) p.p.</li><li>Kippenvleugeltjes</li><li>Diverse gegrilde groenten van de BBQ</li><li>Hummus dip &amp; muhammara (paprika-walnoten) dip</li><li>Salade &amp; diverse sauzen</li><li>Inclusief BBQ &amp; alle benodigdheden</li><li>Inclusief personeel dat de BBQ bedient</li><li>Op- en afbouw inbegrepen</li><li>Afwas inbegrepen</li><li>Gratis levering in Rotterdam</li>', en:'<li><strong>1 large shish kebab</strong> (lamb-beef mince skewer) p.p.</li><li><strong>1 large shish tavuk</strong> (chicken skewer) p.p.</li><li>Chicken wings</li><li>Assorted grilled vegetables from the BBQ</li><li>Hummus dip &amp; muhammara (pepper-walnut) dip</li><li>Salad &amp; assorted sauces</li><li>Including BBQ &amp; all supplies</li><li>Including staff to operate the BBQ</li><li>Setup &amp; breakdown included</li><li>Washing up included</li><li>Free delivery in Rotterdam</li>', ar:'<li><strong>سيخ شيش كباب كبير</strong> (لحم غنم وبقر مفروم) للشخص</li><li><strong>سيخ شيش طاووق كبير</strong> (دجاج) للشخص</li><li>أجنحة دجاج</li><li>تشكيلة خضار مشويّة على الفحم</li><li>غموس حمّص وغموس محمّرة (فلفل وجوز)</li><li>سلطة وتشكيلة صلصات</li><li>الشواية وكلّ مستلزماتها ضمن السعر</li><li>طاقم تشغيل الشواية ضمن السعر</li><li>التحضير والتنصيب ضمن السعر</li><li>غسيل الصحون ضمن السعر</li><li>توصيل مجاني في روتردام</li>' },
+  'pak-classic-note': { nl:'Borden &amp; bestek: +&euro;1,- p.p. optioneel', en:'Plates &amp; cutlery: +&euro;1,- p.p. optional', ar:'صحون وأدوات: +&euro;١ للشخص (اختياريّ)' },
+  'pak-luxe-note':    { nl:'Borden &amp; bestek: +&euro;1,- p.p. optioneel. Bedienend personeel op aanvraag.', en:'Plates &amp; cutlery: +&euro;1,- p.p. optional. Service staff on request.', ar:'صحون وأدوات: +&euro;١ للشخص (اختياريّ). طاقم خدمة عند الطلب.' },
+  'pak-table-note':   { nl:'Geen buffet &mdash; gerechten worden warm aan tafel geserveerd door ons personeel.', en:'No buffet &mdash; dishes are served warm at your table by our staff.', ar:'بدون بوفيه &mdash; تُقدَّم الأطباق ساخنة على الطاولة من قبل طاقمنا.' },
+  'pak-bbq-note':     { nl:'Extra soorten vlees of vega opties op aanvraag', en:'Additional meat varieties or vegan options on request', ar:'أنواع لحوم إضافيّة أو خيارات نباتيّة عند الطلب' },
+  'pak-hapjes-name':  { nl:'Mezze Selectie', en:'Mezze Selection', ar:'تشكيلة المازات' },
+  'pak-hapjes-per':   { nl:'per persoon &middot; min. 15 personen<br><span style="font-size:.75rem;color:rgba(245,237,214,.4);">Mix van 5 hapjes per persoon</span>', en:'per person &middot; min. 15 persons<br><span style="font-size:.75rem;color:rgba(245,237,214,.4);">Mix of 5 bites per person</span>', ar:'للشخص الواحد &middot; ١٥ شخصاً كحدّ أدنى<br><span style="font-size:.75rem;color:rgba(245,237,214,.4);">٥ مقبّلات منوّعة للشخص</span>' },
+  'pak-hapjes-list':  { nl:'<li><strong>3 soorten b&ouml;rek</strong> (spinazie, kaas, gehakt)</li><li><strong>3 soorten luxe toastjes</strong> (hummus, muhammara, labneh)</li><li>Gevulde gehaktballen (kibbeh)</li><li>Gevulde druivenbladeren (yalanci)</li><li>Andere hapjes of volledig vegetarisch op aanvraag</li><li>Zonder personeel (bedienend personeel op aanvraag)</li><li>Koud geleverd in disposable schalen</li>', en:'<li><strong>3 types of b&ouml;rek</strong> (spinach, cheese, mince)</li><li><strong>3 types of luxury toasts</strong> (hummus, muhammara, labneh)</li><li>Stuffed meatballs (kibbeh)</li><li>Stuffed grape leaves (yalanci)</li><li>Other bites or fully vegetarian on request</li><li>Without service staff (available on request)</li><li>Delivered cold in disposable trays</li>', ar:'<li><strong>٣ أنواع بوريك</strong> (سبانخ، جبنة، لحمة)</li><li><strong>٣ أنواع توستات فاخرة</strong> (حمّص، محمّرة، لبنة)</li><li>كبّة محشوّة باللحم</li><li>يلنجي (ورق عنب)</li><li>مقبّلات أخرى أو خيار نباتيّ كامل عند الطلب</li><li>بدون طاقم خدمة (متوفّر عند الطلب)</li><li>تُسلَّم باردة في علب مخصّصة</li>' },
+  'pak-hapjes-note':  { nl:'Extra hapjes op aanvraag &middot; Alternatieve presentatie in overleg', en:'Additional bites on request &middot; Alternative presentation by arrangement', ar:'مقبّلات إضافيّة عند الطلب &middot; طريقة تقديم بديلة بالاتّفاق' },
+  'pak-maat-name':    { nl:'Catering op Maat', en:'Custom Catering', ar:'تموين مفصّل' },
+  'pak-maat-per':     { nl:'Prijs op maat &middot; geheel vrijblijvend', en:'Custom pricing &middot; no obligations', ar:'سعر مخصّص &middot; دون أيّ التزام' },
+  'pak-maat-list':    { nl:'<li>Niet zeker welk pakket past?</li><li>Wij maken een <strong>menu op maat</strong></li><li>Persoonlijk adviesgesprek</li><li>Afgestemd op uw wensen en budget</li><li>Pakketten combineren mogelijk</li><li>Vegetarisch, vegan of dieetwensen</li>', en:'<li>Not sure which package suits you?</li><li>We create a <strong>custom menu</strong> for you</li><li>Personal consultation</li><li>Tailored to your wishes and budget</li><li>Package combinations possible</li><li>Vegetarian, vegan or dietary needs</li>', ar:'<li>غير متأكّد أيّ باقة تناسبك؟</li><li>نُعدّ لك <strong>قائمة مخصّصة</strong></li><li>استشارة شخصيّة</li><li>تُفصَّل وفق رغباتك وميزانيّتك</li><li>دمج الباقات ممكن</li><li>خيارات نباتيّة أو نباتيّة صرف أو حسب الاحتياجات الغذائيّة</li>' },
+  'pak-maat-btn':     { nl:'Neem Contact Op', en:'Get in Touch', ar:'تواصل معنا' },
+  'pak-ex1-label':    { nl:'Bezorgkosten buiten regio', en:'Delivery outside region', ar:'تكاليف التوصيل خارج المنطقة' },
+  'pak-ex1-val':      { nl:'&euro;0,50 per km (retour) vanaf Rotterdam', en:'&euro;0.50 per km (return) from Rotterdam', ar:'&euro;٠٫٥٠ لكلّ كيلومتر (ذهاباً وإياباً) انطلاقاً من روتردام' },
+  'pak-ex2-label':    { nl:'Servicebereik', en:'Service area', ar:'نطاق الخدمة' },
+  'pak-ex2-val':      { nl:'Nederland &middot; België &middot; Duitsland', en:'Netherlands &middot; Belgium &middot; Germany', ar:'هولندا &middot; بلجيكا &middot; ألمانيا' },
+  'pak-ex3-label':    { nl:'Vrijblijvende proeverij', en:'Free tasting session', ar:'جلسة تذوّق مجانيّة' },
+  'pak-ex3-val':      { nl:'Gratis bij huwelijkscatering en andere grote feesten', en:'Free for wedding catering and other large celebrations', ar:'مجّانيّة لتموين الأعراس والمناسبات الكبرى' },
 
   // Configurator
-  'conf-label':       { nl:'Stel Zelf Samen', en:'Customise Your Order' },
-  'conf-title':       { nl:'Uw catering <em>op maat</em>', en:'Your catering <em>tailored to you</em>' },
-  'conf-intro':       { nl:'Kies uw pakket, stel uw menusamenstelling samen, bereken de reiskosten en prik een datum. U ontvangt direct een vrijblijvende offerte op maat.', en:'Choose your package, compose your menu, calculate travel costs and pick a date. You will receive a free custom quote right away.' },
-  'conf-s1-num':      { nl:'Stap 1', en:'Step 1' },
-  'conf-s1-title':    { nl:'Kies uw pakket', en:'Choose your package' },
-  'conf-s2-num':      { nl:'Stap 2', en:'Step 2' },
-  'conf-s2-title':    { nl:'Aantal personen', en:'Number of guests' },
-  'conf-s3-num':      { nl:'Stap 3', en:'Step 3' },
-  'conf-s3-title':    { nl:'Kies uw gerechten', en:'Choose your dishes' },
-  'conf-s4-num':      { nl:'Stap 4', en:'Step 4' },
-  'conf-s4-title':    { nl:"Extra's toevoegen", en:'Add extras' },
-  'conf-s4-opt':      { nl:'(optioneel)', en:'(optional)' },
-  'conf-s5-num':      { nl:'Stap 5', en:'Step 5' },
-  'conf-s5-title':    { nl:'Bereken reiskosten', en:'Calculate travel costs' },
-  'conf-s5-desc':     { nl:'Wij rijden vanuit Rotterdam naar u toe. Tarief: <strong style="color:var(--parchment)">&euro;0,50 per km retour</strong>. Gratis binnen 15 km van Rotterdam.', en:'We travel from Rotterdam to your location. Rate: <strong style="color:var(--parchment)">&euro;0.50 per km return</strong>. Free within 15 km of Rotterdam.' },
-  'conf-s6-num':      { nl:'Stap 6', en:'Step 6' },
-  'conf-s6-title':    { nl:'Kies een datum', en:'Choose a date' },
-  'conf-s6-desc':     { nl:'Rood = bezet (geblokkeerd). Gouden stip = bijna volgeboekt. Groen = beschikbaar.', en:'Red = unavailable (blocked). Gold dot = almost full. Green = available.' },
-  'conf-calc-btn':    { nl:'Bereken', en:'Calculate' },
-  'conf-personen-lbl':{ nl:'personen', en:'persons' },
-  'conf-personen-note':{ nl:'Minimum 10 personen voor het Classic pakket', en:'Minimum 10 persons for the Classic package' },
-  'conf-hint-post':   { nl:'gekozen', en:'chosen' },
-  'conf-hoofd-lbl':   { nl:'Hoofdgerechten &mdash; kies', en:'Main courses &mdash; choose' },
-  'conf-salade-lbl':  { nl:'Salade &mdash; kies', en:'Salad &mdash; choose' },
-  'conf-mezze-lbl':   { nl:"Mezze's &amp; Bijgerechten &mdash; kies", en:"Mezze's &amp; Sides &mdash; choose" },
-  'conf-datum-onbekend':{ nl:'Ik weet de datum nog niet', en:"I don't know the date yet" },
-  'conf-tijdstip-lbl':{ nl:'Tijdstip', en:'Time' },
-  'conf-type-lbl':    { nl:'Type evenement', en:'Event type' },
-  'conf-type-select': { nl:'<option value="">Selecteer...</option><option>Bruiloft / Huwelijkscatering</option><option>Eid / Ramadan-iftar</option><option>Jubileum</option><option>Bedrijfslunch / Diner</option><option>Borrel / Receptie</option><option>Kookworkshop</option><option>Ruimte huren</option><option>Anders</option>', en:'<option value="">Select...</option><option>Wedding catering</option><option>Eid / Ramadan iftar</option><option>Anniversary</option><option>Business lunch / Dinner</option><option>Reception / Drinks</option><option>Cooking workshop</option><option>Venue hire</option><option>Other</option>' },
-  'conf-postcode-ph': { nl:'Postcode (bijv. 3011 AB)', en:'Postal code (e.g. 3011 AB)' },
-  'conf-straat-ph':   { nl:'Straat + huisnummer', en:'Street + house number' },
-  'conf-plaats-ph':   { nl:'Plaats', en:'City' },
+  'conf-label':       { nl:'Stel Zelf Samen', en:'Customise Your Order', ar:'صمّم طلبك بنفسك' },
+  'conf-title':       { nl:'Uw catering <em>op maat</em>', en:'Your catering <em>tailored to you</em>', ar:'تموينك <em>المفصّل</em>' },
+  'conf-intro':       { nl:'Kies uw pakket, stel uw menusamenstelling samen, bereken de reiskosten en prik een datum. U ontvangt direct een vrijblijvende offerte op maat.', en:'Choose your package, compose your menu, calculate travel costs and pick a date. You will receive a free custom quote right away.', ar:'اختر باقتك، صمّم قائمة طعامك، احسب تكاليف التنقّل، وحدّد التاريخ. ستحصل على عرض سعر مخصّص دون أيّ التزام مباشرةً.' },
+  'conf-s1-num':      { nl:'Stap 1', en:'Step 1', ar:'الخطوة ١' },
+  'conf-s1-title':    { nl:'Kies uw pakket', en:'Choose your package', ar:'اختر الباقة' },
+  'conf-s2-num':      { nl:'Stap 2', en:'Step 2', ar:'الخطوة ٢' },
+  'conf-s2-title':    { nl:'Aantal personen', en:'Number of guests', ar:'عدد الضيوف' },
+  'conf-s3-num':      { nl:'Stap 3', en:'Step 3', ar:'الخطوة ٣' },
+  'conf-s3-title':    { nl:'Kies uw gerechten', en:'Choose your dishes', ar:'اختر أطباقك' },
+  'conf-s4-num':      { nl:'Stap 4', en:'Step 4', ar:'الخطوة ٤' },
+  'conf-s4-title':    { nl:"Extra's toevoegen", en:'Add extras', ar:'إضافات' },
+  'conf-s4-opt':      { nl:'(optioneel)', en:'(optional)', ar:'(اختياريّ)' },
+  'conf-s5-num':      { nl:'Stap 5', en:'Step 5', ar:'الخطوة ٥' },
+  'conf-s5-title':    { nl:'Bereken reiskosten', en:'Calculate travel costs', ar:'احسب تكاليف التنقّل' },
+  'conf-s5-desc':     { nl:'Wij rijden vanuit Rotterdam naar u toe. Tarief: <strong style="color:var(--parchment)">&euro;0,50 per km retour</strong>. Gratis binnen 15 km van Rotterdam.', en:'We travel from Rotterdam to your location. Rate: <strong style="color:var(--parchment)">&euro;0.50 per km return</strong>. Free within 15 km of Rotterdam.', ar:'ننطلق من روتردام إلى موقعكم. التعرفة: <strong style="color:var(--parchment)">&euro;٠٫٥٠ لكلّ كيلومتر ذهاباً وإياباً</strong>. مجّاني ضمن ١٥ كم من روتردام.' },
+  'conf-s6-num':      { nl:'Stap 6', en:'Step 6', ar:'الخطوة ٦' },
+  'conf-s6-title':    { nl:'Kies een datum', en:'Choose a date', ar:'اختر تاريخاً' },
+  'conf-s6-desc':     { nl:'Rood = bezet (geblokkeerd). Gouden stip = bijna volgeboekt. Groen = beschikbaar.', en:'Red = unavailable (blocked). Gold dot = almost full. Green = available.', ar:'الأحمر = محجوز (غير متاح). النقطة الذهبيّة = شبه ممتلئ. الأخضر = متاح.' },
+  'conf-calc-btn':    { nl:'Bereken', en:'Calculate', ar:'احسب' },
+  'conf-personen-lbl':{ nl:'personen', en:'persons', ar:'أشخاص' },
+  'conf-personen-note':{ nl:'Minimum 10 personen voor het Classic pakket', en:'Minimum 10 persons for the Classic package', ar:'الحدّ الأدنى ١٠ أشخاص لباقة Classic' },
+  'conf-hint-post':   { nl:'gekozen', en:'chosen', ar:'مختار' },
+  'conf-hoofd-lbl':   { nl:'Hoofdgerechten &mdash; kies', en:'Main courses &mdash; choose', ar:'الأطباق الرئيسيّة &mdash; اختر' },
+  'conf-salade-lbl':  { nl:'Salade &mdash; kies', en:'Salad &mdash; choose', ar:'السلطة &mdash; اختر' },
+  'conf-mezze-lbl':   { nl:"Mezze's &amp; Bijgerechten &mdash; kies", en:"Mezze's &amp; Sides &mdash; choose", ar:'المازات والأطباق الجانبيّة &mdash; اختر' },
+  'conf-datum-onbekend':{ nl:'Ik weet de datum nog niet', en:"I don't know the date yet", ar:'لا أعرف التاريخ بعد' },
+  'conf-tijdstip-lbl':{ nl:'Tijdstip', en:'Time', ar:'الوقت' },
+  'conf-type-lbl':    { nl:'Type evenement', en:'Event type', ar:'نوع المناسبة' },
+  'conf-type-select': { nl:'<option value="">Selecteer...</option><option>Bruiloft / Huwelijkscatering</option><option>Eid / Ramadan-iftar</option><option>Jubileum</option><option>Bedrijfslunch / Diner</option><option>Borrel / Receptie</option><option>Kookworkshop</option><option>Ruimte huren</option><option>Anders</option>', en:'<option value="">Select...</option><option>Wedding catering</option><option>Eid / Ramadan iftar</option><option>Anniversary</option><option>Business lunch / Dinner</option><option>Reception / Drinks</option><option>Cooking workshop</option><option>Venue hire</option><option>Other</option>', ar:'<option value="">اختر...</option><option>تموين زفاف</option><option>عيد / إفطار رمضان</option><option>ذكرى سنويّة</option><option>غداء / عشاء عمل</option><option>حفل استقبال / مشروبات</option><option>ورشة طهي</option><option>تأجير قاعة</option><option>غير ذلك</option>' },
+  'conf-postcode-ph': { nl:'Postcode (bijv. 3011 AB)', en:'Postal code (e.g. 3011 AB)', ar:'الرمز البريديّ (مثلاً 3011 AB)' },
+  'conf-straat-ph':   { nl:'Straat + huisnummer', en:'Street + house number', ar:'الشارع ورقم المنزل' },
+  'conf-plaats-ph':   { nl:'Plaats', en:'City', ar:'المدينة' },
 
   // Package mini-descriptions
-  'pk-classic-desc':  { nl:"3 hoofdgerechten + 3 mezze's + salade &middot; min. 10 pers.", en:"3 main courses + 3 mezze's + salad &middot; min. 10 persons" },
-  'pk-luxe-desc':     { nl:"4 hoofdgerechten + 4 mezze's + salade &middot; min. 15 pers.", en:"4 main courses + 4 mezze's + salad &middot; min. 15 persons" },
-  'pk-table-desc':    { nl:"2 hoofdgerechten + 3 mezze's + salade &middot; min. 20 pers.", en:"2 main courses + 3 mezze's + salad &middot; min. 20 persons" },
-  'pk-bbq-desc':      { nl:'Vast BBQ menu &middot; min. 20 pers.', en:'Fixed BBQ menu &middot; min. 20 persons' },
-  'pk-hapjes-name':   { nl:'Mezze Selectie', en:'Mezze Selection' },
-  'pk-hapjes-desc':   { nl:'Mix van 5 hapjes p.p. &middot; min. 15 pers.', en:'Mix of 5 bites p.p. &middot; min. 15 persons' },
+  'pk-classic-desc':  { nl:"3 hoofdgerechten + 3 mezze's + salade &middot; min. 10 pers.", en:"3 main courses + 3 mezze's + salad &middot; min. 10 persons", ar:'٣ أطباق رئيسيّة + ٣ مازات + سلطة &middot; ١٠ أشخاص كحدّ أدنى' },
+  'pk-luxe-desc':     { nl:"4 hoofdgerechten + 4 mezze's + salade &middot; min. 15 pers.", en:"4 main courses + 4 mezze's + salad &middot; min. 15 persons", ar:'٤ أطباق رئيسيّة + ٤ مازات + سلطة &middot; ١٥ شخصاً كحدّ أدنى' },
+  'pk-table-desc':    { nl:"2 hoofdgerechten + 3 mezze's + salade &middot; min. 20 pers.", en:"2 main courses + 3 mezze's + salad &middot; min. 20 persons", ar:'طبقان رئيسيّان + ٣ مازات + سلطة &middot; ٢٠ شخصاً كحدّ أدنى' },
+  'pk-bbq-desc':      { nl:'Vast BBQ menu &middot; min. 20 pers.', en:'Fixed BBQ menu &middot; min. 20 persons', ar:'قائمة شواء ثابتة &middot; ٢٠ شخصاً كحدّ أدنى' },
+  'pk-hapjes-name':   { nl:'Mezze Selectie', en:'Mezze Selection', ar:'تشكيلة المازات' },
+  'pk-hapjes-desc':   { nl:'Mix van 5 hapjes p.p. &middot; min. 15 pers.', en:'Mix of 5 bites p.p. &middot; min. 15 persons', ar:'٥ مقبّلات منوّعة للشخص &middot; ١٥ شخصاً كحدّ أدنى' },
 
   // Add-ons
-  'addon-grp-machines':{ nl:'Machines &amp; Apparatuur', en:'Machines &amp; Equipment' },
-  'addon-grp-servies': { nl:'Serviesgoed &amp; Meubilair', en:'Tableware &amp; Furniture' },
-  'addon-grp-dranken': { nl:'Dranken', en:'Drinks' },
-  'addon-perstuk':     { nl:'per stuk', en:'per piece' },
-  'addon-popcorn-machine': { nl:'Popcornmachine huur', en:'Popcorn machine rental' },
-  'addon-popcorn-beno':    { nl:'Popcornbenodigdheden', en:'Popcorn supplies' },
-  'addon-popcorn-beno-desc':{ nl:'Zakjes &amp; ingrediënten &middot; min. 20 pers.', en:'Bags &amp; ingredients &middot; min. 20 persons' },
-  'addon-suikerspin-machine':{ nl:'Suikerspinmachine huur', en:'Cotton candy machine rental' },
-  'addon-suikerspin-beno': { nl:'Suikerspinbenodigdheden', en:'Cotton candy supplies' },
-  'addon-suikerspin-beno-desc':{ nl:'Stokjes &amp; ingrediënten &middot; min. 20 pers.', en:'Sticks &amp; ingredients &middot; min. 20 persons' },
-  'addon-choco-machine':   { nl:'Warme chocolademelk machine', en:'Hot chocolate machine' },
-  'addon-choco-glas':      { nl:'Warme chocolademelk per glas', en:'Hot chocolate per glass' },
-  'addon-choco-glas-desc': { nl:'Inclusief slagroom', en:'Including whipped cream' },
-  'addon-borden-zilver':   { nl:'Borden &amp; bestek', en:'Plates &amp; cutlery' },
-  'addon-borden-zilver-desc':{ nl:'Witte borden, zilverkleurig bestek', en:'White plates, silver-coloured cutlery' },
-  'addon-borden-goud':     { nl:'Borden &amp; bestek luxe', en:'Plates &amp; cutlery deluxe' },
-  'addon-borden-goud-desc':{ nl:'Witte borden, goudkleurig onderbord, doorzichtig voorgerechtbordje, goudkleurig bestek', en:'White plates, gold charger plate, transparent starter plate, gold cutlery' },
-  'addon-statafel':        { nl:'Statafel incl. zwarte tafelrok', en:'Standing table incl. black table skirt' },
-  'addon-koffie':          { nl:'Koffie &amp; thee arrangement', en:'Coffee &amp; tea arrangement' },
-  'addon-koffie-desc':     { nl:'~2 kopjes p.p. incl. kopjes, schotels, suiker, melk &amp; lepeltjes', en:'~2 cups p.p. incl. cups, saucers, sugar, milk &amp; spoons' },
-  'addon-fris3':           { nl:'Fris arrangement (3 uur)', en:'Soft drinks (3 hours)' },
-  'addon-fris3-desc':      { nl:'Onbeperkt fris, max. 3 uur &middot; incl. 2 glazen p.p.', en:'Unlimited soft drinks, max. 3 hours &middot; incl. 2 glasses p.p.' },
-  'addon-fris5':           { nl:'Fris arrangement (5 uur)', en:'Soft drinks (5 hours)' },
-  'addon-fris5-desc':      { nl:'Onbeperkt fris, max. 5 uur &middot; incl. 2 glazen p.p.', en:'Unlimited soft drinks, max. 5 hours &middot; incl. 2 glasses p.p.' },
-  'addon-mocktails':       { nl:'Mocktails', en:'Mocktails' },
-  'addon-mocktails-desc':  { nl:'Virgin Mojito, Virgin Pi&ntilde;a Colada of Tropical Fizz', en:'Virgin Mojito, Virgin Pi&ntilde;a Colada or Tropical Fizz' },
-  'addon-grp-toetjes':     { nl:'Toetjes', en:'Desserts' },
-  'addon-grp-kids':        { nl:'Kids Menu', en:'Kids Menu' },
-  'addon-baklava':         { nl:'Arabische pistache baklava mix', en:'Arabic pistachio baklava mix' },
-  'addon-muhalayya':       { nl:'Arabisch roomtoetje (muhalayya)', en:'Arabic cream pudding (muhalayya)' },
-  'addon-basbousa':        { nl:'Arabische griesmeelcake met pistache (basbousa / harissa)', en:'Arabic semolina cake with pistachio (basbousa / harissa)' },
-  'addon-choc-shortcake':  { nl:'Chocolate-caramel shortcake', en:'Chocolate-caramel shortcake' },
-  'addon-glutenvrij':      { nl:'(glutenvrij)', en:'(gluten free)' },
-  'addon-white-shortcake': { nl:'White chocolate shortcake', en:'White chocolate shortcake' },
-  'addon-cheesecake':      { nl:'Pistache cheesecake', en:'Pistachio cheesecake' },
-  'addon-frietjes':        { nl:'Frietjes met mayonaise, ketchup &amp; halal snack', en:'Fries with mayo, ketchup &amp; halal snack' },
-  'addon-perkind':         { nl:'per kind', en:'per child' },
-  'addon-min5':            { nl:'Min. 5 stuks &middot; bestelhoeveelheid', en:'Min. 5 pieces &middot; minimum order' },
-  'addon-min5-kids':       { nl:'Min. 5 kindermenu\'s &middot; bestelhoeveelheid', en:'Min. 5 kids menus &middot; minimum order' },
-  'addon-stuks':           { nl:'stuks', en:'pieces' },
-  'addon-kinderen':        { nl:'kinderen', en:'children' },
+  'addon-grp-machines':{ nl:'Machines &amp; Apparatuur', en:'Machines &amp; Equipment', ar:'الآلات والمعدّات' },
+  'addon-grp-servies': { nl:'Serviesgoed &amp; Meubilair', en:'Tableware &amp; Furniture', ar:'الصحون والأثاث' },
+  'addon-grp-dranken': { nl:'Dranken', en:'Drinks', ar:'المشروبات' },
+  'addon-perstuk':     { nl:'per stuk', en:'per piece', ar:'للقطعة' },
+  'addon-popcorn-machine': { nl:'Popcornmachine huur', en:'Popcorn machine rental', ar:'تأجير ماكينة فشار' },
+  'addon-popcorn-beno':    { nl:'Popcornbenodigdheden', en:'Popcorn supplies', ar:'مستلزمات الفشار' },
+  'addon-popcorn-beno-desc':{ nl:'Zakjes &amp; ingrediënten &middot; min. 20 pers.', en:'Bags &amp; ingredients &middot; min. 20 persons', ar:'أكياس ومكوّنات &middot; ٢٠ شخصاً كحدّ أدنى' },
+  'addon-suikerspin-machine':{ nl:'Suikerspinmachine huur', en:'Cotton candy machine rental', ar:'تأجير ماكينة غزل البنات' },
+  'addon-suikerspin-beno': { nl:'Suikerspinbenodigdheden', en:'Cotton candy supplies', ar:'مستلزمات غزل البنات' },
+  'addon-suikerspin-beno-desc':{ nl:'Stokjes &amp; ingrediënten &middot; min. 20 pers.', en:'Sticks &amp; ingredients &middot; min. 20 persons', ar:'أعواد ومكوّنات &middot; ٢٠ شخصاً كحدّ أدنى' },
+  'addon-choco-machine':   { nl:'Warme chocolademelk machine', en:'Hot chocolate machine', ar:'ماكينة شوكولاتة ساخنة' },
+  'addon-choco-glas':      { nl:'Warme chocolademelk per glas', en:'Hot chocolate per glass', ar:'شوكولاتة ساخنة للكأس' },
+  'addon-choco-glas-desc': { nl:'Inclusief slagroom', en:'Including whipped cream', ar:'مع كريمة مخفوقة' },
+  'addon-borden-zilver':   { nl:'Borden &amp; bestek', en:'Plates &amp; cutlery', ar:'صحون وأدوات' },
+  'addon-borden-zilver-desc':{ nl:'Witte borden, zilverkleurig bestek', en:'White plates, silver-coloured cutlery', ar:'صحون بيضاء وأدوات بلون فضّي' },
+  'addon-borden-goud':     { nl:'Borden &amp; bestek luxe', en:'Plates &amp; cutlery deluxe', ar:'صحون وأدوات فاخرة' },
+  'addon-borden-goud-desc':{ nl:'Witte borden, goudkleurig onderbord, doorzichtig voorgerechtbordje, goudkleurig bestek', en:'White plates, gold charger plate, transparent starter plate, gold cutlery', ar:'صحون بيضاء، صحن قاعدة بلون ذهبيّ، صحن مقبّلات شفّاف، أدوات بلون ذهبيّ' },
+  'addon-statafel':        { nl:'Statafel incl. zwarte tafelrok', en:'Standing table incl. black table skirt', ar:'طاولة وقوف مع غطاء أسود' },
+  'addon-koffie':          { nl:'Koffie &amp; thee arrangement', en:'Coffee &amp; tea arrangement', ar:'باقة قهوة وشاي' },
+  'addon-koffie-desc':     { nl:'~2 kopjes p.p. incl. kopjes, schotels, suiker, melk &amp; lepeltjes', en:'~2 cups p.p. incl. cups, saucers, sugar, milk &amp; spoons', ar:'~٢ فنجان للشخص مع الفناجين والصحون والسكّر والحليب والملاعق' },
+  'addon-fris3':           { nl:'Fris arrangement (3 uur)', en:'Soft drinks (3 hours)', ar:'باقة مشروبات غازيّة (٣ ساعات)' },
+  'addon-fris3-desc':      { nl:'Onbeperkt fris, max. 3 uur &middot; incl. 2 glazen p.p.', en:'Unlimited soft drinks, max. 3 hours &middot; incl. 2 glasses p.p.', ar:'مشروبات غازيّة بلا حدود، حدّ أقصى ٣ ساعات &middot; مع كأسين للشخص' },
+  'addon-fris5':           { nl:'Fris arrangement (5 uur)', en:'Soft drinks (5 hours)', ar:'باقة مشروبات غازيّة (٥ ساعات)' },
+  'addon-fris5-desc':      { nl:'Onbeperkt fris, max. 5 uur &middot; incl. 2 glazen p.p.', en:'Unlimited soft drinks, max. 5 hours &middot; incl. 2 glasses p.p.', ar:'مشروبات غازيّة بلا حدود، حدّ أقصى ٥ ساعات &middot; مع كأسين للشخص' },
+  'addon-mocktails':       { nl:'Mocktails', en:'Mocktails', ar:'موكتيلز' },
+  'addon-mocktails-desc':  { nl:'Virgin Mojito, Virgin Pi&ntilde;a Colada of Tropical Fizz', en:'Virgin Mojito, Virgin Pi&ntilde;a Colada or Tropical Fizz', ar:'فيرجن موهيتو، فيرجن بينا كولادا، أو تروبيكال فيز' },
+  'addon-grp-toetjes':     { nl:'Toetjes', en:'Desserts', ar:'الحلويّات' },
+  'addon-grp-kids':        { nl:'Kids Menu', en:'Kids Menu', ar:'قائمة الأطفال' },
+  'addon-baklava':         { nl:'Arabische pistache baklava mix', en:'Arabic pistachio baklava mix', ar:'تشكيلة بقلاوة عربيّة بالفستق' },
+  'addon-muhalayya':       { nl:'Arabisch roomtoetje (muhalayya)', en:'Arabic cream pudding (muhalayya)', ar:'مهلّبيّة عربيّة' },
+  'addon-basbousa':        { nl:'Arabische griesmeelcake met pistache (basbousa / harissa)', en:'Arabic semolina cake with pistachio (basbousa / harissa)', ar:'بسبوسة بالفستق (هريسة)' },
+  'addon-choc-shortcake':  { nl:'Chocolate-caramel shortcake', en:'Chocolate-caramel shortcake', ar:'شورت كيك شوكولاتة وكراميل' },
+  'addon-glutenvrij':      { nl:'(glutenvrij)', en:'(gluten free)', ar:'(خالٍ من الغلوتين)' },
+  'addon-white-shortcake': { nl:'White chocolate shortcake', en:'White chocolate shortcake', ar:'شورت كيك شوكولاتة بيضاء' },
+  'addon-cheesecake':      { nl:'Pistache cheesecake', en:'Pistachio cheesecake', ar:'تشيز كيك بالفستق' },
+  'addon-frietjes':        { nl:'Frietjes met mayonaise, ketchup &amp; halal snack', en:'Fries with mayo, ketchup &amp; halal snack', ar:'بطاطا مقليّة مع مايونيز وكاتشب وسناك حلال' },
+  'addon-perkind':         { nl:'per kind', en:'per child', ar:'لكلّ طفل' },
+  'addon-min5':            { nl:'Min. 5 stuks &middot; bestelhoeveelheid', en:'Min. 5 pieces &middot; minimum order', ar:'الحدّ الأدنى ٥ قطع &middot; كميّة الطلب' },
+  'addon-min5-kids':       { nl:'Min. 5 kindermenu\'s &middot; bestelhoeveelheid', en:'Min. 5 kids menus &middot; minimum order', ar:'الحدّ الأدنى ٥ قوائم أطفال &middot; كميّة الطلب' },
+  'addon-stuks':           { nl:'stuks', en:'pieces', ar:'قطع' },
+  'addon-kinderen':        { nl:'kinderen', en:'children', ar:'أطفال' },
 
   // 50km+ panel
-  'afstand-title':         { nl:'Serviesgoed &amp; opruiming', en:'Tableware &amp; cleanup' },
-  'afstand-desc':          { nl:'Bij een afstand van 50 km of meer vragen wij u een keuze te maken voor het retourneren van serviesgoed:', en:'For distances of 50 km or more, we ask you to choose an option for returning tableware:' },
-  'afstand-peruur':        { nl:'per uur', en:'per hour' },
-  'afstand-uren-lbl':      { nl:'uur', en:'hours' },
-  'afstand-opt1-naam':     { nl:'Personeel blijft aanwezig', en:'Staff stays on-site' },
-  'afstand-opt1-desc':     { nl:'Ons personeel blijft ter plekke voor opruiming en afvoer', en:'Our staff stays on location for cleanup and collection' },
-  'afstand-opt2-naam':     { nl:'Ophaalservice volgende dag', en:'Next-day collection' },
-  'afstand-opt2-prijs-pre':{ nl:'+', en:'+' },
-  'afstand-opt2-desc':     { nl:'Wij halen serviesgoed de volgende dag op', en:'We collect tableware the next day' },
-  'afstand-opt3-naam':     { nl:'Zelf terugbrengen', en:'Self-return' },
-  'afstand-opt3-prijs':    { nl:'Gratis', en:'Free' },
-  'afstand-opt3-desc':     { nl:'U brengt het serviesgoed zelf retour naar onze dichtstbijzijnde locatie', en:'You return the tableware yourself to our nearest location' },
-  'afstand-opt4-naam':     { nl:'Disposable serviesgoed', en:'Disposable tableware' },
-  'afstand-opt4-prijs':    { nl:'Gratis', en:'Free' },
-  'afstand-opt4-desc':     { nl:'Wij serveren het eten in wegwerpverpakkingen &mdash; niets retourneren', en:'We serve the food in disposable packaging &mdash; nothing to return' },
-  'reis-lbl-regio':        { nl:'Regio', en:'Region' },
-  'reis-lbl-loc':          { nl:'Dichtstbijzijnde locatie', en:'Nearest location' },
-  'reis-lbl-afstand':      { nl:'Afstand (retour)', en:'Distance (return)' },
-  'reis-lbl-kosten':       { nl:'Reiskosten', en:'Travel costs' },
+  'afstand-title':         { nl:'Serviesgoed &amp; opruiming', en:'Tableware &amp; cleanup', ar:'الصحون والتنظيف' },
+  'afstand-desc':          { nl:'Bij een afstand van 50 km of meer vragen wij u een keuze te maken voor het retourneren van serviesgoed:', en:'For distances of 50 km or more, we ask you to choose an option for returning tableware:', ar:'عند المسافات التي تبلغ ٥٠ كم أو أكثر، نطلب منك اختيار طريقة لإعادة الصحون:' },
+  'afstand-peruur':        { nl:'per uur', en:'per hour', ar:'للساعة' },
+  'afstand-uren-lbl':      { nl:'uur', en:'hours', ar:'ساعات' },
+  'afstand-opt1-naam':     { nl:'Personeel blijft aanwezig', en:'Staff stays on-site', ar:'الطاقم يبقى في الموقع' },
+  'afstand-opt1-desc':     { nl:'Ons personeel blijft ter plekke voor opruiming en afvoer', en:'Our staff stays on location for cleanup and collection', ar:'يبقى طاقمنا في الموقع للتنظيف وجمع الأغراض' },
+  'afstand-opt2-naam':     { nl:'Ophaalservice volgende dag', en:'Next-day collection', ar:'استلام في اليوم التالي' },
+  'afstand-opt2-prijs-pre':{ nl:'+', en:'+', ar:'+' },
+  'afstand-opt2-desc':     { nl:'Wij halen serviesgoed de volgende dag op', en:'We collect tableware the next day', ar:'نأتي لاستلام الصحون في اليوم التالي' },
+  'afstand-opt3-naam':     { nl:'Zelf terugbrengen', en:'Self-return', ar:'إعادة بنفسك' },
+  'afstand-opt3-prijs':    { nl:'Gratis', en:'Free', ar:'مجّاناً' },
+  'afstand-opt3-desc':     { nl:'U brengt het serviesgoed zelf retour naar onze dichtstbijzijnde locatie', en:'You return the tableware yourself to our nearest location', ar:'تُعيد الصحون بنفسك إلى أقرب موقع لنا' },
+  'afstand-opt4-naam':     { nl:'Disposable serviesgoed', en:'Disposable tableware', ar:'صحون للاستعمال مرّة واحدة' },
+  'afstand-opt4-prijs':    { nl:'Gratis', en:'Free', ar:'مجّاناً' },
+  'afstand-opt4-desc':     { nl:'Wij serveren het eten in wegwerpverpakkingen &mdash; niets retourneren', en:'We serve the food in disposable packaging &mdash; nothing to return', ar:'نُقدّم الطعام في عبوات للاستعمال مرّة واحدة &mdash; لا شيء يُعاد' },
+  'reis-lbl-regio':        { nl:'Regio', en:'Region', ar:'المنطقة' },
+  'reis-lbl-loc':          { nl:'Dichtstbijzijnde locatie', en:'Nearest location', ar:'أقرب موقع' },
+  'reis-lbl-afstand':      { nl:'Afstand (retour)', en:'Distance (return)', ar:'المسافة (ذهاباً وإياباً)' },
+  'reis-lbl-kosten':       { nl:'Reiskosten', en:'Travel costs', ar:'تكاليف التنقّل' },
 
   // Calendar
-  'cal-free':         { nl:'Beschikbaar', en:'Available' },
-  'cal-blocked':      { nl:'Bezet', en:'Unavailable' },
-  'cal-bijna':        { nl:'Bijna vol', en:'Almost full' },
+  'cal-free':         { nl:'Beschikbaar', en:'Available', ar:'متاح' },
+  'cal-blocked':      { nl:'Bezet', en:'Unavailable', ar:'محجوز' },
+  'cal-bijna':        { nl:'Bijna vol', en:'Almost full', ar:'شبه ممتلئ' },
 
   // Quote summary
-  'ct-title':         { nl:'Uw Offerte Overzicht', en:'Your Quote Summary' },
-  'ct-lbl-pakket':    { nl:'Pakket', en:'Package' },
-  'ct-lbl-personen':  { nl:'Personen', en:'Persons' },
-  'ct-lbl-subtotaal': { nl:'Subtotaal catering', en:'Subtotal catering' },
-  'ct-lbl-totaal':    { nl:'Totaal', en:'Total' },
-  'ct-quote':         { nl:'"Wij helpen u graag verder &mdash; of u nu een klein feestje plant of een groot evenement. Stuur uw aanvraag in en wij nemen persoonlijk contact met u op."', en:'"We are happy to help you further &mdash; whether you are planning a small party or a large event. Send your request and we will contact you personally."' },
-  'ct-btn':           { nl:'Offerte Aanvragen &rarr;', en:'Request Quote &rarr;' },
-  'ct-btn-betaal':    { nl:'Direct Afrekenen &mdash; Binnenkort beschikbaar', en:'Pay Now &mdash; Coming soon' },
-  'ct-note':          { nl:'BTW inbegrepen &middot; Op- &amp; afbouw inbegrepen', en:'VAT included &middot; Setup &amp; breakdown included' },
-  'ct-voorbehoud':    { nl:'Geheel vrijblijvend &middot; Reactie binnen 24 uur', en:'Completely free of obligation &middot; Response within 24 hours' },
+  'ct-title':         { nl:'Uw Offerte Overzicht', en:'Your Quote Summary', ar:'ملخّص عرض السعر' },
+  'ct-lbl-pakket':    { nl:'Pakket', en:'Package', ar:'الباقة' },
+  'ct-lbl-personen':  { nl:'Personen', en:'Persons', ar:'الأشخاص' },
+  'ct-lbl-subtotaal': { nl:'Subtotaal catering', en:'Subtotal catering', ar:'إجمالي التموين الفرعيّ' },
+  'ct-lbl-totaal':    { nl:'Totaal', en:'Total', ar:'الإجماليّ' },
+  'ct-quote':         { nl:'"Wij helpen u graag verder &mdash; of u nu een klein feestje plant of een groot evenement. Stuur uw aanvraag in en wij nemen persoonlijk contact met u op."', en:'"We are happy to help you further &mdash; whether you are planning a small party or a large event. Send your request and we will contact you personally."', ar:'"يسعدنا مساعدتكم &mdash; سواء كنتم تخطّطون لحفلة صغيرة أو مناسبة كبرى. أرسلوا طلبكم وسنتواصل معكم شخصيّاً."' },
+  'ct-btn':           { nl:'Offerte Aanvragen &rarr;', en:'Request Quote &rarr;', ar:'اطلب عرض سعر &larr;' },
+  'ct-btn-betaal':    { nl:'Direct Afrekenen &mdash; Binnenkort beschikbaar', en:'Pay Now &mdash; Coming soon', ar:'الدفع المباشر &mdash; قريباً' },
+  'ct-note':          { nl:'BTW inbegrepen &middot; Op- &amp; afbouw inbegrepen', en:'VAT included &middot; Setup &amp; breakdown included', ar:'تشمل ضريبة القيمة المضافة &middot; التحضير والتنصيب ضمن السعر' },
+  'ct-voorbehoud':    { nl:'Geheel vrijblijvend &middot; Reactie binnen 24 uur', en:'Completely free of obligation &middot; Response within 24 hours', ar:'دون أيّ التزام &middot; ردّنا خلال ٢٤ ساعة' },
 
   // Workshops
-  'ws-label':         { nl:'Kookworkshops', en:'Cooking Workshops' },
-  'ws-title':         { nl:'Kook mee in <em>Rotterdam</em>', en:'Cook with us in <em>Rotterdam</em>' },
-  'ws-intro':         { nl:'Een middag of avond onder leiding van <strong style="color:var(--parchment)">chef Mohamad Habanakeh</strong>. Samen koken, proeven en eten &mdash; met de verhalen van Damascus op de achtergrond.', en:'An afternoon or evening under the guidance of <strong style="color:var(--parchment)">chef Mohamad Habanakeh</strong>. Cook, taste and eat together &mdash; with the stories of Damascus in the background.' },
-  'ws1-name':         { nl:'Tapas &amp; Mezze', en:'Tapas &amp; Mezze' },
-  'ws1-desc':         { nl:'Voor groepen &mdash; leer Arabische mezze bereiden en geniet er samen van.', en:'For groups &mdash; learn to prepare Arabic mezze and enjoy them together.' },
-  'ws2-name':         { nl:'Arabische Gerechten', en:'Arabic Dishes' },
-  'ws2-desc':         { nl:'Kruiden, technieken en bijzondere groenten &mdash; vegetarisch of met vlees.', en:'Spices, techniques and special vegetables &mdash; vegetarian or with meat.' },
-  'ws3-name':         { nl:'Workshopreeks', en:'Workshop Series' },
-  'ws3-desc':         { nl:"Vier avonden, vier thema's &mdash; de basis van de Syrische keuken voor individuen.", en:'Four evenings, four themes &mdash; the basics of Syrian cuisine for individuals.' },
-  'ws-cta':           { nl:'Ontdek alle workshops &rarr;', en:'Discover all workshops &rarr;' },
-  'ws-note':          { nl:'Prijzen, data en inschrijven &mdash; bekijk het volledige aanbod.', en:'Prices, dates and registration &mdash; view the full offer.' },
+  'ws-label':         { nl:'Kookworkshops', en:'Cooking Workshops', ar:'ورش الطهي' },
+  'ws-title':         { nl:'Kook mee in <em>Rotterdam</em>', en:'Cook with us in <em>Rotterdam</em>', ar:'اطبخ معنا في <em>روتردام</em>' },
+  'ws-intro':         { nl:'Een middag of avond onder leiding van <strong style="color:var(--parchment)">chef Mohamad Habanakeh</strong>. Samen koken, proeven en eten &mdash; met de verhalen van Damascus op de achtergrond.', en:'An afternoon or evening under the guidance of <strong style="color:var(--parchment)">chef Mohamad Habanakeh</strong>. Cook, taste and eat together &mdash; with the stories of Damascus in the background.', ar:'بعد ظهر أو مساء بإشراف <strong style="color:var(--parchment)">الشيف محمّد حبنّكة</strong>. نطبخ ونتذوّق ونأكل معاً &mdash; مع قصص دمشق في الخلفيّة.' },
+  'ws1-name':         { nl:'Tapas &amp; Mezze', en:'Tapas &amp; Mezze', ar:'تاباس ومازات' },
+  'ws1-desc':         { nl:'Voor groepen &mdash; leer Arabische mezze bereiden en geniet er samen van.', en:'For groups &mdash; learn to prepare Arabic mezze and enjoy them together.', ar:'للمجموعات &mdash; تعلّم تحضير المازات العربيّة واستمتعوا بها معاً.' },
+  'ws2-name':         { nl:'Arabische Gerechten', en:'Arabic Dishes', ar:'الأطباق العربيّة' },
+  'ws2-desc':         { nl:'Kruiden, technieken en bijzondere groenten &mdash; vegetarisch of met vlees.', en:'Spices, techniques and special vegetables &mdash; vegetarian or with meat.', ar:'بهارات وأساليب وخضار مميّزة &mdash; نباتيّ أو مع لحم.' },
+  'ws3-name':         { nl:'Workshopreeks', en:'Workshop Series', ar:'سلسلة ورش' },
+  'ws3-desc':         { nl:"Vier avonden, vier thema's &mdash; de basis van de Syrische keuken voor individuen.", en:'Four evenings, four themes &mdash; the basics of Syrian cuisine for individuals.', ar:'أربع جلسات، أربعة محاور &mdash; أساسيّات المطبخ السوريّ للأفراد.' },
+  'ws-cta':           { nl:'Ontdek alle workshops &rarr;', en:'Discover all workshops &rarr;', ar:'اكتشف كلّ الورش &larr;' },
+  'ws-note':          { nl:'Prijzen, data en inschrijven &mdash; bekijk het volledige aanbod.', en:'Prices, dates and registration &mdash; view the full offer.', ar:'الأسعار والمواعيد والتسجيل &mdash; تصفّح كلّ ما هو متاح.' },
 
   // Ruimte huren
-  'ruimte-label':     { nl:'Evenementen', en:'Events' },
-  'ruimte-title':     { nl:'Ruimte huren in <em>de Bibliotheek</em>', en:'Venue hire at <em>the Library</em>' },
-  'ruimte-body':      { nl:'De begane grond van Morgenland is beschikbaar voor priv&eacute;evenementen. Of het nu gaat om een feest, vergadering, workshop of presentatie &mdash; onze ruimte in de Centrale Bibliotheek Rotterdam biedt een unieke setting.', en:'The ground floor of Morgenland is available for private events. Whether it\'s a celebration, meeting, workshop or presentation &mdash; our space in Rotterdam Central Library offers a unique setting.' },
-  'rf1':              { nl:'Priv&eacute;feestjes &amp; borrels', en:'Private parties &amp; drinks' },
-  'rf2':              { nl:'Vergaderingen &amp; presentaties', en:'Meetings &amp; presentations' },
-  'rf3':              { nl:'Workshops &amp; trainingen', en:'Workshops &amp; training sessions' },
-  'rf4':              { nl:'Catering inbegrepen mogelijk', en:'Catering included possible' },
-  'rf5':              { nl:'Unieke locatie in de bibliotheek', en:'Unique location in the library' },
-  'ruimte-btn':       { nl:'Neem Contact Op', en:'Get in Touch' },
+  'ruimte-label':     { nl:'Evenementen', en:'Events', ar:'المناسبات' },
+  'ruimte-title':     { nl:'Ruimte huren in <em>de Bibliotheek</em>', en:'Venue hire at <em>the Library</em>', ar:'تأجير قاعة في <em>المكتبة</em>' },
+  'ruimte-body':      { nl:'De begane grond van Morgenland is beschikbaar voor priv&eacute;evenementen. Of het nu gaat om een feest, vergadering, workshop of presentatie &mdash; onze ruimte in de Centrale Bibliotheek Rotterdam biedt een unieke setting.', en:'The ground floor of Morgenland is available for private events. Whether it\'s a celebration, meeting, workshop or presentation &mdash; our space in Rotterdam Central Library offers a unique setting.', ar:'الطابق الأرضيّ من Morgenland متاح للمناسبات الخاصّة. سواء كانت احتفالاً أو اجتماعاً أو ورشة أو عرضاً تقديميّاً &mdash; مكاننا في المكتبة المركزيّة بروتردام يوفّر أجواءً مميّزة.' },
+  'rf1':              { nl:'Priv&eacute;feestjes &amp; borrels', en:'Private parties &amp; drinks', ar:'حفلات خاصّة وجلسات مشروبات' },
+  'rf2':              { nl:'Vergaderingen &amp; presentaties', en:'Meetings &amp; presentations', ar:'اجتماعات وعروض تقديميّة' },
+  'rf3':              { nl:'Workshops &amp; trainingen', en:'Workshops &amp; training sessions', ar:'ورش وجلسات تدريب' },
+  'rf4':              { nl:'Catering inbegrepen mogelijk', en:'Catering included possible', ar:'إمكانيّة تضمين التموين' },
+  'rf5':              { nl:'Unieke locatie in de bibliotheek', en:'Unique location in the library', ar:'موقع فريد داخل المكتبة' },
+  'ruimte-btn':       { nl:'Neem Contact Op', en:'Get in Touch', ar:'تواصل معنا' },
 
   // Testimonials
-  'test-label':       { nl:'Wat Klanten Zeggen', en:'What Customers Say' },
-  'test-title':       { nl:'<em>Ervaringen</em> van onze klanten', en:"Our customers' <em>experiences</em>" },
-  'reviews-score':    { nl:'104 reviews &middot; Google Reviews', en:'104 reviews &middot; Google Reviews' },
+  'test-label':       { nl:'Wat Klanten Zeggen', en:'What Customers Say', ar:'ما يقوله الزبائن' },
+  'test-title':       { nl:'<em>Ervaringen</em> van onze klanten', en:"Our customers' <em>experiences</em>", ar:'<em>تجارب</em> زبائننا' },
+  'reviews-score':    { nl:'104 reviews &middot; Google Reviews', en:'104 reviews &middot; Google Reviews', ar:'١٠٤ تقييمات &middot; تقييمات Google' },
 
   // Contact
-  'cont-label':       { nl:'Neem Contact Op', en:'Get In Touch' },
-  'cont-title':       { nl:'Vraag een <em>offerte</em> aan', en:'Request a <em>quote</em>' },
-  'cont-desc':        { nl:'Vertel ons over uw wensen en wij sturen u binnen 24 uur een vrijblijvende offerte op maat.', en:'Tell us about your wishes and we will send you a no-obligation custom quote within 24 hours.' },
-  'cont-btn':         { nl:'Verstuur &mdash; Gratis &amp; Vrijblijvend', en:'Send &mdash; Free &amp; No Obligation' },
-  'cont-info-title':  { nl:'Direct Contact', en:'Direct Contact' },
-  'cont-info-text':   { nl:'Liever direct bellen of appen? Wij zijn bereikbaar op onderstaande gegevens.', en:'Prefer to call or message directly? You can reach us at the details below.' },
-  'form-naam':        { nl:'Naam *', en:'Name *' },
-  'form-email':       { nl:'E-mailadres *', en:'Email address *' },
-  'form-tel':         { nl:'Telefoonnummer *', en:'Phone number *' },
-  'form-type':        { nl:'Type', en:'Type' },
-  'form-bericht':     { nl:'Bericht *', en:'Message *' },
-  'form-type-select': { nl:'<option value="">Selecteer...</option><option>Catering</option><option>Kookworkshop</option><option>Ruimte Huren</option><option>Overig</option>', en:'<option value="">Select...</option><option>Catering</option><option>Cooking workshop</option><option>Venue hire</option><option>Other</option>' },
+  'cont-label':       { nl:'Neem Contact Op', en:'Get In Touch', ar:'تواصل معنا' },
+  'cont-title':       { nl:'Vraag een <em>offerte</em> aan', en:'Request a <em>quote</em>', ar:'اطلب <em>عرض سعر</em>' },
+  'cont-desc':        { nl:'Vertel ons over uw wensen en wij sturen u binnen 24 uur een vrijblijvende offerte op maat.', en:'Tell us about your wishes and we will send you a no-obligation custom quote within 24 hours.', ar:'أخبرنا برغباتكم وسنرسل إليكم عرض سعر مخصّص دون أيّ التزام خلال ٢٤ ساعة.' },
+  'cont-btn':         { nl:'Verstuur &mdash; Gratis &amp; Vrijblijvend', en:'Send &mdash; Free &amp; No Obligation', ar:'أرسل &mdash; مجّاناً ودون التزام' },
+  'cont-info-title':  { nl:'Direct Contact', en:'Direct Contact', ar:'تواصل مباشر' },
+  'cont-info-text':   { nl:'Liever direct bellen of appen? Wij zijn bereikbaar op onderstaande gegevens.', en:'Prefer to call or message directly? You can reach us at the details below.', ar:'تفضّل الاتّصال أو المراسلة مباشرة؟ يمكنك الوصول إلينا عبر البيانات أدناه.' },
+  'form-naam':        { nl:'Naam *', en:'Name *', ar:'الاسم *' },
+  'form-email':       { nl:'E-mailadres *', en:'Email address *', ar:'البريد الإلكترونيّ *' },
+  'form-tel':         { nl:'Telefoonnummer *', en:'Phone number *', ar:'رقم الهاتف *' },
+  'form-type':        { nl:'Type', en:'Type', ar:'النوع' },
+  'form-bericht':     { nl:'Bericht *', en:'Message *', ar:'الرسالة *' },
+  'form-type-select': { nl:'<option value="">Selecteer...</option><option>Catering</option><option>Kookworkshop</option><option>Ruimte Huren</option><option>Overig</option>', en:'<option value="">Select...</option><option>Catering</option><option>Cooking workshop</option><option>Venue hire</option><option>Other</option>', ar:'<option value="">اختر...</option><option>تموين</option><option>ورشة طهي</option><option>تأجير قاعة</option><option>غير ذلك</option>' },
 
   // Contact details
-  'cd-tel-lbl':       { nl:'Telefoon &amp; WhatsApp', en:'Phone &amp; WhatsApp' },
-  'cd-email-lbl':     { nl:'E-mail', en:'Email' },
-  'cd-adres-lbl':     { nl:'Adres', en:'Address' },
-  'cd-adres-val':     { nl:'Librijesteeg 4, 3011 EB Rotterdam<br><span style="font-size:.82rem;color:rgba(245,237,214,.4);">2e verdieping Centrale Bibliotheek</span>', en:'Librijesteeg 4, 3011 EB Rotterdam<br><span style="font-size:.82rem;color:rgba(245,237,214,.4);">2nd floor Central Library</span>' },
-  'cd-hours-lbl':     { nl:'Openingstijden', en:'Opening hours' },
-  'cd-hours-val':     { nl:'zo-do 12:00-21:00<br>vr-za 12:00-22:00', en:'Sun-Thu 12:00-21:00<br>Fri-Sat 12:00-22:00' },
-  'cd-bereik-lbl':    { nl:'Bereikbaarheid', en:'Availability' },
-  'cd-bereik-val':    { nl:'WhatsApp &amp; telefoon &mdash; reactie binnen 24 uur', en:'WhatsApp &amp; phone &mdash; response within 24 hours' },
-  'halal-badge-txt':  { nl:'<strong>100% Halal</strong>Alle gerechten en bereidingen zijn volledig halal', en:'<strong>100% Halal</strong>All dishes and preparations are fully halal' },
+  'cd-tel-lbl':       { nl:'Telefoon &amp; WhatsApp', en:'Phone &amp; WhatsApp', ar:'الهاتف وواتساب' },
+  'cd-email-lbl':     { nl:'E-mail', en:'Email', ar:'البريد الإلكترونيّ' },
+  'cd-adres-lbl':     { nl:'Adres', en:'Address', ar:'العنوان' },
+  'cd-adres-val':     { nl:'Librijesteeg 4, 3011 EB Rotterdam<br><span style="font-size:.82rem;color:rgba(245,237,214,.4);">2e verdieping Centrale Bibliotheek</span>', en:'Librijesteeg 4, 3011 EB Rotterdam<br><span style="font-size:.82rem;color:rgba(245,237,214,.4);">2nd floor Central Library</span>', ar:'Librijesteeg 4, 3011 EB روتردام<br><span style="font-size:.82rem;color:rgba(245,237,214,.4);">الطابق الثاني، المكتبة المركزيّة</span>' },
+  'cd-hours-lbl':     { nl:'Openingstijden', en:'Opening hours', ar:'ساعات العمل' },
+  'cd-hours-val':     { nl:'zo-do 12:00-21:00<br>vr-za 12:00-22:00', en:'Sun-Thu 12:00-21:00<br>Fri-Sat 12:00-22:00', ar:'الأحد – الخميس ١٢:٠٠ – ٢١:٠٠<br>الجمعة والسبت ١٢:٠٠ – ٢٢:٠٠' },
+  'cd-bereik-lbl':    { nl:'Bereikbaarheid', en:'Availability', ar:'التواصل' },
+  'cd-bereik-val':    { nl:'WhatsApp &amp; telefoon &mdash; reactie binnen 24 uur', en:'WhatsApp &amp; phone &mdash; response within 24 hours', ar:'واتساب وهاتف &mdash; ردّنا خلال ٢٤ ساعة' },
+  'halal-badge-txt':  { nl:'<strong>100% Halal</strong>Alle gerechten en bereidingen zijn volledig halal', en:'<strong>100% Halal</strong>All dishes and preparations are fully halal', ar:'<strong>حلال ١٠٠٪</strong>جميع الأطباق والتحضيرات حلال بالكامل' },
 
   // FAQ
-  'faq-label':        { nl:'Veelgestelde Vragen', en:'Frequently Asked Questions' },
-  'faq-title':        { nl:'Heeft u een <em>vraag</em>?', en:'Have a <em>question</em>?' },
-  'faq-q1':           { nl:'Waar zit Morgenland precies?', en:'Where exactly is Morgenland located?' },
-  'faq-a1':           { nl:'Morgenland bevindt zich op de 2e verdieping van de Centrale Bibliotheek Rotterdam, Librijesteeg 4, 3011 EB Rotterdam. U vindt ons eenvoudig via de roltrappen of lift in de bibliotheek.', en:'Morgenland is located on the 2nd floor of Rotterdam Central Library, Librijesteeg 4, 3011 EB Rotterdam. You can easily find us via the escalators or lift in the library.' },
-  'faq-q2':           { nl:'Is alles halal?', en:'Is everything halal?' },
-  'faq-a2':           { nl:'Ja, al onze gerechten en bereidingen zijn 100% halal. Wij werken uitsluitend met halal-gecertificeerde leveranciers en ingrediënten.', en:'Yes, all our dishes and preparations are 100% halal. We work exclusively with halal-certified suppliers and ingredients.' },
-  'faq-q3':           { nl:'Kan ik online bestellen?', en:'Can I order online?' },
-  'faq-a3':           { nl:'Ja, u kunt eenvoudig online bestellen via Lightspeed Order Anywhere. Uw bestelling kunt u afhalen bij ons in de Centrale Bibliotheek Rotterdam.', en:'Yes, you can easily order online via Lightspeed Order Anywhere. You can pick up your order at our location in Rotterdam Central Library.' },
-  'faq-q4':           { nl:'Bieden jullie ook catering aan?', en:'Do you also offer catering?' },
-  'faq-a4':           { nl:'Ja, wij bieden dezelfde authentieke Syrisch-Libanese catering aan als Memories of Damascus. Van bruiloften tot bedrijfsevenementen &mdash; compleet verzorgd vanuit Rotterdam.', en:'Yes, we offer the same authentic Syrian-Lebanese catering as Memories of Damascus. From weddings to corporate events &mdash; fully arranged from Rotterdam.' },
-  'faq-q5':           { nl:'Kan ik de ruimte huren?', en:'Can I hire the venue?' },
-  'faq-a5':           { nl:'Ja, de begane grond van Morgenland is beschikbaar voor priv&eacute;evenementen. Neem contact met ons op voor beschikbaarheid en mogelijkheden.', en:'Yes, the ground floor of Morgenland is available for private events. Contact us for availability and options.' },
-  'faq-q6':           { nl:'Geven jullie kookworkshops?', en:'Do you host cooking workshops?' },
-  'faq-a6':           { nl:'Ja! Wij bieden Arabische kookworkshops aan onder leiding van chef Mohamad Habanakeh. Bekijk het volledige aanbod op onze workshop-pagina.', en:'Yes! We host Arabic cooking workshops led by chef Mohamad Habanakeh. View the full offer on our workshop page.' },
+  'faq-label':        { nl:'Veelgestelde Vragen', en:'Frequently Asked Questions', ar:'الأسئلة الشائعة' },
+  'faq-title':        { nl:'Heeft u een <em>vraag</em>?', en:'Have a <em>question</em>?', ar:'هل لديكم <em>سؤال</em>؟' },
+  'faq-q1':           { nl:'Waar zit Morgenland precies?', en:'Where exactly is Morgenland located?', ar:'أين يقع Morgenland بالضبط؟' },
+  'faq-a1':           { nl:'Morgenland bevindt zich op de 2e verdieping van de Centrale Bibliotheek Rotterdam, Librijesteeg 4, 3011 EB Rotterdam. U vindt ons eenvoudig via de roltrappen of lift in de bibliotheek.', en:'Morgenland is located on the 2nd floor of Rotterdam Central Library, Librijesteeg 4, 3011 EB Rotterdam. You can easily find us via the escalators or lift in the library.', ar:'يقع Morgenland في الطابق الثاني من المكتبة المركزيّة بروتردام، Librijesteeg 4, 3011 EB روتردام. تجدوننا بسهولة عبر السلالم الكهربائيّة أو المصعد داخل المكتبة.' },
+  'faq-q2':           { nl:'Is alles halal?', en:'Is everything halal?', ar:'هل كلّ شيء حلال؟' },
+  'faq-a2':           { nl:'Ja, al onze gerechten en bereidingen zijn 100% halal. Wij werken uitsluitend met halal-gecertificeerde leveranciers en ingrediënten.', en:'Yes, all our dishes and preparations are 100% halal. We work exclusively with halal-certified suppliers and ingredients.', ar:'نعم، جميع أطباقنا وتحضيراتنا حلال ١٠٠٪. نعمل حصراً مع مورّدين ومكوّنات حاصلة على شهادة الحلال.' },
+  'faq-q3':           { nl:'Kan ik online bestellen?', en:'Can I order online?', ar:'هل يمكنني الطلب عبر الإنترنت؟' },
+  'faq-a3':           { nl:'Ja, u kunt eenvoudig online bestellen via Lightspeed Order Anywhere. Uw bestelling kunt u afhalen bij ons in de Centrale Bibliotheek Rotterdam.', en:'Yes, you can easily order online via Lightspeed Order Anywhere. You can pick up your order at our location in Rotterdam Central Library.', ar:'نعم، يمكنكم الطلب بسهولة عبر Lightspeed Order Anywhere. تستلمون طلبكم من موقعنا في المكتبة المركزيّة بروتردام.' },
+  'faq-q4':           { nl:'Bieden jullie ook catering aan?', en:'Do you also offer catering?', ar:'هل تقدّمون خدمات التموين أيضاً؟' },
+  'faq-a4':           { nl:'Ja, wij bieden dezelfde authentieke Syrisch-Libanese catering aan als Memories of Damascus. Van bruiloften tot bedrijfsevenementen &mdash; compleet verzorgd vanuit Rotterdam.', en:'Yes, we offer the same authentic Syrian-Lebanese catering as Memories of Damascus. From weddings to corporate events &mdash; fully arranged from Rotterdam.', ar:'نعم، نقدّم نفس التموين السوريّ اللبنانيّ الأصيل لـ Memories of Damascus. من الأعراس إلى مناسبات الشركات &mdash; خدمة شاملة انطلاقاً من روتردام.' },
+  'faq-q5':           { nl:'Kan ik de ruimte huren?', en:'Can I hire the venue?', ar:'هل يمكنني تأجير القاعة؟' },
+  'faq-a5':           { nl:'Ja, de begane grond van Morgenland is beschikbaar voor priv&eacute;evenementen. Neem contact met ons op voor beschikbaarheid en mogelijkheden.', en:'Yes, the ground floor of Morgenland is available for private events. Contact us for availability and options.', ar:'نعم، الطابق الأرضيّ من Morgenland متاح للمناسبات الخاصّة. تواصلوا معنا لمعرفة التواريخ المتاحة والخيارات.' },
+  'faq-q6':           { nl:'Geven jullie kookworkshops?', en:'Do you host cooking workshops?', ar:'هل تنظّمون ورش طهي؟' },
+  'faq-a6':           { nl:'Ja! Wij bieden Arabische kookworkshops aan onder leiding van chef Mohamad Habanakeh. Bekijk het volledige aanbod op onze workshop-pagina.', en:'Yes! We host Arabic cooking workshops led by chef Mohamad Habanakeh. View the full offer on our workshop page.', ar:'نعم! نقدّم ورش طهي عربيّة بإشراف الشيف محمّد حبنّكة. تصفّحوا كلّ ما هو متاح على صفحة الورش.' },
 
   // Footer
-  'footer-tagline':   { nl:'"Wereldse smaken, Rotterdams karakter &mdash; internationale keuken en Syrisch-Libanese catering in de Centrale Bibliotheek Rotterdam."', en:'"Global flavours, Rotterdam character &mdash; international cuisine and Syrian-Lebanese catering in Rotterdam Central Library."' },
-  'footer-col1-h':    { nl:'Restaurant', en:'Restaurant' },
-  'footer-col2-h':    { nl:'Catering', en:'Catering' },
-  'footer-col3-h':    { nl:'Contact', en:'Contact' },
-  'footer-hours':     { nl:'Openingstijden', en:'Opening hours' },
-  'footer-pakketten': { nl:'Pakketten', en:'Packages' },
-  'footer-configurator':{ nl:'Stel Zelf Samen', en:'Choose Yourself' },
-  'footer-address':   { nl:'Librijesteeg 4, Rotterdam', en:'Librijesteeg 4, Rotterdam' },
-  'footer-copy':      { nl:'\u00a9 2020 \u2013 2026 Morgenland \u2014 by Memories of Damascus \u00b7 KVK 81201974', en:'\u00a9 2020 \u2013 2026 Morgenland \u2014 by Memories of Damascus \u00b7 KVK 81201974' },
-  'footer-halal':     { nl:'\u262e 100% Halal', en:'\u262e 100% Halal' },
+  'footer-tagline':   { nl:'"Wereldse smaken, Rotterdams karakter &mdash; internationale keuken en Syrisch-Libanese catering in de Centrale Bibliotheek Rotterdam."', en:'"Global flavours, Rotterdam character &mdash; international cuisine and Syrian-Lebanese catering in Rotterdam Central Library."', ar:'"\u0646\u0643\u0647\u0627\u062a \u0639\u0627\u0644\u0645\u064a\u0651\u0629 \u0628\u0637\u0627\u0628\u0639 \u0631\u0648\u062a\u0631\u062f\u0627\u0645 &mdash; \u0645\u0637\u0628\u062e \u0639\u0627\u0644\u0645\u064a\u0651 \u0648\u062a\u0645\u0648\u064a\u0646 \u0633\u0648\u0631\u064a\u0651 \u0644\u0628\u0646\u0627\u0646\u064a\u0651 \u0641\u064a \u0627\u0644\u0645\u0643\u062a\u0628\u0629 \u0627\u0644\u0645\u0631\u0643\u0632\u064a\u0651\u0629 \u0628\u0631\u0648\u062a\u0631\u062f\u0627\u0645."' },
+  'footer-col1-h':    { nl:'Restaurant', en:'Restaurant', ar:'\u0627\u0644\u0645\u0637\u0639\u0645' },
+  'footer-col2-h':    { nl:'Catering', en:'Catering', ar:'\u0627\u0644\u062a\u0645\u0648\u064a\u0646' },
+  'footer-col3-h':    { nl:'Contact', en:'Contact', ar:'\u062a\u0648\u0627\u0635\u0644' },
+  'footer-hours':     { nl:'Openingstijden', en:'Opening hours', ar:'\u0633\u0627\u0639\u0627\u062a \u0627\u0644\u0639\u0645\u0644' },
+  'footer-pakketten': { nl:'Pakketten', en:'Packages', ar:'\u0627\u0644\u0628\u0627\u0642\u0627\u062a' },
+  'footer-configurator':{ nl:'Stel Zelf Samen', en:'Choose Yourself', ar:'\u0635\u0645\u0651\u0645 \u0628\u0646\u0641\u0633\u0643' },
+  'footer-address':   { nl:'Librijesteeg 4, Rotterdam', en:'Librijesteeg 4, Rotterdam', ar:'Librijesteeg 4\u060c \u0631\u0648\u062a\u0631\u062f\u0627\u0645' },
+  'footer-copy':      { nl:'\u00a9 2020 \u2013 2026 Morgenland \u2014 by Memories of Damascus \u00b7 KVK 81201974', en:'\u00a9 2020 \u2013 2026 Morgenland \u2014 by Memories of Damascus \u00b7 KVK 81201974', ar:'\u00a9 \u0662\u0660\u0662\u0660 \u2013 \u0662\u0660\u0662\u0666 Morgenland \u2014 by Memories of Damascus \u00b7 KVK 81201974' },
+  'footer-halal':     { nl:'\u262e 100% Halal', en:'\u262e 100% Halal', ar:'\u262e \u062d\u0644\u0627\u0644 \u0661\u0660\u0660\u066a' },
 
   // Modal
-  'modal-title':      { nl:'Offerte <em>aanvragen</em>', en:'Request a <em>quote</em>' },
-  'modal-eyebrow':    { nl:'Uw aanvraag', en:'Your request' },
-  'modal-tagline':    { nl:'Internationale keuken &amp; catering Rotterdam', en:'International cuisine &amp; catering Rotterdam' },
-  'modal-summary-lbl':{ nl:'Uw configuratie', en:'Your configuration' },
-  'modal-naam-lbl':   { nl:'Naam *', en:'Name *' },
-  'modal-naam-ph':    { nl:'Uw volledige naam', en:'Your full name' },
-  'modal-tel-lbl':    { nl:'Telefoonnummer *', en:'Phone number *' },
-  'modal-email-lbl':  { nl:'E-mailadres *', en:'Email address *' },
-  'modal-wensen-lbl': { nl:'Uw wensen / opmerkingen', en:'Your wishes / remarks' },
-  'modal-wensen-ph':  { nl:'Dieetvereisten, allergieën, speciale wensen...', en:'Dietary requirements, allergies, special wishes...' },
-  'form-sec1':        { nl:'Over u', en:'About you' },
-  'form-sec2':        { nl:'Over uw aanvraag', en:'About your request' },
-  'form-sec3':        { nl:'Uw bericht', en:'Your message' },
-  'modal-submit-btn': { nl:'Verstuur Aanvraag &mdash; Gratis &amp; Vrijblijvend', en:'Send Request &mdash; Free &amp; No Obligation' },
-  'modal-fineprint':  { nl:'Wij nemen binnen 24 uur contact met u op &middot; Geen verplichtingen', en:'We will contact you within 24 hours &middot; No obligations' },
-  'modal-success-title':{ nl:'Aanvraag <em>ontvangen</em>', en:'Request <em>received</em>' },
-  'modal-success-text':{ nl:'Dank u wel. Wij nemen binnen 24 uur persoonlijk contact met u op met een offerte op maat.', en:'Thank you. We will personally contact you within 24 hours with a custom quote.' },
-  'modal-close-btn':  { nl:'Sluiten', en:'Close' },
+  'modal-title':      { nl:'Offerte <em>aanvragen</em>', en:'Request a <em>quote</em>', ar:'اطلب <em>عرض سعر</em>' },
+  'modal-eyebrow':    { nl:'Uw aanvraag', en:'Your request', ar:'طلبكم' },
+  'modal-tagline':    { nl:'Internationale keuken &amp; catering Rotterdam', en:'International cuisine &amp; catering Rotterdam', ar:'مطبخ عالميّ وتموين في روتردام' },
+  'modal-summary-lbl':{ nl:'Uw configuratie', en:'Your configuration', ar:'تفاصيل اختياركم' },
+  'modal-naam-lbl':   { nl:'Naam *', en:'Name *', ar:'الاسم *' },
+  'modal-naam-ph':    { nl:'Uw volledige naam', en:'Your full name', ar:'اسمكم الكامل' },
+  'modal-tel-lbl':    { nl:'Telefoonnummer *', en:'Phone number *', ar:'رقم الهاتف *' },
+  'modal-email-lbl':  { nl:'E-mailadres *', en:'Email address *', ar:'البريد الإلكترونيّ *' },
+  'modal-wensen-lbl': { nl:'Uw wensen / opmerkingen', en:'Your wishes / remarks', ar:'رغباتكم / ملاحظاتكم' },
+  'modal-wensen-ph':  { nl:'Dieetvereisten, allergieën, speciale wensen...', en:'Dietary requirements, allergies, special wishes...', ar:'متطلّبات غذائيّة، حساسيّات، رغبات خاصّة...' },
+  'form-sec1':        { nl:'Over u', en:'About you', ar:'عنكم' },
+  'form-sec2':        { nl:'Over uw aanvraag', en:'About your request', ar:'عن طلبكم' },
+  'form-sec3':        { nl:'Uw bericht', en:'Your message', ar:'رسالتكم' },
+  'modal-submit-btn': { nl:'Verstuur Aanvraag &mdash; Gratis &amp; Vrijblijvend', en:'Send Request &mdash; Free &amp; No Obligation', ar:'أرسل الطلب &mdash; مجّاناً ودون التزام' },
+  'modal-fineprint':  { nl:'Wij nemen binnen 24 uur contact met u op &middot; Geen verplichtingen', en:'We will contact you within 24 hours &middot; No obligations', ar:'سنتواصل معكم خلال ٢٤ ساعة &middot; دون أيّ التزام' },
+  'modal-success-title':{ nl:'Aanvraag <em>ontvangen</em>', en:'Request <em>received</em>', ar:'تمّ <em>استلام الطلب</em>' },
+  'modal-success-text':{ nl:'Dank u wel. Wij nemen binnen 24 uur persoonlijk contact met u op met een offerte op maat.', en:'Thank you. We will personally contact you within 24 hours with a custom quote.', ar:'شكراً لكم. سنتواصل معكم شخصيّاً خلال ٢٤ ساعة مع عرض سعر مخصّص.' },
+  'modal-close-btn':  { nl:'Sluiten', en:'Close', ar:'إغلاق' },
 
   // Mobile price bar
-  'mob-price-lbl':    { nl:'Totaal', en:'Total' },
-  'mob-price-sub-empty':{ nl:'Kies een pakket om te beginnen', en:'Choose a package to begin' },
-  'mob-price-btn':    { nl:'Offerte &rarr;', en:'Quote &rarr;' }
+  'mob-price-lbl':    { nl:'Totaal', en:'Total', ar:'الإجماليّ' },
+  'mob-price-sub-empty':{ nl:'Kies een pakket om te beginnen', en:'Choose a package to begin', ar:'اختر باقة للبدء' },
+  'mob-price-btn':    { nl:'Offerte &rarr;', en:'Quote &rarr;', ar:'عرض السعر &larr;' },
+
+  // Cookie banner
+  'cookie-text':      { nl:'Wij respecteren uw privacy. Deze website gebruikt alleen functionele cookies (geen tracking, geen advertenties). Lees meer in onze <a href="privacy.html" style="color:#e8c46a;text-decoration:underline">privacyverklaring</a>.', en:'We respect your privacy. This website uses only functional cookies (no tracking, no ads). Read more in our <a href="privacy.html" style="color:#e8c46a;text-decoration:underline">privacy statement</a>.', ar:'نحترم خصوصيّتكم. يستخدم هذا الموقع ملفّات تعريف الارتباط الوظيفيّة فقط (دون تتبّع ودون إعلانات). اقرأ المزيد في <a href="privacy.html" style="color:#e8c46a;text-decoration:underline">بيان الخصوصيّة</a>.' },
+  'cookie-btn':       { nl:'Begrepen', en:'Got it', ar:'فهمت' }
 };
 
 function setLang(lang) {
@@ -2606,7 +2635,7 @@ function updateTotaal() {
   var totaal = subtotaal + addonTotal + confState.reiskosten + afstandExtra;
   var naam = pakketNamen[confState.pakket] || '\u2014';
   document.getElementById('ct-pakket').textContent = confState.pakket ? naam + ' \u00b7 \u20ac' + basePP + ' p.p.' : '\u2014';
-  document.getElementById('ct-personen').textContent = pers + ' ' + (currentLang === 'nl' ? 'personen' : 'persons');
+  document.getElementById('ct-personen').textContent = pers + ' ' + (currentLang === 'ar' ? 'أشخاص' : (currentLang === 'nl' ? 'personen' : 'persons'));
   document.getElementById('ct-subtotaal').textContent = '\u20ac' + subtotaal.toLocaleString('nl') + ',-';
   var addonSection = document.getElementById('ct-addon-section');
   var addonDetails = document.getElementById('ct-addon-details');
@@ -2624,16 +2653,25 @@ function updateTotaal() {
     reisSection.style.display = '';
     document.getElementById('ct-reisval').textContent = '\u20ac' + totalReis.toLocaleString('nl') + ',-';
     var rdHtml = '';
-    if (confState.reiskosten > 0) rdHtml += '<div style="display:flex;justify-content:space-between;font-size:.72rem;padding:.12rem 0;color:rgba(245,237,214,.45);"><span>Bezorging</span><span style="color:rgba(201,148,42,.6);">\u20ac' + confState.reiskosten.toLocaleString('nl') + ',-</span></div>';
-    if (confState.afstandOptie === 'personeel' && afstandExtra > 0) rdHtml += '<div style="display:flex;justify-content:space-between;font-size:.72rem;padding:.12rem 0;color:rgba(245,237,214,.45);"><span>Personeel ter plekke (' + (confState.afstandUren || 2) + ' uur)</span><span style="color:rgba(201,148,42,.6);">\u20ac' + afstandExtra.toLocaleString('nl') + ',-</span></div>';
-    else if (confState.afstandOptie === 'ophalen' && afstandExtra > 0) rdHtml += '<div style="display:flex;justify-content:space-between;font-size:.72rem;padding:.12rem 0;color:rgba(245,237,214,.45);"><span>Ophaalservice volgende dag</span><span style="color:rgba(201,148,42,.6);">\u20ac' + afstandExtra.toLocaleString('nl') + ',-</span></div>';
+    var lblBezorg = currentLang === 'ar' ? '\u0627\u0644\u062a\u0648\u0635\u064a\u0644' : (currentLang === 'nl' ? 'Bezorging' : 'Delivery');
+    var lblPers = currentLang === 'ar' ? ('\u0627\u0644\u0637\u0627\u0642\u0645 \u0641\u064a \u0627\u0644\u0645\u0648\u0642\u0639 (' + (confState.afstandUren || 2) + ' \u0633\u0627\u0639\u0627\u062a)') : (currentLang === 'nl' ? ('Personeel ter plekke (' + (confState.afstandUren || 2) + ' uur)') : ('On-site staff (' + (confState.afstandUren || 2) + ' hours)'));
+    var lblOphalen = currentLang === 'ar' ? '\u0627\u0633\u062a\u0644\u0627\u0645 \u0641\u064a \u0627\u0644\u064a\u0648\u0645 \u0627\u0644\u062a\u0627\u0644\u064a' : (currentLang === 'nl' ? 'Ophaalservice volgende dag' : 'Next-day collection');
+    if (confState.reiskosten > 0) rdHtml += '<div style="display:flex;justify-content:space-between;font-size:.72rem;padding:.12rem 0;color:rgba(245,237,214,.45);"><span>' + lblBezorg + '</span><span style="color:rgba(201,148,42,.6);">\u20ac' + confState.reiskosten.toLocaleString('nl') + ',-</span></div>';
+    if (confState.afstandOptie === 'personeel' && afstandExtra > 0) rdHtml += '<div style="display:flex;justify-content:space-between;font-size:.72rem;padding:.12rem 0;color:rgba(245,237,214,.45);"><span>' + lblPers + '</span><span style="color:rgba(201,148,42,.6);">\u20ac' + afstandExtra.toLocaleString('nl') + ',-</span></div>';
+    else if (confState.afstandOptie === 'ophalen' && afstandExtra > 0) rdHtml += '<div style="display:flex;justify-content:space-between;font-size:.72rem;padding:.12rem 0;color:rgba(245,237,214,.45);"><span>' + lblOphalen + '</span><span style="color:rgba(201,148,42,.6);">\u20ac' + afstandExtra.toLocaleString('nl') + ',-</span></div>';
     reisDetails.innerHTML = rdHtml;
   } else { reisSection.style.display = 'none'; reisDetails.innerHTML = ''; }
   document.getElementById('ct-totaal-val').textContent = totaal.toLocaleString('nl');
   var mobAmt = document.getElementById('mobPriceAmount');
   var mobSub = document.getElementById('mobPriceSub');
   if (mobAmt) mobAmt.textContent = totaal.toLocaleString('nl');
-  if (mobSub) { var pkLabel = naam + ' \u20ac' + basePP + ' p.p.'; mobSub.textContent = confState.pakket ? pkLabel + ' \u00b7 ' + pers + ' pers.' : 'Kies een pakket om te beginnen'; }
+  if (mobSub) {
+    var perPP = currentLang === 'ar' ? ' \u0644\u0644\u0634\u062e\u0635' : ' p.p.';
+    var perPers = currentLang === 'ar' ? ' \u0623\u0634\u062e\u0627\u0635' : (currentLang === 'nl' ? ' pers.' : ' persons');
+    var emptyMsg = currentLang === 'ar' ? '\u0627\u062e\u062a\u0631 \u0628\u0627\u0642\u0629 \u0644\u0644\u0628\u062f\u0621' : (currentLang === 'nl' ? 'Kies een pakket om te beginnen' : 'Choose a package to begin');
+    var pkLabel = naam + ' \u20ac' + basePP + perPP;
+    mobSub.textContent = confState.pakket ? pkLabel + ' \u00b7 ' + pers + perPers : emptyMsg;
+  }
 }
 
 // ── Reiskosten — ALWAYS use kmRotterdam (range[4])
@@ -2683,8 +2721,10 @@ function applyReis(city, km) {
   var kosten = km <= 15 ? 0 : Math.round(retourKm * 0.5);
   document.getElementById('reisStad').textContent = city;
   document.getElementById('reisLocatie').textContent = locNaam;
-  document.getElementById('reisAfstand').textContent = retourKm + ' km retour (' + km + ' km enkel)';
-  document.getElementById('reisKosten').textContent = kosten === 0 ? 'Gratis \u2014 regio Rotterdam' : '\u20ac' + kosten + ',-';
+  var afstandLabel = currentLang === 'ar' ? (retourKm + ' \u0643\u0645 \u0630\u0647\u0627\u0628\u0627\u064b \u0648\u0625\u064a\u0627\u0628\u0627\u064b (' + km + ' \u0643\u0645 \u0628\u0627\u062a\u0651\u062c\u0627\u0647 \u0648\u0627\u062d\u062f)') : (currentLang === 'nl' ? (retourKm + ' km retour (' + km + ' km enkel)') : (retourKm + ' km return (' + km + ' km one way)'));
+  document.getElementById('reisAfstand').textContent = afstandLabel;
+  var gratisLabel = currentLang === 'ar' ? '\u0645\u062c\u0651\u0627\u0646\u0627\u064b \u2014 \u0645\u0646\u0637\u0642\u0629 \u0631\u0648\u062a\u0631\u062f\u0627\u0645' : (currentLang === 'nl' ? 'Gratis \u2014 regio Rotterdam' : 'Free \u2014 Rotterdam region');
+  document.getElementById('reisKosten').textContent = kosten === 0 ? gratisLabel : '\u20ac' + kosten + ',-';
   document.getElementById('reisResult').classList.add('reisvis');
   confState.reiskosten = kosten;
   confState.reisKm = km;
@@ -2697,13 +2737,13 @@ function applyReis(city, km) {
 function berekenReiskosten() {
   var raw = document.getElementById('postcodeInp').value.replace(/\s/g,'').trim();
   var num = parseInt(raw.substring(0,4), 10);
-  if (isNaN(num) || num < 1000 || num > 9999) { alert('Vul een geldige postcode in (bijv. 3011 of 3011 AB).'); return; }
+  if (isNaN(num) || num < 1000 || num > 9999) { alert(currentLang === 'ar' ? '\u064a\u0631\u062c\u0649 \u0625\u062f\u062e\u0627\u0644 \u0631\u0645\u0632 \u0628\u0631\u064a\u062f\u064a\u0651 \u0635\u062d\u064a\u062d (\u0645\u062b\u0644\u0627\u064b 3011 \u0623\u0648 3011 AB).' : (currentLang === 'nl' ? 'Vul een geldige postcode in (bijv. 3011 of 3011 AB).' : 'Please enter a valid postal code (e.g. 3011 or 3011 AB).')); return; }
   var btn = document.querySelector('.reis-calc-btn');
   var origLabel = btn ? btn.textContent : '';
-  if (btn) { btn.disabled = true; btn.textContent = 'Berekenen\u2026'; }
+  if (btn) { btn.disabled = true; btn.textContent = currentLang === 'ar' ? '\u062c\u0627\u0631\u064d \u0627\u0644\u062d\u0633\u0627\u0628\u2026' : (currentLang === 'nl' ? 'Berekenen\u2026' : 'Calculating\u2026'); }
   var fallback = function() {
     var range = findPcRange(num);
-    if (!range) { alert('Postcode niet gevonden in onze database.'); return false; }
+    if (!range) { alert(currentLang === 'ar' ? '\u0627\u0644\u0631\u0645\u0632 \u0627\u0644\u0628\u0631\u064a\u062f\u064a\u0651 \u063a\u064a\u0631 \u0645\u0648\u062c\u0648\u062f \u0641\u064a \u0642\u0627\u0639\u062f\u0629 \u0628\u064a\u0627\u0646\u0627\u062a\u0646\u0627.' : (currentLang === 'nl' ? 'Postcode niet gevonden in onze database.' : 'Postal code not found in our database.')); return false; }
     applyReis(range[2], range[4]);
     return true;
   };
@@ -2764,14 +2804,15 @@ function loadKalender() {
 loadKalender();
 var maanden = ['Januari','Februari','Maart','April','Mei','Juni','Juli','Augustus','September','Oktober','November','December'];
 var maandenEN = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+var maandenAR = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
 
 function renderCal() {
   var y = confState.calYear, m = confState.calMonth;
-  var mn = currentLang === 'nl' ? maanden : maandenEN;
+  var mn = currentLang === 'ar' ? maandenAR : (currentLang === 'nl' ? maanden : maandenEN);
   document.getElementById('calTitle').textContent = mn[m] + ' ' + y;
   var grid = document.getElementById('calGrid');
   grid.innerHTML = '';
-  var days = currentLang === 'nl' ? ['Ma','Di','Wo','Do','Vr','Za','Zo'] : ['Mo','Tu','We','Th','Fr','Sa','Su'];
+  var days = currentLang === 'ar' ? ['إث','ثل','أر','خم','جم','سب','أح'] : (currentLang === 'nl' ? ['Ma','Di','Wo','Do','Vr','Za','Zo'] : ['Mo','Tu','We','Th','Fr','Sa','Su']);
   days.forEach(function(d){ var h=document.createElement('div'); h.className='cal-hdr'; h.textContent=d; grid.appendChild(h); });
   var firstDay = new Date(y, m, 1);
   var startDow = firstDay.getDay(); startDow = startDow===0?6:startDow-1;
@@ -2797,8 +2838,9 @@ function renderCal() {
 function selectCalDate(ds, day, month, year) {
   confState.selectedDate = ds; renderCal();
   var d = document.getElementById('selDateDisplay');
-  var mn2 = currentLang === 'nl' ? maanden : maandenEN;
-  d.textContent = '\u2713 Geselecteerd: ' + day + ' ' + mn2[month] + ' ' + year;
+  var mn2 = currentLang === 'ar' ? maandenAR : (currentLang === 'nl' ? maanden : maandenEN);
+  var prefix = currentLang === 'ar' ? '\u2713 \u0645\u062e\u062a\u0627\u0631: ' : (currentLang === 'nl' ? '\u2713 Geselecteerd: ' : '\u2713 Selected: ');
+  d.textContent = prefix + day + ' ' + mn2[month] + ' ' + year;
   d.classList.add('sdvis');
 }
 
@@ -2816,7 +2858,7 @@ function toggleDatumOnbekend(checked) {
     legend.style.opacity = '.25';
     if (datumExtra) { datumExtra.style.opacity = '.25'; datumExtra.style.pointerEvents = 'none'; }
     confState.selectedDate = null; confState.datumOnbekend = true;
-    document.getElementById('selDateDisplay').textContent = 'Datum nog niet bekend';
+    document.getElementById('selDateDisplay').textContent = currentLang === 'ar' ? 'التاريخ غير محدّد بعد' : (currentLang === 'nl' ? 'Datum nog niet bekend' : 'Date not yet known');
   } else {
     calEl.style.opacity = ''; calEl.style.pointerEvents = '';
     calNav.style.opacity = ''; calNav.style.pointerEvents = '';
@@ -2924,14 +2966,18 @@ function openOfferteModal(source) {
 
     var footerEl = document.getElementById('modalLeftFooter');
     var grandTotal = subtotaalCatering + Object.values(confState.addonState).reduce(function(s,d){ return s + (d.type==='pp'?d.prijs*Math.max(pers,d.minPers||0):d.type==='perstuk'?d.prijs*(d.qty||d.minQty||1):d.prijs); },0) + confState.reiskosten + (confState.afstandKosten||0);
-    document.getElementById('modalTotaalBlock').innerHTML = '<div style="display:flex;justify-content:space-between;align-items:baseline;"><span style="font-family:var(--font-display);font-size:.75rem;letter-spacing:.08em;color:var(--cream);">TOTAAL</span><span style="font-family:var(--font-heading);font-size:1.4rem;color:var(--gold-lt);">\u20ac' + grandTotal.toLocaleString('nl') + ',-</span></div><div style="font-size:.6rem;color:rgba(245,237,214,.25);margin-top:.15rem;">BTW inbegrepen</div>';
+    var totaalLbl = currentLang === 'ar' ? '\u0627\u0644\u0625\u062c\u0645\u0627\u0644\u064a\u0651' : (currentLang === 'nl' ? 'TOTAAL' : 'TOTAL');
+    var btwLbl = currentLang === 'ar' ? '\u062a\u0634\u0645\u0644 \u0636\u0631\u064a\u0628\u0629 \u0627\u0644\u0642\u064a\u0645\u0629 \u0627\u0644\u0645\u0636\u0627\u0641\u0629' : (currentLang === 'nl' ? 'BTW inbegrepen' : 'VAT included');
+    var bestellingLbl = currentLang === 'ar' ? '\u0637\u0644\u0628\u0643\u0645' : (currentLang === 'nl' ? 'Uw bestelling' : 'Your order');
+    document.getElementById('modalTotaalBlock').innerHTML = '<div style="display:flex;justify-content:space-between;align-items:baseline;"><span style="font-family:var(--font-display);font-size:.75rem;letter-spacing:.08em;color:var(--cream);">' + totaalLbl + '</span><span style="font-family:var(--font-heading);font-size:1.4rem;color:var(--gold-lt);">\u20ac' + grandTotal.toLocaleString('nl') + ',-</span></div><div style="font-size:.6rem;color:rgba(245,237,214,.25);margin-top:.15rem;">' + btwLbl + '</div>';
     footerEl.style.display = '';
 
     var mobSum = document.getElementById('modalMobSummary');
-    mobSum.innerHTML = '<div style="font-family:var(--font-display);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(201,148,42,.5);margin-bottom:.5rem;">Uw bestelling</div><div style="display:flex;justify-content:space-between;align-items:baseline;"><span style="font-family:var(--font-display);font-size:.75rem;color:var(--cream);">TOTAAL</span><span style="font-family:var(--font-heading);font-size:1.3rem;color:var(--gold-lt);">\u20ac' + grandTotal.toLocaleString('nl') + ',-</span></div>';
+    mobSum.innerHTML = '<div style="font-family:var(--font-display);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(201,148,42,.5);margin-bottom:.5rem;">' + bestellingLbl + '</div><div style="display:flex;justify-content:space-between;align-items:baseline;"><span style="font-family:var(--font-display);font-size:.75rem;color:var(--cream);">' + totaalLbl + '</span><span style="font-family:var(--font-heading);font-size:1.3rem;color:var(--gold-lt);">\u20ac' + grandTotal.toLocaleString('nl') + ',-</span></div>';
     mobSum.classList.add('vis');
   } else {
-    summaryBlock.innerHTML = '<div style="font-size:.78rem;color:rgba(245,237,214,.3);font-style:italic">Vul het formulier in en we sturen u binnen 24 uur een offerte op maat.</div>';
+    var emptyMsg = currentLang === 'ar' ? '\u0627\u0645\u0644\u0623 \u0627\u0644\u0646\u0645\u0648\u0630\u062c \u0648\u0633\u0646\u0631\u0633\u0644 \u0639\u0631\u0636 \u0633\u0639\u0631 \u0645\u062e\u0635\u0651\u0635 \u062e\u0644\u0627\u0644 \u0662\u0664 \u0633\u0627\u0639\u0629.' : (currentLang === 'nl' ? 'Vul het formulier in en we sturen u binnen 24 uur een offerte op maat.' : 'Fill in the form and we will send a custom quote within 24 hours.');
+    summaryBlock.innerHTML = '<div style="font-size:.78rem;color:rgba(245,237,214,.3);font-style:italic">' + emptyMsg + '</div>';
     document.getElementById('modalLeftFooter').style.display = 'none';
     document.getElementById('modalMobSummary').classList.remove('vis');
   }
@@ -3008,25 +3054,28 @@ function submitOfferteModal(e) {
   }).catch(function(err) {
     console.error('Modal submit failed:', err);
     if (btn) { btn.disabled = false; btn.style.opacity = ''; }
-    alert(currentLang === 'nl'
-      ? 'Er ging iets mis bij het versturen. Probeer opnieuw of bel ons direct.'
-      : 'Something went wrong. Please try again or call us directly.');
+    alert(currentLang === 'ar'
+      ? 'حدث خطأ ما أثناء الإرسال. حاول مجدّداً أو اتّصل بنا مباشرة.'
+      : (currentLang === 'nl'
+        ? 'Er ging iets mis bij het versturen. Probeer opnieuw of bel ons direct.'
+        : 'Something went wrong. Please try again or call us directly.'));
   });
 }
 
 function validateConfigurator() {
-  if (!confState.pakket) return 'Kies eerst een pakket.';
+  var msg = function(ar, nl, en) { return currentLang === 'ar' ? ar : (currentLang === 'nl' ? nl : en); };
+  if (!confState.pakket) return msg('اختر باقة أوّلاً.', 'Kies eerst een pakket.', 'Please choose a package first.');
   if (!pakketVastMenu[confState.pakket]) {
-    if (confState.gekozenHoofd.size < confState.maxHoofd) return 'Kies ' + confState.maxHoofd + ' hoofdgerechten.';
-    if (confState.gekozenSalade.size < 1) return 'Kies een salade.';
-    if (confState.gekozenMezze.size < confState.maxMezze) return 'Kies ' + confState.maxMezze + " mezze's.";
+    if (confState.gekozenHoofd.size < confState.maxHoofd) return msg('اختر ' + confState.maxHoofd + ' أطباق رئيسيّة.', 'Kies ' + confState.maxHoofd + ' hoofdgerechten.', 'Please choose ' + confState.maxHoofd + ' main courses.');
+    if (confState.gekozenSalade.size < 1) return msg('اختر سلطة.', 'Kies een salade.', 'Please choose a salad.');
+    if (confState.gekozenMezze.size < confState.maxMezze) return msg('اختر ' + confState.maxMezze + ' مازات.', 'Kies ' + confState.maxMezze + " mezze's.", 'Please choose ' + confState.maxMezze + ' mezze items.');
   }
-  if (!document.getElementById('reisResult').classList.contains('reisvis')) return 'Vul uw postcode in bij stap 5.';
-  if (!document.getElementById('straatInp').value.trim()) return 'Vul straat + huisnummer in bij stap 5.';
-  if (!document.getElementById('plaatsInp').value.trim()) return 'Vul de plaats in bij stap 5.';
-  if (confState.reisKm >= 50 && !confState.afstandOptie) return 'Kies een optie bij Serviesgoed & opruiming.';
-  if (!confState.selectedDate && !confState.datumOnbekend) return 'Kies een datum bij stap 6, of vink aan dat de datum nog niet bekend is.';
-  if (!confState.datumOnbekend && !confState.tijdstip) return 'Kies een tijdstip bij stap 6.';
+  if (!document.getElementById('reisResult').classList.contains('reisvis')) return msg('أدخل رمزك البريديّ في الخطوة ٥.', 'Vul uw postcode in bij stap 5.', 'Please enter your postal code in step 5.');
+  if (!document.getElementById('straatInp').value.trim()) return msg('أدخل الشارع ورقم المنزل في الخطوة ٥.', 'Vul straat + huisnummer in bij stap 5.', 'Please enter street + house number in step 5.');
+  if (!document.getElementById('plaatsInp').value.trim()) return msg('أدخل المدينة في الخطوة ٥.', 'Vul de plaats in bij stap 5.', 'Please enter the city in step 5.');
+  if (confState.reisKm >= 50 && !confState.afstandOptie) return msg('اختر خياراً ضمن "الصحون والتنظيف".', 'Kies een optie bij Serviesgoed & opruiming.', 'Please choose an option under Tableware & cleanup.');
+  if (!confState.selectedDate && !confState.datumOnbekend) return msg('اختر تاريخاً في الخطوة ٦، أو ضع علامة بأنّ التاريخ غير محدّد بعد.', 'Kies een datum bij stap 6, of vink aan dat de datum nog niet bekend is.', 'Please choose a date in step 6, or check that the date is not yet known.');
+  if (!confState.datumOnbekend && !confState.tijdstip) return msg('اختر وقتاً في الخطوة ٦.', 'Kies een tijdstip bij stap 6.', 'Please choose a time in step 6.');
   return null;
 }
 
@@ -3039,10 +3088,10 @@ function demoOfferte() {
 
 <div id="cookieBanner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9998;background:rgba(22,8,8,.97);backdrop-filter:blur(8px);border-top:1px solid rgba(201,148,42,.3);padding:1.2rem 1.5rem;font-family:system-ui,-apple-system,sans-serif;color:#f5edd6;box-shadow:0 -4px 20px rgba(0,0,0,.5)">
   <div style="max-width:980px;margin:0 auto;display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap">
-    <div style="flex:1;min-width:240px;font-size:.85rem;line-height:1.55;color:rgba(245,237,214,.85)">
+    <div style="flex:1;min-width:240px;font-size:.85rem;line-height:1.55;color:rgba(245,237,214,.85)" data-i18n="cookie-text">
       Wij respecteren uw privacy. Deze website gebruikt alleen functionele cookies (geen tracking, geen advertenties). Lees meer in onze <a href="privacy.html" style="color:#e8c46a;text-decoration:underline">privacyverklaring</a>.
     </div>
-    <button onclick="acceptCookies()" style="background:#c9942a;color:#160808;border:0;padding:.7rem 1.5rem;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;cursor:pointer;border-radius:3px;flex-shrink:0">Begrepen</button>
+    <button onclick="acceptCookies()" style="background:#c9942a;color:#160808;border:0;padding:.7rem 1.5rem;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;cursor:pointer;border-radius:3px;flex-shrink:0" data-i18n="cookie-btn">Begrepen</button>
   </div>
 </div>
 <script>

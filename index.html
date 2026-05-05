@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="nl" translate="no">
 <head>
   <meta charset="UTF-8" />
+  <meta name="google" content="notranslate" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Memories of Damascus — Arabische Halal Catering Eindhoven & Rotterdam | Syrische Libanese Catering</title>
   <meta name="description" content="Halal catering Eindhoven & Rotterdam. Arabische, Syrische en Libanese catering voor bruiloften, feesten en bedrijven. Vegetarische catering, halal buffet, huwelijkscatering. Actief door heel Nederland, België en Duitsland." />
@@ -1421,7 +1422,8 @@
     /* ─── TAAL TOGGLE ─── */
     .lang-toggle { background: none; border: 1px solid rgba(201,148,42,.25); border-radius: 2px; padding: .28rem .65rem; cursor: pointer; display: inline-flex; align-items: center; gap: .35rem; transition: border-color .2s; margin-left: .5rem; }
     .lang-toggle:hover { border-color: var(--gold); }
-    .lang-opt { font-family: var(--font-display); font-size: .62rem; letter-spacing: .16em; color: rgba(245,237,214,.3); transition: color .2s; }
+    .lang-opt { background: none; border: 0; padding: 0; cursor: pointer; font-family: var(--font-display); font-size: .62rem; letter-spacing: .16em; color: rgba(245,237,214,.3); transition: color .2s; }
+    .lang-opt:hover { color: rgba(245,237,214,.7); }
     .lang-sep { color: rgba(201,148,42,.25); font-size: .65rem; }
     .lang-opt.lang-active { color: var(--gold); }
     /* ─── MOBILE MENU ─── */
@@ -2079,6 +2081,27 @@
     html[dir="rtl"] input[type="number"],
     html[dir="rtl"] input[type="email"],
     html[dir="rtl"] input[type="tel"] { direction: ltr; text-align: right; unicode-bidi: embed; }
+
+    /* RTL — phone numbers / emails / postal codes / mixed AR+Latin addresses kept correctly oriented */
+    html[dir="rtl"] .contact-detail-value,
+    html[dir="rtl"] .footer-address,
+    html[dir="rtl"] .footer-copy,
+    html[dir="rtl"] .modal-summary-row,
+    html[dir="rtl"] address { unicode-bidi: plaintext; text-align: right; }
+    html[dir="rtl"] a[href^="tel:"],
+    html[dir="rtl"] a[href^="mailto:"],
+    html[dir="rtl"] a[href*="wa.me"] { direction: ltr; unicode-bidi: embed; }
+    html[dir="rtl"] .footer-bottom { flex-direction: row-reverse; }
+
+    /* RTL — offerte modal */
+    html[dir="rtl"] .modal { grid-template-columns: 1fr 360px; }
+    html[dir="rtl"] .modal-left { border-right: 0; border-left: 1px solid var(--divider); }
+    html[dir="rtl"] .modal-left-eyebrow { flex-direction: row-reverse; }
+    html[dir="rtl"] .modal-header { flex-direction: row-reverse; }
+    html[dir="rtl"] .modal-close { margin-left: 0; margin-right: 1rem; }
+    html[dir="rtl"] .modal-form select { background-position: left .9rem center; padding-right: 1rem; padding-left: 2.2rem; }
+    html[dir="rtl"] .modal-summary-row { flex-direction: row-reverse; }
+    @media (max-width: 760px) { html[dir="rtl"] .modal { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
